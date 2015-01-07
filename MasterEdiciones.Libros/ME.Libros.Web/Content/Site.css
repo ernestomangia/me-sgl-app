@@ -1,14 +1,14 @@
 ﻿body {
     padding-top: 50px;
-    /*padding-bottom: 20px;*/
-    background-color: #FFFFFF;
     padding-bottom: 70px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 2px;
+    padding-right: 2px;
+    width: 100%;
+    margin-top: 25px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */

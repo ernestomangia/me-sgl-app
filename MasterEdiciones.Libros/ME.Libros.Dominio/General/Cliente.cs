@@ -1,14 +1,15 @@
-﻿
-namespace Dominio.General
+﻿namespace Dominio.General
 {
-    public class Cliente
+    public class Cliente : BaseModel
     {
         #region Properties
+        public virtual string Nombre { get; set; }
 
-        public virtual string Nombre { set; get; }
-        public virtual string Apellido { set; get; }
-        public virtual string Identificacion { set; get; }
-        public virtual string FechaNacimiento { set; get; }
+        public virtual string Apellido { get; set; }
+
+        public virtual string Cuil { get; set; }
+
+        public virtual string FechaNacimiento { get; set; }
 
         #endregion
     }

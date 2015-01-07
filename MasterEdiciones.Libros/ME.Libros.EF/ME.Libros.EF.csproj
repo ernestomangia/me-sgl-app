@@ -48,10 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapeos\ClienteTypeConfiguration.cs" />
+    <Compile Include="ModelContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mapeos\" />
+    <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">
+      <Project>{6c059e7e-edd1-4db4-a8c8-33c08245deb8}</Project>
+      <Name>ME.Libros.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Dominio\ME.Libros.Dominio.csproj">
+      <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
+      <Name>ME.Libros.Dominio</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

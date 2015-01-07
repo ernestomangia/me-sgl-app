@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ME.Libros.Repositorio
+namespace ME.Libros.Servicios.DTO
 {
-    public class Class1
+    class ClienteDTO
     {
     }
 }

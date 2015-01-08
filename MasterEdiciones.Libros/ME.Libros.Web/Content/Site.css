@@ -5,10 +5,10 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 2px;
-    padding-right: 2px;
     width: 100%;
     margin-top: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -20,4 +20,15 @@ textarea {
 
 footer {
     text-align: right;
+}
+
+.menuLateral {
+    float: left;
+    width: 10%;
+}
+
+.contenedor {
+    float: left;
+    width: 85%;
+    margin-left: 20px;
 }

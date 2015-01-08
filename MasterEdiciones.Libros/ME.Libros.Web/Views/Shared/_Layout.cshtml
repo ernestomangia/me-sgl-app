@@ -28,7 +28,7 @@
                         @Html.ActionLink("Home", "Index", "Home")
                     </li>
                     <li>
-                        @Html.ActionLink("Administración", "Index", "Cliente")
+                        @Html.ActionLink("Administración", "Index", "Administracion")
                     </li>
                     <li><a href="#">Ventas</a></li>
                     <li><a href="#">Facturación</a></li>
@@ -43,16 +43,12 @@
 
     <div class="container body-content">
         @RenderBody()
-        
-        @*<footer>
-                <p>&copy; Sistema Gestion de Libros v1.0</p>
-            </footer>*@
+
         <div class="navbar navbar-fixed-bottom ">
             <div class="container">
                 <p>&copy; Sistema Gestion de Libros v1.0</p>
             </div>
         </div>
     </div>
-
 </body>
 </html>

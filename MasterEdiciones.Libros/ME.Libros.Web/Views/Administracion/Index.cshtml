@@ -1,0 +1,38 @@
+﻿<div class="menuLateral">
+    <ul class="nav nav-pills nav-stacked" style="max-width: 200px;">
+        <li role="presentation" class="active">
+            <a href="#tabClientes" role="tab" data-toggle="tab">Clientes</a>
+        </li>
+        <li role="presentation">
+            <a href="@Url.Action("Index", "Cliente")" role="tab" data-toggle="tab">Clientes</a>
+            
+        </li>
+        <li role="presentation">
+            <a href="#tabCobradores" role="tab" data-toggle="tab">Cobradores</a>
+        </li>
+        <li role="presentation">
+            <a href="#" role="tab" data-toggle="tab">Vendedores</a>
+        </li>
+        <li role="presentation">
+            <a href="#" role="tab" data-toggle="tab">Proveedores</a>
+        </li>
+        <li role="presentation">
+            <a href="#" role="tab" data-toggle="tab">Zonas</a>
+        </li>
+        <li role="presentation">
+            <a href="#" role="tab" data-toggle="tab">Localidades</a>
+        </li>
+        <li role="presentation">
+            <a href="#" role="tab" data-toggle="tab">Provincias</a>
+        </li>
+    </ul>
+</div>
+
+<div class="tab-content contenedor">
+    <div id="tabClientes" role="tabpanel" class="tab-pane fade in active">
+        @Html.Action("Index", "Cliente")
+    </div>
+    <div id="tabCobradores" role="tabpanel" class="tab-pane fade">
+        Probar
+    </div>
+</div>

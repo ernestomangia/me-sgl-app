@@ -3,11 +3,11 @@ using Dominio.General;
 
 namespace ME.Libros.Servicios.General
 {
-    class ClienteServicio : AbstractService<Cliente>
+    class ClienteServicio : AbstractService<ClienteDominioDominio>
     {
         #region Constructor(s)
 
-        public ClienteServicio(IRepositorio<Cliente> repositorio)
+        public ClienteServicio(IRepositorio<ClienteDominioDominio> repositorio)
             : base(repositorio)
         {
         }

@@ -32,10 +32,10 @@ namespace ME.Libros.Web.Controllers
         }
 
         [AcceptVerbs(WebRequestMethods.Http.Get)]
-        public ActionResult Crear()
+        public PartialViewResult Crear()
         {
             var model = new ClienteViewModel();
-            return View(model);
+            return PartialView(model);
         }
 
         [AcceptVerbs(WebRequestMethods.Http.Post)]

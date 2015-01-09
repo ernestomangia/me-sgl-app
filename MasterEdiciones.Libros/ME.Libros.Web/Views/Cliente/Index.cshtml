@@ -1,42 +1,50 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
 
-<h3>Listado de Clientes</h3>
-<a class="btn btn-success" href="@Url.Action("Crear", "Cliente")" role="button">
-    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    Nuevo
-</a>
-<a class="btn btn-default" href="#" role="button">
-    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-    Filtrar
-</a>
+    <h3>Listado de Clientes</h3>
+    <a class="btn btn-success" href="#" onclick="javascript: cargarPartial('@Url.Action("Crear", "Cliente")');" role="button">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Nuevo
+    </a>
+    <a class="btn btn-default" href="#" role="button">
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+        Filtrar
+    </a>
 
-<table class="table table-striped table-hover tablaCustom">
-    <tr>
-
-        <th>@Html.DisplayNameFor(model => model.Codigo)</th>
-        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-        <th>@Html.DisplayNameFor(model => model.Apellido)</th>
-        <th>@Html.DisplayNameFor(model => model.Cuil)</th>
-        <th>Acciones</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <table class="table table-striped table-hover tablaCustom">
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
-            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-            <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
-            <td>@Html.DisplayFor(modelItem => item.Cuil)</td>
-            <td>
-                <button class="btn btn-default btn-sm" type="button">
-                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                </button>
-                <button class="btn btn-default btn-sm" type="button">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                </button>
-                <button class="btn btn-danger btn-sm" type="button">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                </button>
-            </td>
+            <th>@Html.DisplayNameFor(model => model.Codigo)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+            <th>@Html.DisplayNameFor(model => model.Cuil)</th>
+            <th>Acciones</th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cuil)</td>
+                <td>
+                    <button class="btn btn-default btn-sm" type="button">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-default btn-sm" type="button">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                    <button class="btn btn-danger btn-sm" type="button">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    <script type="text/javascript">
+        function cargarPartial(url) {
+            $.get(url, function (data) {
+                $('#tabClientes').html(data);
+            });
+        }
+    </script>

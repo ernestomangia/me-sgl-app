@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
-
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Servicios.DTO;
 
@@ -13,6 +16,24 @@ namespace ME.Libros.Web.Models
 
         public ClienteViewModel()
         {
+            Provincias = new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = "Entre Rios",
+                    Value = "1",
+                },
+                new SelectListItem
+                {
+                    Text = "Santa Fe",
+                    Value = "2",
+                },
+                new SelectListItem
+                {
+                    Text = "San Luis",
+                    Value = "3",
+                }
+            }, "Value", "Text");
         }
 
         public ClienteViewModel(ClienteDTO clienteDto)
@@ -31,23 +52,29 @@ namespace ME.Libros.Web.Models
 
         [DisplayName("Fecha de Alta")]
         public DateTime FechaAlta { get; set; }
-        
+
+        [Required]
         [DisplayName("Código")]
         public string Codigo { get; set; }
 
+        [Required]
         public string Nombre { get; set; }
-
+        
+        [Required]
         public string Apellido { get; set; }
 
+        [Required]
         public string Cuil { get; set; }
 
         [DisplayName("Fecha de Nacimiento")]
         public DateTime? FechaNacimiento { get; set; }
-
+        
+        [Required]
         public Sexo Sexo { get; set; }
 
         public string Localidad { get; set; }
 
+        [Required]
         [DisplayName("Dirección")]
         public string Direccion { get; set; }
 
@@ -70,6 +97,10 @@ namespace ME.Libros.Web.Models
         public string TelefonoFijo { get; set; }
 
         public string Celular { get; set; }
+
+        public string Email { get; set; }
+
+        public SelectList Provincias { get; set; }
 
         #endregion
     }

@@ -1,22 +1,41 @@
 ﻿using System.Net;
 using System.Web.Mvc;
+using System.Collections.Generic;
+
+using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    using ME.Libros.Web.Models;
-
     public class ClienteController : Controller
     {
         // GET: Cliente
         public ActionResult Index()
         {
-            return View();
+            var clientes = new List<ClienteViewModel>
+                               {
+                                   new ClienteViewModel
+                                       {
+                                           Codigo = "100",
+                                           Nombre = "Juan",
+                                           Apellido = "Perez",
+                                           Cuil = "20-00000000-9"
+                                       },
+                                   new ClienteViewModel
+                                       {
+                                           Codigo = "101",
+                                           Nombre = "Pepe",
+                                           Apellido = "Sanchez",
+                                           Cuil = "20-00000000-9"
+                                       },
+                               };
+            return View(clientes);
         }
 
         [AcceptVerbs(WebRequestMethods.Http.Get)]
         public ActionResult Crear()
         {
-            return View();
+            var model = new ClienteViewModel();
+            return View(model);
         }
 
         [AcceptVerbs(WebRequestMethods.Http.Post)]

@@ -1,12 +1,39 @@
 ﻿using System.ComponentModel;
 
 using ME.Libros.Utils.Enums;
+using ME.Libros.Servicios.DTO;
 
 namespace ME.Libros.Web.Models
 {
+    using System;
+
     public class ClienteViewModel
     {
+        #region Constructor(s)
+
+        public ClienteViewModel()
+        {
+        }
+
+        public ClienteViewModel(ClienteDTO clienteDto)
+        {
+            Nombre = clienteDto.Nombre;
+            Apellido = clienteDto.Apellido;
+            Cuil = clienteDto.Cuil;
+            Direccion = clienteDto.Direccion;
+        }
+
+        #endregion
+
         #region Properties
+
+        public string Id { get; set; }
+
+        [DisplayName("Fecha de Alta")]
+        public DateTime FechaAlta { get; set; }
+        
+        [DisplayName("Código")]
+        public string Codigo { get; set; }
 
         public string Nombre { get; set; }
 
@@ -15,7 +42,7 @@ namespace ME.Libros.Web.Models
         public string Cuil { get; set; }
 
         [DisplayName("Fecha de Nacimiento")]
-        public string FechaNacimiento { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
 
         public Sexo Sexo { get; set; }
 

@@ -55,9 +55,7 @@
     <Compile Include="General\ClienteService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Validaciones\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">
       <Project>{6c059e7e-edd1-4db4-a8c8-33c08245deb8}</Project>

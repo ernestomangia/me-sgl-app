@@ -8,7 +8,7 @@ using ME.Libros.Api.Repositorios;
 
 namespace ME.Libros.Servicios
 {
-    public abstract class AbstractService<T> : IAbstractService<T> where T : class
+    public abstract class AbstractService<T> : IAbstractService<T> where T : class 
     {
         #region Private Members
 

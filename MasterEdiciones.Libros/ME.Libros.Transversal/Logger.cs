@@ -17,8 +17,14 @@ namespace ME.Libros.Logging
                 case SeveridadLog.Debug:
                     _log.Debug(mensaje);
                     break;
-                default:
+                case SeveridadLog.Info:
                     _log.Info(mensaje);
+                    break;
+                case SeveridadLog.Warning:
+                    _log.Warn(mensaje);
+                    break;
+                case SeveridadLog.Error:
+                    _log.Error(mensaje);
                     break;
             }
         }

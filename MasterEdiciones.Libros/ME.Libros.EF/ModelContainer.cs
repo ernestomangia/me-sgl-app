@@ -9,7 +9,7 @@ namespace ME.Libros.EF
         #region Constructor(s)
 
         public ModelContainer()
-            : base("ModelContainer")
+            : base("name=MasterEdicionesDbContext")
         {
             Database.SetInitializer<ModelContainer>(null);
         }
@@ -24,6 +24,7 @@ namespace ME.Libros.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
+            base.OnModelCreating(modelBuilder);  
         }
     }
 }

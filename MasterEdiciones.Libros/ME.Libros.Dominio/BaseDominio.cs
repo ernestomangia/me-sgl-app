@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dominio
+namespace ME.Libros.Dominio
 {
     public abstract class BaseDominio
     {

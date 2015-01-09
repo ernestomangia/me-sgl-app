@@ -4,15 +4,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A1864D6-3874-4357-A8B6-E8DCB660A70C}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{784DECD8-8B6A-4A02-A2B1-A16A9B94E0F0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ME.Libros.Dominio</RootNamespace>
-    <AssemblyName>ME.Libros.Dominio</AssemblyName>
+    <RootNamespace>ME.Libros.Consola</RootNamespace>
+    <AssemblyName>ME.Libros.Consola</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +26,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,27 +47,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDominio.cs" />
-    <Compile Include="General\ArticuloDominio.cs" />
-    <Compile Include="General\ClienteDominio.cs" />
-    <Compile Include="General\LocalidadDominio.cs" />
-    <Compile Include="General\CobradorDominio.cs" />
-    <Compile Include="General\ProveedorDominio.cs" />
-    <Compile Include="General\ProvinciaDominio.cs" />
-    <Compile Include="General\RubroDominio.cs" />
-    <Compile Include="General\VendedorDominio.cs" />
-    <Compile Include="General\VentaDominio.cs" />
-    <Compile Include="General\VentaDetalleDominio.cs" />
-    <Compile Include="General\ZonaDominio.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
-      <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>
-      <Name>ME.Libros.Utils</Name>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">
+      <Project>{6c059e7e-edd1-4db4-a8c8-33c08245deb8}</Project>
+      <Name>ME.Libros.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Transversal\ME.Libros.Logging.csproj">
+      <Project>{065387ba-d124-4cf2-929c-471c41b6eecf}</Project>
+      <Name>ME.Libros.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

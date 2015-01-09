@@ -1,13 +1,13 @@
 ﻿using ME.Libros.Api.Repositorios;
-using Dominio.General;
+using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Servicios.General
 {
-    class ClienteServicio : AbstractService<ClienteDominioDominio>
+    class ClienteServicio : AbstractService<ClienteDominio>
     {
         #region Constructor(s)
 
-        public ClienteServicio(IRepositorio<ClienteDominioDominio> repositorio)
+        public ClienteServicio(IRepositorio<ClienteDominio> repositorio)
             : base(repositorio)
         {
         }

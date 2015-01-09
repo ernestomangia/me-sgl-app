@@ -2,7 +2,7 @@
 
 using ME.Libros.Utils.Enums;
 
-namespace Dominio.General
+namespace ME.Libros.Dominio.General
 {
     public class VentaDominio : BaseDominio
     {

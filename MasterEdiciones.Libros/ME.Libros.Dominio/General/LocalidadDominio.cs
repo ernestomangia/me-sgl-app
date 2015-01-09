@@ -1,4 +1,4 @@
-﻿namespace Dominio.General
+﻿namespace ME.Libros.Dominio.General
 {
     public class LocalidadDominio : BaseDominio
     {

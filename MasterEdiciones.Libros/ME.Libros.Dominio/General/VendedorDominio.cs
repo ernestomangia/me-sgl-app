@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Dominio.General
+namespace ME.Libros.Dominio.General
 {
     class VendedorDominio : BaseDominio
     {

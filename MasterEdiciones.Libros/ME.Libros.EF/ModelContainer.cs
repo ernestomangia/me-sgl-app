@@ -11,7 +11,7 @@ namespace ME.Libros.EF
         public ModelContainer()
             : base("name=MasterEdicionesDbContext")
         {
-            Database.SetInitializer<ModelContainer>(null);
+            Database.SetInitializer<ModelContainer>(new DropCreateDatabaseAlways<ModelContainer>());
         }
 
         #endregion

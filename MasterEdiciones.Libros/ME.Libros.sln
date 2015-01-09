@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Logging", "ME.Lib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Servicios", "ME.Libros.Servicios\ME.Libros.Servicios.csproj", "{9C444727-01EF-4C61-BEC2-C043B895575A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Repositorio", "ME.Libros.Repositorio\ME.Libros.Repositorio.csproj", "{7128460F-C8FB-45E5-9CC5-D8286CCE5B0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Repositorios", "ME.Libros.Repositorio\ME.Libros.Repositorios.csproj", "{7128460F-C8FB-45E5-9CC5-D8286CCE5B0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6946C45F-8360-4A84-A247-3AFC7F0824E9}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,8 +25,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{6946C4
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Web", "ME.Libros.Web\ME.Libros.Web.csproj", "{18494D8C-27A1-4CB7-AFC8-12C370055AEC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ME.Libros.Test", "ME.Libros.Test", "{A5DB860A-465C-4F32-B727-8D2A2B916B74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Transversal", "4. Transversal", "{622B6F29-78D0-4197-98E6-AFC214DD141D}"
 EndProject
@@ -91,6 +89,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{3A1864D6-3874-4357-A8B6-E8DCB660A70C} = {273DBC95-8504-429A-A900-9A5679CFF9A3}
 		{B156EC49-3D61-4F47-A657-25029DC7B99D} = {181A509A-28BA-471C-B2AA-89525D69A262}
 		{065387BA-D124-4CF2-929C-471C41B6EECF} = {622B6F29-78D0-4197-98E6-AFC214DD141D}
 		{9C444727-01EF-4C61-BEC2-C043B895575A} = {273DBC95-8504-429A-A900-9A5679CFF9A3}

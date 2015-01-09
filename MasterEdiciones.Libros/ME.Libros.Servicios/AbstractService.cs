@@ -12,14 +12,14 @@ namespace ME.Libros.Servicios
     {
         #region Private Members
 
-        private readonly IRepositorio<T> repositorio;
+        private readonly IRepository<T> repositorio;
         //private IValidationDictionary validationDictionary;
 
         #endregion
 
         #region Constructor(s)
 
-        protected AbstractService(IRepositorio<T> repositorio)
+        protected AbstractService(IRepository<T> repositorio)
         {
             this.repositorio = repositorio;
         }

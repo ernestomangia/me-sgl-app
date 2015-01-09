@@ -12,7 +12,7 @@ namespace ME.Libros.Dominio.General
         public virtual string Nombre { get; set; }
         public virtual string Apellido { get; set; }
         public virtual string Cuil { get; set; }
-        public virtual DateTime FechaNacimiento { get; set; }
+        public virtual DateTime? FechaNacimiento { get; set; }
         public virtual Sexo Sexo { get; set; }
         //public virtual LocalidadDominio Localidad { get; set; }
         public virtual string Direccion { get; set; }
@@ -21,7 +21,7 @@ namespace ME.Libros.Dominio.General
         public virtual string Barrio { get; set; }
         public virtual string Manzana { get; set; }
         public virtual string Piso { get; set; }
-        public virtual string Numero { get; set; }
+        public virtual string Departamento { get; set; }
         public virtual string TelefonoFijo { get; set; }
         public virtual string Celular { get; set; }
 

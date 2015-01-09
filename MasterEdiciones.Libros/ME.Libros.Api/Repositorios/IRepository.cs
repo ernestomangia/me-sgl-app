@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace ME.Libros.Api.Repositorios
 {
-    public interface IRepositorio<T>
+    public interface IRepository<T>
     {
         IQueryable<T> Listar();
 

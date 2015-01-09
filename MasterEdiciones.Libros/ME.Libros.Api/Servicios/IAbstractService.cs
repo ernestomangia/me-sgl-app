@@ -22,5 +22,7 @@ namespace ME.Libros.Api.Servicios
         IEnumerable<T> Listar(Expression<Func<T, bool>> expresion);
 
         IQueryable<T> ListarAsQueryable();
+
+        //Metodos para convertir DTOs
     }
 }

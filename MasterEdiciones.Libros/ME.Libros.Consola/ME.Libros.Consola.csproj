@@ -35,10 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -59,9 +66,29 @@
       <Project>{6c059e7e-edd1-4db4-a8c8-33c08245deb8}</Project>
       <Name>ME.Libros.Api</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Dominio\ME.Libros.Dominio.csproj">
+      <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
+      <Name>ME.Libros.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.EF\ME.Libros.EF.csproj">
+      <Project>{b156ec49-3d61-4f47-a657-25029dc7b99d}</Project>
+      <Name>ME.Libros.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Repositorio\ME.Libros.Repositorios.csproj">
+      <Project>{7128460f-c8fb-45e5-9cc5-d8286cce5b0c}</Project>
+      <Name>ME.Libros.Repositorios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Servicios\ME.Libros.Servicios.csproj">
+      <Project>{9c444727-01ef-4c61-bec2-c043b895575a}</Project>
+      <Name>ME.Libros.Servicios</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ME.Libros.Transversal\ME.Libros.Logging.csproj">
       <Project>{065387ba-d124-4cf2-929c-471c41b6eecf}</Project>
       <Name>ME.Libros.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
+      <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>
+      <Name>ME.Libros.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

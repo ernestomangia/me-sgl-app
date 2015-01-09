@@ -4,11 +4,11 @@ using System.Data.Entity;
 
 using ME.Libros.Api.Repositorios;
 
-namespace ME.Libros.Repositorio
+namespace ME.Libros.Repositorios
 {
     using System.Linq.Expressions;
 
-    class EntidadRepositorio<T> : IRepositorio<T> where T : class
+    public class EntidadRepository<T> : IRepository<T> where T : class
     {
         #region Private Members
 
@@ -18,7 +18,7 @@ namespace ME.Libros.Repositorio
 
         #region Costructor(s)
 
-        public EntidadRepositorio(IModelContainer container)
+        public EntidadRepository(IModelContainer container)
         {
             context = container;
         }

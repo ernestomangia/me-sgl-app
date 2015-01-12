@@ -12,6 +12,8 @@ namespace ME.Libros.Dominio.General
         public virtual ICollection<VentaDetalleDominio> VentaDetalles { get; set; }
         public virtual decimal Total { get; set; }
         public virtual EstadoVenta Estado { get; set; }
+        public virtual VendedorDominio Vendedor { get; set; }
+        public virtual CobradorDominio Cobrador { get; set; }
 
         #endregion
     }

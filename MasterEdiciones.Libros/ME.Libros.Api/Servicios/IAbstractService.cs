@@ -24,5 +24,6 @@ namespace ME.Libros.Api.Servicios
         IQueryable<T> ListarAsQueryable();
 
         //Metodos para convertir DTOs
+        bool Validar(T entidad);
     }
 }

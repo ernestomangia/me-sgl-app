@@ -4,6 +4,7 @@
     {
         #region Properties
 
+        public virtual string Codigo { get; set; }
         public virtual string Nombre { get; set; }
 
         #endregion

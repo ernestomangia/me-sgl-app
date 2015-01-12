@@ -18,7 +18,7 @@ namespace ME.Libros.Consola
             _log.Log("La consola se inicio", SeveridadLog.Info);
             //var modelContainer = new ModelContainer();
             //var clienteServcio = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
-            var clienteServcio = new ClienteService();
+            var clienteServcio = new ClienteDTOService();
             clienteServcio.Crear(new ClienteDTO
                                      {
                                          FechaAlta = DateTime.Now,

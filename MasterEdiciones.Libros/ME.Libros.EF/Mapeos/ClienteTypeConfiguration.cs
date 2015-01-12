@@ -30,9 +30,10 @@ namespace ME.Libros.EF.Mapeos
             this.Property(c => c.Manzana).HasMaxLength(2).IsOptional();
             this.Property(c => c.Celular).HasMaxLength(11).IsOptional();
             this.Property(c => c.TelefonoFijo).HasMaxLength(11).IsOptional();
-            
+            this.Property(c => c.Email).HasMaxLength(100).IsOptional();
+
             // FK
-            //this.HasRequired(c => c.Localidad);
+            this.HasRequired(c => c.Localidad);
 
             // Map Table
             this.ToTable("Cliente");
@@ -53,6 +54,7 @@ namespace ME.Libros.EF.Mapeos
             this.Property(c => c.Manzana).HasColumnName("Manzana");
             this.Property(c => c.Celular).HasColumnName("Celular");
             this.Property(c => c.TelefonoFijo).HasColumnName("Telefono_Fijo");
+            this.Property(c => c.Email).HasColumnName("Email");
         }
     }
 }

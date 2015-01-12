@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{19302902-FA6A-4957-AABE-5A83A992A71A}</ProjectGuid>
+    <ProjectGuid>{C85FAF6C-20A3-4B13-9499-F23F3A918776}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ME.Libros.EF.Test</RootNamespace>
-    <AssemblyName>ME.Libros.EF.Test</AssemblyName>
+    <RootNamespace>ME.Libros.Servicios.Test</RootNamespace>
+    <AssemblyName>ME.Libros.Servicios.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,7 +16,6 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -76,6 +75,14 @@
       <Project>{b156ec49-3d61-4f47-a657-25029dc7b99d}</Project>
       <Name>ME.Libros.EF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Repositorio\ME.Libros.Repositorios.csproj">
+      <Project>{7128460f-c8fb-45e5-9cc5-d8286cce5b0c}</Project>
+      <Name>ME.Libros.Repositorios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Servicios\ME.Libros.Servicios.csproj">
+      <Project>{9c444727-01ef-4c61-bec2-c043b895575a}</Project>
+      <Name>ME.Libros.Servicios</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
       <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>
       <Name>ME.Libros.Utils</Name>
@@ -108,7 +115,7 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Habilite la restauración del paquete NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>

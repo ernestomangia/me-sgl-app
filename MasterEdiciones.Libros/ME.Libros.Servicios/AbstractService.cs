@@ -8,7 +8,7 @@ using ME.Libros.Api.Repositorios;
 
 namespace ME.Libros.Servicios
 {
-    public abstract class AbstractService<T> : IAbstractService<T> where T : class 
+    public abstract class AbstractService<T> : IAbstractService<T>, IDisposable where T : class 
     {
         #region Private Members
 
@@ -64,6 +64,16 @@ namespace ME.Libros.Servicios
         public virtual IQueryable<T> ListarAsQueryable()
         {
             return repositorio.Listar();
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
+
+        public virtual bool Validar(T entidad)
+        {
+            return true;
         }
     }
 }

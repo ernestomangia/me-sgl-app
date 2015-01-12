@@ -2,7 +2,8 @@
 
 namespace ME.Libros.Api.Servicios.General
 {
-    interface IClienteService : IAbstractService<ClienteDominio>
+    public interface IClienteService : IAbstractService<ClienteDominio>
     {
+
     }
 }

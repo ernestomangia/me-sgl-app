@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Consola", "ME.Lib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.Servicios.Test", "ME.Libros.Servicios.Test\ME.Libros.Servicios.Test.csproj", "{C85FAF6C-20A3-4B13-9499-F23F3A918776}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ME.Libros.Database", "ME.Libros.Database\ME.Libros.Database.sqlproj", "{BB428651-2692-4517-8717-58894B7FF04A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +86,12 @@ Global
 		{C85FAF6C-20A3-4B13-9499-F23F3A918776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C85FAF6C-20A3-4B13-9499-F23F3A918776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C85FAF6C-20A3-4B13-9499-F23F3A918776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB428651-2692-4517-8717-58894B7FF04A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB428651-2692-4517-8717-58894B7FF04A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB428651-2692-4517-8717-58894B7FF04A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BB428651-2692-4517-8717-58894B7FF04A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB428651-2692-4517-8717-58894B7FF04A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB428651-2692-4517-8717-58894B7FF04A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,5 +107,6 @@ Global
 		{33B1E5B9-B525-4A06-8907-D3E1543CA2F4} = {622B6F29-78D0-4197-98E6-AFC214DD141D}
 		{784DECD8-8B6A-4A02-A2B1-A16A9B94E0F0} = {F4E42404-B3A2-4B62-94AF-3F2F89F2F112}
 		{C85FAF6C-20A3-4B13-9499-F23F3A918776} = {273DBC95-8504-429A-A900-9A5679CFF9A3}
+		{BB428651-2692-4517-8717-58894B7FF04A} = {181A509A-28BA-471C-B2AA-89525D69A262}
 	EndGlobalSection
 EndGlobal

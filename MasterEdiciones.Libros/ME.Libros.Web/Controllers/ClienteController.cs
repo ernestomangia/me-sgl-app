@@ -15,14 +15,14 @@ namespace ME.Libros.Web.Controllers
                                {
                                    new ClienteViewModel
                                        {
-                                           Codigo = "100",
+                                           Id = "100",
                                            Nombre = "Juan",
                                            Apellido = "Perez",
                                            Cuil = "20-00000000-9"
                                        },
                                    new ClienteViewModel
                                        {
-                                           Codigo = "101",
+                                           Id = "101",
                                            Nombre = "Pepe",
                                            Apellido = "Sanchez",
                                            Cuil = "20-00000000-9"
@@ -42,6 +42,11 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(ClienteViewModel model)
         {
             return View();
+        }
+
+        public ActionResult Eliminar(long idCliente)
+        {
+            return null;
         }
     }
 }

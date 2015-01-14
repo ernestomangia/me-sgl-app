@@ -1,54 +1,74 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Ediciones - Sistema Gestión de Libros</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap-navbar-custom.css" rel="stylesheet" type="text/css" />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Master Ediciones - Sistema Gestión de Libros</title>
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/bootstrap-navbar-custom.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/toastr.css" rel="stylesheet" type="text/css" />
 
-    <script src="~/Scripts/modernizr-2.8.3.js"></script>
-    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-</head>
-<body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>
-                        @Html.ActionLink("Home", "Index", "Home")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Administración", "Index", "Administracion")
-                    </li>
-                    <li><a href="#">Ventas</a></li>
-                    <li><a href="#">Facturación</a></li>
-                    <li><a href="#">Reportes</a></li>
-                    <li><a href="#">Sistema</a></li>
-                    <li><a href="#">Ayuda</a></li>
-                    <li><a href="#">Salir</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="container body-content">
-        @RenderBody()
-
-        <div class="navbar navbar-fixed-bottom ">
+        <script src="~/Scripts/modernizr-2.8.3.js"></script>
+        <script src="~/Scripts/toastr.js"></script>
+        <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-default navbar-fixed-top">
             <div class="container">
-                <p>&copy; Sistema Gestion de Libros v1.0</p>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            @Html.ActionLink("Home", "Index", "Home")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Administración", "Index", "Administracion")
+                        </li>
+                        <li><a href="#">Ventas</a></li>
+                        <li><a href="#">Facturación</a></li>
+                        <li><a href="#">Reportes</a></li>
+                        <li><a href="#">Sistema</a></li>
+                        <li><a href="#">Ayuda</a></li>
+                        <li><a href="#">Salir</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+
+        <div class="container body-content">
+            @RenderBody()
+
+            <div class="navbar navbar-fixed-bottom ">
+                <div class="container">
+                    <p>&copy; Sistema Gestion de Libros v1.0</p>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
+
+<script type="text/javascript">
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "onclick": null,
+        "showDuration": "500",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>

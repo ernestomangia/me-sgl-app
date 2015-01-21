@@ -160,6 +160,22 @@
     <Folder Include="Views\Cliente\Partial\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">
+      <Project>{6c059e7e-edd1-4db4-a8c8-33c08245deb8}</Project>
+      <Name>ME.Libros.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Dominio\ME.Libros.Dominio.csproj">
+      <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
+      <Name>ME.Libros.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.EF\ME.Libros.EF.csproj">
+      <Project>{b156ec49-3d61-4f47-a657-25029dc7b99d}</Project>
+      <Name>ME.Libros.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Repositorio\ME.Libros.Repositorios.csproj">
+      <Project>{7128460f-c8fb-45e5-9cc5-d8286cce5b0c}</Project>
+      <Name>ME.Libros.Repositorios</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ME.Libros.Servicios\ME.Libros.Servicios.csproj">
       <Project>{9c444727-01ef-4c61-bec2-c043b895575a}</Project>
       <Name>ME.Libros.Servicios</Name>

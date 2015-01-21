@@ -55,8 +55,8 @@
                 ¿Esta seguro que desea eliminar el cliente?
             </div>
             <div class="modal-footer">
-                <button id="cancelar" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="javascript: Eliminar();">Aceptar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript:eliminar();">Aceptar</button>
             </div>
         </div>
     </div>
@@ -64,6 +64,13 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function() {
+        var mensaje = '@ViewBag.Mensaje.ToString()';
+        if (mensaje != "") {
+            toastr.success('@ViewBag.Mensaje');
+        }
+    });
+
     function cargarPartial(url) {
         $.get(url, function (data) {
             $('#tabClientes').html(data);
@@ -74,13 +81,12 @@
         $("#idCliente").val(id);
     }
 
-    function Eliminar() {
+    function eliminar() {
         var id = $("#idCliente").val();
         var url = "@Url.Action("Eliminar", "Cliente")" + "?idCliente=" + id;
         $.get(url,
             function (data) {
-                $("#cancelar").click();
-                //$("#alert").alert();
+                //$("#myModal").modal('toggle');
                 toastr.success('Cliente eliminado exitosamente');
                 $("#tr_" + id).remove();
             }

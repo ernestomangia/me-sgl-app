@@ -1,39 +1,38 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
+
 using ME.Libros.Utils.Enums;
 using ME.Libros.Servicios.DTO;
 
 namespace ME.Libros.Web.Models
 {
-    using System;
-
     public class ClienteViewModel
     {
         #region Constructor(s)
 
         public ClienteViewModel()
         {
-            Provincias = new SelectList(new List<SelectListItem>
-            {
-                new SelectListItem
-                {
-                    Text = "Entre Rios",
-                    Value = "1",
-                },
-                new SelectListItem
-                {
-                    Text = "Santa Fe",
-                    Value = "2",
-                },
-                new SelectListItem
-                {
-                    Text = "San Luis",
-                    Value = "3",
-                }
-            }, "Value", "Text");
+            //Provincias = new SelectList(new List<SelectListItem>
+            //{
+            //    new SelectListItem
+            //    {
+            //        Text = "Entre Rios",
+            //        Value = "1",
+            //    },
+            //    new SelectListItem
+            //    {
+            //        Text = "Santa Fe",
+            //        Value = "2",
+            //    },
+            //    new SelectListItem
+            //    {
+            //        Text = "San Luis",
+            //        Value = "3",
+            //    }
+            //}, "Value", "Text");
         }
 
         public ClienteViewModel(ClienteDTO clienteDto)
@@ -48,7 +47,7 @@ namespace ME.Libros.Web.Models
 
         #region Properties
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [DisplayName("Fecha de Alta")]
         public DateTime FechaAlta { get; set; }
@@ -100,7 +99,7 @@ namespace ME.Libros.Web.Models
 
         public string Email { get; set; }
 
-        public SelectList Provincias { get; set; }
+        //public SelectList Provincias { get; set; }
 
         #endregion
     }

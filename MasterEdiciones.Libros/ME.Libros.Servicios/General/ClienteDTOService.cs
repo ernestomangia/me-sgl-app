@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
-using ME.Libros.Servicios.DTO;
+using ME.Libros.DTO.General;
 using ME.Libros.Repositorios;
 using ME.Libros.EF;
 
@@ -26,13 +26,13 @@ namespace ME.Libros.Servicios.General
 
         public void Crear(ClienteDTO clienteDto)
         {
-            _repository.Crear(DtoADominio(clienteDto));
+            _repository.Guardar(DtoADominio(clienteDto));
         }
 
         public IEnumerable<ClienteDTO> Listar()
         {
             var clientes = new List<ClienteDTO>();
-            _repository.Listar().ToList().ForEach(c => clientes.Add(this.DominioADto(c)));
+            _repository.Listar().ToList().ForEach(c => clientes.Add(DominioADto(c)));
             return clientes;
         }
 

@@ -5,10 +5,11 @@ using System.Linq.Expressions;
 
 using ME.Libros.Api.Servicios;
 using ME.Libros.Api.Repositorios;
+using ME.Libros.Dominio;
 
 namespace ME.Libros.Servicios
 {
-    public abstract class AbstractService<T> : IAbstractService<T>, IDisposable where T : class 
+    public abstract class AbstractService<T> : IAbstractService<T>, IDisposable where T : BaseDominio 
     {
         #region Private Members
 
@@ -26,15 +27,15 @@ namespace ME.Libros.Servicios
 
         #endregion
 
-        public virtual void Crear(T entidad)
+        public virtual int Guardar(T entidad)
         {
-            repositorio.Crear(entidad);
+            return repositorio.Guardar(entidad);
         }
 
-        public virtual void Modificar(T entidad)
-        {
-            repositorio.Editar(entidad);
-        }
+        //public virtual void Modificar(T entidad)
+        //{
+        //    repositorio.Editar(entidad);
+        //}
 
         public virtual void Eliminar(T entidad)
         {

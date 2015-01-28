@@ -1,9 +1,9 @@
 ﻿using System;
 
 using ME.Libros.Api.Logging;
+using ME.Libros.DTO.General;
 using ME.Libros.Logging;
 using ME.Libros.Servicios.General;
-using ME.Libros.Servicios.DTO;
 using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Consola

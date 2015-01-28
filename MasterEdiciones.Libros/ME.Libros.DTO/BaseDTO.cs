@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ME.Libros.Servicios.DTO
+namespace ME.Libros.DTO
 {
     public abstract class BaseDTO
     {

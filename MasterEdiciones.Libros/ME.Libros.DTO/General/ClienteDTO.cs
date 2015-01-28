@@ -1,6 +1,6 @@
 ﻿using ME.Libros.Utils.Enums;
 
-namespace ME.Libros.Servicios.DTO
+namespace ME.Libros.DTO.General
 {
     public class ClienteDTO : BaseDTO
     {
@@ -12,7 +12,7 @@ namespace ME.Libros.Servicios.DTO
         public string Cuil { get; set; }
         public string FechaNacimiento { get; set; }
         public Sexo Sexo { get; set; }
-        public string Localidad { get; set; }
+        public LocalidadDTO Localidad { get; set; }
         public string Direccion { get; set; }
         public string CalleA { get; set; }
         public string CalleB { get; set; }

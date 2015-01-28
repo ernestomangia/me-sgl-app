@@ -14,9 +14,9 @@ namespace ME.Libros.Api.Repositorios
 
         T Get(Expression<Func<T, bool>> expression);
 
-        void Crear(T entidad);
+        int Guardar(T entidad);
 
-        void Editar(T entidad);
+        //int Editar(T entidad);
 
         void Eliminar(T entidad);
     }

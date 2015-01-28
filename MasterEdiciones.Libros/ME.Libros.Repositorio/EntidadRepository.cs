@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Linq;
 using System.Data.Entity;
+using System.Linq.Expressions;
 
 using ME.Libros.Api.Repositorios;
+using ME.Libros.Dominio;
 
 namespace ME.Libros.Repositorios
 {
-    using System.Linq.Expressions;
-
-    public class EntidadRepository<T> : IRepository<T> where T : class
+    public class EntidadRepository<T> : IRepository<T> where T : BaseDominio
     {
         #region Private Members
 
@@ -44,20 +44,28 @@ namespace ME.Libros.Repositorios
 
         public T Get(Expression<Func<T, bool>> expression)
         {
-            return this.context.Set<T>().FirstOrDefault(expression);
+            return context.Set<T>().FirstOrDefault(expression);
         }
 
-        public void Crear(T entidad)
+        public int Guardar(T entidad)
         {
-            context.Set<T>().Add(entidad);
-            context.SaveChanges();
+            if (entidad.Id == 0)
+            {
+                context.Set<T>().Add(entidad);
+            }
+            else
+            {
+                context.Entry(entidad).State = EntityState.Modified;
+            }
+
+            return context.SaveChanges();
         }
 
-        public void Editar(T entidad)
-        {
-            context.Entry(entidad).State = EntityState.Modified;
-            context.SaveChanges();
-        }
+        //public int Editar(T entidad)
+        //{
+        //    context.Entry(entidad).State = EntityState.Modified;
+        //    return context.SaveChanges();
+        //}
 
         public void Eliminar(T entidad)
         {

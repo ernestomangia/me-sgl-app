@@ -52,7 +52,7 @@ namespace ME.Libros.Servicios.Test
                     },
                     Sexo = Sexo.Masculino
                 };
-                servicio.Crear(cliente);
+                servicio.Guardar(cliente);
                 CollectionAssert.Contains(servicio.Listar().ToList(), cliente);
             }
         }

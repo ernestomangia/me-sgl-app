@@ -15,8 +15,8 @@ namespace ME.Libros.EF.Mapeos
             // Properties
             this.Property(c => c.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             this.Property(c => c.FechaAlta).IsRequired();
-
-            this.Property(c => c.Codigo).HasMaxLength(10).IsRequired();
+            
+            this.Property(c => c.Codigo).HasMaxLength(10).IsOptional(); //remove
             this.Property(c => c.Nombre).HasMaxLength(100).IsRequired();
             this.Property(c => c.Apellido).HasMaxLength(100).IsRequired();
             this.Property(c => c.FechaNacimiento).IsOptional();

@@ -1,0 +1,63 @@
+﻿@model ME.Libros.Web.Models.ClienteViewModel
+
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.Nombre, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre", required = "required" })
+    </div>
+    @Html.LabelFor(c => c.Apellido, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control", placeholder = "Apellido", required = "required" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.Cuil, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = "Cuil", required = "required" })
+    </div>
+    @Html.LabelFor(c => c.Sexo, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.EnumDropDownListFor(c => c.Sexo, new { @class = "form-control", required = "required" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    <label class="col-sm-1 control-label">Provincia</label>
+    <div class="col-sm-3">
+        @*@Html.DropDownList("Provincias", Model.Provincias, "Seleccione", new { @class = "form-control" })*@
+        @*@Html.DropDownListFor(c => c.Provincias, Model.Provincias, "Seleccione", new { @class = "form-control" })*@
+    </div>
+    @Html.LabelFor(c => c.Localidad, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Localidad, new { @class = "form-control", placeholder = "Localidad", required = "required" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.Direccion, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = "Dirección", required = "required" })
+    </div>
+    @Html.LabelFor(c => c.Barrio, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Barrio, new { @class = "form-control", placeholder = "Barrio" })
+    </div>
+    @Html.LabelFor(c => c.Manzana, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-1">
+        @Html.TextBoxFor(c => c.Manzana, new { @class = "form-control", placeholder = "Manzana" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.Email, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = "Teléfono" })
+    </div>
+    @Html.LabelFor(c => c.Celular, new { @class = "col-sm-1 control-label" })
+    <div class="col-sm-3">
+        @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+    </div>
+</div>

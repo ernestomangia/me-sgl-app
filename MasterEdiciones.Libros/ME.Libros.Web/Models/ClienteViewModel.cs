@@ -35,10 +35,20 @@ namespace ME.Libros.Web.Models
 
         public ClienteViewModel(ClienteDTO clienteDto)
         {
+            Id = clienteDto.Id;
+            FechaAlta = clienteDto.FechaAlta;
             Nombre = clienteDto.Nombre;
             Apellido = clienteDto.Apellido;
             Cuil = clienteDto.Cuil;
             Direccion = clienteDto.Direccion;
+            FechaNacimiento = clienteDto.FechaNacimiento;
+            Sexo = clienteDto.Sexo;
+            Localidad = clienteDto.Localidad.Nombre;
+            Direccion = clienteDto.Direccion;
+            Numero = clienteDto.Numero;
+            TelefonoFijo = clienteDto.TelefonoFijo;
+            Celular = clienteDto.Celular;
+            Email = clienteDto.Email;
         }
 
         #endregion

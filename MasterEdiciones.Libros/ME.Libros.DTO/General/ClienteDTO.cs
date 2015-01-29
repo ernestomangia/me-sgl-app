@@ -1,4 +1,5 @@
-﻿using ME.Libros.Utils.Enums;
+﻿using System;
+using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.DTO.General
 {
@@ -10,7 +11,7 @@ namespace ME.Libros.DTO.General
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Cuil { get; set; }
-        public string FechaNacimiento { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
         public Sexo Sexo { get; set; }
         public LocalidadDTO Localidad { get; set; }
         public string Direccion { get; set; }
@@ -22,6 +23,7 @@ namespace ME.Libros.DTO.General
         public string Numero { get; set; }
         public string TelefonoFijo { get; set; }
         public string Celular { get; set; }
+        public string Email { get; set; }
 
         #endregion
     }

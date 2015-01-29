@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
 using ME.Libros.Api.Servicios.General;
@@ -17,7 +18,17 @@ namespace ME.Libros.Servicios.General
         }
         public virtual int Guardar(ClienteDTO entidad)
         {
-            return base.Guardar(DTOADominio(entidad));
+            if (entidad.Id == 0)
+            {
+                // Nuevo
+                return base.Guardar(DTOADominio(entidad));
+            }
+
+            // Modificar
+            var cliente = GetPorId(entidad.Id);
+            ActualizarDominio(entidad, cliente);
+            return base.Guardar(cliente);
+
         }
 
         public virtual IEnumerable<ClienteDTO> Listar()
@@ -31,7 +42,6 @@ namespace ME.Libros.Servicios.General
         {
             return new ClienteDominio
             {
-                Id = clienteDto.Id,
                 FechaAlta = clienteDto.FechaAlta,
                 Codigo = clienteDto.Codigo,
                 Nombre = clienteDto.Nombre,
@@ -49,7 +59,10 @@ namespace ME.Libros.Servicios.General
                         FechaAlta = DateTime.Now,
                         Nombre = "Entre Rios"
                     }
-                }
+                },
+                TelefonoFijo = clienteDto.TelefonoFijo,
+                Celular = clienteDto.Celular,
+                Email = clienteDto.Email
             };
         }
 
@@ -74,7 +87,34 @@ namespace ME.Libros.Servicios.General
                         Nombre = "Entre Rios"
                     }
                 },
+                TelefonoFijo = clienteDominio.TelefonoFijo,
+                Celular = clienteDominio.Celular,
+                Email = clienteDominio.Email
             };
+        }
+
+        private void ActualizarDominio(ClienteDTO clienteDto, ClienteDominio clienteDominio)
+        {
+            clienteDominio.Codigo = clienteDto.Codigo;
+            clienteDominio.Nombre = clienteDto.Nombre;
+            clienteDominio.Apellido = clienteDto.Apellido;
+            clienteDominio.Cuil = clienteDto.Cuil;
+            clienteDominio.Sexo = clienteDto.Sexo;
+            clienteDominio.Direccion = clienteDto.Direccion;
+            clienteDominio.Barrio = clienteDto.Barrio;
+            clienteDominio.TelefonoFijo = clienteDto.TelefonoFijo;
+            clienteDominio.Celular = clienteDto.Celular;
+            clienteDominio.Email = clienteDto.Email;
+            //clienteDominio.Localidad = new LocalidadDominio
+            //{
+            //    FechaAlta = DateTime.Now,
+            //    Nombre = "Paraná",
+            //    Provincia = new ProvinciaDominio
+            //    {
+            //        FechaAlta = DateTime.Now,
+            //        Nombre = "Entre Rios"
+            //    }
+            //};
         }
 
         #endregion

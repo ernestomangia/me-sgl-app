@@ -1,8 +1,9 @@
-﻿@using System.Resources
-@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
+﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
+
+@*@Html.Partial("../Administracion/Index", Model)*@
 
 <h3>Listado de Clientes</h3>
-<a class="btn btn-success" href="#" onclick="javascript: cargarPartial('@Url.Action("Crear", "Cliente")');" role="button">
+<a class="btn btn-success" href="@Url.Action("Crear", "Cliente")" @*onclick="javascript: cargarPartial('');"*@ role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
@@ -30,9 +31,9 @@
                 <button class="btn btn-default btn-sm" type="button">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </button>
-                <button class="btn btn-default btn-sm" type="button">
+                <a class="btn btn-default btn-sm" type="button" href="@Url.Action("Modificar", new { idCliente = item.Id })">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                </button>
+                </a>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal" onclick="javascript:setearId(@item.Id);">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
@@ -64,18 +65,18 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         var mensaje = '@ViewBag.Mensaje.ToString()';
         if (mensaje != "") {
             toastr.success('@ViewBag.Mensaje');
         }
     });
 
-    function cargarPartial(url) {
-        $.get(url, function (data) {
-            $('#tabClientes').html(data);
-        });
-    }
+    //function cargarPartial(url) {
+    //    $.get(url, function (data) {
+    //        $('#tabClientes').html(data);
+    //    });
+    //}
 
     function setearId(id) {
         $("#idCliente").val(id);

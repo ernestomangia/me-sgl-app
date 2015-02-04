@@ -46,32 +46,46 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(ClienteViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             using (ClienteService)
             {
-                ClienteService.Guardar(new ClienteDTO
+                try
                 {
-                    FechaAlta = DateTime.Now,
-                    Codigo = "1000",
-                    Nombre = model.Nombre,
-                    Apellido = model.Apellido,
-                    Cuil = model.Cuil,
-                    Barrio = model.Barrio,
-                    Direccion = model.Direccion,
-                    Localidad = new LocalidadDTO
+                    ClienteService.Guardar(new ClienteDTO
                     {
                         FechaAlta = DateTime.Now,
-                        Nombre = "Paraná",
-                        Provincia = new ProvinciaDTO
+                        Codigo = "1000",
+                        Nombre = model.Nombre,
+                        Apellido = model.Apellido,
+                        Cuil = model.Cuil,
+                        Barrio = model.Barrio,
+                        Direccion = model.Direccion,
+                        Localidad = new LocalidadDTO
                         {
                             FechaAlta = DateTime.Now,
-                            Nombre = "Entre Rios"
-                        }
-                    },
-                    Sexo = model.Sexo,
-                    Email = model.Email,
-                    TelefonoFijo = model.TelefonoFijo,
-                    Celular = model.Celular
-                });
+                            Nombre = "Paraná",
+                            Provincia = new ProvinciaDTO
+                            {
+                                FechaAlta = DateTime.Now,
+                                Nombre = "Entre Rios"
+                            }
+                        },
+                        Sexo = model.Sexo,
+                        Email = model.Email,
+                        TelefonoFijo = model.TelefonoFijo,
+                        Celular = model.Celular
+                    });
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error al guardar el Cliente", "El cliente no se guardó.");
+                    
+                    return View(model);
+                }
             }
 
             TempData["Mensaje"] = "El cliente fue creado exitosamente";
@@ -91,7 +105,7 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Modificar(int idCliente)
+        public PartialViewResult Modificar(int idCliente)
         {
             using (ClienteService)
             {
@@ -122,7 +136,7 @@ namespace ME.Libros.Web.Controllers
                     Celular = clienteDominio.Celular
                 });
 
-                return View(clienteViewModel);
+                return PartialView(clienteViewModel);
             }
         }
 

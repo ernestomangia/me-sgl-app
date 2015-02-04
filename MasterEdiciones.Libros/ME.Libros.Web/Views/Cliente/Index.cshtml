@@ -3,7 +3,7 @@
 @*@Html.Partial("../Administracion/Index", Model)*@
 
 <h3>Listado de Clientes</h3>
-<a class="btn btn-success" href="#" @*href="@Url.Action("Crear", "Cliente")"*@ onclick="javascript: cargarPartial('@Url.Action("Crear", "Cliente")');" role="button">
+<a class="btn btn-success" href="#" onclick="javascript: cargarPartial('@Url.Action("Crear", "Cliente")');" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
@@ -14,7 +14,7 @@
 
 <table class="table table-striped table-hover tablaCustom">
     <tr>
-        <th>@Html.DisplayNameFor(model => model.Codigo)</th>
+        <th>@Html.DisplayNameFor(model => model.Id)</th>
         <th>@Html.DisplayNameFor(model => model.Nombre)</th>
         <th>@Html.DisplayNameFor(model => model.Apellido)</th>
         <th>@Html.DisplayNameFor(model => model.Cuil)</th>
@@ -31,7 +31,7 @@
                 <button class="btn btn-default btn-sm" type="button">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </button>
-                <a class="btn btn-default btn-sm" type="button" href="@Url.Action("Modificar", new { idCliente = item.Id })">
+                <a class="btn btn-default btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Modificar", "Cliente", new { idCliente = item.Id})');">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 </a>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal" onclick="javascript:setearId(@item.Id);">
@@ -87,7 +87,6 @@
         var url = "@Url.Action("Eliminar", "Cliente")" + "?idCliente=" + id;
         $.get(url,
             function (data) {
-                //$("#myModal").modal('toggle');
                 toastr.success('Cliente eliminado exitosamente');
                 $("#tr_" + id).remove();
             }

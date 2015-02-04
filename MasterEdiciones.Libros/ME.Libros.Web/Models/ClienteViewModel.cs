@@ -55,14 +55,15 @@ namespace ME.Libros.Web.Models
 
         #region Properties
 
+        [DisplayName("Código")]
         public int Id { get; set; }
 
         [DisplayName("Fecha de Alta")]
         public DateTime FechaAlta { get; set; }
 
-        [Required]
-        [DisplayName("Código")]
-        public string Codigo { get; set; }
+        //[Required]
+        //[DisplayName("Código")]
+        //public string Codigo { get; set; }
 
         [Required]
         public string Nombre { get; set; }

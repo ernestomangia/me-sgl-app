@@ -1,20 +1,18 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
 
-<div class="contenedor">
-    <h2>Nuevo cliente</h2>
-    @using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { @class = "form-horizontal" }))
-    {
-        @Html.ValidationSummary(true)
-        
-        @Html.Partial("Shared/Form_Partial", Model)
-        
-        <div class="form-group">
-            <div class="col-sm-offset-8 col-sm-10">
-                <a class="btn btn-default" href="@Url.Action("Index", "Administracion")">
-                    Cancelar
-                </a>
-                <input type="submit" value="Crear" class="btn btn-success" />
-            </div>
+<h3>Nuevo cliente</h3>
+@using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary()
+
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    <div class="form-group">
+        <div class="col-sm-offset-8">
+            <a class="btn btn-default" href="@Url.Action("Index", "Administracion")">
+                Cancelar
+            </a>
+            <input type="submit" value="Crear" class="btn btn-success" />
         </div>
-    }
-</div>
+    </div>
+}

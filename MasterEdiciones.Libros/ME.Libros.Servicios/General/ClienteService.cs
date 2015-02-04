@@ -28,7 +28,6 @@ namespace ME.Libros.Servicios.General
             var cliente = GetPorId(entidad.Id);
             ActualizarDominio(entidad, cliente);
             return base.Guardar(cliente);
-
         }
 
         public virtual IEnumerable<ClienteDTO> Listar()
@@ -75,6 +74,7 @@ namespace ME.Libros.Servicios.General
                 Codigo = clienteDominio.Codigo,
                 Nombre = clienteDominio.Nombre,
                 Apellido = clienteDominio.Apellido,
+                Cuil = clienteDominio.Cuil,
                 Direccion = clienteDominio.Direccion,
                 Barrio = clienteDominio.Barrio,
                 Localidad = new LocalidadDTO

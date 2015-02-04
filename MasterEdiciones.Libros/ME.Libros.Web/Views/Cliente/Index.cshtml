@@ -3,7 +3,7 @@
 @*@Html.Partial("../Administracion/Index", Model)*@
 
 <h3>Listado de Clientes</h3>
-<a class="btn btn-success" href="@Url.Action("Crear", "Cliente")" @*onclick="javascript: cargarPartial('');"*@ role="button">
+<a class="btn btn-success" href="#" @*href="@Url.Action("Crear", "Cliente")"*@ onclick="javascript: cargarPartial('@Url.Action("Crear", "Cliente")');" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
@@ -72,11 +72,11 @@
         }
     });
 
-    //function cargarPartial(url) {
-    //    $.get(url, function (data) {
-    //        $('#tabClientes').html(data);
-    //    });
-    //}
+    function cargarPartial(url) {
+        $.get(url, function (data) {
+            $('#tabClientes').html(data);
+        });
+    }
 
     function setearId(id) {
         $("#idCliente").val(id);

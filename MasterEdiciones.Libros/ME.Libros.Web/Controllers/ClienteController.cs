@@ -37,10 +37,10 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Crear()
+        public PartialViewResult Crear()
         {
             var model = new ClienteViewModel();
-            return RedirectToAction("Index", "Administracion");
+            return PartialView(model);
         }
 
         [HttpPost]

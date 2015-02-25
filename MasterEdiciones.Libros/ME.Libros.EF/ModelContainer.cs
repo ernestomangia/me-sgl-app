@@ -1,6 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 using ME.Libros.Api.Repositorios;
+using ME.Libros.Dominio.General;
 
 namespace ME.Libros.EF
 {
@@ -11,7 +14,7 @@ namespace ME.Libros.EF
         public ModelContainer()
             : base("name=MasterEdicionesDbContext")
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ModelContainer>());
+            Database.SetInitializer(new ModelDbInitializer());
         }
 
         #endregion
@@ -24,7 +27,24 @@ namespace ME.Libros.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
-            base.OnModelCreating(modelBuilder);  
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public class ModelDbInitializer : DropCreateDatabaseIfModelChanges<ModelContainer>
+        {
+            protected override void Seed(ModelContainer context)
+            {
+                var provincias = new List<ProvinciaDominio>
+                {
+                    new ProvinciaDominio {Nombre = "Entre Rios", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "Santa Fe", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "Córdoba", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "San Luis", FechaAlta = DateTime.Now}
+                };
+
+                provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
+                context.SaveChanges();
+            }
         }
     }
 }

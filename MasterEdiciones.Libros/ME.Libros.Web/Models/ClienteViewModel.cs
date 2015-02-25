@@ -61,10 +61,6 @@ namespace ME.Libros.Web.Models
         [DisplayName("Fecha de Alta")]
         public DateTime FechaAlta { get; set; }
 
-        //[Required]
-        //[DisplayName("Código")]
-        //public string Codigo { get; set; }
-
         [Required]
         public string Nombre { get; set; }
         

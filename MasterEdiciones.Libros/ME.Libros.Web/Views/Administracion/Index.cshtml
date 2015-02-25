@@ -19,7 +19,7 @@
             <a href="#" role="tab" data-toggle="tab">Localidades</a>
         </li>
         <li role="presentation">
-            <a href="#" role="tab" data-toggle="tab">Provincias</a>
+            <a href="#tabProvincias" role="tab" data-toggle="tab">Provincias</a>
         </li>
     </ul>
 </div>
@@ -30,5 +30,8 @@
     </div>
     <div id="tabCobradores" role="tabpanel" class="tab-pane fade">
         
+    </div>
+    <div id="tabProvincias" role="tabpanel" class="tab-pane fade">
+        @Html.Action("Index", "Provincia")
     </div>
 </div>

@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AdministracionController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -150,6 +151,8 @@
     <Content Include="Views\Administracion\Index.cshtml" />
     <Content Include="Views\Cliente\Modificar.cshtml" />
     <Content Include="Views\Cliente\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Cliente\Detalle.cshtml" />
+    <Content Include="Views\Provincia\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

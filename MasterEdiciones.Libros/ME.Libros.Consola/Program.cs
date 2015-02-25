@@ -22,7 +22,6 @@ namespace ME.Libros.Consola
             clienteServcio.Crear(new ClienteDTO
                                      {
                                          FechaAlta = DateTime.Now,
-                                         Codigo = "1000",
                                          Nombre = "Nombre",
                                          Apellido = "apellido",
                                          Cuil = "20364062479",

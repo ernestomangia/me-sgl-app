@@ -1,0 +1,22 @@
+﻿@model ME.Libros.Web.Models.ClienteViewModel
+
+<h3>Detalle cliente</h3>
+<div id="formCliente" class="form-horizontal">
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    <div class="form-group">
+        <div class="col-sm-offset-8">
+            <a class="btn btn-default" href="@Url.Action("Index", "Administracion")">
+                Cancelar
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#formCliente :input").each(function() {
+            $(this).attr('disabled', true);
+        });
+    });
+</script>

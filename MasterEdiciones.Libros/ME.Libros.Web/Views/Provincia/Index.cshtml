@@ -1,9 +1,7 @@
-﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
+﻿@model IEnumerable<ME.Libros.Web.Models.ProvinciaViewModel>
 
-@*@Html.Partial("../Administracion/Index", Model)*@
-
-<h3>Listado de Clientes</h3>
-<a class="btn btn-success" href="#" onclick="javascript: cargarPartial('@Url.Action("Crear", "Cliente")');" role="button">
+<h3>Listado de Provincias</h3>
+<a class="btn btn-success" href="#" onclick="javascript: cargarPartial('@Url.Action("Crear", "Provincia")');" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
@@ -16,8 +14,6 @@
     <tr>
         <th>@Html.DisplayNameFor(model => model.Id)</th>
         <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-        <th>@Html.DisplayNameFor(model => model.Apellido)</th>
-        <th>@Html.DisplayNameFor(model => model.Cuil)</th>
         <th>Acciones</th>
     </tr>
     @foreach (var item in Model)
@@ -25,13 +21,11 @@
         <tr id=@("tr_"+ item.Id)>
             <td>@Html.DisplayFor(modelItem => item.Id)</td>
             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-            <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
-            <td>@Html.DisplayFor(modelItem => item.Cuil)</td>
             <td>
-                <a class="btn btn-info btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Detalle", "Cliente", new { idCliente = item.Id})');">
+                <a class="btn btn-info btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Detalle", "Provincia", new { id = item.Id })');">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <a class="btn btn-warning btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Modificar", "Cliente", new { idCliente = item.Id})');">
+                <a class="btn btn-warning btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Modificar", "Provincia", new { id = item.Id })');">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </a>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#myModal" onclick="javascript:setearId(@item.Id);">
@@ -42,7 +36,7 @@
     }
 </table>
 
-<input type="hidden" id="idCliente" />
+<input type="hidden" id="idProvincia" />
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -50,10 +44,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Eliminar Cliente</h4>
+                <h4 class="modal-title" id="myModalLabel">Eliminar Provincia</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar el cliente?
+                ¿Esta seguro que desea eliminarla provincia?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -65,31 +59,32 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    @*$(document).ready(function () {
         var mensaje = '@ViewBag.Mensaje.ToString()';
         if (mensaje != "") {
             toastr.success('@ViewBag.Mensaje');
         }
-    });
+    });*@
 
     function cargarPartial(url) {
         $.get(url, function (data) {
-            $('#tabClientes').html(data);
+            $('#tabProvincias').html(data);
         });
     }
 
     function setearId(id) {
-        $("#idCliente").val(id);
+        $("#idProvincia").val(id);
     }
 
     function eliminar() {
-        var id = $("#idCliente").val();
-        var url = "@Url.Action("Eliminar", "Cliente")" + "?idCliente=" + id;
+        var id = $("#idProvincia").val();
+        var url = "@Url.Action("Eliminar", "Provincia")" + "?id=" + id;
         $.get(url,
             function (data) {
-                toastr.success('Cliente eliminado exitosamente');
+                toastr.success('Provincia eliminado exitosamente');
                 $("#tr_" + id).remove();
             }
         );
     }
 </script>
+

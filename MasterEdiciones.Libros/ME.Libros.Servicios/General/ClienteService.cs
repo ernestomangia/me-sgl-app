@@ -16,6 +16,7 @@ namespace ME.Libros.Servicios.General
         {
 
         }
+
         public virtual int Guardar(ClienteDTO entidad)
         {
             if (entidad.Id == 0)
@@ -42,7 +43,6 @@ namespace ME.Libros.Servicios.General
             return new ClienteDominio
             {
                 FechaAlta = clienteDto.FechaAlta,
-                Codigo = clienteDto.Codigo,
                 Nombre = clienteDto.Nombre,
                 Apellido = clienteDto.Apellido,
                 Cuil = clienteDto.Cuil,
@@ -71,7 +71,6 @@ namespace ME.Libros.Servicios.General
             {
                 Id = clienteDominio.Id,
                 FechaAlta = clienteDominio.FechaAlta,
-                Codigo = clienteDominio.Codigo,
                 Nombre = clienteDominio.Nombre,
                 Apellido = clienteDominio.Apellido,
                 Cuil = clienteDominio.Cuil,
@@ -95,7 +94,6 @@ namespace ME.Libros.Servicios.General
 
         private void ActualizarDominio(ClienteDTO clienteDto, ClienteDominio clienteDominio)
         {
-            clienteDominio.Codigo = clienteDto.Codigo;
             clienteDominio.Nombre = clienteDto.Nombre;
             clienteDominio.Apellido = clienteDto.Apellido;
             clienteDominio.Cuil = clienteDto.Cuil;

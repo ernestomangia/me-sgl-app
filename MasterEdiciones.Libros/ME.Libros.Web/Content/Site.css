@@ -42,3 +42,7 @@ footer {
 h3 {
     margin-top: 5px; 
 }
+
+.btn-default {
+  background-color: #F5F5F5;
+}

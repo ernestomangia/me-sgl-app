@@ -34,7 +34,6 @@ namespace ME.Libros.Servicios.Test
                 var cliente = new ClienteDominio
                 {
                     FechaAlta = DateTime.Now,
-                    Codigo = "1000",
                     Nombre = "NombreCliente Test",
                     Apellido = "ApellidoCliente Test",
                     Cuil = "20364062479",

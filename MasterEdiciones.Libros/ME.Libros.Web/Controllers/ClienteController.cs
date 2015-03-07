@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 using System.Collections.Generic;
 
@@ -46,11 +45,6 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(ClienteViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             using (ClienteService)
             {
                 try
@@ -58,7 +52,6 @@ namespace ME.Libros.Web.Controllers
                     ClienteService.Guardar(new ClienteDTO
                     {
                         FechaAlta = DateTime.Now,
-                        Codigo = "1000",
                         Nombre = model.Nombre,
                         Apellido = model.Apellido,
                         Cuil = model.Cuil,
@@ -82,14 +75,11 @@ namespace ME.Libros.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("Error al guardar el Cliente", "El cliente no se guardó.");
-                    
-                    return View(model);
+                    //ModelState.AddModelError("Error al guardar el Cliente", "El cliente no se guardó.");
+                    return PartialView(model);
                 }
             }
-
             TempData["Mensaje"] = "El cliente fue creado exitosamente";
-
             return RedirectToAction("Index", "Administracion");
         }
 
@@ -170,6 +160,32 @@ namespace ME.Libros.Web.Controllers
                 });
 
                 return RedirectToAction("Index", "Administracion");
+            }
+        }
+
+        [HttpGet]
+        public PartialViewResult Detalle(int idCliente)
+        {
+            using (ClienteService)
+            {
+                var clienteDominio = ClienteService.GetPorId(idCliente);
+
+                var clienteViewModel = new ClienteViewModel
+                {
+                    Id = clienteDominio.Id,
+                    Nombre = clienteDominio.Nombre,
+                    Apellido = clienteDominio.Apellido,
+                    Cuil = clienteDominio.Cuil,
+                    Barrio = clienteDominio.Barrio,
+                    Direccion = clienteDominio.Direccion,
+                    Localidad = clienteDominio.Localidad.Nombre,
+                    Sexo = clienteDominio.Sexo,
+                    Email = clienteDominio.Email,
+                    TelefonoFijo = clienteDominio.TelefonoFijo,
+                    Celular = clienteDominio.Celular
+                };
+
+                return PartialView(clienteViewModel);
             }
         }
     }

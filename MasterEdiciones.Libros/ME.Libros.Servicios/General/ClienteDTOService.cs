@@ -42,7 +42,6 @@ namespace ME.Libros.Servicios.General
                        {
                            Id = clienteDto.Id,
                            FechaAlta = clienteDto.FechaAlta,
-                           Codigo = clienteDto.Codigo,
                            Nombre = clienteDto.Nombre,
                            Apellido = clienteDto.Apellido,
                            Cuil = clienteDto.Cuil,
@@ -57,7 +56,6 @@ namespace ME.Libros.Servicios.General
             {
                 Id = clienteDominio.Id,
                 FechaAlta = clienteDominio.FechaAlta,
-                Codigo = clienteDominio.Codigo,
                 Nombre = clienteDominio.Nombre,
                 Apellido = clienteDominio.Apellido,
                 Barrio = clienteDominio.Barrio,

@@ -10,18 +10,18 @@ namespace ME.Libros.EF.Mapeos
         public ProvinciaTypeConfiguration()
         {
             // PK
-            this.HasKey(p => p.Id);
+            HasKey(p => p.Id);
 
             // Properties
-            this.Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            this.Property(p => p.FechaAlta).IsRequired();
-            this.Property(p => p.Nombre).HasMaxLength(100).IsRequired();
+            Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(p => p.FechaAlta).IsRequired();
+            Property(p => p.Nombre).HasMaxLength(100).IsRequired();
 
             // Map Table
-            this.ToTable("Provincia");
-            this.Property(p => p.Id).HasColumnName("Id");
-            this.Property(p => p.FechaAlta).HasColumnName("Fecha_Alta");
-            this.Property(p => p.Nombre).HasColumnName("Nombre");
+            ToTable("Provincia");
+            Property(p => p.Id).HasColumnName("Id");
+            Property(p => p.FechaAlta).HasColumnName("Fecha_Alta");
+            Property(p => p.Nombre).HasColumnName("Nombre");
         }
     }
 }

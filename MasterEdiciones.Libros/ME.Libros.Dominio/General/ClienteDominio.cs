@@ -8,7 +8,6 @@ namespace ME.Libros.Dominio.General
     {
         #region Properties
 
-        public virtual string Codigo { get; set; }
         public virtual string Nombre { get; set; }
         public virtual string Apellido { get; set; }
         public virtual string Cuil { get; set; }

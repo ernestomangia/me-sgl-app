@@ -60,6 +60,8 @@
     <Compile Include="AbstractService.cs" />
     <Compile Include="General\ClienteDTOService.cs" />
     <Compile Include="General\ClienteService.cs" />
+    <Compile Include="General\LocalidadService.cs" />
+    <Compile Include="General\ProvinciaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

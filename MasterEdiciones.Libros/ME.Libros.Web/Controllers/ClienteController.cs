@@ -14,11 +14,15 @@ namespace ME.Libros.Web.Controllers
     public class ClienteController : Controller
     {
         public ClienteService ClienteService { get; set; }
+        private ProvinciaService ProvinciaService { get; set; }
+        private LocalidadService LocalidadService { get; set; }
 
         public ClienteController()
         {
             var modelContainer = new ModelContainer();
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
+            ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
+            LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
         }
 
         // GET: Cliente
@@ -44,7 +48,12 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public PartialViewResult Crear()
         {
-            var model = new ClienteViewModel();
+            var model = new ClienteViewModel
+            {
+                Provincias = new SelectList(ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre"),
+                Localidades = new SelectList(new List<LocalidadViewModel>())
+            };
+
             return PartialView(model);
         }
 
@@ -202,7 +211,7 @@ namespace ME.Libros.Web.Controllers
                     Cuil = clienteDominio.Cuil,
                     Barrio = clienteDominio.Barrio,
                     Direccion = clienteDominio.Direccion,
-                    Localidad = clienteDominio.Localidad.Nombre,
+                    Localidad = new LocalidadViewModel(clienteDominio.Localidad),
                     Sexo = clienteDominio.Sexo,
                     Email = clienteDominio.Email,
                     TelefonoFijo = clienteDominio.TelefonoFijo,
@@ -213,6 +222,20 @@ namespace ME.Libros.Web.Controllers
             }
 
             // handle try catch and log
+        }
+
+        public JsonResult ListaLocalidades(int id)
+        {
+            var localidades = new List<LocalidadViewModel>();
+            using (LocalidadService)
+            {
+                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == id).ToList().Select(l => new LocalidadViewModel(l)));
+            }
+
+            return new JsonResult
+            {
+                Data = localidades.Select(l => new {l.Id, l.Nombre}).ToList()
+            };
         }
     }
 }

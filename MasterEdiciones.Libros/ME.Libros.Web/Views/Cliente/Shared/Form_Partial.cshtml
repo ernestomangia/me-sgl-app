@@ -29,14 +29,13 @@
     </div>
 </div>
 <div class="form-group form-group-sm">
-    <label class="col-sm-1 control-label">Provincia</label>
+    @Html.LabelFor(c => c.ProvinciaId, new { @class = "col-sm-1 control-label" })
     <div class="col-sm-3">
-        @*@Html.DropDownList("Provincias", Model.Provincias, "Seleccione", new { @class = "form-control" })*@
-        @*@Html.DropDownListFor(c => c.Provincias, Model.Provincias, "Seleccione", new { @class = "form-control" })*@
+        @Html.DropDownListFor(l => l.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control", placeholder = "Provincia", required = "required" })
     </div>
-    @Html.LabelFor(c => c.Localidad, new { @class = "col-sm-1 control-label" })
+    @Html.LabelFor(c => c.LocalidadId, new { @class = "col-sm-1 control-label" })
     <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Localidad, new { @class = "form-control", placeholder = "Localidad", required = "required" })
+        @Html.DropDownListFor(l => l.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control", placeholder = "Localidad", required = "required" })
     </div>
 </div>
 <div class="form-group form-group-sm">
@@ -73,3 +72,25 @@
 <div id="error" class="alert alert-danger error" role="alert">
     <ul></ul>
 </div>
+
+<script type="text/javascript">
+    $("#ProvinciaId").on("change", function() {
+        $.ajax({
+            method: "GET",
+            url: '@Url.Action("ListaLocalidades", "Cliente")' + "?id=" + $("#ProvinciaId :selected").attr("value"),
+            dataType: "json",
+            error: function (text, error) {
+                mensajeError("Ha ocurrido un error: " + text + error);
+            },
+            success: function (data) {
+                alert(data);
+                //$("#LocalidadId").empty();
+                //$.each(data, function(key, value) {
+                //    $("#LocalidadId").append(new Option(key, value));
+                //});
+            },
+            timeout: 10000,
+            cache: false
+        });
+    });
+</script>

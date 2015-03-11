@@ -1,39 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 using ME.Libros.Utils.Enums;
+using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
-    using System.Web.Mvc;
-
-    using ME.Libros.Dominio.General;
-
     public class ClienteViewModel
     {
         #region Constructor(s)
 
         public ClienteViewModel()
         {
-            //Provincias = new SelectList(new List<SelectListItem>
-            //{
-            //    new SelectListItem
-            //    {
-            //        Text = "Entre Rios",
-            //        Value = "1",
-            //    },
-            //    new SelectListItem
-            //    {
-            //        Text = "Santa Fe",
-            //        Value = "2",
-            //    },
-            //    new SelectListItem
-            //    {
-            //        Text = "San Luis",
-            //        Value = "3",
-            //    }
-            //}, "Value", "Text");
         }
 
         public ClienteViewModel(ClienteDominio cliente)
@@ -45,7 +25,6 @@ namespace ME.Libros.Web.Models
             Cuil = cliente.Cuil;
             FechaNacimiento = cliente.FechaNacimiento;
             Sexo = cliente.Sexo;
-            Localidad = cliente.Localidad.Nombre;
             Direccion = cliente.Direccion;
             Departamento = cliente.Departamento;
             TelefonoFijo = cliente.TelefonoFijo;
@@ -71,7 +50,6 @@ namespace ME.Libros.Web.Models
         public DateTime? FechaNacimiento { get; set; }
         [Required]
         public Sexo Sexo { get; set; }
-        public string Localidad { get; set; }
         [Required]
         [DisplayName("Dirección")]
         public string Direccion { get; set; }
@@ -90,10 +68,15 @@ namespace ME.Libros.Web.Models
         public string TelefonoFijo { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
+        
         public SelectList Provincias { get; set; }
-        [DisplayAttribute(Name = "Provincia")]
+        [DisplayName("Provincia")]
         public int ProvinciaId { get; set; }
+        public SelectList Localidades { get; set; }
+        [DisplayName("Localidad")]
         public int LocalidadId { get; set; }
+
+        public LocalidadViewModel Localidad { get; set; }
 
         #endregion
     }

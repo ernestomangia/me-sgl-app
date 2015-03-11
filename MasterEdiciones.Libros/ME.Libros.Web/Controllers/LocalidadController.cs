@@ -30,17 +30,7 @@ namespace ME.Libros.Web.Controllers
             var localidades = new List<LocalidadViewModel>();
             using (LocalidadService)
             {
-                var test = LocalidadService.GetPorId(1);
                 localidades.AddRange(LocalidadService.Listar().ToList().Select(l => new LocalidadViewModel(l)));
-                //localidades.AddRange(LocalidadService.Listar().Select(l => new LocalidadViewModel
-                //{
-                //    Nombre = l.Nombre,
-                //    Provincia = new ProvinciaViewModel
-                //    {
-                //        Id = l.Provincia.Id,
-                //        Nombre = l.Provincia.Nombre
-                //    },
-                //}));
             }
 
             return PartialView(localidades);
@@ -50,8 +40,8 @@ namespace ME.Libros.Web.Controllers
         public PartialViewResult Crear()
         {
             var model = new LocalidadViewModel();
-            //model.Provincias = ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList();
             model.Provincias = new SelectList(ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre");
+            
             return PartialView(model);
         }
 

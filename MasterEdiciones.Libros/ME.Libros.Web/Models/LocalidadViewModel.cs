@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using System.Web.Mvc;
 
 using ME.Libros.Dominio.General;
@@ -27,7 +27,7 @@ namespace ME.Libros.Web.Models
         public string Nombre { get; set; }
         public string Provincia { get; set; }
         public SelectList Provincias { get; set; }
-        [DisplayAttribute(Name = "Provincia")]
+        [DisplayName("Provincia")]
         public int ProvinciaId { get; set; }
 
         #endregion

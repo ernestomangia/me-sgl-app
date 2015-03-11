@@ -35,10 +35,15 @@
             },
             success: function (data) {
                 if (data.success) {
+                    $("#error").hide();
                     mensajeSuccess("El cliente se modificó exitosamente");
                     cargarPestaña('@Url.Action("Index", "Cliente")');
                 } else {
-                    toastr.error(data.mensaje, "Error. Los cambios no se guardaron.");
+                    $("#error > ul").empty();
+                    $.each(data.mensajes, function (key, value) {
+                        $("#error > ul").append("<li><b>" + key + "</b>: " + value + "</li>");
+                    });
+                    $("#error").show();
                 }
             },
             timeout: 10000,

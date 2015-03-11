@@ -65,11 +65,11 @@ namespace ME.Libros.Web.Controllers
                 using (LocalidadService)
                 {
                     var id = LocalidadService.Guardar(new LocalidadDominio
-                    {
-                        FechaAlta = DateTime.Now,
-                        Nombre = model.Nombre,
-                        Provincia = ProvinciaService.GetPorId(model.ProvinciaId)
-                    });
+                                                          {
+                                                              FechaAlta = DateTime.Now,
+                                                              Nombre = model.Nombre,
+                                                              Provincia = this.ProvinciaService.GetPorId(model.ProvinciaId)
+                                                          });
                     exito = id > 0;
                 }
             }

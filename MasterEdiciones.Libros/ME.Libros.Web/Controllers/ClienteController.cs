@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
 
-using ME.Libros.DTO.General;
 using ME.Libros.EF;
 using ME.Libros.Servicios.General;
 using ME.Libros.Web.Models;
@@ -31,7 +30,7 @@ namespace ME.Libros.Web.Controllers
             {
                 using (ClienteService)
                 {
-                    clientes.AddRange(ClienteService.Listar().Select(c => new ClienteViewModel(c)));
+                    clientes.AddRange(ClienteService.Listar().ToList().Select(c => new ClienteViewModel(c)));
                 }
             }
             catch (Exception ex)
@@ -53,45 +52,52 @@ namespace ME.Libros.Web.Controllers
         public JsonResult Crear(ClienteViewModel model)
         {
             var exito = false;
-            var mensajeError = "";
+            var mensajeError = new Dictionary<string, string>();
             try
             {
                 using (ClienteService)
                 {
-                    var id = ClienteService.Guardar(new ClienteDTO
+                    var id = ClienteService.Guardar(new ClienteDominio
+                                                        {
+                                                            FechaAlta = DateTime.Now,
+                                                            Nombre = model.Nombre,
+                                                            Apellido = model.Apellido,
+                                                            Cuil = model.Cuil,
+                                                            Barrio = model.Barrio,
+                                                            Direccion = model.Direccion,
+                                                            Localidad = new LocalidadDominio
+                                                                        {
+                                                                            FechaAlta = DateTime.Now,
+                                                                            Nombre = "Paraná",
+                                                                            Provincia = new ProvinciaDominio
+                                                                                        {
+                                                                                            FechaAlta = DateTime.Now,
+                                                                                            Nombre = "Entre Rios"
+                                                                                        }
+                                                                        },
+                                                            Sexo = model.Sexo,
+                                                            Email = model.Email,
+                                                            TelefonoFijo = model.TelefonoFijo,
+                                                            Celular = model.Celular
+                                                        });
+                    if (id > 0)
                     {
-                        FechaAlta = DateTime.Now,
-                        Nombre = model.Nombre,
-                        Apellido = model.Apellido,
-                        Cuil = model.Cuil,
-                        Barrio = model.Barrio,
-                        Direccion = model.Direccion,
-                        Localidad = new LocalidadDTO
-                        {
-                            FechaAlta = DateTime.Now,
-                            Nombre = "Paraná",
-                            Provincia = new ProvinciaDTO
-                            {
-                                FechaAlta = DateTime.Now,
-                                Nombre = "Entre Rios"
-                            }
-                        },
-                        Sexo = model.Sexo,
-                        Email = model.Email,
-                        TelefonoFijo = model.TelefonoFijo,
-                        Celular = model.Celular
-                    });
-                    exito = id > 0;
+                        exito = true;
+                    }
+                    else
+                    {
+                        mensajeError = ClienteService.ModelError;
+                    }
                 }
             }
             catch (Exception ex)
             {
-                mensajeError = ex.Message;
+                mensajeError.Add("Error del sistema.", ex.Message);
             }
 
             return new JsonResult
             {
-                Data = new { success = exito, mensaje = mensajeError }
+                Data = new { success = exito, mensajes = mensajeError }
             };
         }
 
@@ -126,31 +132,7 @@ namespace ME.Libros.Web.Controllers
             using (ClienteService)
             {
                 var clienteDominio = ClienteService.GetPorId(id);
-
-                var clienteViewModel = new ClienteViewModel(new ClienteDTO
-                {
-                    Id = clienteDominio.Id,
-                    FechaAlta = clienteDominio.FechaAlta,
-                    Nombre = clienteDominio.Nombre,
-                    Apellido = clienteDominio.Apellido,
-                    Cuil = clienteDominio.Cuil,
-                    Barrio = clienteDominio.Barrio,
-                    Direccion = clienteDominio.Direccion,
-                    Localidad = new LocalidadDTO
-                    {
-                        FechaAlta = DateTime.Now,
-                        Nombre = "Paraná",
-                        Provincia = new ProvinciaDTO
-                        {
-                            FechaAlta = DateTime.Now,
-                            Nombre = "Entre Rios"
-                        }
-                    },
-                    Sexo = clienteDominio.Sexo,
-                    Email = clienteDominio.Email,
-                    TelefonoFijo = clienteDominio.TelefonoFijo,
-                    Celular = clienteDominio.Celular
-                });
+                var clienteViewModel = new ClienteViewModel(clienteDominio);
 
                 return PartialView(clienteViewModel);
             }
@@ -162,39 +144,45 @@ namespace ME.Libros.Web.Controllers
         public JsonResult Modificar(ClienteViewModel clienteViewModel)
         {
             var exito = false;
-            var mensajeError = string.Empty;
+            var mensajeError = new Dictionary<string, string>();
 
             using (ClienteService)
             {
-                var id = ClienteService.Guardar(new ClienteDTO
-                {
-                    Id = clienteViewModel.Id,
-                    Nombre = clienteViewModel.Nombre,
-                    Apellido = clienteViewModel.Apellido,
-                    Cuil = clienteViewModel.Cuil,
-                    Barrio = clienteViewModel.Barrio,
-                    Direccion = clienteViewModel.Direccion,
-                    Localidad = new LocalidadDTO
-                    {
-                        FechaAlta = DateTime.Now,
-                        Nombre = "Paraná",
-                        Provincia = new ProvinciaDTO
-                        {
-                            FechaAlta = DateTime.Now,
-                            Nombre = "Entre Rios"
-                        }
-                    },
-                    Sexo = clienteViewModel.Sexo,
-                    Email = clienteViewModel.Email,
-                    TelefonoFijo = clienteViewModel.TelefonoFijo,
-                    Celular = clienteViewModel.Celular
-                });
-                exito = id > 0;
-            }
+                var clienteDominio = ClienteService.GetPorId(clienteViewModel.Id);
+                clienteDominio.Nombre = clienteViewModel.Nombre;
+                clienteDominio.Apellido = clienteViewModel.Apellido;
+                clienteDominio.Cuil = clienteViewModel.Cuil;
+                clienteDominio.Barrio = clienteViewModel.Barrio;
+                clienteDominio.Direccion = clienteViewModel.Direccion;
+                clienteDominio.Localidad = new LocalidadDominio
+                                               {
+                                                   FechaAlta = DateTime.Now,
+                                                   Nombre = "Paraná",
+                                                   Provincia =
+                                                       new ProvinciaDominio
+                                                           {
+                                                               FechaAlta = DateTime.Now,
+                                                               Nombre = "Entre Rios"
+                                                           }
+                                               };
+                clienteDominio.Sexo = clienteViewModel.Sexo;
+                clienteDominio.Email = clienteViewModel.Email;
+                clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
+                clienteDominio.Celular = clienteViewModel.Celular;
 
+                var id = ClienteService.Guardar(clienteDominio);
+                if (id > 0)
+                {
+                    exito = true;
+                }
+                else
+                {
+                    mensajeError = ClienteService.ModelError;
+                }
+            }
             return new JsonResult
             {
-                Data = new { success = exito, mensaje = mensajeError },
+                Data = new { success = exito, mensajes = mensajeError },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

@@ -14,6 +14,8 @@ namespace ME.Libros.Servicios
         #region Private Members
 
         private readonly IRepository<T> repositorio;
+
+        public Dictionary<string, string> ModelError; 
         //private IValidationDictionary validationDictionary;
 
         #endregion
@@ -23,18 +25,19 @@ namespace ME.Libros.Servicios
         protected AbstractService(IRepository<T> repositorio)
         {
             this.repositorio = repositorio;
+            ModelError = new Dictionary<string, string>();
         }
 
         #endregion
 
-        public virtual int Guardar(T entidad)
+        public virtual long Guardar(T entidad)
         {
             return repositorio.Guardar(entidad);
         }
 
-        //public virtual void Modificar(T entidad)
+        //public virtual void Modificar(T cliente)
         //{
-        //    repositorio.Editar(entidad);
+        //    repositorio.Editar(cliente);
         //}
 
         public virtual void Eliminar(T entidad)
@@ -42,7 +45,7 @@ namespace ME.Libros.Servicios
             repositorio.Eliminar(entidad);
         }
 
-        public virtual T GetPorId(int id)
+        public virtual T GetPorId(long id)
         {
             return repositorio.Get(id);
         }
@@ -72,7 +75,7 @@ namespace ME.Libros.Servicios
             GC.SuppressFinalize(this);
         }
 
-        public virtual bool Validar(T entidad)
+        public virtual bool Validar(T cliente)
         {
             return true;
         }

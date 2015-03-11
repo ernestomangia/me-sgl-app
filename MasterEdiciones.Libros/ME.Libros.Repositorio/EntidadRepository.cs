@@ -37,7 +37,7 @@ namespace ME.Libros.Repositorios
             return context.Set<T>().Where(expresion);
         }
 
-        public T Get(int id)
+        public T Get(long id)
         {
             return context.Set<T>().Find(id);
         }
@@ -47,7 +47,7 @@ namespace ME.Libros.Repositorios
             return context.Set<T>().FirstOrDefault(expression);
         }
 
-        public int Guardar(T entidad)
+        public long Guardar(T entidad)
         {
             if (entidad.Id == 0)
             {

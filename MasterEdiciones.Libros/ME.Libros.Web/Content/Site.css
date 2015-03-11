@@ -52,3 +52,7 @@ h3 {
   left: 50%;
   top: 75px;
 }
+
+.error {
+    display: none;
+}

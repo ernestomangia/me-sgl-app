@@ -10,13 +10,13 @@ namespace ME.Libros.Api.Repositorios
 
         IQueryable<T> Listar(Expression<Func<T, bool>> expresion);
 
-        T Get(int id);
+        T Get(long id);
 
         T Get(Expression<Func<T, bool>> expression);
 
-        int Guardar(T entidad);
+        long Guardar(T entidad);
 
-        //int Editar(T entidad);
+        //long Editar(T entidad);
 
         void Eliminar(T entidad);
     }

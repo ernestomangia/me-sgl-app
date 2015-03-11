@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Servicios\IAbstractServiceDTO.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\SeveridadLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

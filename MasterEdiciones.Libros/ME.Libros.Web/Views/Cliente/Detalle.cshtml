@@ -6,7 +6,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-8">
-            <a class="btn btn-default" href="@Url.Action("Index", "Administracion")">
+            <a id="btnCancelarDetalle" class="btn btn-default" href="#">
                 Cancelar
             </a>
         </div>
@@ -18,5 +18,9 @@
         $("#formCliente :input").each(function() {
             $(this).attr('disabled', true);
         });
+    });
+
+    $("#btnCancelarDetalle").on("click", function () {
+        cargarPestaña('@Url.Action("Index", "Cliente")');
     });
 </script>

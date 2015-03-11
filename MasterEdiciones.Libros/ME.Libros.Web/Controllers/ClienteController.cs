@@ -23,16 +23,23 @@ namespace ME.Libros.Web.Controllers
         }
 
         // GET: Cliente
-        public ActionResult Index()
+        [HttpGet]
+        public PartialViewResult Index()
         {
-            ViewBag.Mensaje = TempData["Mensaje"] ?? "";
             var clientes = new List<ClienteViewModel>();
-            using (ClienteService)
+            try
             {
-                clientes.AddRange(ClienteService.Listar().Select(c => new ClienteViewModel(c)));
+                using (ClienteService)
+                {
+                    clientes.AddRange(ClienteService.Listar().Select(c => new ClienteViewModel(c)));
+                }
+            }
+            catch (Exception ex)
+            {
+                // Loguear
             }
 
-            return View(clientes);
+            return PartialView(clientes);
         }
 
         [HttpGet]
@@ -43,13 +50,15 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Crear(ClienteViewModel model)
+        public JsonResult Crear(ClienteViewModel model)
         {
-            using (ClienteService)
+            var exito = false;
+            var mensajeError = "";
+            try
             {
-                try
+                using (ClienteService)
                 {
-                    ClienteService.Guardar(new ClienteDTO
+                    var id = ClienteService.Guardar(new ClienteDTO
                     {
                         FechaAlta = DateTime.Now,
                         Nombre = model.Nombre,
@@ -72,34 +81,51 @@ namespace ME.Libros.Web.Controllers
                         TelefonoFijo = model.TelefonoFijo,
                         Celular = model.Celular
                     });
+                    exito = id > 0;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception ex)
+            {
+                mensajeError = ex.Message;
+            }
+
+            return new JsonResult
+            {
+                Data = new { success = exito, mensaje = mensajeError }
+            };
+        }
+
+        [HttpGet]
+        public JsonResult Eliminar(int id)
+        {
+            var exito = false;
+            var mensajeError = "";
+            try
+            {
+                using (ClienteService)
                 {
-                    //ModelState.AddModelError("Error al guardar el Cliente", "El cliente no se guardó.");
-                    return PartialView(model);
+                    ClienteService.Eliminar(ClienteService.GetPorId(id));
                 }
+                exito = true;
             }
-            TempData["Mensaje"] = "El cliente fue creado exitosamente";
-            return RedirectToAction("Index", "Administracion");
+            catch (Exception ex)
+            {
+                mensajeError = ex.Message;
+            }
+
+            return new JsonResult
+            {
+                Data = new { success = exito, mensaje = mensajeError },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         [HttpGet]
-        public ActionResult Eliminar(int idCliente)
+        public PartialViewResult Modificar(int id)
         {
             using (ClienteService)
             {
-                ClienteService.Eliminar(ClienteService.GetPorId(idCliente));
-            }
-
-            return null;
-        }
-
-        [HttpGet]
-        public PartialViewResult Modificar(int idCliente)
-        {
-            using (ClienteService)
-            {
-                var clienteDominio = ClienteService.GetPorId(idCliente);
+                var clienteDominio = ClienteService.GetPorId(id);
 
                 var clienteViewModel = new ClienteViewModel(new ClienteDTO
                 {
@@ -128,14 +154,19 @@ namespace ME.Libros.Web.Controllers
 
                 return PartialView(clienteViewModel);
             }
+
+            // Handle and log error
         }
 
         [HttpPost]
-        public ActionResult Modificar(ClienteViewModel clienteViewModel)
+        public JsonResult Modificar(ClienteViewModel clienteViewModel)
         {
+            var exito = false;
+            var mensajeError = string.Empty;
+
             using (ClienteService)
             {
-                ClienteService.Guardar(new ClienteDTO
+                var id = ClienteService.Guardar(new ClienteDTO
                 {
                     Id = clienteViewModel.Id,
                     Nombre = clienteViewModel.Nombre,
@@ -158,17 +189,22 @@ namespace ME.Libros.Web.Controllers
                     TelefonoFijo = clienteViewModel.TelefonoFijo,
                     Celular = clienteViewModel.Celular
                 });
-
-                return RedirectToAction("Index", "Administracion");
+                exito = id > 0;
             }
+
+            return new JsonResult
+            {
+                Data = new { success = exito, mensaje = mensajeError },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         [HttpGet]
-        public PartialViewResult Detalle(int idCliente)
+        public PartialViewResult Detalle(int id)
         {
             using (ClienteService)
             {
-                var clienteDominio = ClienteService.GetPorId(idCliente);
+                var clienteDominio = ClienteService.GetPorId(id);
 
                 var clienteViewModel = new ClienteViewModel
                 {
@@ -187,6 +223,8 @@ namespace ME.Libros.Web.Controllers
 
                 return PartialView(clienteViewModel);
             }
+
+            // handle try catch and log
         }
     }
 }

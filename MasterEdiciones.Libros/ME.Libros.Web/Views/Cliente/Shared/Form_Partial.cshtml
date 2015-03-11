@@ -1,5 +1,13 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
-
+@if (Model.Id > 0)
+{
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(c => c.Id, new { @class = "col-sm-1 control-label" })
+        <div class="col-sm-3">
+            @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+        </div>
+    </div>
+}
 <div class="form-group form-group-sm">
     @Html.LabelFor(c => c.Nombre, new { @class = "col-sm-1 control-label" })
     <div class="col-sm-3">

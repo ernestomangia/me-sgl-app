@@ -1,7 +1,7 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
 
 <h3>Modificar cliente</h3>
-@using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal" }))
 {
     @Html.ValidationSummary(true)
 
@@ -10,10 +10,39 @@
 
     <div class="form-group form-group-sm">
         <div class="col-sm-offset-8">
-            <a class="btn btn-default" href="@Url.Action("Index", "Administracion")">
+            <a id="btnCancelarModificar" class="btn btn-default" href="#">
                 Cancelar
             </a>
             <input type="submit" value="Modificar" class="btn btn-success" />
         </div>
     </div>
 }
+
+<script>
+    $("#btnCancelarModificar").on("click", function () {
+        cargarPestaña('@Url.Action("Index", "Cliente")');
+    });
+
+    $("#formCliente").on("submit", function () {
+        event.preventDefault();
+        $.ajax({
+            method: "POST",
+            url: $("#formCliente").attr("action"),
+            data: $("#formCliente").serialize(),
+            dataType: "json",
+            error: function (text, error) {
+                mensajeError("Ha ocurrido un error: " + text + error);
+            },
+            success: function (data) {
+                if (data.success) {
+                    mensajeSuccess("El cliente se modificó exitosamente");
+                    cargarPestaña('@Url.Action("Index", "Cliente")');
+                } else {
+                    toastr.error(data.mensaje, "Error. Los cambios no se guardaron.");
+                }
+            },
+            timeout: 10000,
+            cache: false
+        });
+    });
+</script>

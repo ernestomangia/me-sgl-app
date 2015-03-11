@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class AdministracionController : Controller
+    public class VentaController : Controller
     {
-        // GET: Admnistracion
+        // GET: Ventas
         public ActionResult Index()
         {
             return View();

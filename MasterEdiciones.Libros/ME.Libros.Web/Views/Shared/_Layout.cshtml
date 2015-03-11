@@ -8,11 +8,11 @@
         <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootstrap-navbar-custom.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/toastr.css" rel="stylesheet" type="text/css" />
-
-        <script src="~/Scripts/modernizr-2.8.3.js"></script>
-        <script src="~/Scripts/toastr.js"></script>
+        
         <script src="~/Scripts/jquery-2.1.3.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/modernizr-2.8.3.js"></script>
+        <script src="~/Scripts/toastr.js"></script>
         <script src="~/Scripts/common.js"></script>
     </head>
     <body>
@@ -31,9 +31,11 @@
                             @Html.ActionLink("Home", "Index", "Home")
                         </li>
                         <li>
-                            @Html.ActionLink("Administración", "Index", "Administracion")
+                            @Html.ActionLink("Administración", "Index/1", "MenuLateral")
                         </li>
-                        <li><a href="#">Ventas</a></li>
+                        <li>
+                            @Html.ActionLink("Ventas", "Index/2", "MenuLateral")
+                        </li>
                         <li><a href="#">Facturación</a></li>
                         <li><a href="#">Reportes</a></li>
                         <li><a href="#">Sistema</a></li>
@@ -45,6 +47,7 @@
         </div>
 
         <div class="container body-content">
+            <img id="loading-indicator" src="~/Content/img/ajax-loader.gif" style="display:none" />
             @RenderBody()
 
             <div class="navbar navbar-fixed-bottom ">

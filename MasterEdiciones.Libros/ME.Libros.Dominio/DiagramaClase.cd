@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ME.Libros.Dominio.BaseDominio" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BaseDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.ArticuloDominio">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAQAAAAAAAQAAgAARAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>General\ArticuloDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.ClienteDominio">
+    <Position X="11.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEQAAiAAEAAEgCBAgAAEAAAAAAAAAAAAAAgAAgA=</HashCode>
+      <FileName>General\ClienteDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.CobradorDominio">
+    <Position X="18.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAACCAAAAAEEAAAgCAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\CobradorDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.LocalidadDominio">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\LocalidadDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.ProveedorDominio">
+    <Position X="7.25" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAEAAAAAAAAAAAAAAAAAAAAgAACAA=</HashCode>
+      <FileName>General\ProveedorDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.ProvinciaDominio">
+    <Position X="14" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\ProvinciaDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.RubroDominio">
+    <Position X="20.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\RubroDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.VendedorDominio">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAACCAAAAAEEAAAgCAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\VendedorDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.VentaDetalleDominio">
+    <Position X="9.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAEAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\VentaDetalleDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.VentaDominio">
+    <Position X="16.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAACABAAAAAAAQAAAAAAgAAAAAAg=</HashCode>
+      <FileName>General\VentaDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ME.Libros.Dominio.General.ZonaDominio">
+    <Position X="23" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>General\ZonaDominio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

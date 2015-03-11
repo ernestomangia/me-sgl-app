@@ -4,8 +4,8 @@
     ViewBag.Title = "Localidades";
 }
 
-<h3>Listado de Localidades</h3>
-<a class="btn btn-success" href="#" onclick="javascript: cargarPartial('@Url.Action("Crear", "Localidad")', 'tabLocalidades');" role="button">
+<h3>Localidades</h3>
+<a id="btnNuevo" class="btn btn-success" href="#" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
@@ -24,10 +24,10 @@
         <tr id=@("tr_"+ item.Id)>
             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
             <td>
-                <a class="btn btn-info btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Detalle", "Localidad", new { idLocalidad = item.Id})', 'tabLocalidades');">
+                <a class="btn btn-info btn-sm" type="button" onclick="javascript:cargarPestaña('@Url.Action("Detalle", "Localidad", new { idLocalidad = item.Id})');">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                 </a>
-                <a class="btn btn-warning btn-sm" type="button" onclick="javascript: cargarPartial('@Url.Action("Modificar", "Localidad", new { idLocalidad = item.Id })', 'tabLocalidades');">
+                <a class="btn btn-warning btn-sm" type="button" onclick="javascript:cargarPestaña('@Url.Action("Modificar", "Localidad", new { idLocalidad = item.Id })');">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </a>
                 <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#modalEliminarLocalidad" onclick="javascript:setearId(@item.Id);">
@@ -38,7 +38,7 @@
     }
 </table>
 
-<input type="hidden" id="idLocalidad" />
+<input type="hidden" id="idEntidad" />
 
 <!-- Modal -->
 <div class="modal fade" id="modalEliminarLocalidad" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -53,33 +53,20 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="javascript:eliminar();">Aceptar</button>
+                <button id="btnAceptar" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        @*var mensaje = '@ViewBag.Mensaje.ToString()';
-        if (mensaje != "") {
-            toastr.success('@ViewBag.Mensaje');
-        }*@
+    $("#btnNuevo").on("click", function () {
+        cargarPestaña('@Url.Action("Crear", "Localidad")');
     });
 
-    function setearId(id) {
-        $("#idLocalidad").val(id);
-    }
-
-    function eliminar() {
-        var id = $("#idLocalidad").val();
-        var url = "@Url.Action("Eliminar", "Localidad")" + "?idLocalidad=" + id;
-        $.get(url,
-            function (data) {
-                toastr.success('Localidad eliminado exitosamente');
-                $("#tr_" + id).remove();
-            }
-        );
-    }
+    $("#btnAceptar").on("click", function () {
+        var id = $("#idEntidad").val();
+        eliminarEntidad("@Url.Action("Eliminar", "Localidad")", "Localidad Nº " + id + " eliminado exitosamente", "Error al eliminar la localidad. Intente nuevamente.");
+    });
 </script>
 

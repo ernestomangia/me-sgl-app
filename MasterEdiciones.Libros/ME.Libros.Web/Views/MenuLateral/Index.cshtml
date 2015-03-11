@@ -1,0 +1,23 @@
+﻿@using ME.Libros.Web.Models
+
+<div class="menuLateral">
+    <ul class="nav nav-pills nav-stacked" style="max-width: 200px;">
+        @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
+        {
+            <li role="presentation" class="@(menu.Seleccionado ? "active" : "")">
+                <a id=@("link_" + menu.Id) href="#tabContenedor" role="tab" data-toggle="tab" onclick="cargarPestaña('@menu.Link')">@menu.Nombre</a>
+            </li>
+        }
+    </ul>
+</div>
+
+<div class="tab-content contenedor">
+    <div id="tabContenedor" role="tabpanel" class="tab-pane fade in active">
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".active > a").click();
+    });
+</script>

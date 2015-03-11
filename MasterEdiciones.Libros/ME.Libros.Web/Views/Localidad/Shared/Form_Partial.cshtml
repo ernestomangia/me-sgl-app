@@ -8,8 +8,8 @@
 </div>
 
 <div class="form-group form-group-sm">
-    @Html.LabelFor(l => l.Provincia, new { @class = "col-sm-1 control-label" })
+    @Html.LabelFor(l => l.ProvinciaId, new { @class = "col-sm-1 control-label" })
     <div class="col-sm-3">
-        @Html.DropDownListFor(l => l.Provincia, Model.Provincias, "Seleccione", new { @class = "form-control", placeholder = "Provincia", required = "required" })
+        @Html.DropDownListFor(l => l.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control", placeholder = "Provincia", required = "required" })
     </div>
 </div>

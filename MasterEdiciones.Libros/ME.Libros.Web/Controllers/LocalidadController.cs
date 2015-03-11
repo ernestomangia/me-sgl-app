@@ -24,11 +24,14 @@ namespace ME.Libros.Web.Controllers
         }
 
         // GET: Localidad
-        public ActionResult Index()
+        [HttpGet]
+        public PartialViewResult Index()
         {
             var localidades = new List<LocalidadViewModel>();
             using (LocalidadService)
             {
+                var test = LocalidadService.GetPorId(1);
+                localidades.AddRange(LocalidadService.Listar().ToList().Select(l => new LocalidadViewModel(l)));
                 //localidades.AddRange(LocalidadService.Listar().Select(l => new LocalidadViewModel
                 //{
                 //    Nombre = l.Nombre,
@@ -40,7 +43,7 @@ namespace ME.Libros.Web.Controllers
                 //}));
             }
 
-            return View(localidades);
+            return PartialView(localidades);
         }
 
         [HttpGet]
@@ -53,27 +56,32 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Crear(LocalidadViewModel model)
+        public JsonResult Crear(LocalidadViewModel model)
         {
-            using (LocalidadService)
+            var exito = false;
+            var mensajeError = "";
+            try
             {
-                try
+                using (LocalidadService)
                 {
-                    LocalidadService.Guardar(new LocalidadDominio
+                    var id = LocalidadService.Guardar(new LocalidadDominio
                     {
                         FechaAlta = DateTime.Now,
                         Nombre = model.Nombre,
-                        Provincia = ProvinciaService.GetPorId(model.Provincia.Id)
+                        Provincia = ProvinciaService.GetPorId(model.ProvinciaId)
                     });
-                }
-                catch (Exception ex)
-                {
-                    //ModelState.AddModelError("Error al guardar el Cliente", "El cliente no se guardó.");
-                    return PartialView(model);
+                    exito = id > 0;
                 }
             }
-            TempData["Mensaje"] = "La localidad fue creada exitosamente";
-            return RedirectToAction("Index", "Administracion");
+            catch (Exception ex)
+            {
+                mensajeError = ex.Message;
+            }
+
+            return new JsonResult
+            {
+                Data = new { success = exito, mensaje = mensajeError }
+            };
         }
     }
 }

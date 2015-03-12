@@ -39,9 +39,11 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public PartialViewResult Crear()
         {
-            var model = new LocalidadViewModel();
-            model.Provincias = new SelectList(ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre");
-            
+            var model = new LocalidadViewModel
+                            {
+                                Provincias = new SelectList(this.ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre")
+                            };
+
             return PartialView(model);
         }
 
@@ -58,7 +60,7 @@ namespace ME.Libros.Web.Controllers
                                                           {
                                                               FechaAlta = DateTime.Now,
                                                               Nombre = model.Nombre,
-                                                              Provincia = this.ProvinciaService.GetPorId(model.ProvinciaId)
+                                                              Provincia = ProvinciaService.GetPorId(model.Provincia.Id)
                                                           });
                     exito = id > 0;
                 }

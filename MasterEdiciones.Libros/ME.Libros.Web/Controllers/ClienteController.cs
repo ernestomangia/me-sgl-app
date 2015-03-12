@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Collections.Generic;
 
@@ -12,6 +11,8 @@ using ME.Libros.Repositorios;
 
 namespace ME.Libros.Web.Controllers
 {
+    using System.Runtime.InteropServices;
+
     public class ClienteController : Controller
     {
         public ClienteService ClienteService { get; set; }
@@ -49,17 +50,14 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public PartialViewResult Crear()
         {
-            var model = new ClienteViewModel
-            {
-                Provincias = new SelectList(ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre"),
-                Localidades = new SelectList(new List<LocalidadViewModel>())
-            };
+            var clienteViewModel = new ClienteViewModel();
+            PrepareModel(clienteViewModel);
 
-            return PartialView(model);
+            return PartialView(clienteViewModel);
         }
 
         [HttpPost]
-        public JsonResult Crear(ClienteViewModel model)
+        public JsonResult Crear(ClienteViewModel clienteViewModel)
         {
             var exito = false;
             var mensajeError = new Dictionary<string, string>();
@@ -70,26 +68,18 @@ namespace ME.Libros.Web.Controllers
                     var id = ClienteService.Guardar(new ClienteDominio
                                                         {
                                                             FechaAlta = DateTime.Now,
-                                                            Nombre = model.Nombre,
-                                                            Apellido = model.Apellido,
-                                                            Cuil = model.Cuil,
-                                                            Barrio = model.Barrio,
-                                                            Direccion = model.Direccion,
-                                                            Localidad = LocalidadService.GetPorId(model.LocalidadId),
-                                                            //new LocalidadDominio
-                                                            //            {
-                                                            //                FechaAlta = DateTime.Now,
-                                                            //                Nombre = "Paraná",
-                                                            //                Provincia = new ProvinciaDominio
-                                                            //                            {
-                                                            //                                FechaAlta = DateTime.Now,
-                                                            //                                Nombre = "Entre Rios"
-                                                            //                            }
-                                                            //            },
-                                                            Sexo = model.Sexo,
-                                                            Email = model.Email,
-                                                            TelefonoFijo = model.TelefonoFijo,
-                                                            Celular = model.Celular
+                                                            Nombre = clienteViewModel.Nombre,
+                                                            Apellido = clienteViewModel.Apellido,
+                                                            Cuil = clienteViewModel.Cuil,
+                                                            Barrio = clienteViewModel.Barrio,
+                                                            Direccion = clienteViewModel.Direccion,
+                                                            Manzana = clienteViewModel.Manzana,
+                                                            Piso = clienteViewModel.Piso,
+                                                            Sexo = clienteViewModel.Sexo,
+                                                            Email = clienteViewModel.Email,
+                                                            TelefonoFijo = clienteViewModel.TelefonoFijo,
+                                                            Celular = clienteViewModel.Celular,
+                                                            Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id),
                                                         });
                     if (id > 0)
                     {
@@ -143,11 +133,8 @@ namespace ME.Libros.Web.Controllers
             using (ClienteService)
             {
                 var clienteDominio = ClienteService.GetPorId(id);
-                var clienteViewModel = new ClienteViewModel(clienteDominio)
-                {
-                    Provincias = new SelectList(ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre"),
-                    Localidades = new SelectList(LocalidadService.Listar(l => l.Provincia.Id == clienteDominio.Localidad.Provincia.Id).ToList().Select(l => new LocalidadViewModel(l)), "Id", "Nombre")
-                };
+                var clienteViewModel = new ClienteViewModel(clienteDominio);
+                PrepareModel(clienteViewModel);
 
                 return PartialView(clienteViewModel);
             }
@@ -169,7 +156,7 @@ namespace ME.Libros.Web.Controllers
                 clienteDominio.Cuil = clienteViewModel.Cuil;
                 clienteDominio.Barrio = clienteViewModel.Barrio;
                 clienteDominio.Direccion = clienteViewModel.Direccion;
-                clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
+                clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id);
                 clienteDominio.Sexo = clienteViewModel.Sexo;
                 clienteDominio.Email = clienteViewModel.Email;
                 clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
@@ -198,21 +185,8 @@ namespace ME.Libros.Web.Controllers
             using (ClienteService)
             {
                 var clienteDominio = ClienteService.GetPorId(id);
-
-                var clienteViewModel = new ClienteViewModel
-                {
-                    Id = clienteDominio.Id,
-                    Nombre = clienteDominio.Nombre,
-                    Apellido = clienteDominio.Apellido,
-                    Cuil = clienteDominio.Cuil,
-                    Barrio = clienteDominio.Barrio,
-                    Direccion = clienteDominio.Direccion,
-                    Localidad = new LocalidadViewModel(clienteDominio.Localidad),
-                    Sexo = clienteDominio.Sexo,
-                    Email = clienteDominio.Email,
-                    TelefonoFijo = clienteDominio.TelefonoFijo,
-                    Celular = clienteDominio.Celular
-                };
+                var clienteViewModel = new ClienteViewModel(clienteDominio);
+                PrepareModel(clienteViewModel);
 
                 return PartialView(clienteViewModel);
             }
@@ -234,5 +208,25 @@ namespace ME.Libros.Web.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        #region Private Methods
+
+        private void PrepareModel(ClienteViewModel clienteViewModel)
+        {
+            clienteViewModel.Provincias = new SelectList(this.ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(),
+                                            "Id",
+                                            "Nombre");
+
+            var localidades = new List<LocalidadViewModel>();
+            if (clienteViewModel.Id > 0)
+            {
+                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.Localidad.Provincia.Id)
+                                                                    .ToList()
+                                                                    .Select(l => new LocalidadViewModel(l)));
+            }
+            clienteViewModel.Localidades = new SelectList(localidades, "Id", "Nombre");
+        }
+
+        #endregion
     }
 }

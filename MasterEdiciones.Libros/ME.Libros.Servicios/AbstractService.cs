@@ -9,6 +9,8 @@ using ME.Libros.Dominio;
 
 namespace ME.Libros.Servicios
 {
+    using System.ComponentModel.DataAnnotations;
+
     public abstract class AbstractService<T> : IAbstractService<T>, IDisposable where T : BaseDominio 
     {
         #region Private Members
@@ -35,9 +37,9 @@ namespace ME.Libros.Servicios
             return repositorio.Guardar(entidad);
         }
 
-        //public virtual void Modificar(T cliente)
+        //public virtual void Modificar(T entidad)
         //{
-        //    repositorio.Editar(cliente);
+        //    repositorio.Editar(entidad);
         //}
 
         public virtual void Eliminar(T entidad)
@@ -75,9 +77,15 @@ namespace ME.Libros.Servicios
             GC.SuppressFinalize(this);
         }
 
-        public virtual bool Validar(T cliente)
+        public virtual bool Validar(T entidad)
         {
-            return true;
+            var properties = entidad.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(RequiredAttribute)));
+            foreach (var property in properties)
+            {
+                ModelError.Add(property.Name, "El campo es requerido");
+            }
+
+            return ModelError.Count == 0;
         }
     }
 }

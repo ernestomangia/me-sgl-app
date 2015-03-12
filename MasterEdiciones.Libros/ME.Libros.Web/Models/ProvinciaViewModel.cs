@@ -3,6 +3,8 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
+    using System.ComponentModel;
+
     public class ProvinciaViewModel
     {
         #region Constructor(s)
@@ -21,8 +23,8 @@ namespace ME.Libros.Web.Models
 
         #region Properties
 
+        [DisplayName("Código")]
         public long Id { get; set; }
-
         public string Nombre { get; set; }
 
         #endregion

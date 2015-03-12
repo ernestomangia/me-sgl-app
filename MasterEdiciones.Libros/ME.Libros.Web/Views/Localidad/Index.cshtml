@@ -17,12 +17,14 @@
 <table class="table table-striped table-hover tablaCustom">
     <tr>
         <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+        <th>@Html.DisplayName("Provincia")</th>
         <th>Acciones</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr id=@("tr_"+ item.Id)>
             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.Provincia.Nombre)</td>
             <td>
                 <a class="btn btn-info btn-sm" type="button" onclick="javascript:cargarPestaña('@Url.Action("Detalle", "Localidad", new { idLocalidad = item.Id})');">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -66,7 +68,7 @@
 
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
-        eliminarEntidad("@Url.Action("Eliminar", "Localidad")", "Localidad Nº " + id + " eliminado exitosamente", "Error al eliminar la localidad. Intente nuevamente.");
+        eliminarEntidad("@Url.Action("Eliminar", "Localidad")", "Localidad Nº " + id + " eliminada exitosamente", "Error al eliminar la localidad. Intente nuevamente.");
     });
 </script>
 

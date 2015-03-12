@@ -7,6 +7,8 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.EF
 {
+    using System.Linq;
+
     public class ModelContainer : DbContext, IModelContainer
     {
         #region Constructor(s)
@@ -39,10 +41,32 @@ namespace ME.Libros.EF
                     new ProvinciaDominio {Nombre = "Entre Rios", FechaAlta = DateTime.Now},
                     new ProvinciaDominio {Nombre = "Santa Fe", FechaAlta = DateTime.Now},
                     new ProvinciaDominio {Nombre = "Córdoba", FechaAlta = DateTime.Now},
-                    new ProvinciaDominio {Nombre = "San Luis", FechaAlta = DateTime.Now}
+                    new ProvinciaDominio {Nombre = "San Luis", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "Salta", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "San Juan", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "Chaco", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "Chubut", FechaAlta = DateTime.Now},
+                    new ProvinciaDominio {Nombre = "Santa Cruz", FechaAlta = DateTime.Now},
                 };
 
+                var localidades = new List<LocalidadDominio>
+                                      {
+                                          new LocalidadDominio {Nombre = "Paraná", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
+                                          new LocalidadDominio {Nombre = "Crespo", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
+                                          new LocalidadDominio {Nombre = "Gualeguychú", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
+                                          new LocalidadDominio {Nombre = "Oro Verde", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
+                                          new LocalidadDominio {Nombre = "Santa Fe", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
+                                          new LocalidadDominio {Nombre = "Coronda", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
+                                          new LocalidadDominio {Nombre = "Venado Tuerto", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
+                                      };
+
                 provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
+                localidades.ForEach(l =>
+                                        {
+                                            context.Set<LocalidadDominio>().Add(l);
+                                            l.FechaAlta = DateTime.Now;
+                                        });
+
                 context.SaveChanges();
             }
         }

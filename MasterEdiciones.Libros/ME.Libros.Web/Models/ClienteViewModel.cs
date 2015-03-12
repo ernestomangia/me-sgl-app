@@ -26,12 +26,16 @@ namespace ME.Libros.Web.Models
             FechaNacimiento = cliente.FechaNacimiento;
             Sexo = cliente.Sexo;
             Direccion = cliente.Direccion;
+            CalleA = cliente.CalleA;
+            CalleB = cliente.CalleB;
+            Barrio = cliente.Barrio;
+            Manzana = cliente.Manzana;
+            Piso = cliente.Piso;
             Departamento = cliente.Departamento;
             TelefonoFijo = cliente.TelefonoFijo;
             Celular = cliente.Celular;
             Email = cliente.Email;
-            ProvinciaId = cliente.Localidad.Provincia.Id;
-            LocalidadId = cliente.Localidad.Id;
+            Localidad = new LocalidadViewModel(cliente.Localidad);
         }
 
         #endregion
@@ -55,7 +59,6 @@ namespace ME.Libros.Web.Models
         [Required]
         [DisplayName("Dirección")]
         public string Direccion { get; set; }
-        //TODO: Preguntar si esto va
         [DisplayName("Calle A")]
         public string CalleA { get; set; }
         [DisplayName("Calle B")]
@@ -65,20 +68,15 @@ namespace ME.Libros.Web.Models
         public string Piso { get; set; }
         [DisplayName("Nº Dpto")]
         public string Departamento { get; set; }
-        
         [DisplayName("Teléfono Fijo")]
         public string TelefonoFijo { get; set; }
         public string Celular { get; set; }
         public string Email { get; set; }
-        
-        public SelectList Provincias { get; set; }
-        [DisplayName("Provincia")]
-        public long ProvinciaId { get; set; }
-        public SelectList Localidades { get; set; }
-        [DisplayName("Localidad")]
-        public long LocalidadId { get; set; }
 
         public LocalidadViewModel Localidad { get; set; }
+
+        public SelectList Provincias { get; set; }
+        public SelectList Localidades { get; set; }
 
         #endregion
     }

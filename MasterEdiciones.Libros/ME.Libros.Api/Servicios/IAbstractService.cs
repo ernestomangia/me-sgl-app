@@ -14,6 +14,6 @@ namespace ME.Libros.Api.Servicios
         IEnumerable<T> Listar();
         IEnumerable<T> Listar(Expression<Func<T, bool>> expresion);
         IQueryable<T> ListarAsQueryable();
-        bool Validar(T cliente);
+        bool Validar(T entidad);
     }
 }

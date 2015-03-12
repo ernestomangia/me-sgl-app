@@ -29,13 +29,13 @@
     </div>
 </div>
 <div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.ProvinciaId, new { @class = "col-sm-1 control-label" })
+    @Html.LabelFor(c => c.Localidad.Provincia.Id, "Provincia", new { @class = "col-sm-1 control-label" })
     <div class="col-sm-3">
-        @Html.DropDownListFor(l => l.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control", placeholder = "Provincia", required = "required" })
+        @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required" })
     </div>
-    @Html.LabelFor(c => c.LocalidadId, new { @class = "col-sm-1 control-label" })
+    @Html.LabelFor(c => c.Localidad.Id, "Localidad", new { @class = "col-sm-1 control-label" })
     <div class="col-sm-3">
-        @Html.DropDownListFor(l => l.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control", placeholder = "Localidad", required = "required" })
+        @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required" })
     </div>
 </div>
 <div class="form-group form-group-sm">
@@ -74,8 +74,8 @@
 </div>
 
 <script type="text/javascript">
-    $("#ProvinciaId").on("change", function () {
-        var idProvincia = $("#ProvinciaId :selected").attr("value");
+    $(".provincia").on("change", function () {
+        var idProvincia = $(".provincia :selected").attr("value");
         if (idProvincia > 0) {
             $.ajax({
                 method: "GET",
@@ -85,20 +85,20 @@
                     mensajeError("Error: " + error + " - Status: " + status);
                 },
                 success: function (data) {
-                    $("#LocalidadId").empty();
+                    $(".localidad").empty();
                     if (data.length > 0) {
                         $.each(data, function (key, value) {
-                            $("#LocalidadId").append(new Option(value.Nombre, value.Id));
+                            $(".localidad").append(new Option(value.Nombre, value.Id));
                         });
                     } else {
-                        $("#LocalidadId").append(new Option("Seleccione", "0"));
+                        $(".localidad").append(new Option("Seleccione", "0"));
                     }
                 },
                 timeout: 10000,
                 cache: false
             });
         } else {
-            $("#LocalidadId").empty().append(new Option("Seleccione", "0"));
+            $(".localidad").empty().append(new Option("Seleccione", "0"));
         }
     });
 </script>

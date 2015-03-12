@@ -22,18 +22,20 @@ namespace ME.Libros.Servicios.General
             return -1;
         }
 
-        public override bool Validar(ClienteDominio cliente)
+        public override bool Validar(ClienteDominio entidad)
         {
-            if (cliente.Cuil.Length != 11)
+            base.Validar(entidad);
+
+            if (entidad.Cuil.Length != 11)
             {
                 ModelError.Add("Cuil", "El campo CUIL debe contener 11 caracteres.");
             }
-            if (cliente.TelefonoFijo.Length != 10)
+            if (!string.IsNullOrEmpty(entidad.TelefonoFijo) && entidad.TelefonoFijo.Length != 10)
             {
                 ModelError.Add("Teléfono", "El campo Teléfono debe contener 10 caracteres.");
             }
             
-            return base.Validar(cliente) && ModelError.Count == 0;
+            return ModelError.Count == 0;
         }
 
         #region Private Methods

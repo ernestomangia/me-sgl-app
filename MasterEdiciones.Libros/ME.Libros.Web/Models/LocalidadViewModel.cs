@@ -17,19 +17,22 @@ namespace ME.Libros.Web.Models
         {
             Id = localidad.Id;
             Nombre = localidad.Nombre;
-            Provincia = localidad.Provincia.Nombre;
+            Provincia = new ProvinciaViewModel(localidad.Provincia);
         }
 
         #endregion
 
         #region Properties
 
+        [DisplayName("Código")]
         public long Id { get; set; }
         public string Nombre { get; set; }
-        public string Provincia { get; set; }
+        public ProvinciaViewModel Provincia { get; set; }
+        
         public SelectList Provincias { get; set; }
-        [DisplayName("Provincia")]
-        public int ProvinciaId { get; set; }
+        
+        //[DisplayName("Provincia")]
+        //public int ProvinciaId { get; set; }
 
         #endregion
     }

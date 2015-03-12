@@ -74,23 +74,31 @@
 </div>
 
 <script type="text/javascript">
-    $("#ProvinciaId").on("change", function() {
-        $.ajax({
-            method: "GET",
-            url: '@Url.Action("ListaLocalidades", "Cliente")' + "?id=" + $("#ProvinciaId :selected").attr("value"),
-            dataType: "json",
-            error: function (text, error) {
-                mensajeError("Ha ocurrido un error: " + text + error);
-            },
-            success: function (data) {
-                alert(data);
-                //$("#LocalidadId").empty();
-                //$.each(data, function(key, value) {
-                //    $("#LocalidadId").append(new Option(key, value));
-                //});
-            },
-            timeout: 10000,
-            cache: false
-        });
+    $("#ProvinciaId").on("change", function () {
+        var idProvincia = $("#ProvinciaId :selected").attr("value");
+        if (idProvincia > 0) {
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("ListarLocalidades", "Cliente")' + "?id=" + idProvincia,
+                dataType: "json",
+                error: function (jqXHR, status, error) {
+                    mensajeError("Error: " + error + " - Status: " + status);
+                },
+                success: function (data) {
+                    $("#LocalidadId").empty();
+                    if (data.length > 0) {
+                        $.each(data, function (key, value) {
+                            $("#LocalidadId").append(new Option(value.Nombre, value.Id));
+                        });
+                    } else {
+                        $("#LocalidadId").append(new Option("Seleccione", "0"));
+                    }
+                },
+                timeout: 10000,
+                cache: false
+            });
+        } else {
+            $("#LocalidadId").empty().append(new Option("Seleccione", "0"));
+        }
     });
 </script>

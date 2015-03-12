@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Collections.Generic;
 
@@ -74,16 +75,17 @@ namespace ME.Libros.Web.Controllers
                                                             Cuil = model.Cuil,
                                                             Barrio = model.Barrio,
                                                             Direccion = model.Direccion,
-                                                            Localidad = new LocalidadDominio
-                                                                        {
-                                                                            FechaAlta = DateTime.Now,
-                                                                            Nombre = "Paraná",
-                                                                            Provincia = new ProvinciaDominio
-                                                                                        {
-                                                                                            FechaAlta = DateTime.Now,
-                                                                                            Nombre = "Entre Rios"
-                                                                                        }
-                                                                        },
+                                                            Localidad = LocalidadService.GetPorId(model.LocalidadId),
+                                                            //new LocalidadDominio
+                                                            //            {
+                                                            //                FechaAlta = DateTime.Now,
+                                                            //                Nombre = "Paraná",
+                                                            //                Provincia = new ProvinciaDominio
+                                                            //                            {
+                                                            //                                FechaAlta = DateTime.Now,
+                                                            //                                Nombre = "Entre Rios"
+                                                            //                            }
+                                                            //            },
                                                             Sexo = model.Sexo,
                                                             Email = model.Email,
                                                             TelefonoFijo = model.TelefonoFijo,
@@ -141,7 +143,11 @@ namespace ME.Libros.Web.Controllers
             using (ClienteService)
             {
                 var clienteDominio = ClienteService.GetPorId(id);
-                var clienteViewModel = new ClienteViewModel(clienteDominio);
+                var clienteViewModel = new ClienteViewModel(clienteDominio)
+                {
+                    Provincias = new SelectList(ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre"),
+                    Localidades = new SelectList(LocalidadService.Listar(l => l.Provincia.Id == clienteDominio.Localidad.Provincia.Id).ToList().Select(l => new LocalidadViewModel(l)), "Id", "Nombre")
+                };
 
                 return PartialView(clienteViewModel);
             }
@@ -163,17 +169,7 @@ namespace ME.Libros.Web.Controllers
                 clienteDominio.Cuil = clienteViewModel.Cuil;
                 clienteDominio.Barrio = clienteViewModel.Barrio;
                 clienteDominio.Direccion = clienteViewModel.Direccion;
-                clienteDominio.Localidad = new LocalidadDominio
-                                               {
-                                                   FechaAlta = DateTime.Now,
-                                                   Nombre = "Paraná",
-                                                   Provincia =
-                                                       new ProvinciaDominio
-                                                           {
-                                                               FechaAlta = DateTime.Now,
-                                                               Nombre = "Entre Rios"
-                                                           }
-                                               };
+                clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
                 clienteDominio.Sexo = clienteViewModel.Sexo;
                 clienteDominio.Email = clienteViewModel.Email;
                 clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
@@ -224,17 +220,18 @@ namespace ME.Libros.Web.Controllers
             // handle try catch and log
         }
 
-        public JsonResult ListaLocalidades(int id)
+        public JsonResult ListarLocalidades(int id)
         {
             var localidades = new List<LocalidadViewModel>();
             using (LocalidadService)
             {
                 localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == id).ToList().Select(l => new LocalidadViewModel(l)));
             }
-
+            
             return new JsonResult
             {
-                Data = localidades.Select(l => new {l.Id, l.Nombre}).ToList()
+                Data = localidades,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
     }

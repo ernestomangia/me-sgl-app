@@ -30,6 +30,8 @@ namespace ME.Libros.Web.Models
             TelefonoFijo = cliente.TelefonoFijo;
             Celular = cliente.Celular;
             Email = cliente.Email;
+            ProvinciaId = cliente.Localidad.Provincia.Id;
+            LocalidadId = cliente.Localidad.Id;
         }
 
         #endregion
@@ -71,10 +73,10 @@ namespace ME.Libros.Web.Models
         
         public SelectList Provincias { get; set; }
         [DisplayName("Provincia")]
-        public int ProvinciaId { get; set; }
+        public long ProvinciaId { get; set; }
         public SelectList Localidades { get; set; }
         [DisplayName("Localidad")]
-        public int LocalidadId { get; set; }
+        public long LocalidadId { get; set; }
 
         public LocalidadViewModel Localidad { get; set; }
 

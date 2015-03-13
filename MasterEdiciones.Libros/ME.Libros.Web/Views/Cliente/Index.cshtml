@@ -11,14 +11,16 @@
 </a>
 
 <table class="table table-striped table-hover tablaCustom">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.Id)</th>
-        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-        <th>@Html.DisplayNameFor(model => model.Apellido)</th>
-        <th>@Html.DisplayNameFor(model => model.Cuil)</th>
-        <th>@Html.DisplayNameFor(model => model.Localidad)</th>
-        <th>Acciones</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+            <th>@Html.DisplayNameFor(model => model.Cuil)</th>
+            <th>@Html.DisplayNameFor(model => model.Localidad)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
     @foreach (var item in Model)
     {
         <tr id=@("tr_"+ item.Id)>
@@ -65,10 +67,15 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         if ('@ViewBag.Id' != "") {
             mensajeSuccess('@ViewBag.Mensaje');
         }
+        $(".tablaCustom").dataTable({
+            paging: true,
+            searching: true,
+            ordering: true
+        });
     });
 
     $("#btnAceptar").on("click", function () {

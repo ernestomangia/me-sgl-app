@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
 
 <h3>Clientes</h3>
-<a id="btnNuevo" class="btn btn-success" href="#" role="button">
+<a id="btnNuevo" class="btn btn-success" href="@Url.Action("Crear", "Cliente")" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
@@ -65,8 +65,10 @@
 
 
 <script type="text/javascript">
-    $("#btnNuevo").on("click", function () {
-        cargarPestaña('@Url.Action("Crear", "Cliente")');
+    $(document).ready(function() {
+        if ('@ViewBag.Id' != "") {
+            mensajeSuccess('@ViewBag.Mensaje');
+        }
     });
 
     $("#btnAceptar").on("click", function () {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using System.Web.Mvc;
 
 using ME.Libros.Utils.Enums;
@@ -14,6 +15,7 @@ namespace ME.Libros.Web.Models
 
         public ClienteViewModel()
         {
+            Localidad = new LocalidadViewModel();
         }
 
         public ClienteViewModel(ClienteDominio cliente)
@@ -51,6 +53,7 @@ namespace ME.Libros.Web.Models
         [Required]
         public string Apellido { get; set; }
         [Required]
+        [StringLength(11, ErrorMessage = "El campo CUIL debe contener 11 caracteres")]
         public string Cuil { get; set; }
         [DisplayName("Fecha de Nacimiento")]
         public DateTime? FechaNacimiento { get; set; }
@@ -69,7 +72,9 @@ namespace ME.Libros.Web.Models
         [DisplayName("Nº Dpto")]
         public string Departamento { get; set; }
         [DisplayName("Teléfono Fijo")]
+        [StringLength(10, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "TelefonoFijoLength")]
         public string TelefonoFijo { get; set; }
+        [StringLength(10, ErrorMessage = "El campo Celular debe contener 11 caracteres")]
         public string Celular { get; set; }
         public string Email { get; set; }
 

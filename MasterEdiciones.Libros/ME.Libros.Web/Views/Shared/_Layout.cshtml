@@ -11,8 +11,9 @@
         
         <script src="~/Scripts/jquery-2.1.3.min.js"></script>
         <script src="~/Scripts/bootstrap.min.js"></script>
-        <script src="~/Scripts/modernizr-2.8.3.js"></script>
+        @*<script src="~/Scripts/modernizr-2.8.3.js"></script>*@
         <script src="~/Scripts/toastr.js"></script>
+        <script src="~/Scripts/toastr.custom.js"></script>
         <script src="~/Scripts/common.js"></script>
     </head>
     <body>
@@ -31,10 +32,10 @@
                             @Html.ActionLink("Home", "Index", "Home")
                         </li>
                         <li>
-                            @Html.ActionLink("Administración", "Index/1", "MenuLateral")
+                            @Html.ActionLink("Administración", "Index", "Cliente")
                         </li>
                         <li>
-                            @Html.ActionLink("Ventas", "Index/2", "MenuLateral")
+                            @Html.ActionLink("Ventas", "Index", "Venta")
                         </li>
                         <li><a href="#">Facturación</a></li>
                         <li><a href="#">Reportes</a></li>
@@ -48,8 +49,20 @@
 
         <div class="container body-content">
             <img id="loading-indicator" src="~/Content/img/ajax-loader.gif" style="display:none" />
-            @RenderBody()
-
+            @if (ViewBag.MenuId != null)
+            {
+                @Html.Action("Index", "MenuLateral", new { id = ViewBag.MenuId })
+                
+                <div class="tab-content contenedor">
+                    <div id="tabContenedor" role="tabpanel" class="tab-pane fade in active">
+                        @RenderBody()
+                    </div>
+                </div>
+            }
+            else
+            {
+                @RenderBody()
+            }
             <div class="navbar navbar-fixed-bottom ">
                 <div class="container">
                     <p>&copy; Sistema Gestion de Libros v1.0</p>
@@ -60,19 +73,5 @@
 </html>
 
 <script type="text/javascript">
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "progressBar": false,
-        "positionClass": "toast-top-right",
-        "onclick": null,
-        "showDuration": "500",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
+    
 </script>

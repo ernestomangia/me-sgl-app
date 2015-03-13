@@ -11,6 +11,7 @@ namespace ME.Libros.Web.Models
 
         public LocalidadViewModel()
         {
+            Provincia = new ProvinciaViewModel();
         }
 
         public LocalidadViewModel(LocalidadDominio localidad)

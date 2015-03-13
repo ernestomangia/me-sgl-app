@@ -25,15 +25,8 @@ namespace ME.Libros.Servicios.General
         public override bool Validar(ClienteDominio entidad)
         {
             base.Validar(entidad);
-
-            if (entidad.Cuil.Length != 11)
-            {
-                ModelError.Add("Cuil", "El campo CUIL debe contener 11 caracteres.");
-            }
-            if (!string.IsNullOrEmpty(entidad.TelefonoFijo) && entidad.TelefonoFijo.Length != 10)
-            {
-                ModelError.Add("Teléfono", "El campo Teléfono debe contener 10 caracteres.");
-            }
+            
+            // Validad cuil unico
             
             return ModelError.Count == 0;
         }

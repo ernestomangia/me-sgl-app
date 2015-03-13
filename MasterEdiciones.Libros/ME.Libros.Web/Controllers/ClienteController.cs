@@ -11,8 +11,6 @@ using ME.Libros.Repositorios;
 
 namespace ME.Libros.Web.Controllers
 {
-    using System.Runtime.InteropServices;
-
     public class ClienteController : Controller
     {
         public ClienteService ClienteService { get; set; }
@@ -25,12 +23,15 @@ namespace ME.Libros.Web.Controllers
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
+            ViewBag.MenuId = 1;
         }
 
         // GET: Cliente
         [HttpGet]
-        public PartialViewResult Index()
+        public ActionResult Index()
         {
+            ViewBag.Id = TempData["Id"];
+            ViewBag.Mensaje = TempData["Mensaje"];
             var clientes = new List<ClienteViewModel>();
             try
             {
@@ -44,62 +45,68 @@ namespace ME.Libros.Web.Controllers
                 // Loguear
             }
 
-            return PartialView(clientes);
+            return View(clientes);
         }
 
         [HttpGet]
-        public PartialViewResult Crear()
+        public ActionResult Crear()
         {
             var clienteViewModel = new ClienteViewModel();
             PrepareModel(clienteViewModel);
 
-            return PartialView(clienteViewModel);
+            return View(clienteViewModel);
         }
 
         [HttpPost]
-        public JsonResult Crear(ClienteViewModel clienteViewModel)
+        public ActionResult Crear(ClienteViewModel clienteViewModel)
         {
-            var exito = false;
-            var mensajeError = new Dictionary<string, string>();
-            try
+            if (ModelState.IsValid)
             {
-                using (ClienteService)
+                try
                 {
-                    var id = ClienteService.Guardar(new ClienteDominio
-                                                        {
-                                                            FechaAlta = DateTime.Now,
-                                                            Nombre = clienteViewModel.Nombre,
-                                                            Apellido = clienteViewModel.Apellido,
-                                                            Cuil = clienteViewModel.Cuil,
-                                                            Barrio = clienteViewModel.Barrio,
-                                                            Direccion = clienteViewModel.Direccion,
-                                                            Manzana = clienteViewModel.Manzana,
-                                                            Piso = clienteViewModel.Piso,
-                                                            Sexo = clienteViewModel.Sexo,
-                                                            Email = clienteViewModel.Email,
-                                                            TelefonoFijo = clienteViewModel.TelefonoFijo,
-                                                            Celular = clienteViewModel.Celular,
-                                                            Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id),
-                                                        });
-                    if (id > 0)
+                    using (ClienteService)
                     {
-                        exito = true;
-                    }
-                    else
-                    {
-                        mensajeError = ClienteService.ModelError;
+                        clienteViewModel.Id = ClienteService.Guardar(new ClienteDominio
+                        {
+                            FechaAlta = DateTime.Now,
+                            Nombre = clienteViewModel.Nombre,
+                            Apellido = clienteViewModel.Apellido,
+                            Cuil = clienteViewModel.Cuil,
+                            Barrio = clienteViewModel.Barrio,
+                            Direccion = clienteViewModel.Direccion,
+                            Manzana = clienteViewModel.Manzana,
+                            Piso = clienteViewModel.Piso,
+                            Sexo = clienteViewModel.Sexo,
+                            Email = clienteViewModel.Email,
+                            TelefonoFijo = clienteViewModel.TelefonoFijo,
+                            Celular = clienteViewModel.Celular,
+                            Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id),
+                        });
+                        if (clienteViewModel.Id <= 0)
+                        {
+                            foreach (var error in ClienteService.ModelError)
+                            {
+                                ModelState.AddModelError(error.Key, error.Value);
+                            }
+                        }
+                        else
+                        {
+                            TempData["Id"] = clienteViewModel.Id;
+                            TempData["Mensaje"] = string.Format("El cliente se creó exitosamente");
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                mensajeError.Add("Error del sistema.", ex.Message);
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", "Error del sistema");
+                }
             }
 
-            return new JsonResult
-            {
-                Data = new { success = exito, mensajes = mensajeError }
-            };
+            PrepareModel(clienteViewModel);
+
+            return clienteViewModel.Id > 0 
+                    ? (ActionResult) RedirectToAction("Index") 
+                    : View(clienteViewModel);
         }
 
         [HttpGet]
@@ -128,7 +135,7 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult Modificar(int id)
+        public ActionResult Modificar(int id)
         {
             using (ClienteService)
             {
@@ -136,7 +143,7 @@ namespace ME.Libros.Web.Controllers
                 var clienteViewModel = new ClienteViewModel(clienteDominio);
                 PrepareModel(clienteViewModel);
 
-                return PartialView(clienteViewModel);
+                return View(clienteViewModel);
             }
 
             // Handle and log error
@@ -180,7 +187,7 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult Detalle(int id)
+        public ActionResult Detalle(int id)
         {
             using (ClienteService)
             {
@@ -188,7 +195,7 @@ namespace ME.Libros.Web.Controllers
                 var clienteViewModel = new ClienteViewModel(clienteDominio);
                 PrepareModel(clienteViewModel);
 
-                return PartialView(clienteViewModel);
+                return View(clienteViewModel);
             }
 
             // handle try catch and log
@@ -201,7 +208,7 @@ namespace ME.Libros.Web.Controllers
             {
                 localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == id).ToList().Select(l => new LocalidadViewModel(l)));
             }
-            
+
             return new JsonResult
             {
                 Data = localidades,
@@ -218,7 +225,7 @@ namespace ME.Libros.Web.Controllers
                                             "Nombre");
 
             var localidades = new List<LocalidadViewModel>();
-            if (clienteViewModel.Id > 0)
+            if (clienteViewModel.Localidad.Provincia.Id > 0)
             {
                 localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.Localidad.Provincia.Id)
                                                                     .ToList()

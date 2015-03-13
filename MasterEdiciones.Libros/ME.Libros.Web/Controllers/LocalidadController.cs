@@ -21,11 +21,12 @@ namespace ME.Libros.Web.Controllers
             var modelContainer = new ModelContainer();
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
+            ViewBag.MenuId = 3;
         }
 
         // GET: Localidad
         [HttpGet]
-        public PartialViewResult Index()
+        public ActionResult Index()
         {
             var localidades = new List<LocalidadViewModel>();
             using (LocalidadService)
@@ -33,18 +34,18 @@ namespace ME.Libros.Web.Controllers
                 localidades.AddRange(LocalidadService.Listar().ToList().Select(l => new LocalidadViewModel(l)));
             }
 
-            return PartialView(localidades);
+            return View(localidades);
         }
 
         [HttpGet]
-        public PartialViewResult Crear()
+        public ActionResult Crear()
         {
             var model = new LocalidadViewModel
                             {
                                 Provincias = new SelectList(this.ProvinciaService.Listar().Select(p => new ProvinciaViewModel(p)).ToList(), "Id", "Nombre")
                             };
 
-            return PartialView(model);
+            return View(model);
         }
 
         [HttpPost]

@@ -228,8 +228,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalidadController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
-    <Compile Include="Controllers\ProvinciaController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="ErrorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,12 +258,12 @@
     <Content Include="Views\Cliente\Modificar.cshtml" />
     <Content Include="Views\Cliente\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Cliente\Detalle.cshtml" />
-    <Content Include="Views\Provincia\Index.cshtml" />
     <Content Include="Views\Localidad\Index.cshtml" />
     <Content Include="Views\Localidad\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Localidad\Crear.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
     <Content Include="Views\Pedido\Index.cshtml" />
+    <Content Include="Scripts\toastr.custom.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -300,6 +304,13 @@
       <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>
       <Name>ME.Libros.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorMessages.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

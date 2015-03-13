@@ -5,19 +5,17 @@
         @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
         {
             <li role="presentation" class="@(menu.Seleccionado ? "active" : "")">
-                <a id=@("link_" + menu.Id) href="#tabContenedor" role="tab" data-toggle="tab" onclick="cargarPestaña('@menu.Link')">@menu.Nombre</a>
+                <a id=@("link_" + menu.Id) role="tab" data-toggle="tab" href="@menu.Link">@menu.Nombre</a>
             </li>
         }
     </ul>
 </div>
 
-<div class="tab-content contenedor">
-    <div id="tabContenedor" role="tabpanel" class="tab-pane fade in active">
-    </div>
-</div>
-
 <script type="text/javascript">
     $(document).ready(function () {
-        $(".active > a").click();
+        $(".menuLateral ul li a").on("click", function () {
+            showAjaxLoader();
+            window.location = $(this).attr("href");
+        });
     });
 </script>

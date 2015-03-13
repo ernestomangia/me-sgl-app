@@ -69,7 +69,7 @@
     </div>
 </div>
 
-<div id="error" class="alert alert-danger error" role="alert">
+<div class="alert alert-danger errorCustom" role="alert">
     <ul></ul>
 </div>
 
@@ -91,14 +91,14 @@
                             $(".localidad").append(new Option(value.Nombre, value.Id));
                         });
                     } else {
-                        $(".localidad").append(new Option("Seleccione", "0"));
+                        $(".localidad").append(new Option("Seleccione", ""));
                     }
                 },
                 timeout: 10000,
                 cache: false
             });
         } else {
-            $(".localidad").empty().append(new Option("Seleccione", "0"));
+            $(".localidad").empty().append(new Option("Seleccione", ""));
         }
     });
 </script>

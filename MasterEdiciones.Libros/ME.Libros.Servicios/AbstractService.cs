@@ -87,5 +87,11 @@ namespace ME.Libros.Servicios
 
             return ModelError.Count == 0;
         }
+
+
+        public virtual void Guardar2(T entidad)
+        {
+            repositorio.Guardar(entidad);
+        }
     }
 }

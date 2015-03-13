@@ -8,6 +8,7 @@ namespace ME.Libros.Api.Servicios
     public interface IAbstractService<T>
     {
         long Guardar(T entidad);
+        void Guardar2(T entidad);
         void Eliminar(T entidad);
         T GetPorId(long id);
         T Get(Expression<Func<T, bool>> expression);

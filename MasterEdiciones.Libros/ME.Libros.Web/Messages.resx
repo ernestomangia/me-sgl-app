@@ -117,28 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CuilLength" xml:space="preserve">
-    <value>El CUIL debe contener 11 caracteres</value>
+  <data name="ClienteModificado" xml:space="preserve">
+    <value>El Cliente se modificó exitosamente</value>
   </data>
-  <data name="CuilRepetido" xml:space="preserve">
-    <value>El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente</value>
+  <data name="ClienteNuevo" xml:space="preserve">
+    <value>El Cliente se creó exitosamente</value>
   </data>
-  <data name="EliminarCliente" xml:space="preserve">
-    <value>El cliente no puede ser eliminado porque tiene datos asociados</value>
+  <data name="EntidadModificada" xml:space="preserve">
+    <value>{0} se modificó exitosamente</value>
   </data>
-  <data name="EliminarLocalidad" xml:space="preserve">
-    <value>La localidad no puede ser eliminada porque tiene datos asociados</value>
-  </data>
-  <data name="ErrorSistema" xml:space="preserve">
-    <value>Ha ocurrido un error en el sistema</value>
-  </data>
-  <data name="PropertyValueRequired" xml:space="preserve">
-    <value>El valor {0} es requerido</value>
-  </data>
-  <data name="TelefonoFijoLength" xml:space="preserve">
-    <value>El &lt;b&gt;Telefono Fijo&lt;/b&gt; debe contener 10 caracteres</value>
-  </data>
-  <data name="ValidationRequired" xml:space="preserve">
-    <value>El campo es requerido</value>
+  <data name="EntidadNueva" xml:space="preserve">
+    <value>{0} se creó exitosamente</value>
   </data>
 </root>

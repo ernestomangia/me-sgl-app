@@ -22,24 +22,24 @@ namespace ME.Libros.Web {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ErrorMessages {
+    internal class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ErrorMessages() {
+        internal Messages() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ME.Libros.Web.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ME.Libros.Web.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace ME.Libros.Web {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,74 +61,38 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El CUIL debe contener 11 caracteres.
+        ///   Looks up a localized string similar to El Cliente se modificó exitosamente.
         /// </summary>
-        public static string CuilLength {
+        internal static string ClienteModificado {
             get {
-                return ResourceManager.GetString("CuilLength", resourceCulture);
+                return ResourceManager.GetString("ClienteModificado", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente.
+        ///   Looks up a localized string similar to El Cliente se creó exitosamente.
         /// </summary>
-        public static string CuilRepetido {
+        internal static string ClienteNuevo {
             get {
-                return ResourceManager.GetString("CuilRepetido", resourceCulture);
+                return ResourceManager.GetString("ClienteNuevo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El cliente no puede ser eliminado porque tiene datos asociados.
+        ///   Looks up a localized string similar to {0} se modificó exitosamente.
         /// </summary>
-        public static string EliminarCliente {
+        internal static string EntidadModificada {
             get {
-                return ResourceManager.GetString("EliminarCliente", resourceCulture);
+                return ResourceManager.GetString("EntidadModificada", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La localidad no puede ser eliminada porque tiene datos asociados.
+        ///   Looks up a localized string similar to {0} se creó exitosamente.
         /// </summary>
-        public static string EliminarLocalidad {
+        internal static string EntidadNueva {
             get {
-                return ResourceManager.GetString("EliminarLocalidad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ha ocurrido un error en el sistema.
-        /// </summary>
-        public static string ErrorSistema {
-            get {
-                return ResourceManager.GetString("ErrorSistema", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El valor {0} es requerido.
-        /// </summary>
-        public static string PropertyValueRequired {
-            get {
-                return ResourceManager.GetString("PropertyValueRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;Telefono Fijo&lt;/b&gt; debe contener 10 caracteres.
-        /// </summary>
-        public static string TelefonoFijoLength {
-            get {
-                return ResourceManager.GetString("TelefonoFijoLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El campo es requerido.
-        /// </summary>
-        public static string ValidationRequired {
-            get {
-                return ResourceManager.GetString("ValidationRequired", resourceCulture);
+                return ResourceManager.GetString("EntidadNueva", resourceCulture);
             }
         }
     }

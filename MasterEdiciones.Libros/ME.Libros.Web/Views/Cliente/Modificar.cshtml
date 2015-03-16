@@ -3,14 +3,21 @@
 <h3>Modificar cliente</h3>
 @using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
 {
-    @Html.ValidationSummary(true)
-
     @Html.Partial("Shared/Form_Partial", Model)
+
+    if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" role="alert">
+            <b>Error:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    }
+
     @Html.HiddenFor(model => model.Id)
 
     <div class="form-group form-group-sm">
         <div class="col-sm-offset-8">
-            <a id="btnCancelarModificar" class="btn btn-default" href="#">
+            <a id="btnCancelarModificar" class="btn btn-default" href="@Url.Action("Index")">
                 Cancelar
             </a>
             <input type="submit" value="Modificar" class="btn btn-success" />
@@ -19,11 +26,7 @@
 }
 
 <script>
-    $("#btnCancelarModificar").on("click", function () {
-        cargarPestaña('@Url.Action("Index", "Cliente")');
-    });
-
-    guardarEntidad("El cliente se modificó exitosamente");
+    //guardarEntidad("El cliente se modificó exitosamente");
 
     @*$("#formCliente").on("submit", function () {
         event.preventDefault();

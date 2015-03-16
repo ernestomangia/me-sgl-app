@@ -11,6 +11,7 @@
             $(element).closest(".form-group")
             .removeClass(errorClass)
             .addClass(validClass);
+            //$(element).insertAfter("<span class='glyphicon glyphicon-ok' form-control-feedback aria-hidden='true'></span><span class='sr-only'>(success)</span>");
         }
     };
 

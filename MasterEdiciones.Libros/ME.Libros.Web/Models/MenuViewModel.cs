@@ -62,7 +62,6 @@ namespace ME.Libros.Web.Models
                         Nombre = "Pedidos",
                         Link = "#",
                         Posicion = 10,
-                        Seleccionado = true
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {

@@ -9,20 +9,24 @@
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
-<a class="btn btn-info" href="#" role="button">
+@*<a class="btn btn-info" href="#" role="button">
     <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
     Filtrar
-</a>
+</a>*@
 
-<table class="table table-striped table-hover tablaCustom">
-    <tr>
-        <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-        <th>@Html.DisplayName("Provincia")</th>
-        <th>Acciones</th>
-    </tr>
+<table class="dataTableCustom">
+    <thead>
+        <tr>
+            <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayName("Provincia")</th>
+            <th class="columnaAcciones">Acciones</th>
+        </tr>
+    </thead>
     @foreach (var item in Model)
     {
         <tr id=@("tr_"+ item.Id)>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
             <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
             <td>@Html.DisplayFor(modelItem => item.Provincia.Nombre)</td>
             <td>
@@ -62,9 +66,9 @@
 </div>
 
 <script type="text/javascript">
-    $("#btnNuevo").on("click", function () {
+    @*$("#btnNuevo").on("click", function () {
         cargarPestaña('@Url.Action("Crear", "Localidad")');
-    });
+    });*@
 
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();

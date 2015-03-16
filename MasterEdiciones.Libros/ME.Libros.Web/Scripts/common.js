@@ -66,11 +66,12 @@ function eliminarEntidad(url, msjSuccess, msjError) {
             mensajeError("Ha ocurrido un error: " + text + error);
         },
         success: function (data) {
-            if (data.success) {
+            if (data.IsValid) {
                 mensajeSuccess(msjSuccess);
                 $("#tr_" + id).remove();
             } else {
                 mensajeError(msjError + " Mensaje: " + data.mensaje);
+                alert(data);
             }
         },
         timeout: 10000,

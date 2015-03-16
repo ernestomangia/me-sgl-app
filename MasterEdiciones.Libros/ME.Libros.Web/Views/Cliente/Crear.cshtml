@@ -4,7 +4,7 @@
 @using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-
+    
     if (!ViewData.ModelState.IsValid)
     {
         <div class="alert alert-danger" role="alert">
@@ -12,6 +12,8 @@
             @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
         </div>
     }
+
+    @Html.ValidationSummary("Error:", new { @class = "alert alert-danger" })
     
     <div class="form-group">
         <div class="col-sm-offset-8">
@@ -31,7 +33,7 @@
     $("#formCliente").on("submit", function () {
         //event.preventDefault();
         //guardarEntidad("El cliente se creó exitosamente");
-        
+
         @*$.ajax({
             method: "POST",
             url: $("#formCliente").attr("action"),

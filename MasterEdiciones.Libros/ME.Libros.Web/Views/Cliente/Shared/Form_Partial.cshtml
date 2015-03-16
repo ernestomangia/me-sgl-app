@@ -1,76 +1,110 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
 @if (Model.Id > 0)
 {
-    <div class="form-group form-group-sm">
-        @Html.LabelFor(c => c.Id, new { @class = "col-sm-1 control-label" })
-        <div class="col-sm-3">
-            @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.Id, new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-9">
+                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
         </div>
     </div>
 }
-<div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.Nombre, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre" })
-    </div>
-    @Html.LabelFor(c => c.Apellido, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control", placeholder = "Apellido", required = "required" })
-    </div>
-</div>
-<div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.Cuil, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = "Cuil", required = "required" })
-    </div>
-    @Html.LabelFor(c => c.Sexo, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.EnumDropDownListFor(c => c.Sexo, new { @class = "form-control", required = "required" })
-    </div>
-</div>
-<div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.Localidad.Provincia.Id, "Provincia", new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required" })
-    </div>
-    @Html.LabelFor(c => c.Localidad.Id, "Localidad", new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required" })
-    </div>
-</div>
-<div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.Direccion, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = "Dirección", required = "required" })
-    </div>
-    @Html.LabelFor(c => c.Barrio, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Barrio, new { @class = "form-control", placeholder = "Barrio" })
-    </div>
-    @Html.LabelFor(c => c.Manzana, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-1">
-        @Html.TextBoxFor(c => c.Manzana, new { @class = "form-control", placeholder = "Manzana" })
-    </div>
-</div>
-<div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.Email, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
-    </div>
-</div>
-<div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = "Teléfono" })
-    </div>
-    @Html.LabelFor(c => c.Celular, new { @class = "col-sm-1 control-label" })
-    <div class="col-sm-3">
-        @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
-    </div>
-</div>
 
-<div class="alert alert-danger errorCustom" role="alert">
-    <ul></ul>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Nombre, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                @Html.ValidationMessageFor(c => c.Nombre)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Apellido, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control", placeholder = "Apellido" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Cuil, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = "Cuil" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Sexo, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.EnumDropDownListFor(c => c.Sexo, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Localidad.Provincia.Id, "Provincia", new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Localidad.Id, "Localidad", new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Direccion, new { @class = " col-md-1 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = "Dirección", required = "required" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Email, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = "Teléfono" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Celular, new { @class = "col-md-3 control-label" })
+            <div class="col-md-9">
+                @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

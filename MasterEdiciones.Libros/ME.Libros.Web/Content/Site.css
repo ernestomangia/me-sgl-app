@@ -1,14 +1,18 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 70px;
+    font-size: 140%;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     width: 100%;
-    /*margin-top: 25px;*/
     padding-left: 5px;
     padding-right: 5px;
+}
+
+h3 {
+    margin-top: 5px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -35,24 +39,20 @@ footer {
     margin-top: 25px;
 }
 
-.tablaCustom {
-    margin-top: 20px;
-}
-
-h3 {
-    margin-top: 5px; 
-}
-
 .btn-default {
-  background-color: #F5F5F5;
+    background-color: #F5F5F5;
 }
 
 #loading-indicator {
-  position: absolute;
-  left: 50%;
-  top: 75px;
+    position: absolute;
+    left: 50%;
+    top: 75px;
 }
 
-.errorCustom {
+/*.errorCustom {
     display: none;
+}*/
+
+.toast-top-right {
+    top: 60px;
 }

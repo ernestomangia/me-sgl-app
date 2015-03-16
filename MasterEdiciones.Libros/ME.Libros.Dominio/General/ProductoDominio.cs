@@ -1,6 +1,6 @@
 ﻿namespace ME.Libros.Dominio.General
 {
-    public class ArticuloDominio : BaseDominio
+    public class ProductoDominio : BaseDominio
     {
         #region Properties
 

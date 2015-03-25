@@ -36,23 +36,6 @@ namespace ME.Libros.EF.Mapeos
 
             // Map Table
             ToTable("Cliente");
-            Property(c => c.Id).HasColumnName("Id");
-            Property(c => c.FechaAlta).HasColumnName("Fecha_Alta");
-
-            Property(c => c.Nombre).HasColumnName("Nombre");
-            Property(c => c.Apellido).HasColumnName("Apellido");
-            Property(c => c.FechaNacimiento).HasColumnName("Fecha_Nacimiento");
-            Property(c => c.Cuil).HasColumnName("Cuil");
-            Property(c => c.Direccion).HasColumnName("Direccion");
-            Property(c => c.Barrio).HasColumnName("Barrio");
-            Property(c => c.CalleA).HasColumnName("CalleA");
-            Property(c => c.CalleB).HasColumnName("CalleB");
-            Property(c => c.Piso).HasColumnName("Piso");
-            Property(c => c.Departamento).HasColumnName("Departamento");
-            Property(c => c.Manzana).HasColumnName("Manzana");
-            Property(c => c.Celular).HasColumnName("Celular");
-            Property(c => c.TelefonoFijo).HasColumnName("Telefono_Fijo");
-            Property(c => c.Email).HasColumnName("Email");
         }
     }
 }

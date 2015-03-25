@@ -62,6 +62,7 @@ namespace ME.Libros.Web.Models
         [Required]
         [DisplayName("Dirección")]
         public string Direccion { get; set; }
+        public string Numero { get; set; }
         [DisplayName("Calle A")]
         public string CalleA { get; set; }
         [DisplayName("Calle B")]

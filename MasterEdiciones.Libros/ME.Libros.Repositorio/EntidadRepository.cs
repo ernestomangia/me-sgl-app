@@ -12,7 +12,7 @@ namespace ME.Libros.Repositorios
     {
         #region Private Members
 
-        private readonly IModelContainer context;
+        private readonly IModelContainer _context;
 
         #endregion
 
@@ -20,7 +20,7 @@ namespace ME.Libros.Repositorios
 
         public EntidadRepository(IModelContainer container)
         {
-            context = container;
+            _context = container;
         }
 
         #endregion
@@ -29,36 +29,36 @@ namespace ME.Libros.Repositorios
 
         public IQueryable<T> Listar()
         {
-            return context.Set<T>().AsQueryable();
+            return _context.Set<T>().AsQueryable();
         }
 
         public IQueryable<T> Listar(Expression<Func<T, bool>> expresion)
         {
-            return context.Set<T>().Where(expresion);
+            return _context.Set<T>().Where(expresion);
         }
 
         public T Get(long id)
         {
-            return context.Set<T>().Find(id);
+            return _context.Set<T>().Find(id);
         }
 
         public T Get(Expression<Func<T, bool>> expression)
         {
-            return context.Set<T>().FirstOrDefault(expression);
+            return _context.Set<T>().FirstOrDefault(expression);
         }
 
         public long Guardar(T entidad)
         {
             if (entidad.Id == 0)
             {
-                context.Set<T>().Add(entidad);
+                _context.Set<T>().Add(entidad);
             }
             else
             {
-                context.Entry(entidad).State = EntityState.Modified;
+                _context.Entry(entidad).State = EntityState.Modified;
             }
 
-            return context.SaveChanges();
+            return _context.SaveChanges();
         }
 
         //public int Editar(T entidad)
@@ -69,8 +69,8 @@ namespace ME.Libros.Repositorios
 
         public void Eliminar(T entidad)
         {
-            context.Set<T>().Remove(entidad);
-            context.SaveChanges();
+            _context.Set<T>().Remove(entidad);
+            _context.SaveChanges();
         }
 
         #endregion

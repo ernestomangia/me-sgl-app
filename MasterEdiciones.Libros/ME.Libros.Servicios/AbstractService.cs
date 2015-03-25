@@ -15,7 +15,7 @@ namespace ME.Libros.Servicios
     {
         #region Private Members
 
-        private readonly IRepository<T> repositorio;
+        private readonly IRepository<T> _repositorio;
 
         public Dictionary<string, string> ModelError; 
         //private IValidationDictionary validationDictionary;
@@ -26,7 +26,7 @@ namespace ME.Libros.Servicios
 
         protected AbstractService(IRepository<T> repositorio)
         {
-            this.repositorio = repositorio;
+            this._repositorio = repositorio;
             ModelError = new Dictionary<string, string>();
         }
 
@@ -34,7 +34,7 @@ namespace ME.Libros.Servicios
 
         public virtual long Guardar(T entidad)
         {
-            return repositorio.Guardar(entidad);
+            return _repositorio.Guardar(entidad);
         }
 
         //public virtual void Modificar(T entidad)
@@ -44,32 +44,32 @@ namespace ME.Libros.Servicios
 
         public virtual void Eliminar(T entidad)
         {
-            repositorio.Eliminar(entidad);
+            _repositorio.Eliminar(entidad);
         }
 
         public virtual T GetPorId(long id)
         {
-            return repositorio.Get(id);
+            return _repositorio.Get(id);
         }
 
         public virtual T Get(Expression<Func<T, bool>> expression)
         {
-            return repositorio.Get(expression);
+            return _repositorio.Get(expression);
         }
 
         public virtual IEnumerable<T> Listar()
         {
-            return repositorio.Listar();
+            return _repositorio.Listar();
         }
 
         public virtual IEnumerable<T> Listar(Expression<Func<T, bool>> expresion)
         {
-            return repositorio.Listar(expresion);
+            return _repositorio.Listar(expresion);
         }
 
         public virtual IQueryable<T> ListarAsQueryable()
         {
-            return repositorio.Listar();
+            return _repositorio.Listar();
         }
 
         public void Dispose()
@@ -91,7 +91,7 @@ namespace ME.Libros.Servicios
 
         public virtual void Guardar2(T entidad)
         {
-            repositorio.Guardar(entidad);
+            _repositorio.Guardar(entidad);
         }
     }
 }

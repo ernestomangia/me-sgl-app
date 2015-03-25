@@ -1,6 +1,7 @@
-﻿namespace ME.Libros.Dominio.General
+﻿
+namespace ME.Libros.Dominio.General
 {
-    public class RubroDominio : BaseDominio
+    public class Editorial : BaseDominio
     {
         #region Properties
 

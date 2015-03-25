@@ -21,9 +21,6 @@ namespace ME.Libros.EF.Mapeos
 
             // Map Table
             ToTable("Localidad");
-            Property(l => l.Id).HasColumnName("Id");
-            Property(l => l.FechaAlta).HasColumnName("Fecha_Alta");
-            Property(l => l.Nombre).HasColumnName("Nombre");
         }
     }
 }

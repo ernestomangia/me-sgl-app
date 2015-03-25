@@ -19,9 +19,6 @@ namespace ME.Libros.EF.Mapeos
 
             // Map Table
             ToTable("Provincia");
-            Property(p => p.Id).HasColumnName("Id");
-            Property(p => p.FechaAlta).HasColumnName("Fecha_Alta");
-            Property(p => p.Nombre).HasColumnName("Nombre");
         }
     }
 }

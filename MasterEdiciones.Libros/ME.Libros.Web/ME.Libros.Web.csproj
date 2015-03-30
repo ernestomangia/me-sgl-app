@@ -299,10 +299,6 @@
       <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
       <Name>ME.Libros.Dominio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ME.Libros.DTO\ME.Libros.DTO.csproj">
-      <Project>{4f4a6652-d0ee-4360-91b6-315513e78814}</Project>
-      <Name>ME.Libros.DTO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ME.Libros.EF\ME.Libros.EF.csproj">
       <Project>{b156ec49-3d61-4f47-a657-25029dc7b99d}</Project>
       <Name>ME.Libros.EF</Name>

@@ -66,10 +66,6 @@
       <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
       <Name>ME.Libros.Dominio</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ME.Libros.DTO\ME.Libros.DTO.csproj">
-      <Project>{4f4a6652-d0ee-4360-91b6-315513e78814}</Project>
-      <Name>ME.Libros.DTO</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

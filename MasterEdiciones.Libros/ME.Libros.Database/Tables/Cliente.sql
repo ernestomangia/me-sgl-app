@@ -16,7 +16,7 @@
     [Telefono_Fijo]    NVARCHAR (11)  NULL,
     [Celular]          NVARCHAR (11)  NULL,
     [Email]            NVARCHAR (100) NULL,
-    [Fecha_Alta]       DATETIME       NOT NULL,
+    [Fecha_Alta]       DATETIME       NOT NULL DEFAULT getdate(),
     [Localidad_Id]     INT            NOT NULL,
     CONSTRAINT [PK_dbo.Cliente] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_dbo.Cliente_dbo.Localidad_Localidad_Id] FOREIGN KEY ([Localidad_Id]) REFERENCES [dbo].[Localidad] ([Id]) ON DELETE CASCADE

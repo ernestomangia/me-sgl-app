@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ME.Libros.Web.Controllers
@@ -22,9 +20,9 @@ namespace ME.Libros.Web.Controllers
                     return true;
                 }
             }
-            catch (DbEntityValidationException DBEx)
+            catch (DbEntityValidationException ex)
             {
-                foreach (var error in DBEx.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
+                foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
@@ -36,5 +34,7 @@ namespace ME.Libros.Web.Controllers
 
             return false;
         }
+
+
     }
 }

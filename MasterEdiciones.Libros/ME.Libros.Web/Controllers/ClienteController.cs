@@ -14,10 +14,6 @@ using ME.Libros.Repositorios;
 
 namespace ME.Libros.Web.Controllers
 {
-    using System.Web.Helpers;
-
-    using ME.Libros.Api.Servicios.General;
-
     public class ClienteController : BaseController
     {
         public ClienteService ClienteService { get; set; }

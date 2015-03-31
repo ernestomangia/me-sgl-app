@@ -123,10 +123,37 @@
   <data name="ClienteNuevo" xml:space="preserve">
     <value>El Cliente se creó exitosamente</value>
   </data>
+  <data name="Codigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="Cuil" xml:space="preserve">
+    <value>CUIL/CUIT</value>
+  </data>
+  <data name="Direccion" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
   <data name="EntidadModificada" xml:space="preserve">
     <value>{0} se modificó exitosamente</value>
   </data>
   <data name="EntidadNueva" xml:space="preserve">
     <value>{0} se creó exitosamente</value>
+  </data>
+  <data name="FechaAlta" xml:space="preserve">
+    <value>Fecha de alta</value>
+  </data>
+  <data name="FechaNacimiento" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="Localidad" xml:space="preserve">
+    <value>Localidad</value>
+  </data>
+  <data name="Numero" xml:space="preserve">
+    <value>Nº </value>
+  </data>
+  <data name="Provincia" xml:space="preserve">
+    <value>Provincia</value>
+  </data>
+  <data name="TelefonoFijo" xml:space="preserve">
+    <value>Teléfono fijo</value>
   </data>
 </root>

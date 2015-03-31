@@ -1,6 +1,6 @@
 ﻿namespace ME.Libros.Dominio.General
 {
-    public class RubroDominio : BaseDominio
+    public class GastoDominio : BaseDominio
     {
         #region Properties
 

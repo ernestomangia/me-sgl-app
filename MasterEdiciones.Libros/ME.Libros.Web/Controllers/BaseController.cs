@@ -35,6 +35,29 @@ namespace ME.Libros.Web.Controllers
             return false;
         }
 
+        //public bool Probar<TEntity>(TEntity entity, Func<int>(TEntity) action)
+        //{
+        //    try
+        //    {
+        //        if (this.ModelState.IsValid)
+        //        {
+        //            action(entity);
+        //            return true;
+        //        }
+        //    }
+        //    catch (DbEntityValidationException ex)
+        //    {
+        //        foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
+        //        {
+        //            ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ModelState.AddModelError("Ha ocurrido un error. Por favor comuníquese con el administrador.", ex.Message);
+        //    }
 
+        //    return false;
+        //}
     }
 }

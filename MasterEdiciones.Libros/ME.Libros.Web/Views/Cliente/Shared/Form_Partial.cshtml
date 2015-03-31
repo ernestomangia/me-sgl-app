@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group form-group-sm">
-                @Html.LabelFor(c => c.Id, new { @class = "col-sm-3 control-label" })
+                @Html.LabelFor(c => c.Id, Messages.Codigo, new { @class = "col-sm-3 control-label" })
                 <div class="col-sm-9">
                     @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
                 </div>
@@ -19,7 +19,6 @@
             @Html.LabelFor(c => c.Nombre, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre" })
-                @Html.ValidationMessageFor(c => c.Nombre)
             </div>
         </div>
     </div>
@@ -35,9 +34,9 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Cuil, new { @class = "col-md-3 control-label" })
+            @Html.LabelFor(c => c.Cuil, Messages.Cuil, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
-                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = "Cuil" })
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = "Cuil", data_mask = "99-99999999-9" })
             </div>
         </div>
     </div>
@@ -53,17 +52,17 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Localidad.Provincia.Id, "Provincia", new { @class = "col-md-3 control-label" })
+            @Html.LabelFor(c => c.Localidad.Provincia.Id, Messages.Provincia, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
-                @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required", data_val_required = "El campo <b>Provincia</b> es obligatorio" })
+                @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required", data_val_required = ErrorMessages.ProvinciaRequired })
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Localidad.Id, "Localidad", new { @class = "col-md-3 control-label" })
+            @Html.LabelFor(c => c.Localidad.Id, Messages.Localidad, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
-                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required", data_val_required = "El campo <b>Localidad</b> es obligatorio" })
+                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required", data_val_required = ErrorMessages.LocalidadRequired })
             </div>
         </div>
     </div>
@@ -71,7 +70,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Direccion, new { @class = " col-md-3 control-label" })
+            @Html.LabelFor(c => c.Direccion, Messages.Direccion, new { @class = " col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = "Dirección", required = "required" })
             </div>
@@ -79,9 +78,19 @@
     </div>
     <div class="col-md-4">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Numero, "Nº", new { @class = "col-md-3 control-label" })
+            @Html.LabelFor(c => c.Numero, Messages.Numero, new { @class = "col-md-3 control-label" })
             <div class="col-md-3">
                 @Html.TextBoxFor(c => c.Numero, new { @class = "form-control", placeholder = "Nº", required = "required" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Comentario, new { @class = "col-md-1 control-label" })
+            <div class="col-md-7">
+                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control", type = "email", placeholder = "(Detalles de la dirección, horarios disponibles, etc.)" })
             </div>
         </div>
     </div>
@@ -99,7 +108,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-3 control-label" })
+            @Html.LabelFor(c => c.TelefonoFijo, Messages.TelefonoFijo, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
                 @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = "Teléfono" })
             </div>
@@ -109,7 +118,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Celular, new { @class = "col-md-3 control-label" })
             <div class="col-md-9">
-                @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+                @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular"@*, data_mask = "??99-159-999999?"*@ })
             </div>
         </div>
     </div>

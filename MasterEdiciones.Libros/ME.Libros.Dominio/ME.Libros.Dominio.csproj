@@ -40,7 +40,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDominio.cs" />
-    <Compile Include="General\Editorial.cs" />
+    <Compile Include="General\CobroDominio.cs" />
+    <Compile Include="General\EditorialDominio.cs" />
+    <Compile Include="General\GastoVendedorDominio.cs" />
+    <Compile Include="General\GastoCobradorDominio.cs" />
+    <Compile Include="General\PlanPagoDominio.cs" />
+    <Compile Include="General\GastoDominio.cs" />
     <Compile Include="General\ProductoDominio.cs" />
     <Compile Include="General\ClienteDominio.cs" />
     <Compile Include="General\LocalidadDominio.cs" />
@@ -50,7 +55,7 @@
     <Compile Include="General\RubroDominio.cs" />
     <Compile Include="General\VendedorDominio.cs" />
     <Compile Include="General\VentaDominio.cs" />
-    <Compile Include="General\VentaDetalleDominio.cs" />
+    <Compile Include="General\VentaItemDominio.cs" />
     <Compile Include="General\ZonaDominio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

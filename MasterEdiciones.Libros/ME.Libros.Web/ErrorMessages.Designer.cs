@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace ME.Libros.Web {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -58,6 +61,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;Celular&lt;/b&gt; debe contener 11 caracteres (Ej. 343-6111999).
+        /// </summary>
+        public static string CelularLength {
+            get {
+                return ResourceManager.GetString("CelularLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El CUIL debe contener 11 caracteres.
         /// </summary>
         public static string CuilLength {
@@ -103,11 +115,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El valor {0} es requerido.
+        ///   Looks up a localized string similar to El campo &lt;b&gt;Localidad&lt;/b&gt; es obligatorio.
         /// </summary>
-        public static string PropertyValueRequired {
+        public static string LocalidadRequired {
             get {
-                return ResourceManager.GetString("PropertyValueRequired", resourceCulture);
+                return ResourceManager.GetString("LocalidadRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El campo &lt;b&gt;Provincia&lt;/b&gt; es obligatorio.
+        /// </summary>
+        public static string ProvinciaRequired {
+            get {
+                return ResourceManager.GetString("ProvinciaRequired", resourceCulture);
             }
         }
         
@@ -117,15 +138,6 @@ namespace ME.Libros.Web {
         public static string TelefonoFijoLength {
             get {
                 return ResourceManager.GetString("TelefonoFijoLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El campo es requerido.
-        /// </summary>
-        public static string ValidationRequired {
-            get {
-                return ResourceManager.GetString("ValidationRequired", resourceCulture);
             }
         }
     }

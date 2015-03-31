@@ -14,12 +14,8 @@ namespace ME.Libros.Dominio.General
         public virtual DateTime? FechaNacimiento { get; set; }
         public virtual Sexo Sexo { get; set; }
         public virtual string Direccion { get; set; }
-        public virtual string CalleA { get; set; }
-        public virtual string CalleB { get; set; }
-        public virtual string Barrio { get; set; }
-        public virtual string Manzana { get; set; }
-        public virtual string Piso { get; set; }
-        public virtual string Departamento { get; set; }
+        public virtual string Numero { get; set; }
+        public virtual string Comentario { get; set; }
         public virtual string TelefonoFijo { get; set; }
         public virtual string Celular { get; set; }
         public virtual string Email { get; set; }

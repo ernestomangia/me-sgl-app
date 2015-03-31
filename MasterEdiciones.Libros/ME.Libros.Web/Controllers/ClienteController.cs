@@ -94,10 +94,9 @@ namespace ME.Libros.Web.Controllers
                                                      Nombre = clienteViewModel.Nombre,
                                                      Apellido = clienteViewModel.Apellido,
                                                      Cuil = clienteViewModel.Cuil,
-                                                     Barrio = clienteViewModel.Barrio,
                                                      Direccion = clienteViewModel.Direccion,
-                                                     Manzana = clienteViewModel.Manzana,
-                                                     Piso = clienteViewModel.Piso,
+                                                     Numero = clienteViewModel.Numero,
+                                                     Comentario = clienteViewModel.Comentario,
                                                      Sexo = clienteViewModel.Sexo,
                                                      Email = clienteViewModel.Email,
                                                      TelefonoFijo = clienteViewModel.TelefonoFijo,
@@ -226,13 +225,14 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Nombre = clienteViewModel.Nombre;
                     clienteDominio.Apellido = clienteViewModel.Apellido;
                     clienteDominio.Cuil = clienteViewModel.Cuil;
-                    clienteDominio.Barrio = clienteViewModel.Barrio;
                     clienteDominio.Direccion = clienteViewModel.Direccion;
+                    clienteDominio.Numero = clienteViewModel.Numero;
+                    clienteDominio.Comentario = clienteViewModel.Comentario;
                     clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id);
                     clienteDominio.Sexo = clienteViewModel.Sexo;
-                    clienteDominio.Email = clienteViewModel.Email;
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
+                    clienteDominio.Email = clienteViewModel.Email;
 
                     id = ClienteService.Guardar(clienteDominio);
                     if (id <= 0)

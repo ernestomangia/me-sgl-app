@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace ME.Libros.Web {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,7 +22,7 @@ namespace ME.Libros.Web {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    public class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -33,7 +36,7 @@ namespace ME.Libros.Web {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ME.Libros.Web.Messages", typeof(Messages).Assembly);
@@ -48,7 +51,7 @@ namespace ME.Libros.Web {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -60,7 +63,7 @@ namespace ME.Libros.Web {
         /// <summary>
         ///   Looks up a localized string similar to El Cliente se modificó exitosamente.
         /// </summary>
-        internal static string ClienteModificado {
+        public static string ClienteModificado {
             get {
                 return ResourceManager.GetString("ClienteModificado", resourceCulture);
             }
@@ -69,16 +72,43 @@ namespace ME.Libros.Web {
         /// <summary>
         ///   Looks up a localized string similar to El Cliente se creó exitosamente.
         /// </summary>
-        internal static string ClienteNuevo {
+        public static string ClienteNuevo {
             get {
                 return ResourceManager.GetString("ClienteNuevo", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Código.
+        /// </summary>
+        public static string Codigo {
+            get {
+                return ResourceManager.GetString("Codigo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CUIL/CUIT.
+        /// </summary>
+        public static string Cuil {
+            get {
+                return ResourceManager.GetString("Cuil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dirección.
+        /// </summary>
+        public static string Direccion {
+            get {
+                return ResourceManager.GetString("Direccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} se modificó exitosamente.
         /// </summary>
-        internal static string EntidadModificada {
+        public static string EntidadModificada {
             get {
                 return ResourceManager.GetString("EntidadModificada", resourceCulture);
             }
@@ -87,9 +117,63 @@ namespace ME.Libros.Web {
         /// <summary>
         ///   Looks up a localized string similar to {0} se creó exitosamente.
         /// </summary>
-        internal static string EntidadNueva {
+        public static string EntidadNueva {
             get {
                 return ResourceManager.GetString("EntidadNueva", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fecha de alta.
+        /// </summary>
+        public static string FechaAlta {
+            get {
+                return ResourceManager.GetString("FechaAlta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fecha de nacimiento.
+        /// </summary>
+        public static string FechaNacimiento {
+            get {
+                return ResourceManager.GetString("FechaNacimiento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localidad.
+        /// </summary>
+        public static string Localidad {
+            get {
+                return ResourceManager.GetString("Localidad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nº .
+        /// </summary>
+        public static string Numero {
+            get {
+                return ResourceManager.GetString("Numero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provincia.
+        /// </summary>
+        public static string Provincia {
+            get {
+                return ResourceManager.GetString("Provincia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teléfono fijo.
+        /// </summary>
+        public static string TelefonoFijo {
+            get {
+                return ResourceManager.GetString("TelefonoFijo", resourceCulture);
             }
         }
     }

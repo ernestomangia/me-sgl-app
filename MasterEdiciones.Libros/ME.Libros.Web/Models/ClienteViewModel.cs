@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -8,6 +7,8 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
+    using log4net.DateFormatter;
+
     public class ClienteViewModel
     {
         #region Constructor(s)
@@ -38,25 +39,47 @@ namespace ME.Libros.Web.Models
 
         #region Properties
 
+        [Display(Name = "Codigo", ResourceType = typeof(Messages))]
         public long Id { get; set; }
+        
+        [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
-        [Required]
+        
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Nombre { get; set; }
-        [Required]
+        
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Apellido { get; set; }
-        [Required]
-        [StringLength(13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "CuilLength")]
+
+        [Display(Name = "Cuil", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string Cuil { get; set; }
+
+        [Display(Name = "FechaNacimiento", ResourceType = typeof(Messages))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? FechaNacimiento { get; set; }
-        [Required]
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public Sexo Sexo { get; set; }
-        [Required]
+
+        [Display(Name = "Direccion", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public string Direccion { get; set; }
+        
+        [Display(Name = "Numero", ResourceType = typeof(Messages))]
         public string Numero { get; set; }
+        
+        [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Comentario { get; set; }
-        [StringLength(10, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "TelefonoFijoLength")]
+
+        [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
+        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string TelefonoFijo { get; set; }
-        [StringLength(14, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "CelularLength")]
+
+        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string Celular { get; set; }
         public string Email { get; set; }
         public LocalidadViewModel Localidad { get; set; }

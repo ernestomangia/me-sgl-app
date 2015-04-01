@@ -70,20 +70,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El CUIL debe contener 11 caracteres.
-        /// </summary>
-        public static string CuilLength {
-            get {
-                return ResourceManager.GetString("CuilLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente.
         /// </summary>
         public static string CuilRepetido {
             get {
                 return ResourceManager.GetString("CuilRepetido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; es incorrecta.
+        /// </summary>
+        public static string DateFormat {
+            get {
+                return ResourceManager.GetString("DateFormat", resourceCulture);
             }
         }
         
@@ -115,29 +115,47 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El campo &lt;b&gt;Localidad&lt;/b&gt; es obligatorio.
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres.
         /// </summary>
-        public static string LocalidadRequired {
+        public static string ExactLenght {
             get {
-                return ResourceManager.GetString("LocalidadRequired", resourceCulture);
+                return ResourceManager.GetString("ExactLenght", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El campo &lt;b&gt;Provincia&lt;/b&gt; es obligatorio.
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener entre {1} y {2} caracteres.
         /// </summary>
-        public static string ProvinciaRequired {
+        public static string RangeLenght {
             get {
-                return ResourceManager.GetString("ProvinciaRequired", resourceCulture);
+                return ResourceManager.GetString("RangeLenght", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;Telefono Fijo&lt;/b&gt; debe contener 10 caracteres.
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; es requerida.
         /// </summary>
-        public static string TelefonoFijoLength {
+        public static string Requerida {
             get {
-                return ResourceManager.GetString("TelefonoFijoLength", resourceCulture);
+                return ResourceManager.GetString("Requerida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; es requerido.
+        /// </summary>
+        public static string Requerido {
+            get {
+                return ResourceManager.GetString("Requerido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres como máximo.
+        /// </summary>
+        public static string StringLength {
+            get {
+                return ResourceManager.GetString("StringLength", resourceCulture);
             }
         }
     }

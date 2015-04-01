@@ -20,31 +20,6 @@ namespace ME.Libros.Web.Controllers
         private ProvinciaService ProvinciaService { get; set; }
         private LocalidadService LocalidadService { get; set; }
 
-        //public bool Probar<T>(T entity, Action<T> action)
-        //{
-        //    try
-        //    {
-        //        if (this.ModelState.IsValid)
-        //        {
-        //            action(entity);
-        //            return true;
-        //        }
-        //    }
-        //    catch (DbEntityValidationException DBEx)
-        //    {
-        //        foreach (var error in DBEx.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
-        //        {
-        //            ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError("Ha ocurrido un error. Por favor comuníquese con el administrador.", ex.Message);
-        //    }
-
-        //    return false;
-        //}
-
         public ClienteController()
         {
             var modelContainer = new ModelContainer();
@@ -101,11 +76,9 @@ namespace ME.Libros.Web.Controllers
                                                      Email = clienteViewModel.Email,
                                                      TelefonoFijo = clienteViewModel.TelefonoFijo,
                                                      Celular = clienteViewModel.Celular,
-                                                     Localidad =
-                                                         LocalidadService.GetPorId(
-                                                             clienteViewModel.Localidad.Id),
+                                                     Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id),
                                                  };
-                        Probar(clienteDominio, ClienteService.Guardar2);
+                        //ExecuteAction(clienteDominio, ClienteService.Guardar2);
 
                         clienteViewModel.Id = ClienteService.Guardar(clienteDominio);
                         if (clienteViewModel.Id <= 0)

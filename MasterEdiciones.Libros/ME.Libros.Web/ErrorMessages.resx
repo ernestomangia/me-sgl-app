@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Requerida" xml:space="preserve">
+    <value>La &lt;b&gt;{0}&lt;/b&gt; es requerida</value>
+  </data>
+  <data name="Requerido" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; es requerido</value>
+  </data>
   <data name="CelularLength" xml:space="preserve">
     <value>El &lt;b&gt;Celular&lt;/b&gt; debe contener 11 caracteres (Ej. 343-6111999)</value>
-  </data>
-  <data name="CuilLength" xml:space="preserve">
-    <value>El CUIL debe contener 11 caracteres</value>
   </data>
   <data name="CuilRepetido" xml:space="preserve">
     <value>El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente</value>
@@ -135,13 +138,16 @@
   <data name="ErrorSistema" xml:space="preserve">
     <value>Ha ocurrido un error en el sistema</value>
   </data>
-  <data name="LocalidadRequired" xml:space="preserve">
-    <value>El campo &lt;b&gt;Localidad&lt;/b&gt; es obligatorio</value>
+  <data name="ExactLenght" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres</value>
   </data>
-  <data name="ProvinciaRequired" xml:space="preserve">
-    <value>El campo &lt;b&gt;Provincia&lt;/b&gt; es obligatorio</value>
+  <data name="RangeLenght" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener entre {1} y {2} caracteres</value>
   </data>
-  <data name="TelefonoFijoLength" xml:space="preserve">
-    <value>El &lt;b&gt;Telefono Fijo&lt;/b&gt; debe contener 10 caracteres</value>
+  <data name="StringLength" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres como máximo</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value>La &lt;b&gt;{0}&lt;/b&gt; es incorrecta</value>
   </data>
 </root>

@@ -10,7 +10,7 @@ namespace ME.Libros.Web.Controllers
     {
         //protected T service;
 
-        public bool Probar<TEntity>(TEntity entity, Action<TEntity> action)
+        public bool ExecuteAction<TEntity>(TEntity entity, Action<TEntity> action)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace ME.Libros.Web.Controllers
             return false;
         }
 
-        //public bool Probar<TEntity>(TEntity entity, Func<int>(TEntity) action)
+        //public bool ExecuteAction<TEntity>(TEntity entity, Func<int>(TEntity) action)
         //{
         //    try
         //    {

@@ -4,59 +4,36 @@
 @using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-    
-    if (!ViewData.ModelState.IsValid)
+
+    @*if (!ViewData.ModelState.IsValid)
     {
         <div class="alert alert-danger" role="alert">
             <b>Error:</b>
             @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
         </div>
-    }
-
-    @Html.ValidationSummary("Error:", new { @class = "alert alert-danger" })
+    }*@
     
-    <div class="form-group">
-        <div class="col-sm-offset-8">
-            <a id="btnCancelarCrear" class="btn btn-default" href="@Url.Action("Index", "Cliente")">
-                Cancelar
-            </a>
-            <input id="btnCrearCliente" type="submit" value="Crear" class="btn btn-success" />
+    @Html.ValidationSummary("Mensajes:")
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="alert alert-danger">
+                <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @*@Html.ValidationSummary("Mensajes:")*@
+                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                <a id="btnCancelarCrear" class="btn btn-default" href="@Url.Action("Index", "Cliente")">
+                    Cancelar
+                </a>
+                <input id="btnCrearCliente" type="submit" value="Crear" class="btn btn-success" />
+            </div>
         </div>
     </div>
 }
 
-<script>
-    $("#btnCancelarCrear").on("click", function () {
-        //cargarPestaña('@Url.Action("Index", "Cliente")');
-    });
-
-    $("#formCliente").on("submit", function () {
-        //event.preventDefault();
-        //guardarEntidad("El cliente se creó exitosamente");
-
-        @*$.ajax({
-            method: "POST",
-            url: $("#formCliente").attr("action"),
-            data: $("#formCliente").serialize(),
-            dataType: "json",
-            error: function (text, error) {
-                mensajeError("Ha ocurrido un error: " + text + error);
-            },
-            success: function (data) {
-                if (data.success) {
-                    $("#error").hide();
-                    mensajeSuccess("El cliente se creó exitosamente");
-                    cargarPestaña();
-                } else {
-                    $("#error > ul").empty();
-                    $.each(data.mensajes, function (key, value) {
-                        $("#error > ul").append("<li><b>" + key + "</b>: " + value + "</li>");
-                    });
-                    $("#error").show();
-                }
-            },
-            timeout: 10000,
-            cache: false
-        });*@
-    });
-</script>

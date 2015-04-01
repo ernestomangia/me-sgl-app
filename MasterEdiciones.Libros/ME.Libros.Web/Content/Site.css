@@ -56,3 +56,11 @@ footer {
 .toast-top-right {
     top: 60px;
 }
+
+.floatRight {
+    float: right;
+}
+
+.floatLeft {
+    float: left;
+}

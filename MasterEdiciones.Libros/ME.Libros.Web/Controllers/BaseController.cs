@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -14,7 +16,7 @@ namespace ME.Libros.Web.Controllers
         {
             try
             {
-                if (this.ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     action(entity);
                     return true;
@@ -25,6 +27,19 @@ namespace ME.Libros.Web.Controllers
                 foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+
+                if (sqlException != null)
+                {
+                    ModelState.AddModelError("Error", sqlException.Number == 547 ? ErrorMessages.EliminarCliente : ErrorMessages.ErrorSistema);
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
             catch (Exception ex)

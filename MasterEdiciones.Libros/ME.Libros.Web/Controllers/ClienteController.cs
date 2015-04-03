@@ -35,7 +35,7 @@ namespace ME.Libros.Web.Controllers
         {
             ViewBag.Id = TempData["Id"];
             ViewBag.Mensaje = TempData["Mensaje"];
-            
+
             var clientes = new List<ClienteViewModel>();
             using (ClienteService)
             {
@@ -68,7 +68,7 @@ namespace ME.Libros.Web.Controllers
                                                      FechaAlta = DateTime.Now,
                                                      Nombre = clienteViewModel.Nombre,
                                                      Apellido = clienteViewModel.Apellido,
-                                                     Cuil = clienteViewModel.Cuil,
+                                                     Cuil = clienteViewModel.Cuil.Replace("-", ""),
                                                      Direccion = clienteViewModel.Direccion,
                                                      Numero = clienteViewModel.Numero,
                                                      Comentario = clienteViewModel.Comentario,

@@ -151,7 +151,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nº .
+        ///   Looks up a localized string similar to Nº.
         /// </summary>
         public static string Numero {
             get {

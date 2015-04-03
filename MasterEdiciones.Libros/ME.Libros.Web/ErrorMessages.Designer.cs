@@ -61,15 +61,6 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;Celular&lt;/b&gt; debe contener 11 caracteres (Ej. 343-6111999).
-        /// </summary>
-        public static string CelularLength {
-            get {
-                return ResourceManager.GetString("CelularLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente.
         /// </summary>
         public static string CuilRepetido {

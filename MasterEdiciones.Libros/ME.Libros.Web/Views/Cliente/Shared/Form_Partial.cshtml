@@ -36,7 +36,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Cuil, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = "Cuil", data_mask = "99-99999999-9" })
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = Messages.Cuil, data_mask = "99-99999999-9" })
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         <div class="form-group">
             @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
             <div class="col-md-3">
-                @Html.TextBoxFor(c => c.FechaNacimiento, new { @class = "form-control", rows = "3", placeholder = Messages.FechaNacimiento })
+                @Html.TextBoxFor(c => c.FechaNacimiento, new { @class = "form-control", type = "date", placeholder = Messages.FechaNacimiento })
             </div>
         </div>
     </div>
@@ -82,18 +82,19 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Direccion, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = "Dirección" })
+                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = Messages.Direccion })
             </div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Numero, new { @class = "col-md-4 control-label" })
-            <div class="col-md-3">
-                @Html.TextBoxFor(c => c.Numero, new { @class = "form-control", placeholder = "Nº" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Numero, new { @class = "form-control", placeholder = Messages.Numero })
             </div>
         </div>
     </div>
+
 </div>
 <div class="row">
     <div class="col-md-10">
@@ -120,7 +121,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = "Teléfono" })
+                @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = Messages.TelefonoFijo })
             </div>
         </div>
     </div>
@@ -162,4 +163,5 @@
             $(".localidad").empty().append(new Option("Seleccione", ""));
         }
     });
+
 </script>

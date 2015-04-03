@@ -7,8 +7,6 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
-    using log4net.DateFormatter;
-
     public class ClienteViewModel
     {
         #region Constructor(s)
@@ -44,7 +42,7 @@ namespace ME.Libros.Web.Models
         
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
-        
+
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Nombre { get; set; }
@@ -59,7 +57,7 @@ namespace ME.Libros.Web.Models
         public string Cuil { get; set; }
 
         [Display(Name = "FechaNacimiento", ResourceType = typeof(Messages))]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? FechaNacimiento { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
@@ -70,6 +68,7 @@ namespace ME.Libros.Web.Models
         public string Direccion { get; set; }
         
         [Display(Name = "Numero", ResourceType = typeof(Messages))]
+        [StringLength(5, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Numero { get; set; }
         
         [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]

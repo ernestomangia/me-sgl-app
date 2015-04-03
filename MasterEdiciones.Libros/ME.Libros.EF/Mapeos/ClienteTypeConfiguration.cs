@@ -21,7 +21,7 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.FechaNacimiento).IsOptional();
             Property(c => c.Cuil).HasMaxLength(11).IsRequired();
             Property(c => c.Direccion).HasMaxLength(200).IsRequired();
-            Property(c => c.Numero).IsOptional();
+            Property(c => c.Numero).HasMaxLength(5).IsOptional();
             Property(c => c.Comentario).HasMaxLength(250);
             Property(c => c.Celular).HasMaxLength(11).IsOptional();
             Property(c => c.TelefonoFijo).HasMaxLength(11).IsOptional();

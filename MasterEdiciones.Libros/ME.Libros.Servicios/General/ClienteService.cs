@@ -9,7 +9,6 @@ namespace ME.Libros.Servicios.General
             : base(repository)
         {
 
-
         }
 
         public override long Guardar(ClienteDominio entidad)

@@ -53,6 +53,7 @@
     <Compile Include="General\ClienteService.cs" />
     <Compile Include="General\LocalidadService.cs" />
     <Compile Include="General\ProvinciaService.cs" />
+    <Compile Include="General\RubroService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

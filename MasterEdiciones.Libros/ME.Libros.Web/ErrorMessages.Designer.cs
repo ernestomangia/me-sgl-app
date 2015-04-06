@@ -61,7 +61,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente.
+        ///   Looks up a localized string similar to El &lt;b&gt;CUIL&lt;/b&gt; {0} se encuentra asociado a un cliente existente.
         /// </summary>
         public static string CuilRepetido {
             get {
@@ -75,6 +75,15 @@ namespace ME.Libros.Web {
         public static string DateFormat {
             get {
                 return ResourceManager.GetString("DateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe ser decimal.
+        /// </summary>
+        public static string Decimal {
+            get {
+                return ResourceManager.GetString("Decimal", resourceCulture);
             }
         }
         
@@ -97,6 +106,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error al eliminar. Intente nuevamente..
+        /// </summary>
+        public static string ErrorEliminar {
+            get {
+                return ResourceManager.GetString("ErrorEliminar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ha ocurrido un error en el sistema.
         /// </summary>
         public static string ErrorSistema {
@@ -111,6 +129,51 @@ namespace ME.Libros.Web {
         public static string ExactLenght {
             get {
                 return ResourceManager.GetString("ExactLenght", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; es inválida.
+        /// </summary>
+        public static string Invalida {
+            get {
+                return ResourceManager.GetString("Invalida", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; es inválido.
+        /// </summary>
+        public static string Invalido {
+            get {
+                return ResourceManager.GetString("Invalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe ser numerico.
+        /// </summary>
+        public static string Numeric {
+            get {
+                return ResourceManager.GetString("Numeric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener solo letras.
+        /// </summary>
+        public static string OnlyLetters {
+            get {
+                return ResourceManager.GetString("OnlyLetters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener solo números.
+        /// </summary>
+        public static string OnlyNumbers {
+            get {
+                return ResourceManager.GetString("OnlyNumbers", resourceCulture);
             }
         }
         

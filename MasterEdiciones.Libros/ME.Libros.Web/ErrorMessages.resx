@@ -124,7 +124,7 @@
     <value>El &lt;b&gt;{0}&lt;/b&gt; es requerido</value>
   </data>
   <data name="CuilRepetido" xml:space="preserve">
-    <value>El &lt;b&gt;CUIL&lt;/b&gt; ingresado ya se encuentra asociado a un cliente existente</value>
+    <value>El &lt;b&gt;CUIL&lt;/b&gt; {0} se encuentra asociado a un cliente existente</value>
   </data>
   <data name="EliminarCliente" xml:space="preserve">
     <value>El cliente no puede ser eliminado porque tiene datos asociados</value>
@@ -146,5 +146,26 @@
   </data>
   <data name="DateFormat" xml:space="preserve">
     <value>La &lt;b&gt;{0}&lt;/b&gt; es incorrecta</value>
+  </data>
+  <data name="Decimal" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe ser decimal</value>
+  </data>
+  <data name="Invalida" xml:space="preserve">
+    <value>La &lt;b&gt;{0}&lt;/b&gt; es inválida</value>
+  </data>
+  <data name="Invalido" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; es inválido</value>
+  </data>
+  <data name="Numeric" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe ser numerico</value>
+  </data>
+  <data name="OnlyLetters" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener solo letras</value>
+  </data>
+  <data name="OnlyNumbers" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener solo números</value>
+  </data>
+  <data name="ErrorEliminar" xml:space="preserve">
+    <value>Error al eliminar. Intente nuevamente.</value>
   </data>
 </root>

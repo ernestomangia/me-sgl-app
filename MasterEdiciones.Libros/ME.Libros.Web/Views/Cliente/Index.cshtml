@@ -76,6 +76,7 @@
 
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
-        eliminarEntidad("@Url.Action("Eliminar")", "Cliente Nº " + id + " eliminado exitosamente", "Error al eliminar el cliente. Intente nuevamente.");
+        var success = ('@Messages.EntidadEliminada').replace("{0}", "El cliente").replace("{1}", id);
+        eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
     });
 </script>

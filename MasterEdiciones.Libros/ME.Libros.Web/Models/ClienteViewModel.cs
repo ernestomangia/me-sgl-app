@@ -23,10 +23,11 @@ namespace ME.Libros.Web.Models
             Nombre = cliente.Nombre;
             Apellido = cliente.Apellido;
             Cuil = cliente.Cuil;
-            FechaNacimiento = cliente.FechaNacimiento;
+            FechaNacimiento = cliente.FechaNacimiento.HasValue ? cliente.FechaNacimiento.Value : (DateTime?)null;
             Sexo = cliente.Sexo;
             Direccion = cliente.Direccion;
             Numero = cliente.Numero;
+            Comentario = cliente.Comentario;
             TelefonoFijo = cliente.TelefonoFijo;
             Celular = cliente.Celular;
             Email = cliente.Email;
@@ -45,19 +46,23 @@ namespace ME.Libros.Web.Models
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        [RegularExpression(@"^([a-zA-Z]+\s)*[a-zA-Z]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyLetters")]
         public string Nombre { get; set; }
         
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        [RegularExpression(@"^([a-zA-Z]+\s)*[a-zA-Z]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyLetters")]
         public string Apellido { get; set; }
 
         [Display(Name = "Cuil", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string Cuil { get; set; }
 
         [Display(Name = "FechaNacimiento", ResourceType = typeof(Messages))]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        //[DataType(DataType.Date, ErrorMessage = "Fecha incorrecta mvc5")]
         public DateTime? FechaNacimiento { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
@@ -80,7 +85,9 @@ namespace ME.Libros.Web.Models
 
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string Celular { get; set; }
+        
         public string Email { get; set; }
+        
         public LocalidadViewModel Localidad { get; set; }
 
         public SelectList Provincias { get; set; }

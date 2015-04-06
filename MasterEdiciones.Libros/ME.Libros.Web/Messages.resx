@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClienteModificado" xml:space="preserve">
-    <value>El Cliente se modificó exitosamente</value>
-  </data>
-  <data name="ClienteNuevo" xml:space="preserve">
-    <value>El Cliente se creó exitosamente</value>
-  </data>
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
   </data>
@@ -132,11 +126,14 @@
   <data name="Direccion" xml:space="preserve">
     <value>Dirección</value>
   </data>
+  <data name="EntidadEliminada" xml:space="preserve">
+    <value>{0} Nº {1} se eliminó exitosamente</value>
+  </data>
   <data name="EntidadModificada" xml:space="preserve">
-    <value>{0} se modificó exitosamente</value>
+    <value>{0} Nº {1} se modificó exitosamente</value>
   </data>
   <data name="EntidadNueva" xml:space="preserve">
-    <value>{0} se creó exitosamente</value>
+    <value>{0}  N° {1} se creó exitosamente</value>
   </data>
   <data name="FechaAlta" xml:space="preserve">
     <value>Fecha de alta</value>

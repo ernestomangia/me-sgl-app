@@ -10,11 +10,12 @@ using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
+using ME.Libros.Web.Helpers;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class RubroController : BaseController
+    public class RubroController : BaseController<RubroDominio>
     {
         //
         // GET: /Rubro/
@@ -76,7 +77,7 @@ namespace ME.Libros.Web.Controllers
                         else
                         {
                             TempData["Id"] = rubroViewModel.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El rubro");
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El rubro", rubroViewModel.Id);
                         }
                     }
                 }
@@ -95,7 +96,6 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public JsonResult Eliminar(int id)
         {
-            var resultadoViewModel = new ResultadoViewModel();
             if (ModelState.IsValid)
             {
                 try
@@ -104,26 +104,18 @@ namespace ME.Libros.Web.Controllers
                     {
                         RubroService.Eliminar(RubroService.GetPorId(id));
                     }
-                    resultadoViewModel.Success = true;
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
-                    {
-                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                    }
                 }
                 catch (DbUpdateException ex)
                 {
                     var sqlException = ex.GetBaseException() as SqlException;
 
-                    if (sqlException != null)
+                    if (sqlException != null && sqlException.Number == 547)
                     {
-                        resultadoViewModel.Messages.Add("Error", sqlException.Number == 547 ? ErrorMessages.EliminarCliente : ErrorMessages.ErrorSistema);
+                        ModelState.AddModelError("Error", ErrorMessages.EliminarCliente);
                     }
                     else
                     {
-                        resultadoViewModel.Messages.Add("Error", ErrorMessages.ErrorSistema);
+                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                     }
                 }
                 catch (Exception ex)
@@ -131,11 +123,14 @@ namespace ME.Libros.Web.Controllers
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
-         
 
-            return Json(ModelState, JsonRequestBehavior.AllowGet);
-
+            return new JsonResult
+            {
+                Data = new {Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
+         
 
         [HttpGet]
         public ActionResult Modificar(int id)
@@ -161,7 +156,7 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Modificar(RubroViewModel rubroViewModel)
         {
-            long id = 0;
+            long resultado = 0;
             if (ModelState.IsValid)
             {
                 using (RubroService)
@@ -170,8 +165,8 @@ namespace ME.Libros.Web.Controllers
                     rubroDominio.Nombre = rubroViewModel.Nombre;
                     rubroDominio.Descripcion = rubroViewModel.Descripcion;
 
-                    id = RubroService.Guardar(rubroDominio);
-                    if (id <= 0)
+                    resultado = RubroService.Guardar(rubroDominio);
+                    if (resultado <= 0)
                     {
                         foreach (var error in RubroService.ModelError)
                         {
@@ -181,7 +176,7 @@ namespace ME.Libros.Web.Controllers
                     else
                     {
                         TempData["Id"] = rubroViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El rubro Nº " + id);
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El rubro", rubroViewModel.Id);
                     }
                 }
             }
@@ -190,6 +185,18 @@ namespace ME.Libros.Web.Controllers
             return rubroViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
                     : View(rubroViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Detalle(int id)
+        {
+            RubroViewModel rubroViewModel;
+            using (RubroService)
+            {
+                rubroViewModel = new RubroViewModel(RubroService.GetPorId(id));
+            }
+
+            return View(rubroViewModel);
         }
 
 

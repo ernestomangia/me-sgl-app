@@ -61,24 +61,6 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El Cliente se modificó exitosamente.
-        /// </summary>
-        public static string ClienteModificado {
-            get {
-                return ResourceManager.GetString("ClienteModificado", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El Cliente se creó exitosamente.
-        /// </summary>
-        public static string ClienteNuevo {
-            get {
-                return ResourceManager.GetString("ClienteNuevo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Código.
         /// </summary>
         public static string Codigo {
@@ -106,7 +88,16 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} se modificó exitosamente.
+        ///   Looks up a localized string similar to {0} Nº {1} se eliminó exitosamente.
+        /// </summary>
+        public static string EntidadEliminada {
+            get {
+                return ResourceManager.GetString("EntidadEliminada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Nº {1} se modificó exitosamente.
         /// </summary>
         public static string EntidadModificada {
             get {

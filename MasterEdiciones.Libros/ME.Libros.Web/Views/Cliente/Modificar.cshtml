@@ -5,54 +5,26 @@
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
-    if (!ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger" role="alert">
-            <b>Error:</b>
-            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-        </div>
-    }
-
     @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group form-group-sm">
-        <div class="col-sm-offset-8">
-            <a id="btnCancelarModificar" class="btn btn-default" href="@Url.Action("Index")">
-                Cancelar
-            </a>
-            <input type="submit" value="Modificar" class="btn btn-success" />
+    <div class="row">
+        <div class="col-md-10">
+            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                <b>Mensajes:</b>
+                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
+                    Cancelar
+                </a>
+                <input id="btnModificar" type="submit" value="Modificar" class="btn btn-success" />
+            </div>
         </div>
     </div>
 }
-
-<script>
-    //guardarEntidad("El cliente se modificó exitosamente");
-
-    @*$("#formCliente").on("submit", function () {
-        event.preventDefault();
-        $.ajax({
-            method: "POST",
-            url: $("#formCliente").attr("action"),
-            data: $("#formCliente").serialize(),
-            dataType: "json",
-            error: function (text, error) {
-                mensajeError("Ha ocurrido un error: " + text + error);
-            },
-            success: function (data) {
-                if (data.success) {
-                    $("#error").hide();
-                    mensajeSuccess("El cliente se modificó exitosamente");
-                    cargarPestaña('@Url.Action("Index", "Cliente")');
-                } else {
-                    $("#error > ul").empty();
-                    $.each(data.mensajes, function (key, value) {
-                        $("#error > ul").append("<li><b>" + key + "</b>: " + value + "</li>");
-                    });
-                    $("#error").show();
-                }
-            },
-            timeout: 10000,
-            cache: false
-        });
-    });*@
-</script>

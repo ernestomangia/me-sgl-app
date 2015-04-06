@@ -62,50 +62,25 @@ function eliminarEntidad(url, msjSuccess, msjError) {
         method: "GET",
         url: url + "?id=" + id,
         dataType: "json",
-        error: function (text, error) {
-            mensajeError("Ha ocurrido un error: " + text + error);
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
         },
         success: function (data) {
-            if (data.IsValid) {
+            if (data.Success) {
                 mensajeSuccess(msjSuccess);
-                $("#tr_" + id).remove();
+                var dataTable = $(".dataTableCustom").DataTable();
+                dataTable.row($("#tr_" + id)).remove().draw();
             } else {
-                mensajeError(msjError + " Mensaje: " + data.mensaje);
-                alert(data);
-            }
-        },
-        timeout: 10000,
-        cache: false
-    });
-}
-
-
-function guardarEntidad(msjSuccess) {
-    var formUrl = $(".formEntidad").attr("action");
-    $.ajax({
-        method: "POST",
-        url: formUrl,
-        data: $(".formEntidad").serialize(),
-        dataType: "json",
-        error: function (text, error) {
-            mensajeError("Ha ocurrido un error: " + text + error);
-        },
-        success: function (data) {
-            if (data.success) {
-                $("div .errorCustom").hide();
-                mensajeSuccess(msjSuccess);
-                var urlListado = formUrl.substring(0, formUrl.lastIndexOf("/") + 1);
-                //cargarPestaña(urlListado);
-                window.location.href = urlListado;
-            } else {
-                $("div .errorCustom > ul").empty();
-                $.each(data.mensajes, function (key, value) {
-                    $("div .errorCustom > ul").append("<li><b>" + key + "</b>: " + value + "</li>");
+                var errores = "";
+                $.each(data.Errors, function (key, value) {
+                    errores += key + ": " + value;
                 });
-                $("div .errorCustom").show();
+                mensajeError(msjError + " Mensaje: " + errores);
             }
         },
         timeout: 10000,
         cache: false
     });
 }
+
+

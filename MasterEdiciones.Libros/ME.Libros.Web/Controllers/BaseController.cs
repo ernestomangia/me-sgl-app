@@ -3,14 +3,16 @@ using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Mvc;
+using ME.Libros.Dominio;
+using ME.Libros.Servicios;
 
 namespace ME.Libros.Web.Controllers
 {
     using System.Data.Entity.Validation;
 
-    public class BaseController : Controller
+    public class BaseController<T> : Controller where T : BaseDominio
     {
-        //protected T service;
+        protected AbstractService<T> Service;
 
         public bool ExecuteAction<TEntity>(TEntity entity, Action<TEntity> action)
         {
@@ -18,8 +20,11 @@ namespace ME.Libros.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    action(entity);
-                    return true;
+                    using (Service)
+                    {
+                        action(entity);
+                        return true;
+                    }
                 }
             }
             catch (DbEntityValidationException ex)
@@ -33,9 +38,9 @@ namespace ME.Libros.Web.Controllers
             {
                 var sqlException = ex.GetBaseException() as SqlException;
 
-                if (sqlException != null)
+                if (sqlException != null && sqlException.Number == 547)
                 {
-                    ModelState.AddModelError("Error", sqlException.Number == 547 ? ErrorMessages.EliminarCliente : ErrorMessages.ErrorSistema);
+                    ModelState.AddModelError("Error", ErrorMessages.EliminarCliente);
                 }
                 else
                 {
@@ -50,13 +55,13 @@ namespace ME.Libros.Web.Controllers
             return false;
         }
 
-        //public bool ExecuteAction<TEntity>(TEntity entity, Func<int>(TEntity) action)
+        //public bool ExecuteFunction<TEntity>(TEntity entity, Func<int>(TEntity) action)
         //{
         //    try
         //    {
         //        if (this.ModelState.IsValid)
         //        {
-        //            action(entity);
+        //            //action(entity);
         //            return true;
         //        }
         //    }

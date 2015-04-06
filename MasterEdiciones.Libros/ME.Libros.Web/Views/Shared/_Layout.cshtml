@@ -6,19 +6,21 @@
         <title>Master Ediciones - Sistema Gestión de Libros</title>
         <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootstrap-navbar-custom.css" rel="stylesheet" type="text/css" />
-        
         <link href="~/Content/toastr.css" rel="stylesheet" type="text/css" />
-        
         <link href="~/Content/DataTables-1.10.5/boostrap/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/Content/DataTables-1.10.5/jquery.dataTables.custom.css" rel="stylesheet" />
-        
+
+        <link href="~/Content/datepicker.css" rel="stylesheet" />
+        <link href="~/Content/datepicker3.css" rel="stylesheet" />
+
         <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
         
         @* Scripts *@
         <script src="~/Scripts/jquery-2.1.3.js"></script>
         <script src="~/Scripts/bootstrap.js"></script>
         <script src="~/Scripts/modernizr-2.8.3.js"></script>
-        
+        <script src="~/Scripts/bootstrap-datepicker.js"></script>
+        <script src="~/Scripts/locales/bootstrap-datepicker.es.js"></script>
         <script src="~/Scripts/toastr.js"></script>
         <script src="~/Scripts/toastr.custom.js"></script>
         <script src="~/Scripts/jasny-bootstrap.js"></script>
@@ -45,9 +47,6 @@
                 </div>
                 <div class="navbar-collapse collapse navbar-left">
                     <ul class="nav navbar-nav navbar-left">
-                        <li>
-                            @Html.ActionLink("Home", "Index", "Home")
-                        </li>
                         <li>
                             @Html.ActionLink("Administración", "Index", "Cliente")
                         </li>
@@ -90,5 +89,36 @@
 </html>
 
 <script type="text/javascript">
-    
+    $(document).ready(function () {
+        $("input[data-val-length-max]").each(function () {
+            $(this).attr("maxlength", $(this).data().valLengthMax);
+        });
+
+        $(".datepicker").rules("remove", "date");
+    });
+
+    $(function () {
+        $("[data-hide]").on("click", function () {
+            $(this).closest("." + $(this).attr("data-hide")).addClass("hide");
+        });
+    });
+
+    $(".formEntidad").on("submit", function () {
+        if ($(this).valid()) {
+            $(".validationSummary").addClass("hide");
+        } else {
+            $(".validationSummary").removeClass("hide");
+        }
+    });
+
+    jQuery.extend(jQuery.validator.messages, {
+        email: '@Html.Raw(string.Format(ErrorMessages.Invalido, "Email"))',
+    });
+
+    $('.datepicker').datepicker({
+        language: 'es',
+        todayBtn: 'linked',
+        todayHighlight: true
+    });
+
 </script>

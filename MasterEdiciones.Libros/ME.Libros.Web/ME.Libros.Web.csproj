@@ -336,6 +336,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\EditorialController.cs" />
     <Compile Include="Controllers\MenuLateralController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\LocalidadController.cs" />
@@ -357,6 +358,7 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\EditorialViewModel.cs" />
     <Compile Include="Models\LocalidadViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
     <Compile Include="Models\ProvinciaViewModel.cs" />
@@ -390,6 +392,11 @@
     <Content Include="Views\Rubro\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Rubro\Modificar.cshtml" />
     <Content Include="Views\Rubro\Detalle.cshtml" />
+    <Content Include="Views\Editorial\Index.cshtml" />
+    <Content Include="Views\Editorial\Crear.cshtml" />
+    <Content Include="Views\Editorial\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Editorial\Modificar.cshtml" />
+    <Content Include="Views\Editorial\Detalle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

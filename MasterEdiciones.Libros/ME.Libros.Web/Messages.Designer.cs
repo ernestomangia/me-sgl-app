@@ -88,6 +88,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Editorial.
+        /// </summary>
+        public static string Editorial {
+            get {
+                return ResourceManager.GetString("Editorial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a {0} Nº {1} se eliminó exitosamente.
         /// </summary>
         public static string EntidadEliminada {

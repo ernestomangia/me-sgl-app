@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AbstractService.cs" />
     <Compile Include="General\ClienteService.cs" />
+    <Compile Include="General\EditorialService.cs" />
     <Compile Include="General\LocalidadService.cs" />
     <Compile Include="General\ProvinciaService.cs" />
     <Compile Include="General\RubroService.cs" />

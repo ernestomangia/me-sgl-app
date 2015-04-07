@@ -1,0 +1,32 @@
+﻿@model ME.Libros.Web.Models.EditorialViewModel
+
+<h3>Nueva Editorial</h3>
+@using (Html.BeginForm("Crear", "Editorial", FormMethod.Post, new { id = "formEditorial", @class = "form-horizontal formEntidad" }))
+{
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    @Html.ValidationSummary("Mensajes:")
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="alert alert-danger">
+                <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                <a id="btnCancelarCrear" class="btn btn-default" href="@Url.Action("Index", "Editorial")">
+                    Cancelar
+                </a>
+                <input id="btnCrearEditorial" type="submit" value="Crear" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+

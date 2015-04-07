@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ME.Libros.Web.Models.EditorialViewModel>
+
+    <h3>Editoriales</h3>
+    <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        Nuevo
+    </a>
+
+    <table class="dataTableCustom">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                <th class="columnaAcciones">Acciones</th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr id=@("tr_"+ item.Id)>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                <td>
+                    <a class="btn btn-info btn-sm" type="button" href="@Url.Action("Detalle", new { id = item.Id})">
+                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    </a>
+                    <a class="btn btn-warning btn-sm" type="button" href="@Url.Action("Modificar", new { id = item.Id})">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#modalEliminarEditorial" onclick="javascript:setearId(@item.Id);">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div class="info"></div>
+    <input type="hidden" id="idEntidad" />
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalEliminarEditorial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Eliminar Editorial</h4>
+                </div>
+                <div class="modal-body">
+                    ¿Esta seguro que desea eliminar la editorial?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button id="btnAceptar" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ('@ViewBag.Id' != "") {
+                mensajeSuccess('@ViewBag.Mensaje');
+            }
+        });
+
+        $("#btnAceptar").on("click", function () {
+            var id = $("#idEntidad").val();
+            eliminarEntidad("@Url.Action("Eliminar")", "La Editorial Nº " + id + "se ha eliminado exitosamente", "Error al eliminar la Editorial. Intente nuevamente.");
+        });
+
+    </script>
+

@@ -126,6 +126,9 @@
   <data name="Direccion" xml:space="preserve">
     <value>Dirección</value>
   </data>
+  <data name="Editorial" xml:space="preserve">
+    <value>Editorial</value>
+  </data>
   <data name="EntidadEliminada" xml:space="preserve">
     <value>{0} Nº {1} se eliminó exitosamente</value>
   </data>

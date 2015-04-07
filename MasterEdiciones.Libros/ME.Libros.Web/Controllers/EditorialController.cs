@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -15,69 +14,70 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class RubroController : BaseController<RubroDominio>
+    public class EditorialController : BaseController<EditorialDominio>
     {
+       
         //
-        // GET: /Rubro/
+        // GET: /Editorial/
 
-        public RubroService RubroService { get; set; }
+        public EditorialService EditorialService { get; set; }
         public ActionResult Index()
         {
             ViewBag.Id = TempData["Id"];
             ViewBag.Mensaje = TempData["Mensaje"];
 
-            var rubros = new List<RubroViewModel>();
-            using (RubroService)
+            var editorial = new List<EditorialViewModel>();
+            using (EditorialService)
             {
-                rubros.AddRange(RubroService.Listar().ToList().Select(r => new RubroViewModel(r)));
+                editorial.AddRange(EditorialService.Listar().ToList().Select(e => new EditorialViewModel(e)));
             }
 
-            return View(rubros);
+            return View(editorial);
 
         }
 
-        public RubroController()
+        public EditorialController()
         {
             var modelContainer = new ModelContainer();
-            RubroService = new RubroService(new EntidadRepository<RubroDominio>(modelContainer));
-            ViewBag.MenuId = 4;
+            EditorialService = new EditorialService(new EntidadRepository<EditorialDominio>(modelContainer));
+            ViewBag.MenuId = 5;
         }
 
         [HttpGet]
         public ActionResult Crear()
         {
-            var rubroViewModel = new RubroViewModel();
-            return View(rubroViewModel);
+            var editorialViewModel = new EditorialViewModel();
+            return View(editorialViewModel);
         }
 
         [HttpPost]
-        public ActionResult Crear(RubroViewModel rubroViewModel)
+        public ActionResult Crear(EditorialViewModel editorialViewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    using (RubroService)
+                    using (EditorialService)
                     {
-                        var rubroDominio = new RubroDominio
-                        {   
+                        var editorialDominio = new EditorialDominio
+                        {
                             FechaAlta = DateTime.Now,
-                            Nombre = rubroViewModel.Nombre,
-                            Descripcion=rubroViewModel.Descripcion,
+                            Nombre = editorialViewModel.Nombre,
+                            Descripcion = editorialViewModel.Descripcion,
                         };
 
-                        rubroViewModel.Id = RubroService.Guardar(rubroDominio);
-                        if (rubroViewModel.Id <= 0)
+                        editorialViewModel.Id = EditorialService.Guardar(editorialDominio);
+                        if (editorialViewModel.Id <= 0)
                         {
-                            foreach (var error in RubroService.ModelError)
+                            foreach (var error in EditorialService.ModelError)
                             {
                                 ModelState.AddModelError(error.Key, error.Value);
                             }
                         }
                         else
                         {
-                            TempData["Id"] = rubroViewModel.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El rubro", rubroDominio.Id);
+                            TempData["Id"] = editorialViewModel.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "La Editorial", editorialDominio.Id);
                         }
                     }
                 }
@@ -88,9 +88,9 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-            return rubroViewModel.Id > 0
+            return editorialViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
-                    : View(rubroViewModel);
+                    : View(editorialViewModel);
         }
 
         [HttpGet]
@@ -100,9 +100,9 @@ namespace ME.Libros.Web.Controllers
             {
                 try
                 {
-                    using (RubroService)
+                    using (EditorialService)
                     {
-                        RubroService.Eliminar(RubroService.GetPorId(id));
+                        EditorialService.Eliminar(EditorialService.GetPorId(id));
                     }
                 }
                 catch (DbUpdateException ex)
@@ -111,7 +111,7 @@ namespace ME.Libros.Web.Controllers
 
                     if (sqlException != null && sqlException.Number == 547)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.EliminarRubro);
+                        ModelState.AddModelError("Error", ErrorMessages.EliminarEditorial);
                     }
                     else
                     {
@@ -126,22 +126,22 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new {Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-         
+
 
         [HttpGet]
         public ActionResult Modificar(int id)
         {
-            var rubroViewModel = new RubroViewModel();
+            var editorialViewModel = new EditorialViewModel();
             try
             {
-                using (RubroService)
+                using (EditorialService)
                 {
-                    var rubroDominio = RubroService.GetPorId(id);
-                    rubroViewModel = new RubroViewModel(rubroDominio);
+                    var editorialDominio = EditorialService.GetPorId(id);
+                    editorialViewModel = new EditorialViewModel(editorialDominio);
                 }
             }
             catch (Exception ex)
@@ -150,56 +150,56 @@ namespace ME.Libros.Web.Controllers
                 ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
-            return View(rubroViewModel);
+            return View(editorialViewModel);
         }
 
         [HttpPost]
-        public ActionResult Modificar(RubroViewModel rubroViewModel)
+        public ActionResult Modificar(EditorialViewModel editorialViewModel)
         {
             long resultado = 0;
             if (ModelState.IsValid)
             {
-                using (RubroService)
+                using (EditorialService)
                 {
-                    var rubroDominio = RubroService.GetPorId(rubroViewModel.Id);
-                    rubroDominio.Nombre = rubroViewModel.Nombre;
-                    rubroDominio.Descripcion = rubroViewModel.Descripcion;
+                    var rubroDominio = EditorialService.GetPorId(editorialViewModel.Id);
+                    rubroDominio.Nombre = editorialViewModel.Nombre;
+                    rubroDominio.Descripcion = editorialViewModel.Descripcion;
 
-                    resultado = RubroService.Guardar(rubroDominio);
+                    resultado = EditorialService.Guardar(rubroDominio);
                     if (resultado <= 0)
                     {
-                        foreach (var error in RubroService.ModelError)
+                        foreach (var error in EditorialService.ModelError)
                         {
                             ModelState.AddModelError(error.Key, error.Value);
                         }
                     }
                     else
                     {
-                        TempData["Id"] = rubroViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El rubro", rubroViewModel.Id);
+                        TempData["Id"] = editorialViewModel.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "La editorial", editorialViewModel.Id);
                     }
                 }
             }
 
 
-            return rubroViewModel.Id > 0
+            return editorialViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
-                    : View(rubroViewModel);
+                    : View(editorialViewModel);
         }
 
         [HttpGet]
         public ActionResult Detalle(int id)
         {
-            RubroViewModel rubroViewModel;
-            using (RubroService)
+            EditorialViewModel editorialViewModel;
+            using (EditorialService)
             {
-                rubroViewModel = new RubroViewModel(RubroService.GetPorId(id));
+                editorialViewModel = new EditorialViewModel(EditorialService.GetPorId(id));
             }
 
-            return View(rubroViewModel);
+            return View(editorialViewModel);
         }
 
 
 
-	}
+    }
 }

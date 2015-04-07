@@ -168,4 +168,10 @@
   <data name="ErrorEliminar" xml:space="preserve">
     <value>Error al eliminar. Intente nuevamente.</value>
   </data>
+  <data name="EliminarEditorial" xml:space="preserve">
+    <value>La editorial no puede ser eliminada porque tiene datos asociados</value>
+  </data>
+  <data name="EliminarRubro" xml:space="preserve">
+    <value>El rubro no puede ser eliminado porque tiene datos asociados</value>
+  </data>
 </root>

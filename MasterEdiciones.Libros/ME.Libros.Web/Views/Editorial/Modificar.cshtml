@@ -1,0 +1,27 @@
+﻿@model ME.Libros.Web.Models.EditorialViewModel
+
+<h3>Modificar editorial</h3>
+@using (Html.BeginForm("Modificar", "Editorial", FormMethod.Post, new { id = "formEditorial", @class = "form-horizontal formEntidad" }))
+{
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger" role="alert">
+            <b>Error:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    }
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group form-group-sm">
+        <div class="col-sm-offset-8">
+            <a id="btnCancelarModificar" class="btn btn-default" href="@Url.Action("Index")">
+                Cancelar
+            </a>
+            <input type="submit" value="Modificar" class="btn btn-success" />
+        </div>
+    </div>
+}
+

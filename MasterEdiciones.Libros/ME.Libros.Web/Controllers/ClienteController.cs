@@ -41,6 +41,8 @@ namespace ME.Libros.Web.Controllers
             using (ClienteService)
             {
                 clientes.AddRange(ClienteService.Listar()
+                    .OrderBy(c => c.Apellido)
+                    .ThenBy(c => c.Nombre)
                     .ToList()
                     .Select(c => new ClienteViewModel(c)));
             }
@@ -156,7 +158,7 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new {Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

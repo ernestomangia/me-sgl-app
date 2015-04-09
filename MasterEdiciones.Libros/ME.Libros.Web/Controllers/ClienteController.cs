@@ -96,7 +96,7 @@ namespace ME.Libros.Web.Controllers
                         else
                         {
                             TempData["Id"] = clienteDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El cliente", clienteViewModel.Id);
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteViewModel.Id);
                         }
                     }
                 }
@@ -118,7 +118,10 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-            PrepareModel(clienteViewModel);
+            if (resultado == 0)
+            {
+                PrepareModel(clienteViewModel);
+            }
 
             return resultado > 0
                 ? (ActionResult)RedirectToAction("Index")
@@ -143,7 +146,7 @@ namespace ME.Libros.Web.Controllers
 
                     if (sqlException != null && sqlException.Number == 547)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.EliminarCliente);
+                        ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElCliente));
                     }
                     else
                     {
@@ -209,12 +212,15 @@ namespace ME.Libros.Web.Controllers
                     else
                     {
                         TempData["Id"] = clienteViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El cliente", clienteViewModel.Id);
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente, clienteViewModel.Id);
                     }
                 }
             }
 
-            PrepareModel(clienteViewModel);
+            if (resultado == 0)
+            {
+                PrepareModel(clienteViewModel);
+            }
 
             return resultado > 0
                 ? (ActionResult)RedirectToAction("Index")
@@ -233,24 +239,6 @@ namespace ME.Libros.Web.Controllers
             PrepareModel(clienteViewModel);
 
             return View(clienteViewModel);
-        }
-
-        public JsonResult ListarLocalidades(int id)
-        {
-            var localidades = new List<LocalidadViewModel>();
-            using (LocalidadService)
-            {
-                localidades.AddRange(LocalidadService
-                    .Listar(l => l.Provincia.Id == id)
-                    .ToList()
-                    .Select(l => new LocalidadViewModel(l)));
-            }
-
-            return new JsonResult
-            {
-                Data = localidades,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
         }
 
         #region Private Methods

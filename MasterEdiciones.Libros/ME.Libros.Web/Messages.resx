@@ -129,6 +129,9 @@
   <data name="Editorial" xml:space="preserve">
     <value>Editorial</value>
   </data>
+  <data name="ElCliente" xml:space="preserve">
+    <value>El cliente</value>
+  </data>
   <data name="EntidadEliminada" xml:space="preserve">
     <value>{0} Nº {1} se eliminó exitosamente</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="FechaNacimiento" xml:space="preserve">
     <value>Fecha de nacimiento</value>
+  </data>
+  <data name="LaLocalidad" xml:space="preserve">
+    <value>La localidad</value>
   </data>
   <data name="Localidad" xml:space="preserve">
     <value>Localidad</value>

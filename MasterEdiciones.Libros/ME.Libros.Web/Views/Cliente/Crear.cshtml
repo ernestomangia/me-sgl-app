@@ -1,5 +1,9 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
 
+@{
+    ViewBag.Title = "Cliente";
+}
+
 <h3>Nuevo cliente</h3>
 @using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
 {
@@ -14,7 +18,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-10">
             <div class="text-right">

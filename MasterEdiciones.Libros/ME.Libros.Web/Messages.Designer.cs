@@ -97,6 +97,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El cliente.
+        /// </summary>
+        public static string ElCliente {
+            get {
+                return ResourceManager.GetString("ElCliente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Nº {1} se eliminó exitosamente.
         /// </summary>
         public static string EntidadEliminada {
@@ -138,6 +147,15 @@ namespace ME.Libros.Web {
         public static string FechaNacimiento {
             get {
                 return ResourceManager.GetString("FechaNacimiento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La localidad.
+        /// </summary>
+        public static string LaLocalidad {
+            get {
+                return ResourceManager.GetString("LaLocalidad", resourceCulture);
             }
         }
         

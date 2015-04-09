@@ -35,10 +35,10 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.TelefonoFijo).HasMaxLength(11).IsOptional();
             Property(c => c.Email).HasMaxLength(100).IsOptional();
 
-            //UniqueConstraint(c=>c.cuil)
-
             // FK
-            HasRequired(c => c.Localidad);
+            HasRequired(c => c.Localidad)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete(false);
 
             // Map Table
             ToTable("Cliente");

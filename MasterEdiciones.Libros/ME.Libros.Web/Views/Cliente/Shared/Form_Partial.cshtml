@@ -141,7 +141,7 @@
         if (idProvincia > 0) {
             $.ajax({
                 method: "GET",
-                url: '@Url.Action("ListarLocalidades", "Cliente")' + "?id=" + idProvincia,
+                url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
                 dataType: "json",
                 error: function (jqXHR, status, error) {
                     mensajeError("Error: " + error + " - Status: " + status);

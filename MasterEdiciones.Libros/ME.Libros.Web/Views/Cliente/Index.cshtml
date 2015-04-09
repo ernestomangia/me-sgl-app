@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
 
+@{
+    ViewBag.Title = "Clientes";
+}
+
 <h3>Clientes</h3>
 <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -36,7 +40,7 @@
                 <a class="btn btn-warning btn-sm" type="button" href="@Url.Action("Modificar", new { id = item.Id})">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </a>
-                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#modalEliminarCliente" onclick="javascript:setearId(@item.Id);">
+                <button class="btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#modalEliminar" onclick="javascript:setearId(@item.Id);">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                 </button>
             </td>
@@ -48,7 +52,7 @@
 <input type="hidden" id="idEntidad" />
 
 <!-- Modal -->
-<div class="modal fade" id="modalEliminarCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade modalEliminar" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -60,7 +64,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button id="btnAceptar" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                <button id="btnAceptar" type="button" class="btn btn-primary" @*data-dismiss="modal"*@>Aceptar</button>
             </div>
         </div>
     </div>
@@ -68,15 +72,9 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        if ('@ViewBag.Id' != "") {
-            mensajeSuccess('@ViewBag.Mensaje');
-        }
-    });
-
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
-        var success = ('@Messages.EntidadEliminada').replace("{0}", "El cliente").replace("{1}", id);
+        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElCliente').replace("{1}", id);
         eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
     });
 </script>

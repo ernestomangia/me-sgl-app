@@ -675,6 +675,7 @@
     <Compile Include="Controllers\LocalidadController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\ReservacionController.cs" />
     <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
@@ -699,6 +700,8 @@
     <Compile Include="Models\ProvinciaViewModel.cs" />
     <Compile Include="Models\ResultadoViewModel.cs" />
     <Compile Include="Models\RubroViewModel.cs" />
+    <Compile Include="Models\VentaItemViewModel.cs" />
+    <Compile Include="Models\VentaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -738,6 +741,9 @@
     <Content Include="Scripts\jquery.validate.globalize.min.js.map" />
     <Content Include="Views\Producto\Modificar.cshtml" />
     <Content Include="Views\Producto\Detalle.cshtml" />
+    <Content Include="Views\Reservacion\Index.cshtml" />
+    <Content Include="Views\Reservacion\Crear.cshtml" />
+    <Content Include="Views\Reservacion\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -783,6 +789,7 @@
     <EmbeddedResource Include="Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -118,7 +118,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 20,
                         Nombre = "Reservación",
-                        Link = "#",
+                        Link = helper.Action("Index", "Reservacion"),
                         Posicion = 10,
                     });
                     MenuViewModels.Add(new MenuViewModel

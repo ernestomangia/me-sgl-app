@@ -166,7 +166,7 @@
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener solo números</value>
   </data>
   <data name="ErrorEliminar" xml:space="preserve">
-    <value>Error al eliminar. Intente nuevamente.</value>
+    <value>Error al eliminar.</value>
   </data>
   <data name="EliminarEditorial" xml:space="preserve">
     <value>La editorial no puede ser eliminada porque tiene datos asociados</value>
@@ -174,7 +174,7 @@
   <data name="EliminarRubro" xml:space="preserve">
     <value>El rubro no puede ser eliminado porque tiene datos asociados</value>
   </data>
-  <data name="EliminarProducto" xml:space="preserve">
-    <value>El producto no puede ser eliminado porque tiene datos asociados</value>
+  <data name="DatosAsociados" xml:space="preserve">
+    <value>{0} no puede eliminarse porque tiene datos asociados</value>
   </data>
 </root>

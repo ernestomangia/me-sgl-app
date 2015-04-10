@@ -67,15 +67,18 @@ function eliminarEntidad(url, msjSuccess, msjError) {
         },
         success: function (data) {
             if (data.Success) {
-                mensajeSuccess(msjSuccess);
                 var dataTable = $(".dataTableCustom").DataTable();
+                $('.modalEliminar').modal('toggle');
+                mensajeSuccess(msjSuccess);
                 dataTable.row($("#tr_" + id)).remove().draw();
             } else {
-                var errores = "";
+                var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
-                    errores += key + ": " + value;
+                    errores += "<li>" + key + ": " + value + "</li>";
                 });
-                mensajeError(msjError + " Mensaje: " + errores);
+                errores += "</ul>";
+                $(".validationSummary").append(errores);
+                //mensajeError(msjError + " Mensaje: " + errores);
             }
         },
         timeout: 10000,

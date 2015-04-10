@@ -3,13 +3,12 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Master Ediciones - Sistema Gestión de Libros</title>
+    <title>@ViewBag.Title</title>
         <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/bootstrap-navbar-custom.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/toastr.css" rel="stylesheet" type="text/css" />
         <link href="~/Content/DataTables-1.10.5/boostrap/dataTables.bootstrap.css" rel="stylesheet" />
         <link href="~/Content/DataTables-1.10.5/jquery.dataTables.custom.css" rel="stylesheet" />
-
         <link href="~/Content/datepicker.css" rel="stylesheet" />
         <link href="~/Content/datepicker3.css" rel="stylesheet" />
 
@@ -28,7 +27,7 @@
         <script src="~/Scripts/jquery.validate.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
         <script src="~/Scripts/jquery.validate.custom.js"></script>
-        
+
         <script src="~/Scripts/globalize/globalize.js"></script>
         <script src="~/Scripts/globalize/cultures/globalize.culture.es-AR.js"></script>
         @*<script src="~/Scripts/JqueryValidateGlobalize.custom.js"></script>*@
@@ -95,6 +94,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        if ('@ViewBag.Id' != "") {
+            mensajeSuccess('@ViewBag.Mensaje');
+        }
+
         $("input[data-val-length-max]").each(function () {
             $(this).attr("maxlength", $(this).data().valLengthMax);
         });

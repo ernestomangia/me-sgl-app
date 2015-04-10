@@ -7,6 +7,7 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.EF
 {
+    using System.Data.Entity.ModelConfiguration.Conventions;
     using System.Linq;
 
     public class ModelContainer : DbContext, IModelContainer
@@ -29,6 +30,8 @@ namespace ME.Libros.EF
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
         }
 

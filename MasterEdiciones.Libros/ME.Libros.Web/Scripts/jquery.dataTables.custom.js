@@ -1,4 +1,7 @@
 ﻿$.extend($.fn.dataTable.defaults, {
+    columnDefs: [
+        { "width": "50px", "targets": "columnaCodigo" }
+    ],
     searching: true,
     ordering: true,
     paging: true,

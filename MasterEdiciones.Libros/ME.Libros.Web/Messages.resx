@@ -135,6 +135,9 @@
   <data name="Editorial" xml:space="preserve">
     <value>Editorial</value>
   </data>
+  <data name="ElCliente" xml:space="preserve">
+    <value>El cliente</value>
+  </data>
   <data name="EntidadEliminada" xml:space="preserve">
     <value>{0} Nº {1} se eliminó exitosamente</value>
   </data>
@@ -142,13 +145,16 @@
     <value>{0} Nº {1} se modificó exitosamente</value>
   </data>
   <data name="EntidadNueva" xml:space="preserve">
-    <value>{0}  N° {1} se creó exitosamente</value>
+    <value>{0} N° {1} se creó exitosamente</value>
   </data>
   <data name="FechaAlta" xml:space="preserve">
     <value>Fecha de alta</value>
   </data>
   <data name="FechaNacimiento" xml:space="preserve">
     <value>Fecha de nacimiento</value>
+  </data>
+  <data name="LaLocalidad" xml:space="preserve">
+    <value>La localidad</value>
   </data>
   <data name="Localidad" xml:space="preserve">
     <value>Localidad</value>

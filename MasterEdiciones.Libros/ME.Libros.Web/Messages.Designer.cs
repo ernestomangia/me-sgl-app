@@ -70,11 +70,29 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Codigo de barra.
+        /// </summary>
+        public static string CodigoBarra {
+            get {
+                return ResourceManager.GetString("CodigoBarra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a CUIL/CUIT.
         /// </summary>
         public static string Cuil {
             get {
                 return ResourceManager.GetString("Cuil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Descripción.
+        /// </summary>
+        public static string Descripcion {
+            get {
+                return ResourceManager.GetString("Descripcion", resourceCulture);
             }
         }
         
@@ -160,11 +178,47 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Precio de costo.
+        /// </summary>
+        public static string PrecioCosto {
+            get {
+                return ResourceManager.GetString("PrecioCosto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Precio de venta.
+        /// </summary>
+        public static string PrecioVenta {
+            get {
+                return ResourceManager.GetString("PrecioVenta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Provincia.
         /// </summary>
         public static string Provincia {
             get {
                 return ResourceManager.GetString("Provincia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Rubro.
+        /// </summary>
+        public static string Rubro {
+            get {
+                return ResourceManager.GetString("Rubro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stock.
+        /// </summary>
+        public static string Stock {
+            get {
+                return ResourceManager.GetString("Stock", resourceCulture);
             }
         }
         

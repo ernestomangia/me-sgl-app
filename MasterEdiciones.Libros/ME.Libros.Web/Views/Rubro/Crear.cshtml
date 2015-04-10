@@ -1,30 +1,27 @@
 ﻿@model ME.Libros.Web.Models.RubroViewModel
 
-
 <h3>Nuevo rubro</h3>
 @using (Html.BeginForm("Crear", "Rubro", FormMethod.Post, new { id = "formRubro", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
-    @Html.ValidationSummary("Mensajes:")
-
     <div class="row">
         <div class="col-md-10">
-            <div class="alert alert-danger">
-                <button class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                <b>Mensajes:</b>
                 @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
             </div>
         </div>
     </div>
-     
 
     <div class="row">
         <div class="col-md-10">
             <div class="text-right">
-                <a id="btnCancelarCrear" class="btn btn-default" href="@Url.Action("Index", "Rubro")">
+                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
                     Cancelar
                 </a>
-                <input id="btnCrearRubro" type="submit" value="Crear" class="btn btn-success" />
+                <input id="btnCrear" type="submit" value="Crear" class="btn btn-success" />
             </div>
         </div>
     </div>

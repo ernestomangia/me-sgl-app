@@ -38,7 +38,6 @@ namespace ME.Libros.Web.Models
         public string Nombre { get; set; }
 
         [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public string Descripcion { get; set; }
 
         #endregion

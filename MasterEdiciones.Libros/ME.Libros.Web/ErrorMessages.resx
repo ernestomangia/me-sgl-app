@@ -174,4 +174,7 @@
   <data name="EliminarRubro" xml:space="preserve">
     <value>El rubro no puede ser eliminado porque tiene datos asociados</value>
   </data>
+  <data name="EliminarProducto" xml:space="preserve">
+    <value>El producto no puede ser eliminado porque tiene datos asociados</value>
+  </data>
 </root>

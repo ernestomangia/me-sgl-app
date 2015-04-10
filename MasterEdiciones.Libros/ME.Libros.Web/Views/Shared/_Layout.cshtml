@@ -28,6 +28,11 @@
         <script src="~/Scripts/jquery.validate.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
         <script src="~/Scripts/jquery.validate.custom.js"></script>
+        
+        <script src="~/Scripts/globalize/globalize.js"></script>
+        <script src="~/Scripts/globalize/cultures/globalize.culture.es-AR.js"></script>
+        @*<script src="~/Scripts/JqueryValidateGlobalize.custom.js"></script>*@
+        <script src="~/Scripts/jquery.validate.globalize.js"></script>
 
         <script src="~/Scripts/DataTables-1.10.5/media/js/jquery.dataTables.js"></script>
         <script src="~/Scripts/DataTables-1.10.5/boostrap/dataTables.bootstrap.js"></script>
@@ -94,6 +99,7 @@
             $(this).attr("maxlength", $(this).data().valLengthMax);
         });
 
+        Globalize.culture("es-AR");
         $(".datepicker").rules("remove", "date");
     });
 

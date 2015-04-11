@@ -1,18 +1,14 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
 
-@{
-    ViewBag.Title = "Clientes";
-}
-
 <h3>Clientes</h3>
 <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
 @*<a class="btn btn-info" href="#" role="button">
-    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-    Filtrar
-</a>*@
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+        Filtrar
+    </a>*@
 
 <table class="dataTableCustom">
     <thead>
@@ -48,7 +44,6 @@
     }
 </table>
 
-<div class="info"></div>
 <input type="hidden" id="idEntidad" />
 
 <!-- Modal -->
@@ -60,16 +55,23 @@
                 <h4 class="modal-title" id="myModalLabel">Eliminar Cliente</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar el cliente?
+                ¿Esta seguro que desea eliminar el Cliente?
             </div>
             <div class="modal-footer">
+                <div class="row text-left">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger validationSummary hide" role="alert">
+                            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                            <b>Mensajes:</b>
+                        </div>
+                    </div>
+                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button id="btnAceptar" type="button" class="btn btn-primary" @*data-dismiss="modal"*@>Aceptar</button>
+                <button id="btnAceptar" type="button" class="btn btn-primary">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
-
 
 <script type="text/javascript">
     $("#btnAceptar").on("click", function () {

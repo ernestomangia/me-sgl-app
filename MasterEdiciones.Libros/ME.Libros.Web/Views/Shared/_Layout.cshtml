@@ -22,16 +22,19 @@
     <script src="~/Scripts/locales/bootstrap-datepicker.es.js"></script>
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/toastr.custom.js"></script>
-    <script src="~/Scripts/jasny-bootstrap.js"></script>
 
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.validate.custom.js"></script>
 
+    <script src="~/Scripts/globalize/globalize.js"></script>
+    <script src="~/Scripts/globalize/cultures/globalize.culture.es-AR.js"></script>
+    <script src="~/Scripts/jquery.validate.globalize.js"></script>
+    
     <script src="~/Scripts/DataTables-1.10.5/media/js/jquery.dataTables.js"></script>
     <script src="~/Scripts/DataTables-1.10.5/boostrap/dataTables.bootstrap.js"></script>
     <script src="~/Scripts/jquery.dataTables.custom.js"></script>
-
+    
     <script src="~/Scripts/common.js"></script>
 </head>
 <body>
@@ -50,9 +53,9 @@
                         @Html.ActionLink("Administración", "Index", "Cliente")
                     </li>
                     <li>
-                        @Html.ActionLink("Ventas", "Index", "Venta")
+                        @Html.ActionLink("Ventas", "Index", "Reservacion")
                     </li>
-                    <li><a href="#">Facturación</a></li>
+                    <li><a href="#">Tesoreria</a></li>
                     <li><a href="#">Reportes</a></li>
                     <li><a href="#">Sistema</a></li>
                     <li><a href="#">Ayuda</a></li>
@@ -97,7 +100,11 @@
             $(this).attr("maxlength", $(this).data().valLengthMax);
         });
 
-        $(".datepicker").rules("remove", "date");
+        Globalize.culture("es-AR");
+
+        $(".formDetalle :input").each(function () {
+            $(this).attr('disabled', true);
+        });
     });
 
     $(function () {
@@ -124,4 +131,8 @@
         todayHighlight: true
     });
 
+    $('.modalEliminar').on('hidden.bs.modal', function () {
+        $(".validationSummary").addClass("hide");
+        $(".validationSummary ul").remove();
+    });
 </script>

@@ -27,6 +27,7 @@ namespace ME.Libros.Web.Controllers
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ViewBag.MenuId = 1;
+            ViewBag.Title = "Clientes";
             Service = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
         }
 
@@ -63,6 +64,8 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(ClienteViewModel clienteViewModel)
         {
             long resultado = 0;
+            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.Nombre);
+            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.ProvinciaId);
             if (ModelState.IsValid)
             {
                 try
@@ -96,7 +99,7 @@ namespace ME.Libros.Web.Controllers
                         else
                         {
                             TempData["Id"] = clienteDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteViewModel.Id);
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Id);
                         }
                     }
                 }

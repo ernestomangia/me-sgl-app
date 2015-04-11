@@ -6,7 +6,7 @@
 
         public virtual string Nombre { get; set; }
         public virtual string Descripcion { get; set; }
-        public virtual int Stock { get; set; }
+        public virtual long Stock { get; set; }
         public virtual string CodigoBarra { get; set; }
         public virtual decimal PrecioCosto { get; set; }
         public virtual decimal PrecioVenta { get; set; }

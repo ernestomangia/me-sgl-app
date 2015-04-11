@@ -1,12 +1,12 @@
-﻿@model ME.Libros.Web.Models.ClienteViewModel
+﻿@model ME.Libros.Web.Models.LocalidadViewModel
 
-<h3>Nuevo cliente</h3>
-@using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
+<h3>Modificar localidad</h3>
+@using (Html.BeginForm("Modificar", "Localidad", FormMethod.Post, new { id = "formLocalidad", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-5">
             <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
                 <a class="close" data-hide="alert" aria-hidden="true">×</a>
                 <b>Mensajes:</b>
@@ -15,12 +15,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-5">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
                     Cancelar
                 </a>
-                <input id="btnCrear" type="submit" value="Crear" class="btn btn-success" />
+                <input id="btnCrear" type="submit" value="Modificar" class="btn btn-success" />
             </div>
         </div>
     </div>

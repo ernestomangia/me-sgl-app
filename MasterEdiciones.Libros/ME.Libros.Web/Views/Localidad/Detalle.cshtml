@@ -1,11 +1,11 @@
-﻿@model ME.Libros.Web.Models.ClienteViewModel
+﻿@model ME.Libros.Web.Models.LocalidadViewModel
 
-<h3>Detalle cliente</h3>
+<h3>Detalle localidad</h3>
 <div class="form-horizontal formDetalle">
     @Html.Partial("Shared/Form_Partial", Model)
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-5">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
                     Cancelar

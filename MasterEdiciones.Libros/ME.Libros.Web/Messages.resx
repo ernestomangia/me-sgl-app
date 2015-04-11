@@ -120,8 +120,14 @@
   <data name="Codigo" xml:space="preserve">
     <value>Código</value>
   </data>
+  <data name="CodigoBarra" xml:space="preserve">
+    <value>Codigo de barra</value>
+  </data>
   <data name="Cuil" xml:space="preserve">
     <value>CUIL/CUIT</value>
+  </data>
+  <data name="Descripcion" xml:space="preserve">
+    <value>Descripción</value>
   </data>
   <data name="Direccion" xml:space="preserve">
     <value>Dirección</value>
@@ -141,6 +147,9 @@
   <data name="EntidadNueva" xml:space="preserve">
     <value>{0} N° {1} se creó exitosamente</value>
   </data>
+  <data name="Fecha" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
   <data name="FechaAlta" xml:space="preserve">
     <value>Fecha de alta</value>
   </data>
@@ -156,10 +165,25 @@
   <data name="Numero" xml:space="preserve">
     <value>Nº</value>
   </data>
+  <data name="PrecioCosto" xml:space="preserve">
+    <value>Precio de costo</value>
+  </data>
+  <data name="PrecioVenta" xml:space="preserve">
+    <value>Precio de venta</value>
+  </data>
   <data name="Provincia" xml:space="preserve">
     <value>Provincia</value>
   </data>
+  <data name="Rubro" xml:space="preserve">
+    <value>Rubro</value>
+  </data>
+  <data name="Stock" xml:space="preserve">
+    <value>Stock</value>
+  </data>
   <data name="TelefonoFijo" xml:space="preserve">
     <value>Teléfono fijo</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
 </root>

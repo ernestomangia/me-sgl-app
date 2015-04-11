@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 using ME.Libros.Dominio.General;
@@ -20,6 +19,7 @@ namespace ME.Libros.Web.Models
             Id = localidad.Id;
             Nombre = localidad.Nombre;
             Provincia = new ProvinciaViewModel(localidad.Provincia);
+            ProvinciaId = localidad.Provincia.Id;
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
-        public int ProvinciaId { get; set; }
+        public long ProvinciaId { get; set; }
 
         public SelectList Provincias { get; set; }
 

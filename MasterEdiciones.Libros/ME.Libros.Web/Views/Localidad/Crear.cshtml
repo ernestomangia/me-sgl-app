@@ -1,16 +1,12 @@
 ﻿@model ME.Libros.Web.Models.LocalidadViewModel
 
-@{
-    ViewBag.Title = "Localidad";
-}
-
 <h3>Nueva localidad</h3>
 @using (Html.BeginForm("Crear", "Localidad", FormMethod.Post, new { id = "formLocalidad", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-5">
             <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
                 <a class="close" data-hide="alert" aria-hidden="true">×</a>
                 <b>Mensajes:</b>
@@ -19,7 +15,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-5">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
                     Cancelar

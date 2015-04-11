@@ -23,6 +23,10 @@ namespace ME.Libros.EF.Mapeos
 
             Property(p => p.Nombre).HasMaxLength(100).IsRequired();
             Property(p => p.Descripcion).HasMaxLength(250).IsOptional();
+            Property(p => p.Stock).IsOptional();
+            Property(p => p.CodigoBarra).HasMaxLength(30);
+            Property(p => p.PrecioCosto).IsRequired();
+            Property(p => p.PrecioVenta).IsRequired();
 
             //FK
             HasRequired(p => p.Editorial);

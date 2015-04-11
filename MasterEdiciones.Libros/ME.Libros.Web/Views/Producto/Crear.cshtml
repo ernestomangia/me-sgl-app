@@ -1,7 +1,7 @@
-﻿@model ME.Libros.Web.Models.ClienteViewModel
+﻿@model ME.Libros.Web.Models.ProductoViewModel
 
-<h3>Nuevo cliente</h3>
-@using (Html.BeginForm("Crear", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
+<h3>Nuevo producto</h3>
+@using (Html.BeginForm("Crear", "Producto", FormMethod.Post, new { id = "formProducto", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
@@ -14,6 +14,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-10">
             <div class="text-right">
@@ -25,3 +26,4 @@
         </div>
     </div>
 }
+

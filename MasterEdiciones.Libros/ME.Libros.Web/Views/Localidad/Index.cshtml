@@ -72,7 +72,7 @@
 <script type="text/javascript">
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
-        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.LaLocalidad').replace("{1}", id);
+        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.Fentidad').replace("{1}", id);
         eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
     });
 </script>

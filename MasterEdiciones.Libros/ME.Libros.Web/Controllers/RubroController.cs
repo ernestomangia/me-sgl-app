@@ -41,6 +41,7 @@ namespace ME.Libros.Web.Controllers
             var modelContainer = new ModelContainer();
             RubroService = new RubroService(new EntidadRepository<RubroDominio>(modelContainer));
             ViewBag.MenuId = 4;
+            ViewBag.Title = "Rubros";
         }
 
         [HttpGet]
@@ -111,7 +112,7 @@ namespace ME.Libros.Web.Controllers
 
                     if (sqlException != null && sqlException.Number == 547)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.EliminarRubro);
+                        ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
                     }
                     else
                     {

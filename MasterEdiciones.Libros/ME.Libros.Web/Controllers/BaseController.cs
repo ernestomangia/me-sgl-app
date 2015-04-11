@@ -40,7 +40,7 @@ namespace ME.Libros.Web.Controllers
 
                 if (sqlException != null && sqlException.Number == 547)
                 {
-                    ModelState.AddModelError("Error", ErrorMessages.EliminarCliente);
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorEliminar);
                 }
                 else
                 {

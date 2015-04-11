@@ -41,6 +41,7 @@ namespace ME.Libros.Web.Controllers
             var modelContainer = new ModelContainer();
             EditorialService = new EditorialService(new EntidadRepository<EditorialDominio>(modelContainer));
             ViewBag.MenuId = 5;
+            ViewBag.Title = "Editoriales";
         }
 
         [HttpGet]
@@ -76,7 +77,7 @@ namespace ME.Libros.Web.Controllers
                         }
                         else
                         {
-                            TempData["Id"] = editorialViewModel.Id;
+                            TempData["Id"] = editorialDominio.Id;
                             TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "La Editorial", editorialDominio.Id);
                         }
                     }
@@ -111,7 +112,7 @@ namespace ME.Libros.Web.Controllers
 
                     if (sqlException != null && sqlException.Number == 547)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.EliminarEditorial);
+                        ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
                     }
                     else
                     {
@@ -161,11 +162,11 @@ namespace ME.Libros.Web.Controllers
             {
                 using (EditorialService)
                 {
-                    var rubroDominio = EditorialService.GetPorId(editorialViewModel.Id);
-                    rubroDominio.Nombre = editorialViewModel.Nombre;
-                    rubroDominio.Descripcion = editorialViewModel.Descripcion;
+                    var editorialDominio = EditorialService.GetPorId(editorialViewModel.Id);
+                    editorialDominio.Nombre = editorialViewModel.Nombre;
+                    editorialDominio.Descripcion = editorialViewModel.Descripcion;
 
-                    resultado = EditorialService.Guardar(rubroDominio);
+                    resultado = EditorialService.Guardar(editorialDominio);
                     if (resultado <= 0)
                     {
                         foreach (var error in EditorialService.ModelError)
@@ -175,8 +176,8 @@ namespace ME.Libros.Web.Controllers
                     }
                     else
                     {
-                        TempData["Id"] = editorialViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "La editorial", editorialViewModel.Id);
+                        TempData["Id"] = editorialDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada,"La editorial", editorialDominio.Id);
                     }
                 }
             }

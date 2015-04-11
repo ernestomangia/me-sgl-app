@@ -138,6 +138,12 @@
   <data name="ElCliente" xml:space="preserve">
     <value>El cliente</value>
   </data>
+  <data name="ElProducto" xml:space="preserve">
+    <value>El producto</value>
+  </data>
+  <data name="ElRubro" xml:space="preserve">
+    <value>El rubro</value>
+  </data>
   <data name="EntidadEliminada" xml:space="preserve">
     <value>{0} Nº {1} se eliminó exitosamente</value>
   </data>
@@ -153,11 +159,20 @@
   <data name="FechaNacimiento" xml:space="preserve">
     <value>Fecha de nacimiento</value>
   </data>
+  <data name="Fentidad" xml:space="preserve">
+    <value>La {0}</value>
+  </data>
+  <data name="LaEditorial" xml:space="preserve">
+    <value>La editorial</value>
+  </data>
   <data name="LaLocalidad" xml:space="preserve">
     <value>La localidad</value>
   </data>
   <data name="Localidad" xml:space="preserve">
     <value>Localidad</value>
+  </data>
+  <data name="Mentidad" xml:space="preserve">
+    <value>El {0}</value>
   </data>
   <data name="Numero" xml:space="preserve">
     <value>Nº</value>

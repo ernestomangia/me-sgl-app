@@ -29,6 +29,7 @@ namespace ME.Libros.Web.Controllers
             RubroService = new RubroService(new EntidadRepository<RubroDominio>(modelConteiner));
             ViewBag.MenuId = 6;
             Service = new ProductoService(new EntidadRepository<ProductoDominio>(modelConteiner));
+            ViewBag.Title = "Productos";
         }
 
         //
@@ -136,7 +137,7 @@ namespace ME.Libros.Web.Controllers
 
                     if (sqlException != null && sqlException.Number == 547)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.EliminarProducto);
+                        ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
                     }
                     else
                     {
@@ -227,27 +228,7 @@ namespace ME.Libros.Web.Controllers
             return View(productoViewModel);
         }
 
-        //public JsonResult ListarLocalidades(int id)
-        //{
-        //    var localidades = new List<LocalidadViewModel>();
-        //    using (LocalidadService)
-        //    {
-        //        localidades.AddRange(LocalidadService
-        //            .Listar(l => l.Provincia.Id == id)
-        //            .ToList()
-        //            .Select(l => new LocalidadViewModel(l)));
-        //    }
-
-        //    return new JsonResult
-        //    {
-        //        Data = localidades,
-        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
-        //    };
-        //}
-
-
-
-
+ 
         #region Private Methods
 
         private void PrepareModel(ProductoViewModel productoViewModel)

@@ -9,7 +9,7 @@
     <table class="dataTableCustom">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th class="columnaCodigo no-sort">@Html.DisplayNameFor(model => model.Id)</th>
                 <th>@Html.DisplayNameFor(model => model.Nombre)</th>
                 <th>@Html.DisplayNameFor(model => model.Stock)</th>
                 <th>@Html.DisplayNameFor(model => model.PrecioVenta)</th>
@@ -57,8 +57,16 @@
                     ¿Esta seguro que desea eliminar el Producto?
                 </div>
                 <div class="modal-footer">
+                    <div class="row text-left">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger validationSummary hide" role="alert">
+                                <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                                <b>Mensajes:</b>
+                            </div>
+                        </div>
+                    </div>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button id="btnAceptar" type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    <button id="btnAceptar" type="button" class="btn btn-primary">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -66,15 +74,12 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            if ('@ViewBag.Id' != "") {
-                mensajeSuccess('@ViewBag.Mensaje');
-            }
-        });
-
         $("#btnAceptar").on("click", function () {
             var id = $("#idEntidad").val();
-            var success = ('@Messages.EntidadEliminada').replace("{0}", "La editorial").replace("{1}", id);
+            var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElProducto').replace("{1}", id);
             eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
+
         });
     </script>
+
+ 

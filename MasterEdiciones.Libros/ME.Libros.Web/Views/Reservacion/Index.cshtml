@@ -1,23 +1,25 @@
-﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
+﻿@model IEnumerable<ME.Libros.Web.Models.VentaViewModel>
+@{
+    ViewBag.Title = "Reservación";
+}
 
-<h3>Clientes</h3>
+<h3>Reservaciones</h3>
 <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
 @*<a class="btn btn-info" href="#" role="button">
-    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-    Filtrar
-</a>*@
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+        Filtrar
+    </a>*@
 
 <table class="dataTableCustom">
     <thead>
         <tr>
             <th class="columnaCodigo no-sort">@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-            <th>@Html.DisplayNameFor(model => model.Apellido)</th>
-            <th>@Html.DisplayNameFor(model => model.Cuil)</th>
-            <th>@Html.DisplayNameFor(model => model.Localidad)</th>
+            <th>Cliente</th>
+            <th>@Html.DisplayNameFor(model => model.Cliente.Cuil)</th>
+            <th>@Html.DisplayNameFor(model => model.Total)</th>
             <th class="columnaAcciones">Acciones</th>
         </tr>
     </thead>
@@ -25,10 +27,9 @@
     {
         <tr id=@("tr_"+ item.Id)>
             <td>@Html.DisplayFor(modelItem => item.Id)</td>
-            <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-            <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
-            <td>@Html.DisplayFor(modelItem => item.Cuil)</td>
-            <td>@Html.DisplayFor(modelItem => item.Localidad.Nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.Cliente.Apellido), @Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.Cliente.Cuil)</td>
+            <td>@Html.DisplayFor(modelItem => item.Total)</td>
             <td>
                 <a class="btn btn-info btn-sm" type="button" href="@Url.Action("Detalle", new { id = item.Id})">
                     <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
@@ -44,6 +45,7 @@
     }
 </table>
 
+<div class="info"></div>
 <input type="hidden" id="idEntidad" />
 
 <!-- Modal -->
@@ -55,23 +57,16 @@
                 <h4 class="modal-title" id="myModalLabel">Eliminar Cliente</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar el Cliente?
+                ¿Esta seguro que desea eliminar la venta?
             </div>
             <div class="modal-footer">
-                <div class="row text-left">
-                    <div class="col-md-12">
-                        <div class="alert alert-danger validationSummary hide" role="alert">
-                            <a class="close" data-hide="alert" aria-hidden="true">×</a>
-                            <b>Mensajes:</b>
-                        </div>
-                    </div>
-                </div>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button id="btnAceptar" type="button" class="btn btn-primary">Aceptar</button>
+                <button id="btnAceptar" type="button" class="btn btn-primary" @*data-dismiss="modal"*@>Aceptar</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript">
     $("#btnAceptar").on("click", function () {
@@ -80,5 +75,3 @@
         eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
     });
 </script>
-
-

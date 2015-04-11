@@ -7,7 +7,7 @@ namespace ME.Libros.Web.Controllers
         // GET: Ventas
         public VentaController()
         {
-            ViewBag.MenuId = 5;
+            ViewBag.MenuId = 21;
         }
 
         public ActionResult Index()

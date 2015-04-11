@@ -25,12 +25,16 @@ namespace ME.Libros.Web.Controllers
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             ViewBag.MenuId = 3;
+            ViewBag.Title = "Localidades";
         }
 
         // GET: Localidad
         [HttpGet]
         public ActionResult Index()
         {
+            ViewBag.Id = TempData["Id"];
+            ViewBag.Mensaje = TempData["Mensaje"];
+
             var localidades = new List<LocalidadViewModel>();
             using (LocalidadService)
             {

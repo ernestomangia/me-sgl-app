@@ -153,6 +153,9 @@
   <data name="EntidadNueva" xml:space="preserve">
     <value>{0} N° {1} se creó exitosamente</value>
   </data>
+  <data name="Fecha" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
   <data name="FechaAlta" xml:space="preserve">
     <value>Fecha de alta</value>
   </data>
@@ -194,5 +197,8 @@
   </data>
   <data name="TelefonoFijo" xml:space="preserve">
     <value>Teléfono fijo</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
 </root>

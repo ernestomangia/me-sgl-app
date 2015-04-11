@@ -17,7 +17,6 @@ namespace ME.Libros.Web.Models
         }
 
         public EditorialViewModel(EditorialDominio editorial)
-
         {
             Id = editorial.Id;
             Nombre = editorial.Nombre;

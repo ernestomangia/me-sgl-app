@@ -58,6 +58,9 @@ function setearId(id) {
 
 function eliminarEntidad(url, msjSuccess, msjError) {
     var id = $("#idEntidad").val();
+    $(".validationSummary").addClass("hide");
+    $(".validationSummary ul").remove();
+
     $.ajax({
         method: "GET",
         url: url + "?id=" + id,
@@ -71,14 +74,17 @@ function eliminarEntidad(url, msjSuccess, msjError) {
                 $('.modalEliminar').modal('toggle');
                 mensajeSuccess(msjSuccess);
                 dataTable.row($("#tr_" + id)).remove().draw();
+                $(".btnCancelarEliminar").click();
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
-                    errores += "<li>" + key + ": " + value + "</li>";
+                    $.each(value.Value, function(key2, value2) {
+                        errores += "<li>" + value2 + "</li>";
+                    });
                 });
                 errores += "</ul>";
                 $(".validationSummary").append(errores);
-                //mensajeError(msjError + " Mensaje: " + errores);
+                $(".validationSummary").removeClass("hide");
             }
         },
         timeout: 10000,

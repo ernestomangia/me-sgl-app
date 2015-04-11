@@ -1,10 +1,9 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
-    using System.ComponentModel;
-
     public class ProvinciaViewModel
     {
         #region Constructor(s)
@@ -23,8 +22,9 @@ namespace ME.Libros.Web.Models
 
         #region Properties
 
-        [DisplayName("Código")]
+        [Display(Name = "Codigo", ResourceType = typeof(Messages))]
         public long Id { get; set; }
+        [Display(Name = "Provincia", ResourceType = typeof(Messages))]
         public string Nombre { get; set; }
 
         #endregion

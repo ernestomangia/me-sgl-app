@@ -1,9 +1,5 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.LocalidadViewModel>
 
-@{
-    ViewBag.Title = "Localidades";
-}
-
 <h3>Localidades</h3>
 <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -51,19 +47,19 @@
                 <h4 class="modal-title" id="myModalLabel">Eliminar Localidad</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar la localidad?
-                <div class="row">
-                    <div class="col-md-10">
+                ¿Esta seguro que desea eliminar la Localidad?
+            </div>
+            <div class="modal-footer">
+                <div class="row text-left">
+                    <div class="col-md-12">
                         <div class="alert alert-danger validationSummary hide" role="alert">
                             <a class="close" data-hide="alert" aria-hidden="true">×</a>
                             <b>Mensajes:</b>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button id="btnAceptar" type="button" class="btn btn-primary" @*data-dismiss="modal"*@>Aceptar</button>
+                <button type="button" class="btn btn-default btnCancelarEliminar" data-dismiss="modal">Cancelar</button>
+                <button id="btnAceptar" type="button" class="btn btn-primary">Aceptar</button>
             </div>
         </div>
     </div>

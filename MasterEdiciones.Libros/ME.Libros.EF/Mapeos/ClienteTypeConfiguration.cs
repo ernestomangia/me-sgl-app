@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
 
@@ -36,9 +35,9 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.Email).HasMaxLength(100).IsOptional();
 
             // FK
-            HasRequired(c => c.Localidad)
-                .WithRequiredDependent()
-                .WillCascadeOnDelete(false);
+            HasRequired(c => c.Localidad);
+                //.WithRequiredDependent()
+                //.WillCascadeOnDelete(false);
 
             // Map Table
             ToTable("Cliente");

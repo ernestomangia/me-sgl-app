@@ -63,12 +63,33 @@ namespace ME.Libros.EF
                                           new LocalidadDominio {Nombre = "Venado Tuerto", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
                                       };
 
+                var editorial = new EditorialDominio()
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Editorial sin definir",
+                    FechaAlta = DateTime.Now
+
+                };
+
+                var rubro = new RubroDominio()
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Rubro sin definir",
+                    FechaAlta = DateTime.Now
+
+                };
+
+
                 provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
                 localidades.ForEach(l =>
                                         {
                                             context.Set<LocalidadDominio>().Add(l);
                                             l.FechaAlta = DateTime.Now;
                                         });
+
+           
+                context.Set<EditorialDominio>().Add(editorial);
+                context.Set<RubroDominio>().Add(rubro);
 
                 context.SaveChanges();
             }

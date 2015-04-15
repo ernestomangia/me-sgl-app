@@ -14,79 +14,70 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class EditorialController : BaseController<EditorialDominio>
+    public class ZonaController : BaseController<ZonaDominio>
     {
-       
         //
-        // GET: /Editorial/
-
-        public EditorialService EditorialService { get; set; }
-
-        public EditorialController()
-        {
-            var modelContainer = new ModelContainer();
-            EditorialService = new EditorialService(new EntidadRepository<EditorialDominio>(modelContainer));
-            ViewBag.MenuId = 5;
-            ViewBag.Title = "Editoriales";
-        }
-
-        [HttpGet]
+        // GET: /Zona/
+        public ZonaService ZonaService { get; set; }
         public ActionResult Index()
         {
             ViewBag.Id = TempData["Id"];
             ViewBag.Mensaje = TempData["Mensaje"];
 
-            var editoriales = new List<EditorialViewModel>();
-            using (EditorialService)
+            var zonas = new List<ZonaViewModel>();
+            using (ZonaService)
             {
-                editoriales.AddRange(EditorialService.Listar()
-                    .ToList()
-                    .Select(e => new EditorialViewModel(e))
-                    .Where(e=>e.Id!=1)
-                    );
+                zonas.AddRange(ZonaService.Listar().ToList().Select(z => new ZonaViewModel(z)));
             }
 
-            return View(editoriales);
+            return View(zonas);
 
         }
 
-       
-
+        public ZonaController()
+        {
+            var modelContainer = new ModelContainer();
+            ZonaService = new ZonaService(new EntidadRepository<ZonaDominio>(modelContainer));
+            ViewBag.MenuId = 7;
+            ViewBag.Title = "Zonas";
+        }
+        
         [HttpGet]
         public ActionResult Crear()
         {
-            var editorialViewModel = new EditorialViewModel();
-            return View(editorialViewModel);
+            var zonaViewModel = new ZonaViewModel();
+
+            return View(zonaViewModel);
         }
 
         [HttpPost]
-        public ActionResult Crear(EditorialViewModel editorialViewModel)
+        public ActionResult Crear(ZonaViewModel zonaViewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    using (EditorialService)
+                    using (ZonaService)
                     {
-                        var editorialDominio = new EditorialDominio
+                        var zonaDominio = new ZonaDominio
                         {
                             FechaAlta = DateTime.Now,
-                            Nombre = editorialViewModel.Nombre,
-                            Descripcion = editorialViewModel.Descripcion,
+                            Nombre = zonaViewModel.Nombre,
+                            Descripcion = zonaViewModel.Descripcion,
                         };
 
-                        editorialViewModel.Id = EditorialService.Guardar(editorialDominio);
-                        if (editorialViewModel.Id <= 0)
+                        zonaViewModel.Id = ZonaService.Guardar(zonaDominio);
+                        if (zonaViewModel.Id <= 0)
                         {
-                            foreach (var error in EditorialService.ModelError)
+                            foreach (var error in ZonaService.ModelError)
                             {
                                 ModelState.AddModelError(error.Key, error.Value);
                             }
                         }
                         else
                         {
-                            TempData["Id"] = editorialDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "La Editorial", editorialDominio.Id);
+                            TempData["Id"] = zonaDominio.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "La zona", zonaDominio.Id);
                         }
                     }
                 }
@@ -97,9 +88,9 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-            return editorialViewModel.Id > 0
+            return zonaViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
-                    : View(editorialViewModel);
+                    : View(zonaViewModel);
         }
 
         [HttpGet]
@@ -109,9 +100,9 @@ namespace ME.Libros.Web.Controllers
             {
                 try
                 {
-                    using (EditorialService)
+                    using (ZonaService)
                     {
-                        EditorialService.Eliminar(EditorialService.GetPorId(id));
+                        ZonaService.Eliminar(ZonaService.GetPorId(id));
                     }
                 }
                 catch (DbUpdateException ex)
@@ -140,17 +131,16 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
-
         [HttpGet]
         public ActionResult Modificar(int id)
         {
-            var editorialViewModel = new EditorialViewModel();
+            var zonaViewModel = new ZonaViewModel();
             try
             {
-                using (EditorialService)
+                using (ZonaService)
                 {
-                    var editorialDominio = EditorialService.GetPorId(id);
-                    editorialViewModel = new EditorialViewModel(editorialDominio);
+                    var zonaDominio = ZonaService.GetPorId(id);
+                    zonaViewModel = new ZonaViewModel(zonaDominio);
                 }
             }
             catch (Exception ex)
@@ -159,56 +149,54 @@ namespace ME.Libros.Web.Controllers
                 ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
-            return View(editorialViewModel);
+            return View(zonaViewModel);
         }
 
         [HttpPost]
-        public ActionResult Modificar(EditorialViewModel editorialViewModel)
+        public ActionResult Modificar(ZonaViewModel zonaViewModel)
         {
             long resultado = 0;
             if (ModelState.IsValid)
             {
-                using (EditorialService)
+                using (ZonaService)
                 {
-                    var editorialDominio = EditorialService.GetPorId(editorialViewModel.Id);
-                    editorialDominio.Nombre = editorialViewModel.Nombre;
-                    editorialDominio.Descripcion = editorialViewModel.Descripcion;
+                    var zonaDominio = ZonaService.GetPorId(zonaViewModel.Id);
+                    zonaDominio.Nombre = zonaViewModel.Nombre;
+                    zonaDominio.Descripcion = zonaViewModel.Descripcion;
 
-                    resultado = EditorialService.Guardar(editorialDominio);
+                    resultado = ZonaService.Guardar(zonaDominio);
                     if (resultado <= 0)
                     {
-                        foreach (var error in EditorialService.ModelError)
+                        foreach (var error in ZonaService.ModelError)
                         {
                             ModelState.AddModelError(error.Key, error.Value);
                         }
                     }
                     else
                     {
-                        TempData["Id"] = editorialDominio.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada,"La editorial", editorialDominio.Id);
+                        TempData["Id"] = zonaDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "La zona", zonaDominio.Id);
                     }
                 }
             }
 
 
-            return editorialViewModel.Id > 0
+            return zonaViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
-                    : View(editorialViewModel);
+                    : View(zonaViewModel);
         }
 
         [HttpGet]
         public ActionResult Detalle(int id)
         {
-            EditorialViewModel editorialViewModel;
-            using (EditorialService)
+            ZonaViewModel zonaViewModel;
+            using (ZonaService)
             {
-                editorialViewModel = new EditorialViewModel(EditorialService.GetPorId(id));
+                zonaViewModel = new ZonaViewModel(ZonaService.GetPorId(id));
             }
 
-            return View(editorialViewModel);
+            return View(zonaViewModel);
         }
 
-
-
-    }
+	}
 }

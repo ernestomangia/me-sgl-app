@@ -70,7 +70,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Codigo de barra.
+        ///   Busca una cadena traducida similar a Codigo de barra.
         /// </summary>
         public static string CodigoBarra {
             get {
@@ -79,7 +79,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CUIL/CUIT.
+        ///   Busca una cadena traducida similar a CUIL/CUIT.
         /// </summary>
         public static string Cuil {
             get {
@@ -88,7 +88,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Descripción.
+        ///   Busca una cadena traducida similar a Descripción.
         /// </summary>
         public static string Descripcion {
             get {
@@ -97,7 +97,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dirección.
+        ///   Busca una cadena traducida similar a Dirección.
         /// </summary>
         public static string Direccion {
             get {
@@ -169,7 +169,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fecha.
+        ///   Busca una cadena traducida similar a Fecha.
         /// </summary>
         public static string Fecha {
             get {
@@ -178,7 +178,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fecha de alta.
+        ///   Busca una cadena traducida similar a Fecha de alta.
         /// </summary>
         public static string FechaAlta {
             get {
@@ -223,6 +223,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a La zona.
+        /// </summary>
+        public static string LaZona {
+            get {
+                return ResourceManager.GetString("LaZona", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Localidad.
         /// </summary>
         public static string Localidad {
@@ -250,7 +259,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Precio de costo.
+        ///   Busca una cadena traducida similar a Precio de costo.
         /// </summary>
         public static string PrecioCosto {
             get {
@@ -259,7 +268,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Precio de venta.
+        ///   Busca una cadena traducida similar a Precio de venta.
         /// </summary>
         public static string PrecioVenta {
             get {
@@ -268,7 +277,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provincia.
+        ///   Busca una cadena traducida similar a Provincia.
         /// </summary>
         public static string Provincia {
             get {
@@ -277,7 +286,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rubro.
+        ///   Busca una cadena traducida similar a Rubro.
         /// </summary>
         public static string Rubro {
             get {
@@ -286,7 +295,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stock.
+        ///   Busca una cadena traducida similar a Stock.
         /// </summary>
         public static string Stock {
             get {
@@ -295,7 +304,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Teléfono fijo.
+        ///   Busca una cadena traducida similar a Teléfono fijo.
         /// </summary>
         public static string TelefonoFijo {
             get {
@@ -304,11 +313,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total.
+        ///   Busca una cadena traducida similar a Total.
         /// </summary>
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Zona.
+        /// </summary>
+        public static string Zona {
+            get {
+                return ResourceManager.GetString("Zona", resourceCulture);
             }
         }
     }

@@ -56,6 +56,7 @@
     <Compile Include="General\ProductoService.cs" />
     <Compile Include="General\ProvinciaService.cs" />
     <Compile Include="General\RubroService.cs" />
+    <Compile Include="General\ZonaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

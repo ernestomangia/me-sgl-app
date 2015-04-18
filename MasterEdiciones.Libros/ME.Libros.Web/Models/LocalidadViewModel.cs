@@ -12,6 +12,8 @@ namespace ME.Libros.Web.Models
         public LocalidadViewModel()
         {
             Provincia = new ProvinciaViewModel();
+            Zona = new ZonaViewModel();
+           
         }
 
         public LocalidadViewModel(LocalidadDominio localidad)
@@ -20,6 +22,7 @@ namespace ME.Libros.Web.Models
             Nombre = localidad.Nombre;
             Provincia = new ProvinciaViewModel(localidad.Provincia);
             ProvinciaId = localidad.Provincia.Id;
+            Zona = new ZonaViewModel(localidad.Zona);
         }
 
         #endregion
@@ -38,7 +41,10 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long ProvinciaId { get; set; }
 
+        public ZonaViewModel Zona { get; set; }
+
         public SelectList Provincias { get; set; }
+        public SelectList Zonas { get; set; }
 
         #endregion
     }

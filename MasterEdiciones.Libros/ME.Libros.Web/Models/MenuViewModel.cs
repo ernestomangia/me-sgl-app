@@ -99,7 +99,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 7,
                         Nombre = "Zonas",
-                        Link = "#",
+                        Link = helper.Action("Index","Zona"),
                         Posicion = 90
                     });
                     MenuViewModels.Add(new MenuViewModel

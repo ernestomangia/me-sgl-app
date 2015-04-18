@@ -27,7 +27,11 @@ namespace ME.Libros.Web.Controllers
             var zonas = new List<ZonaViewModel>();
             using (ZonaService)
             {
-                zonas.AddRange(ZonaService.Listar().ToList().Select(z => new ZonaViewModel(z)));
+                zonas.AddRange(ZonaService.Listar()
+                    .ToList()
+                    .Select(z => new ZonaViewModel(z))
+                    .Where(z => z.Id != 1)
+                    );
             }
 
             return View(zonas);

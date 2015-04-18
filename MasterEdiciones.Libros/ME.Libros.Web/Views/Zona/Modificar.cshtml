@@ -4,24 +4,35 @@
 @using (Html.BeginForm("Modificar", "Zona", FormMethod.Post, new { id = "formZona", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-
-    if (!ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger" role="alert">
-            <b>Error:</b>
-            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-        </div>
-    }
-
     @Html.HiddenFor(model => model.Id)
 
-    <div class="form-group form-group-sm">
-        <div class="col-sm-offset-8">
-            <a id="btnCancelarModificar" class="btn btn-default" href="@Url.Action("Index")">
-                Cancelar
-            </a>
-            <input type="submit" value="Modificar" class="btn btn-success" />
+        <div class="row">
+        <div class="col-md-10">
+            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                <b>Mensajes:</b>
+                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+            </div>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                <a id="btnCancelarModificar" class="btn btn-default" href="@Url.Action("Index")">
+                    Cancelar
+                </a>
+                <input id="btnModificar" type="submit" value="Modificar" class="btn btn-warning" />
+            </div>
+        </div>
+    </div>
+    
+        <button class="btn btn-danger" type="button" data-toggle="modal" title="Eliminar" data-target="#modalEliminarZona">
+            Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+
 }
+
+@Html.Partial("Eliminar")
+<input type="hidden" id="idEntidad" value="@Model.Id" />
 

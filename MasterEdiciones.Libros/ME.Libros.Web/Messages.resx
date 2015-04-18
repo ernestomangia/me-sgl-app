@@ -171,6 +171,9 @@
   <data name="LaLocalidad" xml:space="preserve">
     <value>La localidad</value>
   </data>
+  <data name="LaZona" xml:space="preserve">
+    <value>La zona</value>
+  </data>
   <data name="Localidad" xml:space="preserve">
     <value>Localidad</value>
   </data>
@@ -200,5 +203,8 @@
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
+  </data>
+  <data name="Zona" xml:space="preserve">
+    <value>Zona</value>
   </data>
 </root>

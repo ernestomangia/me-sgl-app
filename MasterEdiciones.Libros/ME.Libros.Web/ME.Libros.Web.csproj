@@ -667,6 +667,7 @@
     <Compile Include="Controllers\ReservacionController.cs" />
     <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -691,6 +692,7 @@
     <Compile Include="Models\RubroViewModel.cs" />
     <Compile Include="Models\VentaItemViewModel.cs" />
     <Compile Include="Models\VentaViewModel.cs" />
+    <Compile Include="Models\ZonaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -735,6 +737,15 @@
     <Content Include="Views\Reservacion\Modificar.cshtml" />
     <Content Include="Views\Localidad\Modificar.cshtml" />
     <Content Include="Views\Localidad\Detalle.cshtml" />
+    <Content Include="Views\Zona\Crear.cshtml" />
+    <Content Include="Views\Zona\Detalle.cshtml" />
+    <Content Include="Views\Zona\Index.cshtml" />
+    <Content Include="Views\Zona\Modificar.cshtml" />
+    <Content Include="Views\Zona\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Zona\Eliminar.cshtml" />
+    <Content Include="Views\Rubro\Eliminar.cshtml" />
+    <Content Include="Views\Producto\Eliminar.cshtml" />
+    <Content Include="Views\Editorial\Eliminar.cshtml" />
     <Content Include="Views\Reservacion\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Cliente\Eliminar.cshtml" />
     <Content Include="Views\Localidad\Eliminar.cshtml" />

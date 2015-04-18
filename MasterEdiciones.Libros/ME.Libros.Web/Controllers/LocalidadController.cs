@@ -18,12 +18,14 @@ namespace ME.Libros.Web.Controllers
     {
         private LocalidadService LocalidadService { get; set; }
         private ProvinciaService ProvinciaService { get; set; }
+        public ZonaService ZonaService { get; set; }
 
         public LocalidadController()
         {
             var modelContainer = new ModelContainer();
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
+            ZonaService=new ZonaService(new EntidadRepository<ZonaDominio>(modelContainer));
             ViewBag.MenuId = 3;
             ViewBag.Title = "Localidades";
         }
@@ -60,6 +62,9 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(LocalidadViewModel localidadViewModel)
         {
             long resultado = 0;
+
+            ModelState.RemoveFor<LocalidadViewModel>(l => l.Zona.Nombre);
+
             if (ModelState.IsValid)
             {
                 try
@@ -70,7 +75,8 @@ namespace ME.Libros.Web.Controllers
                                                  {
                                                      FechaAlta = DateTime.Now,
                                                      Nombre = localidadViewModel.Nombre,
-                                                     Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId)
+                                                     Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId),
+                                                     Zona=ZonaService.GetPorId(localidadViewModel.Zona.Id)
                                                  };
 
                         resultado = LocalidadService.Guardar(localidadDominio);
@@ -159,6 +165,9 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Modificar(LocalidadViewModel localidadViewModel)
         {
             long resultado = 0;
+
+            ModelState.RemoveFor<LocalidadViewModel>(l => l.Zona.Nombre);
+
             if (ModelState.IsValid)
             {
                 using (LocalidadService)
@@ -166,7 +175,7 @@ namespace ME.Libros.Web.Controllers
                     var localidadDominio = LocalidadService.GetPorId(localidadViewModel.Id);
                     localidadDominio.Nombre = localidadViewModel.Nombre;
                     localidadDominio.Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId);
-
+                    localidadDominio.Zona = ZonaService.GetPorId(localidadViewModel.Zona.Id);
 
                     resultado = LocalidadService.Guardar(localidadDominio);
                     if (resultado <= 0)
@@ -235,6 +244,10 @@ namespace ME.Libros.Web.Controllers
                     .ToList(),
                     "Id",
                     "Nombre");
+
+            localidadViewModel.Zonas= new SelectList(ZonaService.Listar()
+                .Select(z=>new ZonaViewModel(z))
+                .ToList(),"Id","Nombre");
         }
 
         #endregion

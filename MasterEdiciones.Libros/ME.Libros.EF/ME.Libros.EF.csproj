@@ -57,6 +57,7 @@
     <Compile Include="Mapeos\ProductoTypeConfiguration.cs" />
     <Compile Include="Mapeos\ProvinciaTypeConfiguration.cs" />
     <Compile Include="Mapeos\RubroTypeConfiguration.cs" />
+    <Compile Include="Mapeos\ZonaTypeConfiguration.cs" />
     <Compile Include="ModelContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

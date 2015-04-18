@@ -7,9 +7,10 @@ namespace ME.Libros.Dominio.General
         #region Properties
 
         public string Nombre { get; set; }
-        public ICollection<LocalidadDominio> Localidades { get; set; }
-        public CobradorDominio Cobrador { get; set; }
-        public VendedorDominio Vendedor { get; set; }
+        public string Descripcion { get; set; }
+        //public ICollection<LocalidadDominio> Localidades { get; set; }
+        //public CobradorDominio Cobrador { get; set; }
+        //public VendedorDominio Vendedor { get; set; }
 
         #endregion
     }

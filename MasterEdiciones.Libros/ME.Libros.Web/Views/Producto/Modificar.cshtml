@@ -4,7 +4,6 @@
 @using (Html.BeginForm("Modificar", "Producto", FormMethod.Post, new { id = "formProducto", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-
     @Html.HiddenFor(model => model.Id)
 
     <div class="row">
@@ -25,7 +24,14 @@
                 </a>
                 <input id="btnModificar" type="submit" value="Modificar" class="btn btn-success" />
             </div>
+            
+            <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarProducto">
+                Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+
         </div>
     </div>
 }
 
+@Html.Partial("Eliminar")
+<input type="hidden" id="idEntidad" value="@Model.Id"/>

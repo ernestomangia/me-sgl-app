@@ -186,6 +186,9 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Modificar(ClienteViewModel clienteViewModel)
         {
             long resultado = 0;
+            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.Nombre);
+            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.ProvinciaId);
+            
             if (ModelState.IsValid)
             {
                 using (ClienteService)

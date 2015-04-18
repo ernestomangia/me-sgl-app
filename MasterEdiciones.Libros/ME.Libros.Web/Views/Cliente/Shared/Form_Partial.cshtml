@@ -49,22 +49,22 @@
         </div>
     </div>
 </div>
-<div class="row">
+@*<div class="row">
     <div class="col-md-10">
-        <div class="form-group">
+        <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
             <div class="col-md-4">
-                @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker"})
+                @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Localidad.Provincia.Id, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Provincia) })
+                @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Provincia) })
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Localidad.Id, Messages.Localidad, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
+                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
             </div>
         </div>
     </div>

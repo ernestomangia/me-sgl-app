@@ -1,0 +1,85 @@
+﻿@model ME.Libros.Web.Models.VentaViewModel
+
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.FechaVenta, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(v => v.FechaVenta, new { @class = "form-control", placeholder = Messages.Fecha })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.ClienteId, "Cliente", new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Cliente) })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.FechaCobro, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(v => v.FechaCobro, new { @class = "form-control", placeholder = Messages.FechaCobro })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.Label("Plan", new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                
+                <select>
+                    <option></option>
+                    <option value="">Contado</option>
+                    <option value="">Financiado</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<h4>Detalle</h4>
+
+<table class="dataTableCustom">
+    <thead>
+        <tr>
+            <th class="columnaCodigo">Codigo</th>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th class="text-right" style="width: 100px;">$</th>
+            <th class="columnaAcciones">Acciones</th>
+        </tr>
+    </thead>
+        <tr>
+            <td>2</td>
+            <td>Enciclopedia</td>
+            <td>1</td>
+            <td class="text-right">$ 250,00</td>
+            <td></td>
+        </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        
+        <td class="text-right">TOTAL</td>
+        <td class="text-right">$ 250,00</td>
+    </tr>
+</table>

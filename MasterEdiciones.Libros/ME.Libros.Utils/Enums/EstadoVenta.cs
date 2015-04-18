@@ -2,8 +2,8 @@
 {
     public enum EstadoVenta
     {
-        Pendiente = 1,
-        EnCurso = 2,
+        Reservacion = 1,
+        Vigente = 2,
         Finalizada = 3,
         Cancelada = 4,
     }

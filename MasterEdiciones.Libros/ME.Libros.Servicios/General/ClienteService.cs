@@ -8,7 +8,6 @@ namespace ME.Libros.Servicios.General
         public ClienteService(IRepository<ClienteDominio> repository)
             : base(repository)
         {
-
         }
 
     }

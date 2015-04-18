@@ -1,7 +1,27 @@
-﻿
-@{
-    ViewBag.Title = "Reservación";
+﻿@model ME.Libros.Web.Models.VentaViewModel
+
+<h3>Nueva reservación</h3>
+@using (Html.BeginForm("Crear", "Reservacion", FormMethod.Post, new { id = "formReservacion", @class = "form-horizontal formEntidad" }))
+{
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                <b>Mensajes:</b>
+                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
+                    Cancelar
+                </a>
+                <input id="btnCrear" type="submit" value="Crear" class="btn btn-success" disabled="disabled"/>
+            </div>
+        </div>
+    </div>
 }
-
-<h2>Nueva reservación</h2>
-

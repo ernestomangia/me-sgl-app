@@ -124,20 +124,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El producto no puede ser eliminado porque tiene datos asociados.
-        /// </summary>
-        public static string EliminarProducto {
-            get {
-                return ResourceManager.GetString("EliminarProducto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a El rubro no puede ser eliminado porque tiene datos asociados.
+        ///   Looks up a localized string similar to El rubro no puede ser eliminado porque tiene datos asociados.
         /// </summary>
         public static string EliminarRubro {
             get {
                 return ResourceManager.GetString("EliminarRubro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al anular..
+        /// </summary>
+        public static string ErrorAnular {
+            get {
+                return ResourceManager.GetString("ErrorAnular", resourceCulture);
             }
         }
         

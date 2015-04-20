@@ -117,30 +117,30 @@ namespace ME.Libros.Web.Models
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 20,
-                        Nombre = "Reservación",
-                        Link = helper.Action("Index", "Reservacion"),
-                        Posicion = 10,
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 21,
-                        Nombre = "En vigencia",
-                        Link = "#",
+                        Nombre = "Vigentes",
+                        Link = helper.Action("Index", "VentaVigente"),
                         Posicion = 20
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
-                        Id = 22,
-                        Nombre = "Canceladas",
+                        Id = 21,
+                        Nombre = "Pagadas",
                         Link = "#",
                         Posicion = 30
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
-                        Id = 23,
-                        Nombre = "Finalizadas",
+                        Id = 22,
+                        Nombre = "Anuladas",
                         Link = "#",
                         Posicion = 40
+                    });
+                    MenuViewModels.Add(new MenuViewModel
+                    {
+                        Id = 23,
+                        Nombre = "Todas",
+                        Link = helper.Action("Index", "Venta"),
+                        Posicion = 50,
                     });
                     break;
             }

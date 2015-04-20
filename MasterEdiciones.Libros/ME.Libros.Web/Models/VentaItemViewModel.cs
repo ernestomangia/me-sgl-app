@@ -14,6 +14,7 @@ namespace ME.Libros.Web.Models
 
         public VentaItemViewModel()
         {
+            Producto = new ProductoViewModel();
         }
 
         public VentaItemViewModel(VentaItemDominio ventaItemDominio)

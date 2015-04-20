@@ -177,4 +177,7 @@
   <data name="DatosAsociados" xml:space="preserve">
     <value>{0} no puede eliminarse porque tiene datos asociados</value>
   </data>
+  <data name="ErrorAnular" xml:space="preserve">
+    <value>Error al anular.</value>
+  </data>
 </root>

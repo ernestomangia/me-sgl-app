@@ -147,6 +147,9 @@
   <data name="ElRubro" xml:space="preserve">
     <value>El rubro</value>
   </data>
+  <data name="EntidadAnulada" xml:space="preserve">
+    <value>{0} Nº {1} se anuló exitosamente</value>
+  </data>
   <data name="EntidadEliminada" xml:space="preserve">
     <value>{0} Nº {1} se eliminó exitosamente</value>
   </data>
@@ -156,8 +159,8 @@
   <data name="EntidadNueva" xml:space="preserve">
     <value>{0} N° {1} se creó exitosamente</value>
   </data>
-  <data name="Fecha" xml:space="preserve">
-    <value>Fecha</value>
+  <data name="FechaVenta" xml:space="preserve">
+    <value>Fecha de venta</value>
   </data>
   <data name="FechaAlta" xml:space="preserve">
     <value>Fecha de alta</value>
@@ -177,6 +180,9 @@
   <data name="LaLocalidad" xml:space="preserve">
     <value>La localidad</value>
   </data>
+  <data name="LaVenta" xml:space="preserve">
+    <value>La venta</value>
+  </data>
   <data name="LaZona" xml:space="preserve">
     <value>La zona</value>
   </data>
@@ -187,6 +193,9 @@
     <value>El {0}</value>
   </data>
   <data name="Numero" xml:space="preserve">
+    <value>Nº</value>
+  </data>
+  <data name="NumeroVenta" xml:space="preserve">
     <value>Nº</value>
   </data>
   <data name="PrecioCosto" xml:space="preserve">

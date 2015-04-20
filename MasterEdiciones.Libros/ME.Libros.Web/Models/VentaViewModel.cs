@@ -33,13 +33,14 @@ namespace ME.Libros.Web.Models
 
         #region Properties
 
-        [Display(Name = "Codigo", ResourceType = typeof(Messages))]
+        [Display(Name = "NumeroVenta", ResourceType = typeof(Messages))]
         public long Id { get; set; }
 
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
 
-        [Display(Name = "Fecha", ResourceType = typeof(Messages))]
+        [Display(Name = "FechaVenta", ResourceType = typeof(Messages))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaVenta { get; set; }
 
         [Display(Name = "FechaCobro", ResourceType = typeof(Messages))]
@@ -49,10 +50,11 @@ namespace ME.Libros.Web.Models
         public decimal Total { get; set; }
 
         public EstadoVenta Estado { get; set; }
-
-        public ClienteViewModel Cliente { get; set; }
+        
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         public long ClienteId { get; set; }
+
+        public ClienteViewModel Cliente { get; set; }
 
         public List<VentaItemViewModel> Items { get; set; }
 

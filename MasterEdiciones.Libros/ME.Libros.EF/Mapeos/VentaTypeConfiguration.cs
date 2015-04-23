@@ -22,7 +22,7 @@ namespace ME.Libros.EF.Mapeos
             
             // FK
             HasRequired(c => c.Cliente);
-            HasRequired(v => v.VentaItems);
+            //HasRequired(v => v.VentaItems);
 
             // Map Table
             ToTable("Venta");

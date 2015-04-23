@@ -19,7 +19,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.FechaVenta, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(v => v.FechaVenta, new { @class = "form-control", placeholder = Messages.Fecha })
+                @Html.TextBoxFor(v => v.FechaVenta, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaVenta })
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.ClienteId, "Cliente", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Cliente) })
+                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.FechaCobro, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(v => v.FechaCobro, new { @class = "form-control", placeholder = Messages.FechaCobro })
+                @Html.TextBoxFor(v => v.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
             </div>
         </div>
     </div>
@@ -45,8 +45,7 @@
         <div class="form-group form-group-sm">
             @Html.Label("Plan", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                
-                <select>
+                <select class="form-control">
                     <option></option>
                     <option value="">Contado</option>
                     <option value="">Financiado</option>
@@ -55,31 +54,17 @@
         </div>
     </div>
 </div>
-<h4>Detalle</h4>
-
-<table class="dataTableCustom">
-    <thead>
-        <tr>
-            <th class="columnaCodigo">Codigo</th>
-            <th>Nombre</th>
-            <th>Cantidad</th>
-            <th class="text-right" style="width: 100px;">$</th>
-            <th class="columnaAcciones">Acciones</th>
-        </tr>
-    </thead>
-        <tr>
-            <td>2</td>
-            <td>Enciclopedia</td>
-            <td>1</td>
-            <td class="text-right">$ 250,00</td>
-            <td></td>
-        </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        
-        <td class="text-right">TOTAL</td>
-        <td class="text-right">$ 250,00</td>
-    </tr>
-</table>
+<div class="row">
+    <fieldset class="col-md-10">
+        <legend>Productos</legend>
+        @Html.Partial("IndexItems", Model.Items)
+        <hr />
+    </fieldset>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").each(function () {
+            $(this).datepicker("setDate", new Date());
+        });
+    });
+</script>

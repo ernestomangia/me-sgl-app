@@ -2,9 +2,8 @@
 {
     public enum EstadoVenta
     {
-        Reservacion = 1,
-        Vigente = 2,
-        Finalizada = 3,
-        Cancelada = 4,
+        Vigente = 1,
+        Pagada = 2,
+        Anulada = 3,
     }
 }

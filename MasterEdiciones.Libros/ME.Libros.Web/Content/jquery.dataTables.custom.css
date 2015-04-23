@@ -1,0 +1,14 @@
+﻿.dataTableCustom {
+    margin-top: 100px;
+}
+
+div.dataTables_wrapper {
+    /*clear: both;*/
+    margin-top: 15px;
+}
+
+table.KeyTable th.focus,
+table.KeyTable td.focus {
+	outline: 0;
+	outline-offset: -3px;
+}

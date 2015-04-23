@@ -135,11 +135,17 @@
   <data name="Direccion" xml:space="preserve">
     <value>Dirección</value>
   </data>
+  <data name="Dni" xml:space="preserve">
+    <value>DNI</value>
+  </data>
   <data name="Editorial" xml:space="preserve">
     <value>Editorial</value>
   </data>
   <data name="ElCliente" xml:space="preserve">
     <value>El cliente</value>
+  </data>
+  <data name="ElCobrador" xml:space="preserve">
+    <value>El cobrador</value>
   </data>
   <data name="ElProducto" xml:space="preserve">
     <value>El producto</value>
@@ -182,6 +188,9 @@
   </data>
   <data name="Localidad" xml:space="preserve">
     <value>Localidad</value>
+  </data>
+  <data name="LocalidadesAsignadas" xml:space="preserve">
+    <value>Localidades Asignadas</value>
   </data>
   <data name="Mentidad" xml:space="preserve">
     <value>El {0}</value>

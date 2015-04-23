@@ -50,7 +50,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 2,
                         Nombre = "Cobradores",
-                        Link = "#",
+                        Link = helper.Action("Index","Cobrador"),
                         Posicion = 20
                     });
                     MenuViewModels.Add(new MenuViewModel

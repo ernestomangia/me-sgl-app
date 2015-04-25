@@ -1,0 +1,70 @@
+﻿@model ME.Libros.Web.Models.VentaViewModel
+
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.FechaVenta, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(v => v.FechaVenta, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaVenta })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.ClienteId, "Cliente", new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.FechaCobro, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(v => v.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.Label("Plan", new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <select class="form-control">
+                    <option></option>
+                    <option value="">Contado</option>
+                    <option value="">Financiado</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <fieldset class="col-md-10">
+        <legend>Productos</legend>
+        @Html.Partial("IndexItems", Model.Items)
+        <hr />
+    </fieldset>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".datepicker").each(function () {
+            $(this).datepicker("setDate", new Date());
+        });
+    });
+</script>

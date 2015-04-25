@@ -50,12 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapeos\CobradorTypeConfiguration.cs" />
+    <Compile Include="Mapeos\VentaTypeConfiguration.cs" />
     <Compile Include="Mapeos\ClienteTypeConfiguration.cs" />
     <Compile Include="Mapeos\EditorialTypeConfiguration.cs" />
     <Compile Include="Mapeos\LocalidadTypeConfiguration.cs" />
     <Compile Include="Mapeos\ProductoTypeConfiguration.cs" />
     <Compile Include="Mapeos\ProvinciaTypeConfiguration.cs" />
     <Compile Include="Mapeos\RubroTypeConfiguration.cs" />
+    <Compile Include="Mapeos\ZonaTypeConfiguration.cs" />
     <Compile Include="ModelContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

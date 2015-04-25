@@ -58,8 +58,8 @@ function setearId(id) {
 
 function eliminarEntidad(url, msjSuccess, msjError) {
     var id = $("#idEntidad").val();
-    $(".validationSummary").addClass("hide");
-    $(".validationSummary ul").remove();
+    $(".modalEliminar .validationSummary").addClass("hide");
+    $(".modalEliminar .validationSummary ul").remove();
 
     $.ajax({
         method: "GET",
@@ -83,8 +83,8 @@ function eliminarEntidad(url, msjSuccess, msjError) {
                     });
                 });
                 errores += "</ul>";
-                $(".validationSummary").append(errores);
-                $(".validationSummary").removeClass("hide");
+                $(".modalEliminar .validationSummary").append(errores);
+                $(".modalEliminar .validationSummary").removeClass("hide");
             }
         },
         timeout: 10000,

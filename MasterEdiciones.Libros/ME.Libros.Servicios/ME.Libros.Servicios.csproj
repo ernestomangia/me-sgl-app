@@ -51,11 +51,14 @@
   <ItemGroup>
     <Compile Include="AbstractService.cs" />
     <Compile Include="General\ClienteService.cs" />
+    <Compile Include="General\CobradorService.cs" />
     <Compile Include="General\EditorialService.cs" />
     <Compile Include="General\LocalidadService.cs" />
     <Compile Include="General\ProductoService.cs" />
     <Compile Include="General\ProvinciaService.cs" />
     <Compile Include="General\RubroService.cs" />
+    <Compile Include="General\ZonaService.cs" />
+    <Compile Include="General\VentaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

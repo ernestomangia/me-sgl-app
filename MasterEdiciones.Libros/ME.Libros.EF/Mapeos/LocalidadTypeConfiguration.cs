@@ -18,6 +18,7 @@ namespace ME.Libros.EF.Mapeos
             Property(l => l.Nombre).HasMaxLength(100).IsRequired();
 
             HasRequired(l => l.Provincia);
+            HasRequired(l => l.Zona);
 
             // Map Table
             ToTable("Localidad");

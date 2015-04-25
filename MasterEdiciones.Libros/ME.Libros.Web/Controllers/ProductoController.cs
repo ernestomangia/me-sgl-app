@@ -65,10 +65,11 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(ProductoViewModel productoViewModel)
         {
-            ModelState.Remove("Rubro.Nombre");
-            ModelState.Remove("Rubro.Descripcion");
-            ModelState.Remove("Editorial.Nombre");
-            ModelState.Remove("Editorial.Descripcion");
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Rubro.Nombre);
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Rubro.Descripcion);
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Editorial.Nombre);
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Editorial.Descripcion);
+
 
             long resultado = 0;
             if (ModelState.IsValid)
@@ -173,6 +174,11 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Modificar(ProductoViewModel productoViewModel)
         {
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Rubro.Nombre);
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Rubro.Descripcion);
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Editorial.Nombre);
+            ModelState.RemoveFor<ProductoViewModel>(p => p.Editorial.Descripcion);
+
             long resultado = 0;
 
             ModelState.Remove("Editorial.Nombre");

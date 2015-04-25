@@ -36,8 +36,6 @@ namespace ME.Libros.EF.Mapeos
 
             // FK
             HasRequired(c => c.Localidad);
-                //.WithRequiredDependent()
-                //.WillCascadeOnDelete(false);
 
             // Map Table
             ToTable("Cliente");

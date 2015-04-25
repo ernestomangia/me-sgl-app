@@ -61,6 +61,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cliente.
+        /// </summary>
+        public static string Cliente {
+            get {
+                return ResourceManager.GetString("Cliente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Código.
         /// </summary>
         public static string Codigo {
@@ -106,6 +115,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a DNI.
+        /// </summary>
+        public static string Dni {
+            get {
+                return ResourceManager.GetString("Dni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Editorial.
         /// </summary>
         public static string Editorial {
@@ -121,6 +139,15 @@ namespace ME.Libros.Web {
             get {
                 return ResourceManager.GetString("ElCliente", resourceCulture);
             }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El cobrador.
+        /// </summary>
+        public static string ElCobrador {
+            get {
+                return ResourceManager.GetString("ElCobrador", resourceCulture);
+        }
         }
         
         /// <summary>
@@ -142,7 +169,16 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a {0} Nº {1} se eliminó exitosamente.
+        ///   Looks up a localized string similar to {0} Nº {1} se anuló exitosamente.
+        /// </summary>
+        public static string EntidadAnulada {
+            get {
+                return ResourceManager.GetString("EntidadAnulada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Nº {1} se eliminó exitosamente.
         /// </summary>
         public static string EntidadEliminada {
             get {
@@ -169,20 +205,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fecha.
-        /// </summary>
-        public static string Fecha {
-            get {
-                return ResourceManager.GetString("Fecha", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Fecha de alta.
         /// </summary>
         public static string FechaAlta {
             get {
                 return ResourceManager.GetString("FechaAlta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de vencimiento.
+        /// </summary>
+        public static string FechaCobro {
+            get {
+                return ResourceManager.GetString("FechaCobro", resourceCulture);
             }
         }
         
@@ -196,7 +232,16 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a La {0}.
+        ///   Looks up a localized string similar to Fecha de venta.
+        /// </summary>
+        public static string FechaVenta {
+            get {
+                return ResourceManager.GetString("FechaVenta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La {0}.
         /// </summary>
         public static string Fentidad {
             get {
@@ -223,11 +268,39 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La venta.
+        /// </summary>
+        public static string LaVenta {
+            get {
+                return ResourceManager.GetString("LaVenta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La zona.
+        /// </summary>
+        public static string LaZona {
+            get {
+                return ResourceManager.GetString("LaZona", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Localidad.
+        ///   Looks up a localized string similar to Localidad.
         /// </summary>
         public static string Localidad {
             get {
                 return ResourceManager.GetString("Localidad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Localidades Asignadas.
+        /// </summary>
+        public static string LocalidadesAsignadas {
+            get {
+                return ResourceManager.GetString("LocalidadesAsignadas", resourceCulture);
             }
         }
         
@@ -246,6 +319,15 @@ namespace ME.Libros.Web {
         public static string Numero {
             get {
                 return ResourceManager.GetString("Numero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nº.
+        /// </summary>
+        public static string NumeroVenta {
+            get {
+                return ResourceManager.GetString("NumeroVenta", resourceCulture);
             }
         }
         
@@ -309,6 +391,15 @@ namespace ME.Libros.Web {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zona.
+        /// </summary>
+        public static string Zona {
+            get {
+                return ResourceManager.GetString("Zona", resourceCulture);
             }
         }
     }

@@ -21,20 +21,6 @@ namespace ME.Libros.Web.Controllers
         // GET: /Editorial/
 
         public EditorialService EditorialService { get; set; }
-        public ActionResult Index()
-        {
-            ViewBag.Id = TempData["Id"];
-            ViewBag.Mensaje = TempData["Mensaje"];
-
-            var editorial = new List<EditorialViewModel>();
-            using (EditorialService)
-            {
-                editorial.AddRange(EditorialService.Listar().ToList().Select(e => new EditorialViewModel(e)));
-            }
-
-            return View(editorial);
-
-        }
 
         public EditorialController()
         {
@@ -43,6 +29,28 @@ namespace ME.Libros.Web.Controllers
             ViewBag.MenuId = 5;
             ViewBag.Title = "Editoriales";
         }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            ViewBag.Id = TempData["Id"];
+            ViewBag.Mensaje = TempData["Mensaje"];
+
+            var editoriales = new List<EditorialViewModel>();
+            using (EditorialService)
+            {
+                editoriales.AddRange(EditorialService.Listar()
+                    .ToList()
+                    .Select(e => new EditorialViewModel(e))
+                    .Where(e=>e.Id!=1)
+                    );
+            }
+
+            return View(editoriales);
+
+        }
+
+       
 
         [HttpGet]
         public ActionResult Crear()

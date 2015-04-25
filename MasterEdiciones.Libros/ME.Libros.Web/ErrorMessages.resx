@@ -177,4 +177,10 @@
   <data name="DatosAsociados" xml:space="preserve">
     <value>{0} no puede eliminarse porque tiene datos asociados</value>
   </data>
+  <data name="ErrorAnular" xml:space="preserve">
+    <value>Error al anular.</value>
+  </data>
+  <data name="DniRepetido" xml:space="preserve">
+    <value>El &lt;b&gt;DNI&lt;/b&gt; {0} se encuentra asociado a un cliente existente</value>
+  </data>
 </root>

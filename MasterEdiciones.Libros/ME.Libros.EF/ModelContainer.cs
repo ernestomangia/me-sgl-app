@@ -52,6 +52,16 @@ namespace ME.Libros.EF
                     new ProvinciaDominio {Nombre = "Santa Cruz", FechaAlta = DateTime.Now},
                 };
 
+
+                var zona = new ZonaDominio()
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Zona sin definir",
+                    FechaAlta = DateTime.Now
+
+                };
+
+
                 var localidades = new List<LocalidadDominio>
                                       {
                                           new LocalidadDominio {Nombre = "Paraná", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
@@ -63,12 +73,37 @@ namespace ME.Libros.EF
                                           new LocalidadDominio {Nombre = "Venado Tuerto", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
                                       };
 
+                var editorial = new EditorialDominio()
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Editorial sin definir",
+                    FechaAlta = DateTime.Now
+
+                };
+
+                var rubro = new RubroDominio()
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Rubro sin definir",
+                    FechaAlta = DateTime.Now
+                    
+
+                };
+
+                context.Set<ZonaDominio>().Add(zona);
+
                 provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
                 localidades.ForEach(l =>
-                                        {
-                                            context.Set<LocalidadDominio>().Add(l);
-                                            l.FechaAlta = DateTime.Now;
-                                        });
+                {
+                    context.Set<LocalidadDominio>().Add(l);
+                    l.FechaAlta = DateTime.Now;
+                    l.Zona = zona;
+                });
+
+
+                context.Set<EditorialDominio>().Add(editorial);
+                context.Set<RubroDominio>().Add(rubro);
+
 
                 context.SaveChanges();
             }

@@ -7,11 +7,13 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-navbar-custom.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/toastr.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/DataTables-1.10.5/boostrap/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/DataTables-1.10.5/jquery.dataTables.custom.css" rel="stylesheet" />
-    <link href="~/Content/datepicker.css" rel="stylesheet" />
-    <link href="~/Content/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.6/boostrap/dataTables.bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.10.6/extensions/KeyTable/css/dataTables.keyTable.css" rel="stylesheet" />
+    <link href="~/Content/jquery.dataTables.custom.css" rel="stylesheet" />
 
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-duallistbox.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
     @* Scripts *@
@@ -19,7 +21,8 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.js"></script>
-    <script src="~/Scripts/locales/bootstrap-datepicker.es.js"></script>
+    <script src="~/Scripts/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="~/Scripts/jquery.bootstrap-duallistbox.js"></script>
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/toastr.custom.js"></script>
 
@@ -31,8 +34,9 @@
     <script src="~/Scripts/globalize/cultures/globalize.culture.es-AR.js"></script>
     <script src="~/Scripts/jquery.validate.globalize.js"></script>
     
-    <script src="~/Scripts/DataTables-1.10.5/media/js/jquery.dataTables.js"></script>
-    <script src="~/Scripts/DataTables-1.10.5/boostrap/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/DataTables-1.10.6/media/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables-1.10.6/boostrap/dataTables.bootstrap.js"></script>
+    <script src="~/Scripts/DataTables-1.10.6/extensions/KeyTable/js/dataTables.keyTable.js"></script>
     <script src="~/Scripts/jquery.dataTables.custom.js"></script>
     
     <script src="~/Scripts/common.js"></script>
@@ -53,7 +57,7 @@
                         @Html.ActionLink("Administración", "Index", "Cliente")
                     </li>
                     <li>
-                        @Html.ActionLink("Ventas", "Index", "Reservacion")
+                        @Html.ActionLink("Ventas", "Index", "VentaVigente")
                     </li>
                     <li><a href="#">Tesoreria</a></li>
                     <li><a href="#">Reportes</a></li>
@@ -135,4 +139,12 @@
         $(".validationSummary").addClass("hide");
         $(".validationSummary ul").remove();
     });
+
+    $('.modalEliminar').on('shown.bs.modal', function () {
+        $(".btnCancelarEliminar").focus();
+    });
+
+    //function simulateESCKeyPress() {
+    //    jQuery.event.trigger({ type: 'keypress', which: 27 });
+    //}
 </script>

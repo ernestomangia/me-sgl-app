@@ -5,7 +5,7 @@
         @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
         {
             <li role="presentation" class="@(menu.Seleccionado ? "active" : "")">
-                <a id=@("link_" + menu.Id) role="tab" data-toggle="tab" href="@menu.Link">@menu.Nombre</a>
+                <a id=@("link_" + menu.Id) role="tab" @*data-toggle="tab"*@ href="@menu.Link">@menu.Nombre</a>
             </li>
         }
     </ul>
@@ -15,7 +15,7 @@
     $(document).ready(function () {
         $(".menuLateral ul li a").on("click", function () {
             showAjaxLoader();
-            window.location = $(this).attr("href");
+            //window.location = $(this).attr("href");
         });
     });
 </script>

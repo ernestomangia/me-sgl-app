@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
@@ -13,6 +14,16 @@ namespace ME.Libros.Web.Models
 
         public VentaItemViewModel()
         {
+            Producto = new ProductoViewModel();
+        }
+
+        public VentaItemViewModel(VentaItemDominio ventaItemDominio)
+        {
+            Id = ventaItemDominio.Id;
+            FechaAlta = ventaItemDominio.FechaAlta;
+            Cantidad = ventaItemDominio.Cantidad;
+            Monto = ventaItemDominio.Monto;
+            Producto = new ProductoViewModel(ventaItemDominio.Producto);
         }
 
         #endregion

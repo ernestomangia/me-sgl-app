@@ -29,7 +29,11 @@ namespace ME.Libros.Web.Controllers
             var rubros = new List<RubroViewModel>();
             using (RubroService)
             {
-                rubros.AddRange(RubroService.Listar().ToList().Select(r => new RubroViewModel(r)));
+                rubros.AddRange(RubroService.Listar()
+                    .ToList()
+                    .Select(r => new RubroViewModel(r))
+                    .Where(r=>r.Id!=1)
+                    );
             }
 
             return View(rubros);
@@ -61,10 +65,10 @@ namespace ME.Libros.Web.Controllers
                     using (RubroService)
                     {
                         var rubroDominio = new RubroDominio
-                        {   
+                        {
                             FechaAlta = DateTime.Now,
                             Nombre = rubroViewModel.Nombre,
-                            Descripcion=rubroViewModel.Descripcion,
+                            Descripcion = rubroViewModel.Descripcion,
                         };
 
                         rubroViewModel.Id = RubroService.Guardar(rubroDominio);
@@ -127,11 +131,11 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new {Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-         
+
 
         [HttpGet]
         public ActionResult Modificar(int id)
@@ -202,5 +206,5 @@ namespace ME.Libros.Web.Controllers
 
 
 
-	}
+    }
 }

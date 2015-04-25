@@ -73,7 +73,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(p => p.Rubro, Messages.Rubro, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(p => p.Rubro.Id, Model.Rubros, "Seleccione", new { @class = "form-control rubro", placeholder = "Rubro", required = "required", data_val_required = string.Format(ErrorMessages.Requerido, Messages.Rubro) })
+                @Html.DropDownListFor(p => p.Rubro.Id, Model.Rubros, new { @class = "form-control rubro", placeholder = "Rubro", required = "required", data_val_required = string.Format(ErrorMessages.Requerido, Messages.Rubro) })
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(e => e.Editorial.Id, Messages.Editorial, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(e => e.Editorial.Id, Model.Editoriales, "Seleccione", new { @class = "form-control editorial", placeholder = "Editorial", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Editorial) })
+                @Html.DropDownListFor(e => e.Editorial.Id, Model.Editoriales, new { @class = "form-control editorial", placeholder = "Editorial", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Editorial) })
             </div>
         </div>
     </div>

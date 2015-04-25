@@ -106,7 +106,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 8,
                         Nombre = "Gastos",
-                        Link = "#",
+                        Link = helper.Action("Index", "Gasto"),
                         Posicion = 100
                     });
                     break;

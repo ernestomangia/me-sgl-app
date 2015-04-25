@@ -153,6 +153,9 @@
   <data name="ElRubro" xml:space="preserve">
     <value>El rubro</value>
   </data>
+  <data name="ElGasto" xml:space="preserve">
+    <value>El gasto</value>
+  </data>
   <data name="EntidadAnulada" xml:space="preserve">
     <value>{0} Nº {1} se anuló exitosamente</value>
   </data>
@@ -218,6 +221,9 @@
   </data>
   <data name="Rubro" xml:space="preserve">
     <value>Rubro</value>
+  </data>
+  <data name="Gasto" xml:space="preserve">
+  <value>Gasto</value>
   </data>
   <data name="Stock" xml:space="preserve">
     <value>Stock</value>

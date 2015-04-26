@@ -53,14 +53,13 @@ namespace ME.Libros.EF
                 };
 
 
-                var zona = new ZonaDominio()
+                var zona = new ZonaDominio
                 {
                     Nombre = "Sin definir",
                     Descripcion = "Zona sin definir",
                     FechaAlta = DateTime.Now
 
                 };
-
 
                 var localidades = new List<LocalidadDominio>
                                       {
@@ -73,25 +72,20 @@ namespace ME.Libros.EF
                                           new LocalidadDominio {Nombre = "Venado Tuerto", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
                                       };
 
-                var editorial = new EditorialDominio()
+                var editorial = new EditorialDominio
                 {
                     Nombre = "Sin definir",
                     Descripcion = "Editorial sin definir",
                     FechaAlta = DateTime.Now
-
                 };
 
-                var rubro = new RubroDominio()
+                var rubro = new RubroDominio
                 {
                     Nombre = "Sin definir",
                     Descripcion = "Rubro sin definir",
                     FechaAlta = DateTime.Now
-                    
-
                 };
-
-                context.Set<ZonaDominio>().Add(zona);
-
+                
                 provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
                 localidades.ForEach(l =>
                 {
@@ -99,12 +93,27 @@ namespace ME.Libros.EF
                     l.FechaAlta = DateTime.Now;
                     l.Zona = zona;
                 });
+                var cobrador = new CobradorDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Juan",
+                    Apellido = "Perez",
+                    Cuil = "222222222222"
+                };
 
+                var vendedor = new VendedorDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Juan",
+                    Apellido = "Lopez",
+                    Cuil = "1111111111"
+                };
 
+                context.Set<CobradorDominio>().Add(cobrador);
+                context.Set<VendedorDominio>().Add(vendedor);
+                context.Set<ZonaDominio>().Add(zona);
                 context.Set<EditorialDominio>().Add(editorial);
                 context.Set<RubroDominio>().Add(rubro);
-
-
                 context.SaveChanges();
             }
         }

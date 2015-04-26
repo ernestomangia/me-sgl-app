@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
@@ -40,7 +41,12 @@ namespace ME.Libros.Web.Models
 
         public decimal Monto { get; set; }
 
+        [Display(Name = "Producto")]
+        public long ProductoId { get; set; }
+
         public ProductoViewModel Producto { get; set; }
+
+        public SelectList Productos { get; set; }
 
         #endregion
     }

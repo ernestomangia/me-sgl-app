@@ -25,9 +25,9 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(v => v.ClienteId, "Cliente", new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(v => v.FechaCobro, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control" })
+                @Html.TextBoxFor(v => v.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
             </div>
         </div>
     </div>
@@ -35,9 +35,9 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(v => v.FechaCobro, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(v => v.ClienteId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(v => v.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
+                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -55,9 +55,27 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.CobradorId, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.CobradorId, Model.Cobradores, "Seleccione", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.VendedorId, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.VendedorId, Model.Vendedores, "Seleccione", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <fieldset class="col-md-10">
         <legend>Productos</legend>
-        @Html.Partial("IndexItems", Model.Items)
+        @Html.Partial("~/Views/VentaItem/Index.cshtml", Model.Items)
         <hr />
     </fieldset>
 </div>

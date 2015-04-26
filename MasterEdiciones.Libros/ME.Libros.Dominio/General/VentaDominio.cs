@@ -16,7 +16,7 @@ namespace ME.Libros.Dominio.General
         public virtual decimal MontoCuota { get; set; }
         public virtual decimal Monto { get; set; }
         public virtual ClienteDominio Cliente { get; set; }
-        public virtual ICollection<VentaItemDominio> VentaItems { get; set; }
+        public virtual List<VentaItemDominio> VentaItems { get; set; }
         public virtual VendedorDominio Vendedor { get; set; }
         public virtual CobradorDominio Cobrador { get; set; }
         public virtual PlanPagoDominio PlanPago { get; set; }

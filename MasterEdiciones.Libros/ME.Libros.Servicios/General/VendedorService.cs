@@ -3,9 +3,9 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Servicios.General
 {
-    public class ClienteService : AbstractService<ClienteDominio>
+    public class VendedorService : AbstractService<VendedorDominio>
     {
-        public ClienteService(IRepository<ClienteDominio> repository)
+        public VendedorService(IRepository<VendedorDominio> repository)
             : base(repository)
         {
         }

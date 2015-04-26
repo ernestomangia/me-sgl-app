@@ -750,7 +750,8 @@
     <Content Include="Views\Cliente\Eliminar.cshtml" />
     <Content Include="Views\Localidad\Eliminar.cshtml" />
     <Content Include="Views\VentaVigente\Eliminar.cshtml" />
-    <Content Include="Views\VentaVigente\IndexItems.cshtml" />
+    <Content Include="Views\VentaItem\Index.cshtml" />
+    <Content Include="Views\VentaVigente\CrearItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

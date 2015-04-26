@@ -1,0 +1,36 @@
+﻿@model ME.Libros.Web.Models.GastoViewModel
+@if (Model.Id > 0)
+{
+   <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(r => r.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(r => r.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Nombre, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(r => r.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group">
+            @Html.LabelFor(r => r.Descripcion, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(r => r.Descripcion, new { @class = "form-control", rows = "2", placeholder = "(Detalles del gasto)" })
+            </div>
+        </div>
+    </div>
+</div>

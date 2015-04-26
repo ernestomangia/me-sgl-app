@@ -1,0 +1,83 @@
+﻿@using ME.Libros.Web.Models
+@model ME.Libros.Web.Models.CobradorViewModel
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Nombre, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Apellido, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control", placeholder = "Apellido" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Dni, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Dni, new { @class = "form-control", placeholder = "Dni" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Localidad, Messages.Localidad, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, new { @class = "form-control", placeholder = "Localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
+             
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+    <select multiple="multiple"  name="duallistbox_demo1[]">
+     @foreach(var item in Model.Localidades)
+     {
+        <option value=@item.Value>@item.Text</option>
+     }
+            </select>
+
+    <script type="text/javascript">
+        
+        $(document).ready(prueba());
+
+        function prueba ()
+        {var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
+            nonSelectedListLabel: 'No seleccionado',
+            selectedListLabel: 'Seleccionado',
+            preserveSelectionOnMove: 'moved',
+            moveOnSelect: false,
+            filterPlaceHolder: 'Filtro',
+            infoTextFiltered: 'Filtrado',
+            infoTextEmpty: '0 localidades',
+        });
+        demo1.bootstrapDualListbox('refresh', true);
+        };
+
+     
+    </script>
+

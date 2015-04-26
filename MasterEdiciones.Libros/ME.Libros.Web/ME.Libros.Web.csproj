@@ -107,6 +107,7 @@
     <Content Include="Content\bootstrap-datepicker3.min.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-duallistbox.css" />
     <Content Include="Content\bootstrap-navbar-custom.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -580,6 +581,7 @@
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootstrap-duallistbox.js" />
     <Content Include="Scripts\jquery.dataTables.custom.js" />
     <Content Include="Scripts\jquery.validate.globalize.js" />
     <Content Include="Scripts\jquery.validate.globalize.min.js" />
@@ -658,12 +660,14 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CobradorController.cs" />
     <Compile Include="Controllers\EditorialController.cs" />
     <Compile Include="Controllers\MenuLateralController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\LocalidadController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\GastoController.cs" />
     <Compile Include="Controllers\VentaVigenteController.cs" />
     <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
@@ -678,17 +682,19 @@
     </Compile>
     <Compile Include="Helpers\ModelStateHelper.cs" />
     <Compile Include="Messages.Designer.cs">
-      <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\ClienteViewModel.cs" />
+    <Compile Include="Models\CobradorViewModel.cs" />
     <Compile Include="Models\EditorialViewModel.cs" />
     <Compile Include="Models\LocalidadViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
     <Compile Include="Models\ProductoViewModel.cs" />
     <Compile Include="Models\ProvinciaViewModel.cs" />
     <Compile Include="Models\ResultadoViewModel.cs" />
+    <Compile Include="Models\GastoViewModel.cs" />
     <Compile Include="Models\RubroViewModel.cs" />
     <Compile Include="Models\VentaItemViewModel.cs" />
     <Compile Include="Models\VentaViewModel.cs" />
@@ -750,6 +756,17 @@
     <Content Include="Views\Cliente\Eliminar.cshtml" />
     <Content Include="Views\Localidad\Eliminar.cshtml" />
     <Content Include="Views\VentaVigente\Eliminar.cshtml" />
+    <Content Include="Views\VentaVigente\IndexItems.cshtml" />
+    <Content Include="Views\Cobrador\Crear.cshtml" />
+    <Content Include="Views\Cobrador\Index.cshtml" />
+    <Content Include="Views\Cobrador\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Cobrador\Eliminar.cshtml" />
+    <Content Include="Views\Gasto\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Gasto\Crear.cshtml" />
+    <Content Include="Views\Gasto\Detalle.cshtml" />
+    <Content Include="Views\Gasto\Eliminar.cshtml" />
+    <Content Include="Views\Gasto\Index.cshtml" />
+    <Content Include="Views\Gasto\Modificar.cshtml" />
     <Content Include="Views\VentaItem\Index.cshtml" />
     <Content Include="Views\VentaVigente\CrearItem.cshtml" />
     <None Include="Web.Debug.config">
@@ -796,8 +813,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

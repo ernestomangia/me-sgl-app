@@ -1,6 +1,6 @@
-﻿@model IEnumerable<ME.Libros.Web.Models.EditorialViewModel>
+﻿@model IEnumerable<ME.Libros.Web.Models.GastoViewModel>
 
-<h3>Editoriales</h3>
+<h3>Gastos</h3>
     <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         Nuevo
@@ -18,14 +18,14 @@
         @foreach (var item in Model)
         {
             <tr id=@("tr_"+ item.Id)>
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem=>item.Id)</td>
                 <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
                 <td>
-                    <a class="btn btn-warning btn-sm btnModificar" title="Modificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})">
+                    <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
-                    <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminarEditorial" onclick="javascript:setearId(@item.Id);">
+                    <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminarGasto" onclick="javascript:setearId(@item.Id);">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -33,6 +33,6 @@
         }
     </table>
 
-@Html.Partial("Eliminar")
-    <input type="hidden" id="idEntidad" />
+    @Html.Partial("Eliminar")
+<input type="hidden" id="idEntidad" />
 

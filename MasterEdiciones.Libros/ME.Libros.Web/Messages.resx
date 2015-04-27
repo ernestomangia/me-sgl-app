@@ -223,7 +223,7 @@
     <value>Rubro</value>
   </data>
   <data name="Gasto" xml:space="preserve">
-  <value>Gasto</value>
+    <value>Gasto</value>
   </data>
   <data name="Stock" xml:space="preserve">
     <value>Stock</value>
@@ -236,5 +236,8 @@
   </data>
   <data name="Zona" xml:space="preserve">
     <value>Zona</value>
+  </data>
+  <data name="Producto" xml:space="preserve">
+    <value>Producto</value>
   </data>
 </root>

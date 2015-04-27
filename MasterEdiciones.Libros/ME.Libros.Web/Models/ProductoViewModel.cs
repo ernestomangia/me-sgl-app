@@ -79,7 +79,5 @@ namespace ME.Libros.Web.Models
         public SelectList Rubros { get; set; }
 
         #endregion
-
-
     }
 }

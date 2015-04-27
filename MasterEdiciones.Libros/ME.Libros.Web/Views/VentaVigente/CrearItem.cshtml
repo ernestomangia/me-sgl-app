@@ -1,5 +1,13 @@
 ﻿@model ME.Libros.Web.Models.VentaItemViewModel
 
+@*@using (Ajax.BeginForm("CrearItem", "VentaVigente",
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.InsertBefore,
+        HttpMethod = "POST",
+        OnSuccess = "successAgregarVentaItem",
+        OnFailure = "errorAgregarVentaItem",
+    }, new { id = "formVentaItem", @class = "form-horizontal formEntidad" }))*@
 @using (Html.BeginForm("CrearItem", "VentaVigente", FormMethod.Post, new { id = "formVentaItem", @class = "form-horizontal formEntidad" }))
 {
     <div id="modalAgregarItem" class="modal fade modalAgregarItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -37,7 +45,7 @@
                         <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                         Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success">
+                    <button id="btnAceptarVentaItem" type="submit" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         Agregar
                     </button>

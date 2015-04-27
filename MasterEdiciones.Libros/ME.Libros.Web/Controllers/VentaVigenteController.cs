@@ -105,9 +105,21 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CrearItem(VentaItemViewModel ventaItemViewModel)
+        public JsonResult CrearItem(VentaItemViewModel ventaItemViewModel)
         {
-            return View(ventaItemViewModel);
+            if (ModelState.IsValid)
+            {
+                using (ProductoService)
+                {
+                    //Validar stock
+                }
+            }
+
+            return new JsonResult
+            {
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         [HttpPost]

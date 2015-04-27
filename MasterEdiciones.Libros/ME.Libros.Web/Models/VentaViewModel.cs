@@ -57,9 +57,11 @@ namespace ME.Libros.Web.Models
         public EstadoVenta Estado { get; set; }
         
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ClienteId { get; set; }
 
         [Display(Name = "Cobrador")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long CobradorId { get; set; }
         
         [Display(Name = "Vendedor")]

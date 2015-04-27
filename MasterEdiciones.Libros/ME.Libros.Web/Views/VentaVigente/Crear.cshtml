@@ -29,8 +29,8 @@
         </div>
     </div>
     @*<input type="text" name="Items[0].ProductoId" value="" />
-    <input type="text" name="Items[0].Cantidad" value="" />
-    <input type="hidden" name="Items[0].Monto" value="0" />*@
+        <input type="text" name="Items[0].Cantidad" value="" />
+        <input type="hidden" name="Items[0].Monto" value="0" />*@
 }
 
 
@@ -39,7 +39,95 @@
 }
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
+        //$("#btnAceptarVentaItem").on("click", function () {
+        //    var productoId = $("#ProductoId").val();
+        //    var cantidad = $("#Cantidad").val();
+
+        //    //Buscar datos del producto AJAX
+        //    //Validar Stock
+
+        //    var table = $("#ventaDetalleTable").DataTable();
+        //    table.row.add([
+        //    "Codigo",
+        //    "Diccionario",
+        //    productoId,
+        //    cantidad,
+        //    "100,00",
+        //    "200,00"
+        //    ]).draw();
+
+        //    $("#modalAgregarItem").showModalDialog("toggle");
+        //});
+        $("#formVentaItem").on("submit", function (e) {
+            e.preventDefault();
+            if ($("#formVentaItem").valid()) {
+                $.ajax({
+                    method: "POST",
+                    url: $(this).attr("action"),
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    error: function (jqXhr, status, error) {
+                        mensajeError("Ha ocurrido un error");
+                    },
+                    success: function (data) {
+                        if (data.Success) {
+                            var table = $("#ventaDetalleTable").DataTable();
+                            table.row.add([
+                            "Codigo",
+                            "Diccionario",
+                            "Test",
+                            "Test",
+                            "100,00",
+                            "200,00"
+                            ]).draw();
+                            $('#modalAgregarItem').modal('toggle');
+                            mensajeSuccess("Se agrego el producto al detalle de la venta");
+                        } else {
+                            var errores = "<ul>";
+                            $.each(data.Errors, function (key, value) {
+                                $.each(value.Value, function (key2, value2) {
+                                    errores += "<li>" + value2 + "</li>";
+                                });
+                            });
+                            errores += "</ul>";
+                            $(".modalEliminar .validationSummary").append(errores);
+                            $(".modalEliminar .validationSummary").removeClass("hide");
+                        }
+                    },
+                    timeout: 10000,
+                    cache: false
+                });
+            }
+            //return false;
+        });
 
     });
+
+    function successAgregarVentaItem(data) {
+        var table = $("#ventaDetalleTable").DataTable();
+        table.row.add([
+        "Codigo",
+        "Diccionario",
+        "Test",
+        "Test",
+        "100,00",
+        "200,00"
+        ]).draw();
+
+        $("#modalAgregarItem").showModalDialog("toggle");
+        mensajeSuccess("Se agrego el producto al detalle de la venta");
+    }
+
+    function errorAgregarVentaItem(data) {
+        var errores = "<ul>";
+        $.each(data.Errors, function (key, value) {
+            $.each(value.Value, function (key2, value2) {
+                errores += "<li>" + value2 + "</li>";
+            });
+        });
+        errores += "</ul>";
+        $("#modalAgregarItem .validationSummary").append(errores);
+        $("#modalAgregarItem .validationSummary").removeClass("hide");
+    }
 </script>

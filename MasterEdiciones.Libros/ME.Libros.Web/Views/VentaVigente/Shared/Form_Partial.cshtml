@@ -75,7 +75,9 @@
 <div class="row">
     <fieldset class="col-md-10">
         <legend>Productos</legend>
-        @Html.Partial("~/Views/VentaItem/Index.cshtml", Model.Items)
+        <div id="ventaDetalle">
+            @Html.Partial("~/Views/VentaItem/Index.cshtml", Model.Items)
+        </div>
         <hr />
     </fieldset>
 </div>

@@ -25,7 +25,7 @@ namespace ME.Libros.Web.Controllers
             var modelContainer = new ModelContainer();
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
-            ZonaService=new ZonaService(new EntidadRepository<ZonaDominio>(modelContainer));
+            ZonaService = new ZonaService(new EntidadRepository<ZonaDominio>(modelContainer));
             ViewBag.MenuId = 3;
             ViewBag.Title = "Localidades";
         }
@@ -62,9 +62,6 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(LocalidadViewModel localidadViewModel)
         {
             long resultado = 0;
-
-            ModelState.RemoveFor<LocalidadViewModel>(l => l.Zona.Nombre);
-
             if (ModelState.IsValid)
             {
                 try
@@ -76,7 +73,7 @@ namespace ME.Libros.Web.Controllers
                                                      FechaAlta = DateTime.Now,
                                                      Nombre = localidadViewModel.Nombre,
                                                      Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId),
-                                                     Zona=ZonaService.GetPorId(localidadViewModel.Zona.Id)
+                                                     Zona = ZonaService.GetPorId(localidadViewModel.ZonaId)
                                                  };
 
                         resultado = LocalidadService.Guardar(localidadDominio);
@@ -165,31 +162,35 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Modificar(LocalidadViewModel localidadViewModel)
         {
             long resultado = 0;
-
-            ModelState.RemoveFor<LocalidadViewModel>(l => l.Zona.Nombre);
-
             if (ModelState.IsValid)
             {
-                using (LocalidadService)
+                try
                 {
-                    var localidadDominio = LocalidadService.GetPorId(localidadViewModel.Id);
-                    localidadDominio.Nombre = localidadViewModel.Nombre;
-                    localidadDominio.Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId);
-                    localidadDominio.Zona = ZonaService.GetPorId(localidadViewModel.Zona.Id);
-
-                    resultado = LocalidadService.Guardar(localidadDominio);
-                    if (resultado <= 0)
+                    using (LocalidadService)
                     {
-                        foreach (var error in LocalidadService.ModelError)
+                        var localidadDominio = LocalidadService.GetPorId(localidadViewModel.Id);
+                        localidadDominio.Nombre = localidadViewModel.Nombre;
+                        localidadDominio.Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId);
+                        localidadDominio.Zona = ZonaService.GetPorId(localidadViewModel.ZonaId);
+
+                        resultado = LocalidadService.Guardar(localidadDominio);
+                        if (resultado <= 0)
                         {
-                            ModelState.AddModelError(error.Key, error.Value);
+                            foreach (var error in LocalidadService.ModelError)
+                            {
+                                ModelState.AddModelError(error.Key, error.Value);
+                            }
+                        }
+                        else
+                        {
+                            TempData["Id"] = localidadDominio.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.LaLocalidad, localidadDominio.Id);
                         }
                     }
-                    else
-                    {
-                        TempData["Id"] = localidadViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.LaLocalidad, localidadViewModel.Id);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
 
@@ -245,9 +246,9 @@ namespace ME.Libros.Web.Controllers
                     "Id",
                     "Nombre");
 
-            localidadViewModel.Zonas= new SelectList(ZonaService.Listar()
-                .Select(z=>new ZonaViewModel(z))
-                .ToList(),"Id","Nombre");
+            localidadViewModel.Zonas = new SelectList(ZonaService.Listar()
+                .Select(z => new ZonaViewModel(z))
+                .ToList(), "Id", "Nombre");
         }
 
         #endregion

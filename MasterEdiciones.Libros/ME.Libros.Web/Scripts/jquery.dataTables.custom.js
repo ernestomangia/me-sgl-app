@@ -51,7 +51,7 @@ $(document).ready(function () {
             });
 
             $('.dataTableCustom tbody').on('dblclick', 'tr', function () {
-                window.location = $(".btnModificar").attr("href");
+                window.location = $(this).find(".btnModificar").attr("href");
             });
 
             var keys = new $.fn.dataTable.KeyTable(table);

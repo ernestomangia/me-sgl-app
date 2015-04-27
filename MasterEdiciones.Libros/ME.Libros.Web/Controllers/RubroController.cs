@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -19,7 +18,6 @@ namespace ME.Libros.Web.Controllers
     {
         //
         // GET: /Rubro/
-
         public RubroService RubroService { get; set; }
         public ActionResult Index()
         {
@@ -32,12 +30,10 @@ namespace ME.Libros.Web.Controllers
                 rubros.AddRange(RubroService.Listar()
                     .ToList()
                     .Select(r => new RubroViewModel(r))
-                    .Where(r=>r.Id!=1)
-                    );
+                    .Where(r => r.Id != 1));
             }
 
             return View(rubros);
-
         }
 
         public RubroController()
@@ -58,6 +54,7 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(RubroViewModel rubroViewModel)
         {
+            long resultado = 0;
             if (ModelState.IsValid)
             {
                 try
@@ -71,8 +68,8 @@ namespace ME.Libros.Web.Controllers
                             Descripcion = rubroViewModel.Descripcion,
                         };
 
-                        rubroViewModel.Id = RubroService.Guardar(rubroDominio);
-                        if (rubroViewModel.Id <= 0)
+                        resultado = RubroService.Guardar(rubroDominio);
+                        if (resultado <= 0)
                         {
                             foreach (var error in RubroService.ModelError)
                             {
@@ -81,7 +78,7 @@ namespace ME.Libros.Web.Controllers
                         }
                         else
                         {
-                            TempData["Id"] = rubroViewModel.Id;
+                            TempData["Id"] = rubroDominio.Id;
                             TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El rubro", rubroDominio.Id);
                         }
                     }
@@ -93,9 +90,9 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-            return rubroViewModel.Id > 0
-                    ? (ActionResult)RedirectToAction("Index")
-                    : View(rubroViewModel);
+            return resultado > 0
+                ? (ActionResult) RedirectToAction("Index")
+                : View(rubroViewModel);
         }
 
         [HttpGet]
@@ -136,7 +133,6 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
-
         [HttpGet]
         public ActionResult Modificar(int id)
         {
@@ -164,32 +160,38 @@ namespace ME.Libros.Web.Controllers
             long resultado = 0;
             if (ModelState.IsValid)
             {
-                using (RubroService)
+                try
                 {
-                    var rubroDominio = RubroService.GetPorId(rubroViewModel.Id);
-                    rubroDominio.Nombre = rubroViewModel.Nombre;
-                    rubroDominio.Descripcion = rubroViewModel.Descripcion;
-
-                    resultado = RubroService.Guardar(rubroDominio);
-                    if (resultado <= 0)
+                    using (RubroService)
                     {
-                        foreach (var error in RubroService.ModelError)
+                        var rubroDominio = RubroService.GetPorId(rubroViewModel.Id);
+                        rubroDominio.Nombre = rubroViewModel.Nombre;
+                        rubroDominio.Descripcion = rubroViewModel.Descripcion;
+
+                        resultado = RubroService.Guardar(rubroDominio);
+                        if (resultado <= 0)
                         {
-                            ModelState.AddModelError(error.Key, error.Value);
+                            foreach (var error in RubroService.ModelError)
+                            {
+                                ModelState.AddModelError(error.Key, error.Value);
+                            }
+                        }
+                        else
+                        {
+                            TempData["Id"] = rubroViewModel.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El rubro", rubroViewModel.Id);
                         }
                     }
-                    else
-                    {
-                        TempData["Id"] = rubroViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El rubro", rubroViewModel.Id);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
 
-
-            return rubroViewModel.Id > 0
-                    ? (ActionResult)RedirectToAction("Index")
-                    : View(rubroViewModel);
+            return resultado > 0
+                ? (ActionResult)RedirectToAction("Index")
+                : View(rubroViewModel);
         }
 
         [HttpGet]
@@ -203,8 +205,5 @@ namespace ME.Libros.Web.Controllers
 
             return View(rubroViewModel);
         }
-
-
-
     }
 }

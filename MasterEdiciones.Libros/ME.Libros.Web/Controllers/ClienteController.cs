@@ -64,8 +64,6 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(ClienteViewModel clienteViewModel)
         {
             long resultado = 0;
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.Nombre);
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.ProvinciaId);
             if (ModelState.IsValid)
             {
                 try
@@ -86,7 +84,7 @@ namespace ME.Libros.Web.Controllers
                                                      Email = clienteViewModel.Email,
                                                      TelefonoFijo = clienteViewModel.TelefonoFijo,
                                                      Celular = clienteViewModel.Celular,
-                                                     Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id),
+                                                     Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
                                                  };
                         resultado = ClienteService.Guardar(clienteDominio);
                         if (resultado <= 0)
@@ -185,11 +183,15 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Modificar(ClienteViewModel clienteViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(clienteViewModel);
+                return View(clienteViewModel);
+            }
+
             long resultado = 0;
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.Nombre);
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.ProvinciaId);
-            
-            if (ModelState.IsValid)
+
+            try
             {
                 using (ClienteService)
                 {
@@ -197,11 +199,13 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Nombre = clienteViewModel.Nombre;
                     clienteDominio.Apellido = clienteViewModel.Apellido;
                     clienteDominio.Cuil = clienteViewModel.Cuil;
-                    clienteDominio.FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null;
+                    clienteDominio.FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue
+                        ? clienteViewModel.FechaNacimiento.Value
+                        : (DateTime?) null;
                     clienteDominio.Direccion = clienteViewModel.Direccion;
                     clienteDominio.Numero = clienteViewModel.Numero;
                     clienteDominio.Comentario = clienteViewModel.Comentario;
-                    clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id);
+                    clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
                     clienteDominio.Sexo = clienteViewModel.Sexo;
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
@@ -218,9 +222,27 @@ namespace ME.Libros.Web.Controllers
                     else
                     {
                         TempData["Id"] = clienteViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente, clienteViewModel.Id);
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente,
+                            clienteViewModel.Id);
                     }
                 }
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 2601)
+                {
+                    ModelState.AddModelError("Error",
+                        string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             if (resultado == 0)
@@ -256,9 +278,9 @@ namespace ME.Libros.Web.Controllers
                 .ToList(), "Id", "Nombre");
 
             var localidades = new List<LocalidadViewModel>();
-            if (clienteViewModel.Localidad.Provincia.Id > 0)
+            if (clienteViewModel.ProvinciaId > 0)
             {
-                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.Localidad.Provincia.Id)
+                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.ProvinciaId)
                                                                     .ToList()
                                                                     .Select(l => new LocalidadViewModel(l)));
             }

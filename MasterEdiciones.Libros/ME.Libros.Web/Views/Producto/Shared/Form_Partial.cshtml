@@ -24,7 +24,7 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(p=>p.Descripcion, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(p => p.Descripcion, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(p => p.Descripcion, new { @class = "form-control", placeholder = "Descripcion" })
             </div>
@@ -53,9 +53,9 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(p => p.PrecioCosto, new { @class = "col-md-4 control-label"  , data_val_number = string.Format(ErrorMessages.Numeric, Messages.Stock)})
+            @Html.LabelFor(p => p.PrecioCosto, new { @class = "col-md-4 control-label", data_val_number = string.Format(ErrorMessages.Numeric, Messages.Stock) })
             <div class="col-md-8">
-                @Html.TextBoxFor(p => p.PrecioCosto, new { @class = "form-control", placeholder = "Precio de costo",maxlenght=15, data_val_number = string.Format(ErrorMessages.Decimal, Messages.PrecioCosto) })
+                @Html.TextBoxFor(p => p.PrecioCosto, new { @class = "form-control", placeholder = "Precio de costo", maxlenght = 15, data_val_number = string.Format(ErrorMessages.Decimal, Messages.PrecioCosto) })
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(p => p.PrecioVenta, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(p => p.PrecioVenta, new { @class = "form-control", placeholder = "Precio de venta",maxlenght=15, data_val_number = string.Format(ErrorMessages.Decimal, Messages.PrecioVenta) })
+                @Html.TextBoxFor(p => p.PrecioVenta, new { @class = "form-control", placeholder = "Precio de venta", maxlenght = 15, data_val_number = string.Format(ErrorMessages.Decimal, Messages.PrecioVenta) })
             </div>
         </div>
     </div>
@@ -71,17 +71,17 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(p => p.Rubro, Messages.Rubro, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(p => p.RubroId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(p => p.Rubro.Id, Model.Rubros, new { @class = "form-control rubro", placeholder = "Rubro", required = "required", data_val_required = string.Format(ErrorMessages.Requerido, Messages.Rubro) })
+                @Html.DropDownListFor(p => p.RubroId, Model.Rubros, new { @class = "form-control rubro" })
             </div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(e => e.Editorial.Id, Messages.Editorial, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(e => e.EditorialId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(e => e.Editorial.Id, Model.Editoriales, new { @class = "form-control editorial", placeholder = "Editorial", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Editorial) })
+                @Html.DropDownListFor(e => e.EditorialId, Model.Editoriales, new { @class = "form-control editorial" })
             </div>
         </div>
     </div>

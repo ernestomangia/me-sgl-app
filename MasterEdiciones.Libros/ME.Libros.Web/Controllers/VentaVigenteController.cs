@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -112,73 +113,75 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(VentaViewModel ventaViewModel)
         {
-            long resultado = 0;
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    using (VentaService)
-                    {
-                        var ventaDominio = new VentaDominio
-                        {
-                            FechaAlta = DateTime.Now,
-                            FechaVenta = ventaViewModel.FechaVenta,
-                            FechaCobro = ventaViewModel.FechaCobro,
-                            Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
-                            Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
-                            Estado = EstadoVenta.Vigente,
-                            VentaItems = new List<VentaItemDominio>(),
-                        };
-
-                        foreach (var ventaItemViewModel in ventaViewModel.Items)
-                        {
-                            var producto = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
-                            ventaDominio.VentaItems.Add(new VentaItemDominio
-                            {
-                                FechaAlta = DateTime.Now,
-                                Cantidad = ventaItemViewModel.Cantidad,
-                                Producto = producto,
-                                PrecioVenta = producto.PrecioVenta,
-                                PrecioCosto = producto.PrecioCosto
-                            });
-                        }
-
-                        resultado = VentaService.CrearVenta(ventaDominio);
-                        if (resultado <= 0)
-                        {
-                            foreach (var error in VentaService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
-                        }
-                        else
-                        {
-                            TempData["Id"] = ventaDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaVenta, ventaDominio.Id);
-                        }
-                    }
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
-                    {
-                        ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                }
-            }
-
-            if (resultado == 0)
+            if (!ModelState.IsValid)
             {
                 PrepareModel(ventaViewModel);
+                return View(ventaViewModel);
             }
 
-            return resultado > 0
-                ? (ActionResult)RedirectToAction("Index")
-                : View(ventaViewModel);
+            long resultado = 0;
+            try
+            {
+                using (VentaService)
+                {
+                    var ventaDominio = new VentaDominio
+                    {
+                        FechaAlta = DateTime.Now,
+                        FechaVenta = ventaViewModel.FechaVenta,
+                        FechaCobro = ventaViewModel.FechaCobro,
+                        Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
+                        Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
+                        Estado = EstadoVenta.Vigente,
+                        VentaItems = new List<VentaItemDominio>(),
+                    };
+
+                    foreach (var ventaItemViewModel in ventaViewModel.Items)
+                    {
+                        var producto = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
+                        ventaDominio.VentaItems.Add(new VentaItemDominio
+                        {
+                            FechaAlta = DateTime.Now,
+                            Cantidad = ventaItemViewModel.Cantidad,
+                            Producto = producto,
+                            PrecioVenta = producto.PrecioVenta,
+                            PrecioCosto = producto.PrecioCosto
+                        });
+                    }
+
+                    resultado = VentaService.CrearVenta(ventaDominio);
+                    if (resultado <= 0)
+                    {
+                        foreach (var error in VentaService.ModelError)
+                        {
+                            ModelState.AddModelError(error.Key, error.Value);
+                        }
+                    }
+                    else
+                    {
+                        TempData["Id"] = ventaDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaVenta, ventaDominio.Id);
+                    }
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            if (resultado > 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            PrepareModel(ventaViewModel);
+            return View(ventaViewModel);
         }
 
         public ActionResult Modificar()
@@ -192,22 +195,19 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public JsonResult Eliminar(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                using (VentaService)
                 {
-                    using (VentaService)
-                    {
-                        var ventaDominio = VentaService.GetPorId(id);
-                        ventaDominio.Estado = EstadoVenta.Anulada;
+                    var ventaDominio = VentaService.GetPorId(id);
+                    ventaDominio.Estado = EstadoVenta.Anulada;
 
-                        VentaService.Guardar(ventaDominio);
-                    }
+                    VentaService.Guardar(ventaDominio);
                 }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             return new JsonResult
@@ -227,7 +227,7 @@ namespace ME.Libros.Web.Controllers
 
             ventaViewModel.Cobradores = new SelectList(CobradorService.Listar()
                 .ToList()
-                .Select(c => new { Id = c.Id, Text = c.Id + " - " + c.Cuil }), "Id", "Text");
+                .Select(c => new { Id = c.Id, Text = c.Id + " - " + c.Dni }), "Id", "Text");
 
             ventaViewModel.Vendedores = new SelectList(VendedorService.Listar()
                 .ToList()

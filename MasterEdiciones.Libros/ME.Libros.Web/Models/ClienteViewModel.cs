@@ -32,6 +32,8 @@ namespace ME.Libros.Web.Models
             Celular = cliente.Celular;
             Email = cliente.Email;
             Localidad = new LocalidadViewModel(cliente.Localidad);
+            LocalidadId = cliente.Localidad.Id;
+            ProvinciaId = cliente.Localidad.Provincia.Id;
         }
 
         #endregion
@@ -85,11 +87,18 @@ namespace ME.Libros.Web.Models
 
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string Celular { get; set; }
-        
+
         public string Email { get; set; }
         
-        public LocalidadViewModel Localidad { get; set; }
+        [Display(Name = "Localidad", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long LocalidadId { get; set; }
+        
+        [Display(Name = "Provincia", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long ProvinciaId { get; set; }
 
+        public LocalidadViewModel Localidad { get; set; }
         public SelectList Provincias { get; set; }
         public SelectList Localidades { get; set; }
 

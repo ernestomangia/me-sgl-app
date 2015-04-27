@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+
 using ME.Libros.Dominio.General;
-
-
 
 namespace ME.Libros.Web.Models
 {
@@ -15,7 +10,6 @@ namespace ME.Libros.Web.Models
 
         public GastoViewModel()
         {
-            
         }
 
         public GastoViewModel(GastoDominio gasto)
@@ -24,7 +18,6 @@ namespace ME.Libros.Web.Models
             Nombre = gasto.Nombre;
             Descripcion = gasto.Descripcion;
         }
-
         
         #endregion
 

@@ -756,7 +756,6 @@
     <Content Include="Views\Cliente\Eliminar.cshtml" />
     <Content Include="Views\Localidad\Eliminar.cshtml" />
     <Content Include="Views\VentaVigente\Eliminar.cshtml" />
-    <Content Include="Views\VentaVigente\IndexItems.cshtml" />
     <Content Include="Views\Cobrador\Crear.cshtml" />
     <Content Include="Views\Cobrador\Index.cshtml" />
     <Content Include="Views\Cobrador\Shared\Form_Partial.cshtml" />

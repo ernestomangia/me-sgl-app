@@ -62,15 +62,43 @@ namespace ME.Libros.EF
                 };
 
                 var localidades = new List<LocalidadDominio>
-                                      {
-                                          new LocalidadDominio {Nombre = "Paraná", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
-                                          new LocalidadDominio {Nombre = "Crespo", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
-                                          new LocalidadDominio {Nombre = "Gualeguychú", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
-                                          new LocalidadDominio {Nombre = "Oro Verde", Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))},
-                                          new LocalidadDominio {Nombre = "Santa Fe", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
-                                          new LocalidadDominio {Nombre = "Coronda", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
-                                          new LocalidadDominio {Nombre = "Venado Tuerto", Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))},
-                                      };
+                {
+                    new LocalidadDominio
+                    {
+                        Nombre = "Paraná",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))
+                    },
+                    new LocalidadDominio
+                    {
+                        Nombre = "Crespo",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))
+                    },
+                    new LocalidadDominio
+                    {
+                        Nombre = "Gualeguychú",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))
+                    },
+                    new LocalidadDominio
+                    {
+                        Nombre = "Oro Verde",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Entre Rios"))
+                    },
+                    new LocalidadDominio
+                    {
+                        Nombre = "Santa Fe",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))
+                    },
+                    new LocalidadDominio
+                    {
+                        Nombre = "Coronda",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))
+                    },
+                    new LocalidadDominio
+                    {
+                        Nombre = "Venado Tuerto",
+                        Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))
+                    },
+                };
 
                 var editorial = new EditorialDominio
                 {
@@ -85,7 +113,7 @@ namespace ME.Libros.EF
                     Descripcion = "Rubro sin definir",
                     FechaAlta = DateTime.Now
                 };
-                
+
                 provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
                 localidades.ForEach(l =>
                 {
@@ -93,12 +121,19 @@ namespace ME.Libros.EF
                     l.FechaAlta = DateTime.Now;
                     l.Zona = zona;
                 });
+
                 var cobrador = new CobradorDominio
                 {
                     FechaAlta = DateTime.Now,
                     Nombre = "Juan",
                     Apellido = "Perez",
-                    Cuil = "222222222222"
+                    Dni = "35625222",
+                    Localidad = localidades[0],
+                    Localidades = new List<LocalidadDominio>
+                    {
+                        localidades[2],
+                        localidades[3]
+                    }
                 };
 
                 var vendedor = new VendedorDominio
@@ -109,6 +144,14 @@ namespace ME.Libros.EF
                     Cuil = "1111111111"
                 };
 
+                var gasto = new GastoDominio
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Gasto sin definir",
+                    FechaAlta = DateTime.Now
+                };
+
+                context.Set<GastoDominio>().Add(gasto);
                 context.Set<CobradorDominio>().Add(cobrador);
                 context.Set<VendedorDominio>().Add(vendedor);
                 context.Set<ZonaDominio>().Add(zona);

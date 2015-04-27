@@ -54,76 +54,75 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(RubroViewModel rubroViewModel)
         {
-            long resultado = 0;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    using (RubroService)
-                    {
-                        var rubroDominio = new RubroDominio
-                        {
-                            FechaAlta = DateTime.Now,
-                            Nombre = rubroViewModel.Nombre,
-                            Descripcion = rubroViewModel.Descripcion,
-                        };
+                return View(rubroViewModel);
+            }
 
-                        resultado = RubroService.Guardar(rubroDominio);
-                        if (resultado <= 0)
+            long resultado = 0;
+            try
+            {
+                using (RubroService)
+                {
+                    var rubroDominio = new RubroDominio
+                    {
+                        FechaAlta = DateTime.Now,
+                        Nombre = rubroViewModel.Nombre,
+                        Descripcion = rubroViewModel.Descripcion,
+                    };
+
+                    resultado = RubroService.Guardar(rubroDominio);
+                    if (resultado <= 0)
+                    {
+                        foreach (var error in RubroService.ModelError)
                         {
-                            foreach (var error in RubroService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
-                        }
-                        else
-                        {
-                            TempData["Id"] = rubroDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El rubro", rubroDominio.Id);
+                            ModelState.AddModelError(error.Key, error.Value);
                         }
                     }
+                    else
+                    {
+                        TempData["Id"] = rubroDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElRubro, rubroDominio.Id);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    // Log
-                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                }
+            }
+            catch (Exception ex)
+            {
+                // Log
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             return resultado > 0
-                ? (ActionResult) RedirectToAction("Index")
+                ? (ActionResult)RedirectToAction("Index")
                 : View(rubroViewModel);
         }
 
         [HttpGet]
         public JsonResult Eliminar(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                using (RubroService)
                 {
-                    using (RubroService)
-                    {
-                        RubroService.Eliminar(RubroService.GetPorId(id));
-                    }
+                    RubroService.Eliminar(RubroService.GetPorId(id));
                 }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
 
-                    if (sqlException != null && sqlException.Number == 547)
-                    {
-                        ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                    }
+                if (sqlException != null && sqlException.Number == 547)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElRubro));
                 }
-                catch (Exception ex)
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             return new JsonResult
@@ -136,19 +135,11 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public ActionResult Modificar(int id)
         {
-            var rubroViewModel = new RubroViewModel();
-            try
+            RubroViewModel rubroViewModel;
+            using (RubroService)
             {
-                using (RubroService)
-                {
-                    var rubroDominio = RubroService.GetPorId(id);
-                    rubroViewModel = new RubroViewModel(rubroDominio);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log
-                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                var rubroDominio = RubroService.GetPorId(id);
+                rubroViewModel = new RubroViewModel(rubroDominio);
             }
 
             return View(rubroViewModel);
@@ -178,8 +169,8 @@ namespace ME.Libros.Web.Controllers
                         }
                         else
                         {
-                            TempData["Id"] = rubroViewModel.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El rubro", rubroViewModel.Id);
+                            TempData["Id"] = rubroDominio.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElRubro, rubroDominio.Id);
                         }
                     }
                 }

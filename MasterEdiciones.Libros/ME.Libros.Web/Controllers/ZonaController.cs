@@ -114,7 +114,7 @@ namespace ME.Libros.Web.Controllers
 
                 if (sqlException != null && sqlException.Number == 547)
                 {
-                    ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.LaZona));
                 }
                 else
                 {

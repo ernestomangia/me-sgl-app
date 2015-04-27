@@ -63,60 +63,63 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(ClienteViewModel clienteViewModel)
         {
-            long resultado = 0;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                this.PrepareModel(clienteViewModel);
+                return View(clienteViewModel);
+            }
+
+            long resultado = 0;
+            try
+            {
+                using (ClienteService)
                 {
-                    using (ClienteService)
+                    var clienteDominio = new ClienteDominio
+                                             {
+                                                 FechaAlta = DateTime.Now,
+                                                 Nombre = clienteViewModel.Nombre,
+                                                 Apellido = clienteViewModel.Apellido,
+                                                 Cuil = clienteViewModel.Cuil,
+                                                 FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
+                                                 Direccion = clienteViewModel.Direccion,
+                                                 Numero = clienteViewModel.Numero,
+                                                 Comentario = clienteViewModel.Comentario,
+                                                 Sexo = clienteViewModel.Sexo,
+                                                 Email = clienteViewModel.Email,
+                                                 TelefonoFijo = clienteViewModel.TelefonoFijo,
+                                                 Celular = clienteViewModel.Celular,
+                                                 Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
+                                             };
+                    resultado = ClienteService.Guardar(clienteDominio);
+                    if (resultado <= 0)
                     {
-                        var clienteDominio = new ClienteDominio
-                                                 {
-                                                     FechaAlta = DateTime.Now,
-                                                     Nombre = clienteViewModel.Nombre,
-                                                     Apellido = clienteViewModel.Apellido,
-                                                     Cuil = clienteViewModel.Cuil,
-                                                     FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
-                                                     Direccion = clienteViewModel.Direccion,
-                                                     Numero = clienteViewModel.Numero,
-                                                     Comentario = clienteViewModel.Comentario,
-                                                     Sexo = clienteViewModel.Sexo,
-                                                     Email = clienteViewModel.Email,
-                                                     TelefonoFijo = clienteViewModel.TelefonoFijo,
-                                                     Celular = clienteViewModel.Celular,
-                                                     Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
-                                                 };
-                        resultado = ClienteService.Guardar(clienteDominio);
-                        if (resultado <= 0)
+                        foreach (var error in ClienteService.ModelError)
                         {
-                            foreach (var error in ClienteService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
+                            ModelState.AddModelError(error.Key, error.Value);
                         }
-                        else
-                        {
-                            TempData["Id"] = clienteDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Id);
-                        }
-                    }
-                }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
-                    if (sqlException != null && sqlException.Number == 2601)
-                    {
-                        ModelState.AddModelError("Error", string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
                     }
                     else
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                        TempData["Id"] = clienteDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Id);
                     }
                 }
-                catch (Exception ex)
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 2601)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
+                }
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             if (resultado == 0)
@@ -132,32 +135,29 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public JsonResult Eliminar(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                using (ClienteService)
                 {
-                    using (ClienteService)
-                    {
-                        ClienteService.Eliminar(ClienteService.GetPorId(id));
-                    }
+                    ClienteService.Eliminar(ClienteService.GetPorId(id));
                 }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
 
-                    if (sqlException != null && sqlException.Number == 547)
-                    {
-                        ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElCliente));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                    }
+                if (sqlException != null && sqlException.Number == 547)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElCliente));
                 }
-                catch (Exception ex)
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             return new JsonResult
@@ -201,7 +201,7 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Cuil = clienteViewModel.Cuil;
                     clienteDominio.FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue
                         ? clienteViewModel.FechaNacimiento.Value
-                        : (DateTime?) null;
+                        : (DateTime?)null;
                     clienteDominio.Direccion = clienteViewModel.Direccion;
                     clienteDominio.Numero = clienteViewModel.Numero;
                     clienteDominio.Comentario = clienteViewModel.Comentario;

@@ -16,10 +16,6 @@ namespace ME.Libros.Web.Controllers
 {
     public class EditorialController : BaseController<EditorialDominio>
     {
-
-        //
-        // GET: /Editorial/
-
         public EditorialService EditorialService { get; set; }
 
         public EditorialController()
@@ -30,6 +26,7 @@ namespace ME.Libros.Web.Controllers
             ViewBag.Title = "Editoriales";
         }
 
+        // GET: /Editorial/
         [HttpGet]
         public ActionResult Index()
         {
@@ -58,40 +55,42 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(EditorialViewModel editorialViewModel)
         {
-            long resultado = 0;
-            if (ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                try
-                {
-                    using (EditorialService)
-                    {
-                        var editorialDominio = new EditorialDominio
-                        {
-                            FechaAlta = DateTime.Now,
-                            Nombre = editorialViewModel.Nombre,
-                            Descripcion = editorialViewModel.Descripcion,
-                        };
+                return View(editorialViewModel);
+            }
 
-                        resultado = EditorialService.Guardar(editorialDominio);
-                        if (editorialViewModel.Id <= 0)
+            long resultado = 0;
+            try
+            {
+                using (this.EditorialService)
+                {
+                    var editorialDominio = new EditorialDominio
+                                               {
+                                                   FechaAlta = DateTime.Now,
+                                                   Nombre = editorialViewModel.Nombre,
+                                                   Descripcion = editorialViewModel.Descripcion,
+                                               };
+
+                    resultado = this.EditorialService.Guardar(editorialDominio);
+                    if (resultado <= 0)
+                    {
+                        foreach (var error in this.EditorialService.ModelError)
                         {
-                            foreach (var error in EditorialService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
-                        }
-                        else
-                        {
-                            TempData["Id"] = editorialDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaEditorial, editorialDominio.Id);
+                            this.ModelState.AddModelError(error.Key, error.Value);
                         }
                     }
+                    else
+                    {
+                        this.TempData["Id"] = editorialDominio.Id;
+                        this.TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaEditorial, editorialDominio.Id);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    // Log
-                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                }
+            }
+            catch (Exception ex)
+            {
+                // Log
+                this.ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             return resultado > 0
@@ -158,9 +157,15 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Modificar(EditorialViewModel editorialViewModel)
         {
-            long resultado = 0;
-            if (ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
+                return View(editorialViewModel);
+            }
+
+            long resultado = 0;
+            try
+            {
+
                 using (EditorialService)
                 {
                     var editorialDominio = EditorialService.GetPorId(editorialViewModel.Id);
@@ -172,7 +177,7 @@ namespace ME.Libros.Web.Controllers
                     {
                         foreach (var error in EditorialService.ModelError)
                         {
-                            ModelState.AddModelError(error.Key, error.Value);
+                            this.ModelState.AddModelError(error.Key, error.Value);
                         }
                     }
                     else
@@ -182,9 +187,14 @@ namespace ME.Libros.Web.Controllers
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                // Log
+                this.ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
 
             return resultado > 0
-                ? (ActionResult) RedirectToAction("Index")
+                ? (ActionResult)RedirectToAction("Index")
                 : View(editorialViewModel);
         }
 

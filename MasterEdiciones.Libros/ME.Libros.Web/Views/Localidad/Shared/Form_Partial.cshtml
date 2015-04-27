@@ -16,7 +16,7 @@
 
 <div class="row">
     <div class="col-md-10">
-        <div class="form-group">
+        <div class="form-group form-group-sm">
             @Html.LabelFor(l => l.Nombre, new { @class = "col-md-2 control-label" })
             <div class="col-md-4">
                 @Html.TextBoxFor(l => l.Nombre, new { @class = "form-control", placeholder = "Nombre" })
@@ -26,7 +26,7 @@
 </div>
 <div class="row">
     <div class="col-md-10">
-        <div class="form-group">
+        <div class="form-group form-group-sm">
             @Html.LabelFor(l => l.ProvinciaId, new { @class = "col-sm-2 control-label" })
             <div class="col-md-4">
                 @Html.DropDownListFor(l => l.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control" })
@@ -36,7 +36,7 @@
 </div>
 <div class="row">
     <div class="col-md-10">
-        <div class="form-group">
+        <div class="form-group form-group-sm">
             @Html.LabelFor(l => l.ZonaId, new { @class = "col-sm-2 control-label" })
             <div class="col-md-4">
                 @Html.DropDownListFor(l => l.ZonaId, Model.Zonas, new { @class = "form-control" })

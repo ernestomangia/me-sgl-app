@@ -240,4 +240,10 @@
   <data name="Producto" xml:space="preserve">
     <value>Producto</value>
   </data>
+  <data name="Nro" xml:space="preserve">
+    <value>Nro</value>
+  </data>
+  <data name="Monto" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
 </root>

@@ -27,14 +27,14 @@ namespace ME.Libros.Servicios.General
             return Guardar(ventaDominio);
         }
 
-        private static void ActualizarStock(VentaItemDominio ventaItemDominio)
-        {
-            ventaItemDominio.Producto.Stock -= ventaItemDominio.Cantidad;
-        }
-
         private static void CalcularTotalItem(VentaItemDominio ventaItemDominio)
         {
             ventaItemDominio.Monto = ventaItemDominio.Cantidad * ventaItemDominio.PrecioVenta;
+        }
+
+        private static void ActualizarStock(VentaItemDominio ventaItemDominio)
+        {
+            ventaItemDominio.Producto.Stock -= ventaItemDominio.Cantidad;
         }
 
         private static void CalcularTotalVenta(VentaDominio entidad)

@@ -250,6 +250,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El stock disponible de &lt;b&gt;{0}&lt;/b&gt; es de {1} unidades..
+        /// </summary>
+        public static string Stock {
+            get {
+                return ResourceManager.GetString("Stock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres como máximo.
         /// </summary>
         public static string StringLength {

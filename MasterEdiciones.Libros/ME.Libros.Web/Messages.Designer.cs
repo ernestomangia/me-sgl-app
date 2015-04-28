@@ -331,6 +331,24 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subtotal.
+        /// </summary>
+        public static string Monto {
+            get {
+                return ResourceManager.GetString("Monto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nro.
+        /// </summary>
+        public static string Nro {
+            get {
+                return ResourceManager.GetString("Nro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nº.
         /// </summary>
         public static string Numero {

@@ -35,9 +35,13 @@ namespace ME.Libros.Web.Models
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
 
+        [Display(Name = "Nro", ResourceType = typeof(Messages))]
+        public int Orden { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public int Cantidad { get; set; }
 
+        [Display(Name = "Monto", ResourceType = typeof(Messages))]
         public decimal Monto { get; set; }
 
         [Display(Name = "Producto", ResourceType = typeof(Messages))]

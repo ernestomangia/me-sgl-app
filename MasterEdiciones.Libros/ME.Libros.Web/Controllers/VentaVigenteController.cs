@@ -109,16 +109,35 @@ namespace ME.Libros.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (ProductoService)
+                try
                 {
-                    //Validar stock
+                    using (ProductoService)
+                    {
+                        var productoDominio = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
+
+                        //Validar stock
+                        if (!ProductoService.VerificarStock(productoDominio, ventaItemViewModel.Cantidad))
+                        {
+                            //ModelState.AddModelError("Stock", ProductoService.ModelError["Stock"]);
+                            ModelState.AddModelError("Stock", string.Format(ErrorMessages.Stock, productoDominio.Nombre, productoDominio.Stock));
+                        }
+                        else
+                        {
+                            ventaItemViewModel.Producto = new ProductoViewModel(productoDominio);
+                            ventaItemViewModel.Monto = ventaItemViewModel.Cantidad * ventaItemViewModel.Producto.PrecioVenta;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), VentaItem = ventaItemViewModel }
+                //JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 

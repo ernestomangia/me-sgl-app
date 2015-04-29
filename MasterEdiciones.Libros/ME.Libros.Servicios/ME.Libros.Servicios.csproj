@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractService.cs" />
+    <Compile Include="General\ProveedorService.cs" />
     <Compile Include="General\VendedorService.cs" />
     <Compile Include="General\ClienteService.cs" />
     <Compile Include="General\CobradorService.cs" />

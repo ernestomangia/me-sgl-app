@@ -661,6 +661,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\CobradorController.cs" />
     <Compile Include="Controllers\EditorialController.cs" />
     <Compile Include="Controllers\MenuLateralController.cs" />
@@ -686,6 +687,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProveedorViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\CobradorViewModel.cs" />
     <Compile Include="Models\EditorialViewModel.cs" />
@@ -768,6 +770,11 @@
     <Content Include="Views\Gasto\Modificar.cshtml" />
     <Content Include="Views\VentaItem\Index.cshtml" />
     <Content Include="Views\VentaVigente\CrearItem.cshtml" />
+    <Content Include="Views\Proveedor\Crear.cshtml" />
+    <Content Include="Views\Proveedor\Eliminar.cshtml" />
+    <Content Include="Views\Proveedor\Index.cshtml" />
+    <Content Include="Views\Proveedor\Modificar.cshtml" />
+    <Content Include="Views\Proveedor\Shared\Form_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

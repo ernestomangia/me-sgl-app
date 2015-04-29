@@ -156,6 +156,9 @@
   <data name="ElGasto" xml:space="preserve">
     <value>El gasto</value>
   </data>
+  <data name="ElProveedor" xml:space="preserve">
+    <value>El proveedor</value>
+  </data>
   <data name="EntidadAnulada" xml:space="preserve">
     <value>{0} Nº {1} se anuló exitosamente</value>
   </data>

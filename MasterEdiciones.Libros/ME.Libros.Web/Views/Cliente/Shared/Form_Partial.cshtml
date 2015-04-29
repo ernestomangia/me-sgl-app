@@ -42,9 +42,9 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Sexo, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.Iva, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.EnumDropDownListFor(c => c.Sexo, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(c => c.Iva, new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -88,12 +88,13 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Numero, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.Email, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Numero, new { @class = "form-control", placeholder = Messages.Numero })
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
             </div>
         </div>
     </div>
+
 </div>
 <div class="row">
     <div class="col-md-10">
@@ -105,16 +106,7 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-10">
-        <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">

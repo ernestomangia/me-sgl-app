@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Enums\TipoPlanPago.cs" />
     <Compile Include="Enums\EstadoVenta.cs" />
-    <Compile Include="Enums\Sexo.cs" />
+    <Compile Include="Enums\Iva.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

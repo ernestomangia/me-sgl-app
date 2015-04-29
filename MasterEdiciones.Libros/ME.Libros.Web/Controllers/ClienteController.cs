@@ -82,9 +82,8 @@ namespace ME.Libros.Web.Controllers
                                                  Cuil = clienteViewModel.Cuil,
                                                  FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
                                                  Direccion = clienteViewModel.Direccion,
-                                                 Numero = clienteViewModel.Numero,
                                                  Comentario = clienteViewModel.Comentario,
-                                                 Sexo = clienteViewModel.Sexo,
+                                                 Iva = clienteViewModel.Iva,
                                                  Email = clienteViewModel.Email,
                                                  TelefonoFijo = clienteViewModel.TelefonoFijo,
                                                  Celular = clienteViewModel.Celular,
@@ -203,10 +202,9 @@ namespace ME.Libros.Web.Controllers
                         ? clienteViewModel.FechaNacimiento.Value
                         : (DateTime?)null;
                     clienteDominio.Direccion = clienteViewModel.Direccion;
-                    clienteDominio.Numero = clienteViewModel.Numero;
                     clienteDominio.Comentario = clienteViewModel.Comentario;
                     clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
-                    clienteDominio.Sexo = clienteViewModel.Sexo;
+                    clienteDominio.Iva = clienteViewModel.Iva;
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
                     clienteDominio.Email = clienteViewModel.Email;

@@ -52,19 +52,21 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-10">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Direccion, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
+            @Html.LabelFor(c => c.Direccion, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
                 @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = Messages.Direccion })
             </div>
         </div>
     </div>
+</div>
 
-    <div class="col-md-5">
+<div class="row">
+    <div class="col-md-10">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Email, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
+            @Html.LabelFor(c => c.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
                 @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
             </div>
         </div>

@@ -42,9 +42,9 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Sexo, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.Iva, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.EnumDropDownListFor(c => c.Sexo, new { @class = "form-control" })
+                @Html.EnumDropDownListFor(c => c.Iva, new { @class = "form-control" })
             </div>
         </div>
     </div>
@@ -62,17 +62,17 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Localidad.Provincia.Id, Messages.Provincia, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.Localidad.Provincia.Id, Model.Provincias, "Seleccione", new { @class = "form-control provincia", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Provincia) })
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia" })
             </div>
         </div>
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Localidad.Id, Messages.Localidad, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, "Seleccione", new { @class = "form-control localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad" })
             </div>
         </div>
     </div>
@@ -88,33 +88,25 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Numero, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.Email, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Numero, new { @class = "form-control", placeholder = Messages.Numero })
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
             </div>
         </div>
     </div>
+
 </div>
 <div class="row">
     <div class="col-md-10">
         <div class="form-group">
             @Html.LabelFor(c => c.Comentario, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control", rows = "3", placeholder = "(Detalles de la dirección, horarios disponibles, etc.)" })
+                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control", rows = "3", placeholder = "Detalles de la dirección, horarios disponibles, etc." })
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-10">
-        <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
-            </div>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">

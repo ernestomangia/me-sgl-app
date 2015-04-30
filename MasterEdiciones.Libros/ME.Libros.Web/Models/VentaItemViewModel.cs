@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
@@ -36,11 +35,22 @@ namespace ME.Libros.Web.Models
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
 
+        [Display(Name = "Nro", ResourceType = typeof(Messages))]
+        public int Orden { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public int Cantidad { get; set; }
 
+        [Display(Name = "MontoItem", ResourceType = typeof(Messages))]
         public decimal Monto { get; set; }
 
+        [Display(Name = "Producto", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long ProductoId { get; set; }
+
         public ProductoViewModel Producto { get; set; }
+
+        public SelectList Productos { get; set; }
 
         #endregion
     }

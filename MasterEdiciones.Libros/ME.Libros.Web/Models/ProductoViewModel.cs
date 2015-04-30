@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
-using Microsoft.SqlServer.Server;
 
 namespace ME.Libros.Web.Models
 {
-
     public class ProductoViewModel
     {
         #region Constructor(s)
 
-        
         public ProductoViewModel()
         {
             Editorial = new EditorialViewModel();
@@ -33,15 +24,13 @@ namespace ME.Libros.Web.Models
             CodigoBarra = producto.CodigoBarra;
             PrecioVenta = producto.PrecioVenta;
             PrecioCosto = producto.PrecioCosto;
-
-
-
             Editorial = new EditorialViewModel(producto.Editorial);
+            EditorialId = producto.Editorial.Id;
             Rubro = new RubroViewModel(producto.Rubro);
+            RubroId = producto.Rubro.Id;
         }
 
         #endregion
-
 
         #region Properties
 
@@ -61,32 +50,34 @@ namespace ME.Libros.Web.Models
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public long Stock { get; set; }
 
-        //[Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [Display(Name = "CodigoBarra", ResourceType = typeof(Messages))]
         [StringLength(30, MinimumLength = 30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string CodigoBarra { get; set; }
-
 
         // [RegularExpression(@"^(\d{1}\.)?(\d+\.?)+(,\d{2})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         [Display(Name = "PrecioVenta", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public decimal PrecioVenta { get; set; }
 
-
         //  [RegularExpression(@"^(\d{1}\.)?(\d+\.?)+(,\d{2})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         [Display(Name = "PrecioCosto", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public decimal PrecioCosto { get; set; }
 
+        [Display(Name = "Editorial", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long EditorialId { get; set; }
+
+        [Display(Name = "Rubro", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long RubroId { get; set; }
+
         public EditorialViewModel Editorial { get; set; }
         public RubroViewModel Rubro { get; set; }
-
         public SelectList Editoriales { get; set; }
         public SelectList Rubros { get; set; }
 
         #endregion
-
-
     }
 }

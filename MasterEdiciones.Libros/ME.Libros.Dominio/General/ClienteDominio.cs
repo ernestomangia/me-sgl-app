@@ -12,7 +12,7 @@ namespace ME.Libros.Dominio.General
         public virtual string Apellido { get; set; }
         public virtual string Cuil { get; set; }
         public virtual DateTime? FechaNacimiento { get; set; }
-        public virtual Sexo Sexo { get; set; }
+        public virtual Iva Iva { get; set; }
         public virtual string Direccion { get; set; }
         public virtual string Numero { get; set; }
         public virtual string Comentario { get; set; }

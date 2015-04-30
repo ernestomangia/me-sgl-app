@@ -1,0 +1,122 @@
+﻿@model ME.Libros.Web.Models.ProveedorViewModel
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.RazonSocial, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.RazonSocial, new { @class = "form-control", placeholder = "Razon Social" })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Cuil, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = Messages.Cuil })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Direccion, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = Messages.Direccion })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = Messages.TelefonoFijo })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Celular, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+                Ej. (343-6111222)
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".provincia").on("change", function () {
+        var idProvincia = $(".provincia :selected").attr("value");
+        if (idProvincia > 0) {
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
+                dataType: "json",
+                error: function (jqXHR, status, error) {
+                    mensajeError("Error: " + error + " - Status: " + status);
+                },
+                success: function (data) {
+                    $(".localidad").empty();
+                    if (data.length > 0) {
+                        $.each(data, function (key, value) {
+                            $(".localidad").append(new Option(value.Nombre, value.Id));
+                        });
+                    } else {
+                        $(".localidad").append(new Option("Seleccione", ""));
+                    }
+                },
+                timeout: 10000,
+                cache: false
+            });
+        } else {
+            $(".localidad").empty().append(new Option("Seleccione", ""));
+        }
+    });
+
+</script>

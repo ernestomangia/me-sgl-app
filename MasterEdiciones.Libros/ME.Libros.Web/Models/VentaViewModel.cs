@@ -25,8 +25,13 @@ namespace ME.Libros.Web.Models
             FechaAlta = ventaDominio.FechaAlta;
             FechaVenta = ventaDominio.FechaVenta;
             Estado = ventaDominio.Estado;
+            Total = ventaDominio.Monto;
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
-            Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
+            
+            if (ventaDominio.VentaItems  != null)
+            {
+                Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
+            }
         }
 
         #endregion
@@ -52,13 +57,23 @@ namespace ME.Libros.Web.Models
         public EstadoVenta Estado { get; set; }
         
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ClienteId { get; set; }
+
+        [Display(Name = "Cobrador")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long CobradorId { get; set; }
+        
+        [Display(Name = "Vendedor")]
+        public long? VendedorId { get; set; }
 
         public ClienteViewModel Cliente { get; set; }
 
         public List<VentaItemViewModel> Items { get; set; }
 
         public SelectList Clientes { get; set; }
+        public SelectList Cobradores { get; set; }
+        public SelectList Vendedores { get; set; }
 
         #endregion
     }

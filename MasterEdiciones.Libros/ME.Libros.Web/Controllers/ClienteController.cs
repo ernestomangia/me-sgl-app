@@ -63,62 +63,62 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Crear(ClienteViewModel clienteViewModel)
         {
-            long resultado = 0;
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.Nombre);
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.ProvinciaId);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
+                this.PrepareModel(clienteViewModel);
+                return View(clienteViewModel);
+            }
+
+            long resultado = 0;
+            try
+            {
+                using (ClienteService)
                 {
-                    using (ClienteService)
+                    var clienteDominio = new ClienteDominio
+                                             {
+                                                 FechaAlta = DateTime.Now,
+                                                 Nombre = clienteViewModel.Nombre,
+                                                 Apellido = clienteViewModel.Apellido,
+                                                 Cuil = clienteViewModel.Cuil,
+                                                 FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
+                                                 Direccion = clienteViewModel.Direccion,
+                                                 Comentario = clienteViewModel.Comentario,
+                                                 Iva = clienteViewModel.Iva,
+                                                 Email = clienteViewModel.Email,
+                                                 TelefonoFijo = clienteViewModel.TelefonoFijo,
+                                                 Celular = clienteViewModel.Celular,
+                                                 Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
+                                             };
+                    resultado = ClienteService.Guardar(clienteDominio);
+                    if (resultado <= 0)
                     {
-                        var clienteDominio = new ClienteDominio
-                                                 {
-                                                     FechaAlta = DateTime.Now,
-                                                     Nombre = clienteViewModel.Nombre,
-                                                     Apellido = clienteViewModel.Apellido,
-                                                     Cuil = clienteViewModel.Cuil,
-                                                     FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
-                                                     Direccion = clienteViewModel.Direccion,
-                                                     Numero = clienteViewModel.Numero,
-                                                     Comentario = clienteViewModel.Comentario,
-                                                     Sexo = clienteViewModel.Sexo,
-                                                     Email = clienteViewModel.Email,
-                                                     TelefonoFijo = clienteViewModel.TelefonoFijo,
-                                                     Celular = clienteViewModel.Celular,
-                                                     Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id),
-                                                 };
-                        resultado = ClienteService.Guardar(clienteDominio);
-                        if (resultado <= 0)
+                        foreach (var error in ClienteService.ModelError)
                         {
-                            foreach (var error in ClienteService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
+                            ModelState.AddModelError(error.Key, error.Value);
                         }
-                        else
-                        {
-                            TempData["Id"] = clienteDominio.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Id);
-                        }
-                    }
-                }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
-                    if (sqlException != null && sqlException.Number == 2601)
-                    {
-                        ModelState.AddModelError("Error", string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
                     }
                     else
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                        TempData["Id"] = clienteDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Id);
                     }
                 }
-                catch (Exception ex)
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 2601)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
+                }
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             if (resultado == 0)
@@ -134,32 +134,29 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public JsonResult Eliminar(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                try
+                using (ClienteService)
                 {
-                    using (ClienteService)
-                    {
-                        ClienteService.Eliminar(ClienteService.GetPorId(id));
-                    }
+                    ClienteService.Eliminar(ClienteService.GetPorId(id));
                 }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
 
-                    if (sqlException != null && sqlException.Number == 547)
-                    {
-                        ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElCliente));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                    }
+                if (sqlException != null && sqlException.Number == 547)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElCliente));
                 }
-                catch (Exception ex)
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             return new JsonResult
@@ -185,11 +182,15 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Modificar(ClienteViewModel clienteViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(clienteViewModel);
+                return View(clienteViewModel);
+            }
+
             long resultado = 0;
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.Nombre);
-            ModelState.RemoveFor<ClienteViewModel>(c => c.Localidad.ProvinciaId);
-            
-            if (ModelState.IsValid)
+
+            try
             {
                 using (ClienteService)
                 {
@@ -197,12 +198,13 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Nombre = clienteViewModel.Nombre;
                     clienteDominio.Apellido = clienteViewModel.Apellido;
                     clienteDominio.Cuil = clienteViewModel.Cuil;
-                    clienteDominio.FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null;
+                    clienteDominio.FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue
+                        ? clienteViewModel.FechaNacimiento.Value
+                        : (DateTime?)null;
                     clienteDominio.Direccion = clienteViewModel.Direccion;
-                    clienteDominio.Numero = clienteViewModel.Numero;
                     clienteDominio.Comentario = clienteViewModel.Comentario;
-                    clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.Localidad.Id);
-                    clienteDominio.Sexo = clienteViewModel.Sexo;
+                    clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
+                    clienteDominio.Iva = clienteViewModel.Iva;
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
                     clienteDominio.Email = clienteViewModel.Email;
@@ -218,9 +220,27 @@ namespace ME.Libros.Web.Controllers
                     else
                     {
                         TempData["Id"] = clienteViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente, clienteViewModel.Id);
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente,
+                            clienteViewModel.Id);
                     }
                 }
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 2601)
+                {
+                    ModelState.AddModelError("Error",
+                        string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
             if (resultado == 0)
@@ -256,9 +276,9 @@ namespace ME.Libros.Web.Controllers
                 .ToList(), "Id", "Nombre");
 
             var localidades = new List<LocalidadViewModel>();
-            if (clienteViewModel.Localidad.Provincia.Id > 0)
+            if (clienteViewModel.ProvinciaId > 0)
             {
-                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.Localidad.Provincia.Id)
+                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.ProvinciaId)
                                                                     .ToList()
                                                                     .Select(l => new LocalidadViewModel(l)));
             }

@@ -18,6 +18,7 @@
         <div class="col-md-10">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>
                 <button type="submit" class="btn btn-success">
@@ -27,4 +28,109 @@
             </div>
         </div>
     </div>
+    @*<input type="text" name="Items[0].ProductoId" value="" />
+        <input type="text" name="Items[0].Cantidad" value="" />
+        <input type="hidden" name="Items[0].Monto" value="0" />*@
 }
+
+@{ Html.RenderAction("CrearItem"); }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#formVentaItem").on("submit", function (e) {
+            e.preventDefault();
+            if ($("#formVentaItem").valid()) {
+                $(".modalAgregarItem .validationSummary").addClass("hide");
+                $(".modalAgregarItem .validationSummary ul").remove();
+                $.ajax({
+                    method: "POST",
+                    url: $(this).attr("action"),
+                    data: $(this).serialize(),
+                    dataType: "json",
+                    error: function (jqXhr, status, error) {
+                        mensajeError("Ha ocurrido un error");
+                    },
+                    success: function (data) {
+                        if (data.Success) {
+                            var ventaItem = data.VentaItem;
+                            var modificar = getModificarButton();
+                            var eliminar = getEliminarButton();
+                            console.log(ventaItem);
+
+                            var table = $("#ventaDetalleTable").DataTable();
+                            table.row.add([
+                                "1",
+                                ventaItem.Producto.Nombre,
+                                ventaItem.Cantidad,
+                                ventaItem.Producto.PrecioVenta,
+                                ventaItem.Monto,
+                                modificar + eliminar
+                            ]).draw();
+                            $('#modalAgregarItem').modal('toggle');
+                            mensajeSuccess("Se agrego el producto al detalle de la venta");
+                        } else {
+                            var errores = "<ul>";
+                            $.each(data.Errors, function (key, value) {
+                                $.each(value.Value, function (key2, value2) {
+                                    errores += "<li>" + value2 + "</li>";
+                                });
+                            });
+                            errores += "</ul>";
+                            $(".modalAgregarItem .validationSummary").append(errores);
+                            $(".modalAgregarItem .validationSummary").removeClass("hide");
+                        }
+                    },
+                    timeout: 10000,
+                    cache: false
+                });
+            }
+        });
+
+        //$("#formVentaItem").validate({
+        //    errorLabelContainer: "#modalAgregarItem .validationSummary",
+        //    wrapper: "li",
+        //    submitHandler: function (form) {
+
+        //    }
+        //});
+    });
+
+    function getModificarButton() {
+        return "<a class=\"btn btn-warning btn-sm btnModificar\" type=\"button\" href=\"#\">" +
+            "<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span>" +
+            "<\/a>";
+    }
+
+    function getEliminarButton() {
+        return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='javascript:setearId('1');' title='Eliminar'>" +
+            "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
+            "</button>";
+    }
+
+    function successAgregarVentaItem(data) {
+        var table = $("#ventaDetalleTable").DataTable();
+        table.row.add([
+        "Codigo",
+        "Diccionario",
+        "Test",
+        "Test",
+        "100,00",
+        "200,00"
+        ]).draw();
+
+        $("#modalAgregarItem").showModalDialog("toggle");
+        mensajeSuccess("Se agrego el producto al detalle de la venta");
+    }
+
+    function errorAgregarVentaItem(data) {
+        var errores = "<ul>";
+        $.each(data.Errors, function (key, value) {
+            $.each(value.Value, function (key2, value2) {
+                errores += "<li>" + value2 + "</li>";
+            });
+        });
+        errores += "</ul>";
+        $("#modalAgregarItem .validationSummary").append(errores);
+        $("#modalAgregarItem .validationSummary").removeClass("hide");
+    }
+</script>

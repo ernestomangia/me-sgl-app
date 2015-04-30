@@ -1,0 +1,56 @@
+﻿@model ME.Libros.Web.Models.VentaItemViewModel
+
+@*@using (Ajax.BeginForm("CrearItem", "VentaVigente",
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.InsertBefore,
+        HttpMethod = "POST",
+        OnSuccess = "successAgregarVentaItem",
+        OnFailure = "errorAgregarVentaItem",
+    }, new { id = "formVentaItem", @class = "form-horizontal formEntidad" }))*@
+@using (Html.BeginForm("CrearItem", "VentaVigente", FormMethod.Post, new { id = "formVentaItem", @class = "form-horizontal formEntidad" }))
+{
+    <div id="modalAgregarItem" class="modal fade modalAgregarItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Nuevo item</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row text-left">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                                <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                                <b>Mensajes:</b>
+                                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default btnCancelarAgregar" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                        Cancelar
+                    </button>
+                    <button id="btnAceptarVentaItem" type="submit" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

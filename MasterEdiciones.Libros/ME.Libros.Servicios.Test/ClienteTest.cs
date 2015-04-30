@@ -49,7 +49,8 @@ namespace ME.Libros.Servicios.Test
                                             Nombre = "Entre Rios"
                                         }
                     },
-                    Sexo = Sexo.Masculino
+                    
+                    Iva = Iva.Exento
                 };
                 servicio.Guardar(cliente);
                 CollectionAssert.Contains(servicio.Listar().ToList(), cliente);

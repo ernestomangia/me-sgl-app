@@ -9,6 +9,5 @@ namespace ME.Libros.Servicios.General
             : base(repository)
         {
         }
-
     }
 }

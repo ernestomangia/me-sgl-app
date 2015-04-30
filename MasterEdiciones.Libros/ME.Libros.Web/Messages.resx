@@ -153,6 +153,12 @@
   <data name="ElRubro" xml:space="preserve">
     <value>El rubro</value>
   </data>
+  <data name="ElGasto" xml:space="preserve">
+    <value>El gasto</value>
+  </data>
+  <data name="ElProveedor" xml:space="preserve">
+    <value>El proveedor</value>
+  </data>
   <data name="EntidadAnulada" xml:space="preserve">
     <value>{0} Nº {1} se anuló exitosamente</value>
   </data>
@@ -219,6 +225,9 @@
   <data name="Rubro" xml:space="preserve">
     <value>Rubro</value>
   </data>
+  <data name="Gasto" xml:space="preserve">
+    <value>Gasto</value>
+  </data>
   <data name="Stock" xml:space="preserve">
     <value>Stock</value>
   </data>
@@ -231,7 +240,16 @@
   <data name="Zona" xml:space="preserve">
     <value>Zona</value>
   </data>
-  <data name="Monto" xml:space="preserve">
+  <data name="Producto" xml:space="preserve">
+    <value>Producto</value>
+  </data>
+  <data name="Nro" xml:space="preserve">
+    <value>Nro</value>
+  </data>
+  <data name="MontoItem" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="MontoCobro" xml:space="preserve">
     <value>Monto</value>
   </data>
   <data name="Venta" xml:space="preserve">

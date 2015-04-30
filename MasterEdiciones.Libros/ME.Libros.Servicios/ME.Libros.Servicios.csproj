@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractService.cs" />
+    <Compile Include="General\ProveedorService.cs" />
+    <Compile Include="General\VendedorService.cs" />
     <Compile Include="General\ClienteService.cs" />
     <Compile Include="General\CobradorService.cs" />
     <Compile Include="General\CobroService.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="General\LocalidadService.cs" />
     <Compile Include="General\ProductoService.cs" />
     <Compile Include="General\ProvinciaService.cs" />
+    <Compile Include="General\GastoService.cs" />
     <Compile Include="General\RubroService.cs" />
     <Compile Include="General\ZonaService.cs" />
     <Compile Include="General\VentaService.cs" />

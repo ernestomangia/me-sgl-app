@@ -1,0 +1,15 @@
+﻿@model ME.Libros.Web.Models.GastoViewModel
+
+<h3>Detalle gasto</h3>
+<div class="form-horizontal formDetalle">
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    <div class="form-group">
+        <div class="col-sm-offset-8">
+            <a id="btnCancelarDetalle" class="btn btn-default" href="@Url.Action("Index")">
+                Cancelar
+            </a>
+        </div>
+    </div>
+</div>
+

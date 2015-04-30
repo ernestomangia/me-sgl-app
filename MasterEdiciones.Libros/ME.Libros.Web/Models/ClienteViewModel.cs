@@ -24,14 +24,15 @@ namespace ME.Libros.Web.Models
             Apellido = cliente.Apellido;
             Cuil = cliente.Cuil;
             FechaNacimiento = cliente.FechaNacimiento.HasValue ? cliente.FechaNacimiento.Value : (DateTime?)null;
-            Sexo = cliente.Sexo;
+            Iva = cliente.Iva;
             Direccion = cliente.Direccion;
-            Numero = cliente.Numero;
             Comentario = cliente.Comentario;
             TelefonoFijo = cliente.TelefonoFijo;
             Celular = cliente.Celular;
             Email = cliente.Email;
             Localidad = new LocalidadViewModel(cliente.Localidad);
+            LocalidadId = cliente.Localidad.Id;
+            ProvinciaId = cliente.Localidad.Provincia.Id;
         }
 
         #endregion
@@ -66,15 +67,12 @@ namespace ME.Libros.Web.Models
         public DateTime? FechaNacimiento { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        public Sexo Sexo { get; set; }
+        public Iva Iva { get; set; }
 
         [Display(Name = "Direccion", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public string Direccion { get; set; }
-        
-        [Display(Name = "Numero", ResourceType = typeof(Messages))]
-        [StringLength(5, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
-        public string Numero { get; set; }
+  
         
         [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Comentario { get; set; }
@@ -85,11 +83,18 @@ namespace ME.Libros.Web.Models
 
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string Celular { get; set; }
-        
+
         public string Email { get; set; }
         
-        public LocalidadViewModel Localidad { get; set; }
+        [Display(Name = "Localidad", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long LocalidadId { get; set; }
+        
+        [Display(Name = "Provincia", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long ProvinciaId { get; set; }
 
+        public LocalidadViewModel Localidad { get; set; }
         public SelectList Provincias { get; set; }
         public SelectList Localidades { get; set; }
 

@@ -143,6 +143,23 @@ namespace ME.Libros.Web.Models
                         Posicion = 50,
                     });
                     break;
+                case 24:
+                     MenuViewModels.Add(new MenuViewModel
+                    {
+                        Id = 24,
+                        Nombre = "Cobros",
+                        Link = helper.Action("Index", "Cobro"),
+                        Posicion = 50,
+                    });
+                     MenuViewModels.Add(new MenuViewModel
+                     {
+                         Id = 25,
+                         Nombre = "Compras",
+                         Link = helper.Action("Index", "Compra"),
+                         Posicion = 50,
+                     });
+                    break;
+
             }
             Seleccionar(menuId);
         }

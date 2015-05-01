@@ -32,6 +32,7 @@
         <input type="text" name="Items[0].Cantidad" value="" />
         <input type="hidden" name="Items[0].Monto" value="0" />*@
 }
+<input id="itemsIndex" type="hidden" name="Cantidad" value="0" />
 
 @{ Html.RenderAction("CrearItem"); }
 
@@ -53,21 +54,13 @@
                     success: function (data) {
                         if (data.Success) {
                             var ventaItem = data.VentaItem;
-                            var modificar = getModificarButton();
-                            var eliminar = getEliminarButton();
-                            console.log(ventaItem);
-
-                            var table = $("#ventaDetalleTable").DataTable();
-                            table.row.add([
-                                "1",
-                                ventaItem.Producto.Nombre,
-                                ventaItem.Cantidad,
-                                ventaItem.Producto.PrecioVenta,
-                                ventaItem.Monto,
-                                modificar + eliminar
-                            ]).draw();
+                            agregarFilaVentaItem(ventaItem);
+                            var itemsIndex = $("#itemsIndex").val();
+                            var hiddenProductoId = "<input type='hidden' name='Items[" + itemsIndex + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
+                            var hiddenCantidad = "<input type='hidden' name='Items[" + itemsIndex + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
+                            $("#formVentaVigente").append(hiddenProductoId + hiddenCantidad);
                             $('#modalAgregarItem').modal('toggle');
-                            mensajeSuccess("Se agrego el producto al detalle de la venta");
+                            mensajeSuccess("Se agrego el " + ventaItem.Producto.Nombre + " al detalle de la venta");
                         } else {
                             var errores = "<ul>";
                             $.each(data.Errors, function (key, value) {
@@ -94,6 +87,21 @@
         //    }
         //});
     });
+
+    function agregarFilaVentaItem(ventaItem) {
+        var modificar = getModificarButton();
+        var eliminar = getEliminarButton();
+        var table = $("#ventaDetalleTable").DataTable();
+
+        table.row.add([
+            "1",
+            ventaItem.Producto.Nombre,
+            ventaItem.Cantidad,
+            ventaItem.Producto.PrecioVenta,
+            ventaItem.Monto,
+            modificar + eliminar
+        ]).draw();
+    }
 
     function getModificarButton() {
         return "<a class=\"btn btn-warning btn-sm btnModificar\" type=\"button\" href=\"#\">" +

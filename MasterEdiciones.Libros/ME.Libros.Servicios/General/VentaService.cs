@@ -17,14 +17,27 @@ namespace ME.Libros.Servicios.General
 
         public long CrearVenta(VentaDominio ventaDominio)
         {
-            foreach (var ventaItemDominio in ventaDominio.VentaItems)
+            if (Validar(ventaDominio))
             {
-                ActualizarStock(ventaItemDominio);
-                CalcularTotalItem(ventaItemDominio);
+                foreach (var ventaItemDominio in ventaDominio.VentaItems)
+                {
+                    //ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad)
+                    ActualizarStock(ventaItemDominio);
+                    CalcularTotalItem(ventaItemDominio);
+                }
+                CalcularTotalVenta(ventaDominio);
             }
-            CalcularTotalVenta(ventaDominio);
-
             return Guardar(ventaDominio);
+        }
+
+        public override bool Validar(VentaDominio entidad)
+        {
+            foreach (var ventaItemDominio in entidad.VentaItems.Where(ventaItemDominio => !ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad)))
+            {
+                ModelError.Add("Stock", "El stock disponible de <b>" + ventaItemDominio.Producto.Nombre + "</b> es de " + ventaItemDominio.Producto.Stock + " unidades.");
+                break;
+            }
+            return base.Validar(entidad);
         }
 
         private static void CalcularTotalItem(VentaItemDominio ventaItemDominio)

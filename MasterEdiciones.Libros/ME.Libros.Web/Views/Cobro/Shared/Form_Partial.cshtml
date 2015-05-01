@@ -1,0 +1,91 @@
+﻿@model ME.Libros.Web.Models.CobroViewModel
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Venta.Cliente, Messages.Cliente, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.Venta.Cliente.Id, Model.Clientes, "Seleccione", new { @class = "form-control cliente", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Cliente) })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Venta.Id, Messages.Venta, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.Venta.Id, Model.Ventas, "Seleccione", new { @class = "form-control venta", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Venta) })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.FechaCobro, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Monto, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Monto, new { @class = "form-control", placeholder = Messages.MontoCobro })
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".cliente").on("change", function () {
+        var idCliente = $(".cliente :selected").attr("value");
+        if (idCliente > 0) {
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("ListarVentas", "VentaVigente")' + "?idCliente=" + idCliente,
+                dataType: "json",
+                error: function (jqXHR, status, error) {
+                    mensajeError("Error: " + error + " - Status: " + status);
+                },
+                success: function (data) {
+                    $(".venta").empty();
+                    if (data.length > 0) {
+                        $.each(data, function (key, value) {
+                            $(".venta").append(new Option(FormatJsonDate(value.FechaVenta) + " - " + value.Id, value.Id));
+                        });
+                    } else {
+                        $(".venta").append(new Option("Seleccione", ""));
+                    }
+                },
+                timeout: 10000,
+                cache: false
+            });
+        } else {
+            $(".venta").empty().append(new Option("Seleccione", ""));
+        }
+    });
+
+
+    $(document).ready(function () {
+        $(".datepicker").each(function () {
+            $(this).datepicker("setDate", new Date());
+        });
+    });
+
+</script>
+

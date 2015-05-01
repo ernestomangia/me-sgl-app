@@ -9,11 +9,19 @@ namespace ME.Libros.Servicios.General
     {
         private ProductoService ProductoService { get; set; }
 
+        public VentaService(IRepository<VentaDominio> repository)
+            : base(repository)
+        {
+
+        }
+
         public VentaService(IRepository<VentaDominio> repository, ProductoService productoService)
             : base(repository)
         {
             ProductoService = productoService;
         }
+
+
 
         public long CrearVenta(VentaDominio ventaDominio)
         {

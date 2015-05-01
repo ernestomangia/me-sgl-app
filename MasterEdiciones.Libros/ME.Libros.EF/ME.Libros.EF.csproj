@@ -54,6 +54,7 @@
     <Compile Include="Mapeos\CobradorTypeConfiguration.cs" />
     <Compile Include="Mapeos\GastoTypeConfiguration.cs" />
     <Compile Include="Mapeos\VentaItemTypeConfiguration.cs" />
+    <Compile Include="Mapeos\CobroTypeConfiguration.cs" />
     <Compile Include="Mapeos\VentaTypeConfiguration.cs" />
     <Compile Include="Mapeos\ClienteTypeConfiguration.cs" />
     <Compile Include="Mapeos\EditorialTypeConfiguration.cs" />
@@ -73,6 +74,10 @@
     <ProjectReference Include="..\ME.Libros.Dominio\ME.Libros.Dominio.csproj">
       <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
       <Name>ME.Libros.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
+      <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>
+      <Name>ME.Libros.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

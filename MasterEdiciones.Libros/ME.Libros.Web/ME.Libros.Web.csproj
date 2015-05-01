@@ -663,6 +663,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\CobradorController.cs" />
+    <Compile Include="Controllers\CobroController.cs" />
     <Compile Include="Controllers\EditorialController.cs" />
     <Compile Include="Controllers\MenuLateralController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -690,6 +691,7 @@
     <Compile Include="Models\ProveedorViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\CobradorViewModel.cs" />
+    <Compile Include="Models\CobroViewModel.cs" />
     <Compile Include="Models\EditorialViewModel.cs" />
     <Compile Include="Models\LocalidadViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
@@ -775,6 +777,10 @@
     <Content Include="Views\Proveedor\Index.cshtml" />
     <Content Include="Views\Proveedor\Modificar.cshtml" />
     <Content Include="Views\Proveedor\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Cobro\Index.cshtml" />
+    <Content Include="Views\Cobro\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Cobro\Crear.cshtml" />
+    <Content Include="Views\Cobro\Eliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

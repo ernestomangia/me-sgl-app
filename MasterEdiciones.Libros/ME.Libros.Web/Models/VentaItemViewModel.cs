@@ -41,7 +41,7 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public int Cantidad { get; set; }
 
-        [Display(Name = "Monto", ResourceType = typeof(Messages))]
+        [Display(Name = "MontoItem", ResourceType = typeof(Messages))]
         public decimal Monto { get; set; }
 
         [Display(Name = "Producto", ResourceType = typeof(Messages))]

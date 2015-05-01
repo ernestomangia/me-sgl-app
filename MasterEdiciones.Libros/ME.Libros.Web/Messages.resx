@@ -178,7 +178,7 @@
     <value>Fecha de alta</value>
   </data>
   <data name="FechaCobro" xml:space="preserve">
-    <value>Fecha de vencimiento</value>
+    <value>Fecha de cobro</value>
   </data>
   <data name="FechaNacimiento" xml:space="preserve">
     <value>Fecha de nacimiento</value>
@@ -246,7 +246,16 @@
   <data name="Nro" xml:space="preserve">
     <value>Nro</value>
   </data>
-  <data name="Monto" xml:space="preserve">
+  <data name="MontoItem" xml:space="preserve">
     <value>Subtotal</value>
+  </data>
+  <data name="MontoCobro" xml:space="preserve">
+    <value>Monto</value>
+  </data>
+  <data name="Venta" xml:space="preserve">
+    <value>Venta</value>
+  </data>
+  <data name="ElCobro" xml:space="preserve">
+    <value>El cobro</value>
   </data>
 </root>

@@ -147,7 +147,7 @@ namespace ME.Libros.Web {
         public static string ElCobrador {
             get {
                 return ResourceManager.GetString("ElCobrador", resourceCulture);
-            }
+        }
         }
         
         /// <summary>
@@ -156,6 +156,15 @@ namespace ME.Libros.Web {
         public static string ElGasto {
             get {
                 return ResourceManager.GetString("ElGasto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El cobro.
+        /// </summary>
+        public static string ElCobro {
+            get {
+                return ResourceManager.GetString("ElCobro", resourceCulture);
             }
         }
         
@@ -232,7 +241,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Fecha de vencimiento.
+        ///   Busca una cadena traducida similar a Fecha de cobro.
         /// </summary>
         public static string FechaCobro {
             get {
@@ -340,11 +349,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Monto.
+        /// </summary>
+        public static string MontoCobro {
+            get {
+                return ResourceManager.GetString("MontoCobro", resourceCulture);
+        }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Subtotal.
         /// </summary>
-        public static string Monto {
+        public static string MontoItem {
             get {
-                return ResourceManager.GetString("Monto", resourceCulture);
+                return ResourceManager.GetString("MontoItem", resourceCulture);
             }
         }
         
@@ -444,6 +462,15 @@ namespace ME.Libros.Web {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Venta.
+        /// </summary>
+        public static string Venta {
+            get {
+                return ResourceManager.GetString("Venta", resourceCulture);
             }
         }
         

@@ -74,11 +74,12 @@ function eliminarEntidad(url, msjSuccess, msjError) {
                 $('.modalEliminar').modal('toggle');
                 mensajeSuccess(msjSuccess);
                 dataTable.row($("#tr_" + id)).remove().draw();
+
                 $(".btnCancelarEliminar").click();
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
-                    $.each(value.Value, function(key2, value2) {
+                    $.each(value.Value, function (key2, value2) {
                         errores += "<li>" + value2 + "</li>";
                     });
                 });
@@ -90,6 +91,52 @@ function eliminarEntidad(url, msjSuccess, msjError) {
         timeout: 10000,
         cache: false
     });
+
+}
+
+function AnularEntidad(url, msjSuccess, msjError) {
+     var id = $("#idEntidad").val();
+    $(".modalEliminar .validationSummary").addClass("hide");
+    $(".modalEliminar .validationSummary ul").remove();
+
+    $.ajax({
+        method: "GET",
+        url: url + "?id=" + id,
+        dataType: "json",
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
+        },
+        success: function (data) {
+            if (data.Success) {
+                var dataTable = $(".dataTableCustom").DataTable();
+                $('.modalEliminar').modal('toggle');
+                mensajeSuccess(msjSuccess);
+                console.log($("#tr_" + id + " .CambioEstado"));
+                dataTable.cell($("#tr_" + id),(5)).data('Anulado').draw();
+               // dataTable.cell(10,5).data('Anulado').draw();
+                $(".btnCancelarEliminar").click();
+            } else {
+                var errores = "<ul>";
+                $.each(data.Errors, function (key, value) {
+                    $.each(value.Value, function (key2, value2) {
+                        errores += "<li>" + value2 + "</li>";
+                    });
+                });
+                errores += "</ul>";
+                $(".modalEliminar .validationSummary").append(errores);
+                $(".modalEliminar .validationSummary").removeClass("hide");
+            }
+        },
+        timeout: 10000,
+        cache: false
+    });
+
 }
 
 
+function FormatJsonDate(value) {
+    var pattern = /Date\(([^)]+)\)/;
+    var results = pattern.exec(value);
+    var dt = new Date(parseFloat(results[1]));
+    return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+}

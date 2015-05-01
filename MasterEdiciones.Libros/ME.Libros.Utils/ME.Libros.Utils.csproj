@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\EstadoCobro.cs" />
+    <Compile Include="Enums\Iva.cs" />
     <Compile Include="Enums\TipoPlanPago.cs" />
     <Compile Include="Enums\EstadoVenta.cs" />
-    <Compile Include="Enums\Iva.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

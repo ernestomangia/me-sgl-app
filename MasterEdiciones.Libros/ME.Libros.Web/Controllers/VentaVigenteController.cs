@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -50,6 +51,26 @@ namespace ME.Libros.Web.Controllers
             }
 
             return View(ventas);
+        }
+
+        public JsonResult ListarVentas(long idCliente)
+        {
+
+            var ventas = new List<VentaViewModel>();
+            using (VentaService)
+            {
+                ventas.AddRange(VentaService.ListarAsQueryable()
+                    .Where(v => v.Cliente.Id == idCliente)
+                    .OrderByDescending(v => v.FechaVenta)
+                    .ToList()
+                    .Select(v => new VentaViewModel(v)));
+
+                return new JsonResult
+                {
+                    Data = ventas,
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
+            }
         }
 
         public ActionResult IndexEstado(EstadoVenta estado)

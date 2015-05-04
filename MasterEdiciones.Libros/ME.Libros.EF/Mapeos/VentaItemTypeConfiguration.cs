@@ -20,7 +20,7 @@ namespace ME.Libros.EF.Mapeos
             Property(vi => vi.PrecioVenta).IsRequired();
             
             // FK
-            //HasRequired(vi => vi.Venta);
+            HasRequired(vi => vi.Venta);
             HasRequired(vi => vi.Producto);
 
             // Map Table

@@ -1,7 +1,7 @@
 ﻿@model ME.Libros.Web.Models.VentaViewModel
 
 <h3>Nueva venta</h3>
-@using (Html.BeginForm("Crear", "VentaVigente", FormMethod.Post, new { id = "formVentaVigente", @class = "form-horizontal formEntidad" }))
+@using (Html.BeginForm("Crear", "VentaVigente", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
@@ -21,16 +21,14 @@
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>
-                <button type="submit" class="btn btn-success">
+                <button id="btnCrearVenta" name="btnCrearVenta" type="submit" class="btn btn-success">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     Crear
                 </button>
             </div>
         </div>
     </div>
-    @*<input type="text" name="Items[0].ProductoId" value="" />
-        <input type="text" name="Items[0].Cantidad" value="" />
-        <input type="hidden" name="Items[0].Monto" value="0" />*@
+    @Html.ValidationSummary()
 }
 <input id="itemsIndex" type="hidden" name="Cantidad" value="0" />
 
@@ -38,6 +36,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        //$("#btnCrearVenta").on("click", function(e) {
+        //    e.preventDefault();
+        //    $("#formVentaItem").remove();
+        //    $("#formVenta").submit();
+        //});
+
         $("#formVentaItem").on("submit", function (e) {
             e.preventDefault();
             if ($("#formVentaItem").valid()) {
@@ -55,10 +59,11 @@
                         if (data.Success) {
                             var ventaItem = data.VentaItem;
                             agregarFilaVentaItem(ventaItem);
-                            var itemsIndex = $("#itemsIndex").val();
+                            var itemsIndex = parseInt($("#itemsIndex").val());
                             var hiddenProductoId = "<input type='hidden' name='Items[" + itemsIndex + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
                             var hiddenCantidad = "<input type='hidden' name='Items[" + itemsIndex + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
-                            $("#formVentaVigente").append(hiddenProductoId + hiddenCantidad);
+                            $("#formVenta").append(hiddenProductoId + hiddenCantidad);
+                            $("#itemsIndex").val(itemsIndex + 1);
                             $('#modalAgregarItem').modal('toggle');
                             mensajeSuccess("Se agrego el " + ventaItem.Producto.Nombre + " al detalle de la venta");
                         } else {
@@ -79,6 +84,22 @@
             }
         });
 
+        $('#modalAgregarItem').on('hidden.bs.modal', function () {
+            $(this).find(".validationSummary").addClass("hide");
+            //$(this).find(".validationSummary ul").remove();
+            $('#formVentaItem').each(function () {
+                this.reset();
+            });
+            $(this).find('.form-group').each(function () {
+                $(".form-group").removeClass("has-error has-success");
+            });
+        });
+
+        $(".formEntidad").on('change', function (e) {
+            if (!$(this).find(".validationSummary").hasClass("hide")) {
+                $(this).valid();
+            }
+        });
         //$("#formVentaItem").validate({
         //    errorLabelContainer: "#modalAgregarItem .validationSummary",
         //    wrapper: "li",

@@ -34,31 +34,31 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Cuil, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = Messages.Cuil })
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Iva, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.EnumDropDownListFor(c => c.Iva, new { @class = "form-control" })
             </div>
         </div>
     </div>
-</div>
-@*<div class="row">
-    <div class="col-md-10">
+    <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
-            <div class="col-md-4">
-                @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+            @Html.LabelFor(c => c.Cuil, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = Messages.Cuil })
             </div>
         </div>
     </div>
-</div>*@
+</div>
+@*<div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                </div>
+            </div>
+        </div>
+    </div>*@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -94,7 +94,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="row">
     <div class="col-md-10">

@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ME.Libros.Utils.Enums
 {
     public enum Iva
     {
-        ConsumidorFinal = 1,
-        Monotributo = 2,
-        ResponsableInscripto = 3,
-        Exento = 4,
-        NoInscripto = 5,
-
+        [Display(Name = "Consumidor Final")]
+        ConsumidorFinal = 0,
+        Monotributista = 1,
+        [Display(Name = "Responsable Inscripto")]
+        ResponsableInscripto = 2,
+        Exento = 3,
+        [Display(Name = "No Inscripto")]
+        NoInscripto = 4,
     };
 }

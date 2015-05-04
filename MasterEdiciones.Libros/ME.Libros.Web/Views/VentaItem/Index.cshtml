@@ -7,11 +7,11 @@
 <table id="ventaDetalleTable" class="dataTableCustom">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Orden)</th>
+            <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Orden)</th>
             <th>@Html.DisplayNameFor(model => model.ProductoId)</th>
-            <th>@Html.DisplayNameFor(model => model.Cantidad)</th>
-            <th class="text-right" style="width: 150px;">@Html.DisplayNameFor(model => model.Producto.PrecioVenta)</th>
-            <th class="text-right" style="width: 150px;">@Html.DisplayNameFor(model => model.Monto)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.Cantidad)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.Producto.PrecioVenta)</th>
+            <th class="numero" style="width: 150px;">@Html.DisplayNameFor(model => model.Monto)</th>
             <th class="columnaAcciones">Acciones</th>
         </tr>
     </thead>
@@ -27,7 +27,7 @@
         <tr>
             <td>@item.Orden</td>
             <td>@item.Producto.Nombre</td>
-            <td>@item.Cantidad</td>
+            <td class="text-right">@item.Cantidad</td>
             <td class="text-right">@item.Producto.PrecioVenta U.</td>
             <td class="text-right">@item.Monto</td>
             <td>

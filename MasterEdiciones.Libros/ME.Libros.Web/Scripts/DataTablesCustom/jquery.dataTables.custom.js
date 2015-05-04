@@ -1,8 +1,11 @@
 ﻿$.extend($.fn.dataTable.defaults, {
     columnDefs: [
         { "width": "50px", "targets": "columnaCodigo" },
-        { "width": "50px", "targets": "columnaAcciones" }
+        { "width": "50px", "targets": "columnaAcciones" },
+        { "width": "150px", "targets": "numero" }
+        //{ "autoWidth": true, "targets": "numero" }
     ],
+    autoWidth: false,
     searching: true,
     ordering: true,
     paging: true,

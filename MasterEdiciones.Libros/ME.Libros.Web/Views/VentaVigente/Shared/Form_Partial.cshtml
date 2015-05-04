@@ -43,14 +43,7 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.Label("Plan", new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                <select class="form-control">
-                    <option></option>
-                    <option value="">Contado</option>
-                    <option value="">Financiado</option>
-                </select>
-            </div>
+
         </div>
     </div>
 </div>
@@ -75,11 +68,52 @@
 <div class="row">
     <fieldset class="col-md-10">
         <legend>Detalle</legend>
-        <div id="ventaDetalle">
-            @Html.Partial("~/Views/VentaItem/Index.cshtml", Model.Items)
-        </div>
-        <hr />
     </fieldset>
+
+    <div class="col-md-10" id="ventaDetalle">
+        @Html.Partial("~/Views/VentaItem/Index.cshtml", Model.Items)
+    </div>
+</div>
+<div class="row">
+    <fieldset class="col-md-10">
+        <legend>Forma de pago</legend>
+    </fieldset>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.Label("Plan de pago", new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <select class="form-control">
+                    <option></option>
+                    <option value="">Contado</option>
+                    <option value="">Financiado</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.MontoCalculado, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(v => v.MontoCalculado, new { @class = "form-control", placeholder = Messages.MontoCalculado, disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(v => v.MontoVendido, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(v => v.MontoVendido, new { @class = "form-control", placeholder = Messages.MontoVendido })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+        <hr/>
+    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

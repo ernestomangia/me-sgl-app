@@ -11,8 +11,8 @@
             <tr>
                 <th class="columnaCodigo no-sort">@Html.DisplayNameFor(model => model.Id)</th>
                 <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                <th>@Html.DisplayNameFor(model => model.Stock)</th>
-                <th>@Html.DisplayNameFor(model => model.PrecioVenta)</th>
+                <th class="numero">@Html.DisplayNameFor(model => model.Stock)</th>
+                <th class="numero">@Html.DisplayNameFor(model => model.PrecioVenta)</th>
                 <th>@Html.DisplayNameFor(model => model.Editorial)</th>
                 <th>@Html.DisplayNameFor(model => model.Rubro)</th>
                 <th class="columnaAcciones">Acciones</th>
@@ -23,8 +23,8 @@
             <tr id=@("tr_"+ item.Id)>
                 <td>@Html.DisplayFor(modelItem => item.Id)</td>
                 <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                <td>@Html.DisplayFor(modelItem => item.Stock)</td>
-                <td>@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
+                <td class="text-right">@Html.DisplayFor(modelItem => item.Stock)</td>
+                <td class="text-right">@Html.DisplayFor(modelItem => item.PrecioVenta)</td>
                 <td>@Html.DisplayFor(modelItem => item.Editorial.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.Rubro.Nombre)</td>
                 <td>

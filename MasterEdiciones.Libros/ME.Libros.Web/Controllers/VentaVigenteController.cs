@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
@@ -44,7 +43,7 @@ namespace ME.Libros.Web.Controllers
             var ventas = new List<VentaViewModel>();
             using (VentaService)
             {
-                ventas.AddRange(VentaService.Listar()
+                ventas.AddRange(VentaService.ListarAsQueryable()
                     .OrderByDescending(v => v.FechaVenta)
                     .ToList()
                     .Select(v => new VentaViewModel(v)));
@@ -55,7 +54,6 @@ namespace ME.Libros.Web.Controllers
 
         public JsonResult ListarVentas(long idCliente)
         {
-
             var ventas = new List<VentaViewModel>();
             using (VentaService)
             {
@@ -139,12 +137,15 @@ namespace ME.Libros.Web.Controllers
                         //Validar stock
                         if (!ProductoService.VerificarStock(productoDominio, ventaItemViewModel.Cantidad))
                         {
-                            //ModelState.AddModelError("Stock", ProductoService.ModelError["Stock"]);
-                            ModelState.AddModelError("Stock", string.Format(ErrorMessages.Stock, productoDominio.Nombre, productoDominio.Stock));
+                            foreach (var error in ProductoService.ModelError)
+                            {
+                                ModelState.AddModelError(error.Key, error.Value);
+                            }
                         }
                         else
                         {
                             ventaItemViewModel.Producto = new ProductoViewModel(productoDominio);
+                            ventaItemViewModel.PrecioVenta = ventaItemViewModel.Producto.PrecioVenta;
                             ventaItemViewModel.Monto = ventaItemViewModel.Cantidad * ventaItemViewModel.Producto.PrecioVenta;
                         }
                     }
@@ -184,6 +185,8 @@ namespace ME.Libros.Web.Controllers
                         Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
                         Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
                         Estado = EstadoVenta.Vigente,
+                        MontoVendido = ventaViewModel.MontoVendido,
+                        Saldo = ventaViewModel.MontoVendido,
                         VentaItems = new List<VentaItemDominio>(),
                     };
 
@@ -200,7 +203,7 @@ namespace ME.Libros.Web.Controllers
                         });
                     }
 
-                    resultado = VentaService.CrearVenta(ventaDominio);
+                    resultado = VentaService.Guardar(ventaDominio);
                     if (resultado <= 0)
                     {
                         foreach (var error in VentaService.ModelError)

@@ -128,6 +128,13 @@
         }
     });
 
+    $(".formEntidad").on('change', function (e) {
+        if (!$(this).find(".validationSummary").hasClass("hide")) {
+            console.log("1");
+            $(this).valid();
+        }
+    });
+
     jQuery.extend(jQuery.validator.messages, {
         email: '@Html.Raw(string.Format(ErrorMessages.Invalido, "Email"))',
     });
@@ -146,4 +153,5 @@
     $('.modalEliminar').on('shown.bs.modal', function () {
         $(this).find(".btnCancelarEliminar").focus();
     });
+
 </script>

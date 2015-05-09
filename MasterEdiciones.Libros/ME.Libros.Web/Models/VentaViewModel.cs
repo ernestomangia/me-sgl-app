@@ -25,7 +25,9 @@ namespace ME.Libros.Web.Models
             FechaAlta = ventaDominio.FechaAlta;
             FechaVenta = ventaDominio.FechaVenta;
             Estado = ventaDominio.Estado;
-            Total = ventaDominio.Monto;
+            MontoVendido = ventaDominio.MontoVendido;
+            MontoCalculado = ventaDominio.MontoCalculado;
+            Saldo = ventaDominio.Saldo;
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             
             if (ventaDominio.VentaItems  != null)
@@ -51,8 +53,17 @@ namespace ME.Libros.Web.Models
         [Display(Name = "FechaCobro", ResourceType = typeof(Messages))]
         public DateTime FechaCobro { get; set; }
 
-        [Display(Name = "Total", ResourceType = typeof(Messages))]
-        public decimal Total { get; set; }
+        [Display(Name = "MontoCalculado", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoCalculado { get; set; }
+
+        [Display(Name = "MontoVendido", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoVendido { get; set; }
+
+        [Display(Name = "Saldo", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Saldo { get; set; }
 
         public EstadoVenta Estado { get; set; }
         
@@ -60,11 +71,11 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ClienteId { get; set; }
 
-        [Display(Name = "Cobrador")]
+        [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long CobradorId { get; set; }
-        
-        [Display(Name = "Vendedor")]
+
+        [Display(Name = "Vendedor", ResourceType = typeof(Messages))]
         public long? VendedorId { get; set; }
 
         public ClienteViewModel Cliente { get; set; }

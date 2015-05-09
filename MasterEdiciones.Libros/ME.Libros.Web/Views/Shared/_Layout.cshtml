@@ -122,9 +122,16 @@
 
     $(".formEntidad").on("submit", function () {
         if ($(this).valid()) {
-            $(".validationSummary").addClass("hide");
+            $(this).find(".validationSummary").addClass("hide");
         } else {
-            $(".validationSummary").removeClass("hide");
+            $(this).find(".validationSummary").removeClass("hide");
+        }
+    });
+
+    $(".formEntidad").on('change', function (e) {
+        if (!$(this).find(".validationSummary").hasClass("hide")) {
+            console.log("1");
+            $(this).valid();
         }
     });
 
@@ -139,11 +146,12 @@
     });
 
     $('.modalEliminar').on('hidden.bs.modal', function () {
-        $(".validationSummary").addClass("hide");
-        $(".validationSummary ul").remove();
+        $(this).find(".validationSummary").addClass("hide");
+        $(this).find(".validationSummary ul").remove();
     });
 
     $('.modalEliminar').on('shown.bs.modal', function () {
-        $(".btnCancelarEliminar").focus();
+        $(this).find(".btnCancelarEliminar").focus();
     });
+
 </script>

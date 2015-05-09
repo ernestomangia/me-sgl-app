@@ -17,12 +17,14 @@ namespace ME.Libros.EF.Mapeos
             Property(v => v.FechaAlta).IsRequired();
             Property(v => v.FechaVenta).IsRequired();
             Property(v => v.FechaCobro).IsRequired();
-
-            HasMany(v => v.VentaItems).WithRequired(v => v.Venta);
+            Property(v => v.MontoCalculado).IsRequired();
+            Property(v => v.MontoVendido).IsRequired();
+            Property(v => v.Saldo).IsRequired();
             
             // FK
             HasRequired(v => v.Cliente);
-            //HasRequired(v => v.VentaItems);
+            HasRequired(v => v.Cobrador);
+            HasMany(v => v.VentaItems).WithRequired(v => v.Venta);
 
             // Map Table
             ToTable("Venta");

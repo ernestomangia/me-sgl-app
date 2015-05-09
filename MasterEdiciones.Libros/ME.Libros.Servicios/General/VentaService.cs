@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
 
@@ -9,10 +8,11 @@ namespace ME.Libros.Servicios.General
     {
         private ProductoService ProductoService { get; set; }
 
+        #region Constructor(s)
+
         public VentaService(IRepository<VentaDominio> repository)
             : base(repository)
         {
-
         }
 
         public VentaService(IRepository<VentaDominio> repository, ProductoService productoService)
@@ -21,33 +21,75 @@ namespace ME.Libros.Servicios.General
             ProductoService = productoService;
         }
 
+        #endregion
 
-
-        public long CrearVenta(VentaDominio ventaDominio)
+        public override long Guardar(VentaDominio ventaDominio)
         {
-            foreach (var ventaItemDominio in ventaDominio.VentaItems)
+            if (ventaDominio.Id == 0)
             {
-                ActualizarStock(ventaItemDominio);
-                CalcularTotalItem(ventaItemDominio);
-            }
-            CalcularTotalVenta(ventaDominio);
+                if (!Validar(ventaDominio))
+                {
+                    return -1;
+                }
 
-            return Guardar(ventaDominio);
+                foreach (var ventaItemDominio in ventaDominio.VentaItems)
+                {
+                    if (!ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad))
+                    {
+                        foreach (var error in ProductoService.ModelError)
+                        {
+                            ModelError.Add(error.Key, error.Value);
+                        }
+
+                        return -1;
+                    }
+
+                    ProductoService.RestarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
+                    ventaItemDominio.PrecioCosto = ventaItemDominio.Producto.PrecioCosto;
+                    ventaItemDominio.PrecioVenta = ventaItemDominio.Producto.PrecioVenta;
+                    CalcularTotalItem(ventaItemDominio);
+                }
+                CalcularTotalVenta(ventaDominio);
+            }
+            else
+            {
+                foreach (var ventaItemDominio in ventaDominio.VentaItems)
+                {
+                    ProductoService.SumarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
+                }
+            }
+
+            return base.Guardar(ventaDominio);
+        }
+
+        public override bool Validar(VentaDominio entidad)
+        {
+            //if (entidad.VentaItems.All(ventaItemDominio => ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad)))
+            //{ 
+            //    return base.Validar(entidad);
+            //}
+
+            //foreach (var error in ProductoService.ModelError)
+            //{
+            //    ModelError.Add(error.Key, error.Value);
+            //}
+
+            if (entidad.VentaItems.Count == 0)
+            {
+                ModelError.Add("Error", ErrorMessages.RequiredItems);
+            }
+
+            return base.Validar(entidad);
         }
 
         private static void CalcularTotalItem(VentaItemDominio ventaItemDominio)
         {
-            ventaItemDominio.Monto = ventaItemDominio.Cantidad * ventaItemDominio.PrecioVenta;
-        }
-
-        private static void ActualizarStock(VentaItemDominio ventaItemDominio)
-        {
-            ventaItemDominio.Producto.Stock -= ventaItemDominio.Cantidad;
+            ventaItemDominio.Monto = ventaItemDominio.Cantidad * ventaItemDominio.Producto.PrecioVenta;
         }
 
         private static void CalcularTotalVenta(VentaDominio entidad)
         {
-            entidad.Monto = entidad.VentaItems.Sum(vi => vi.Monto);
+            entidad.MontoCalculado = entidad.VentaItems.Sum(vi => vi.Monto);
         }
     }
 }

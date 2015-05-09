@@ -79,15 +79,8 @@ namespace ME.Libros.Servicios
 
         public virtual bool Validar(T entidad)
         {
-            var properties = entidad.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(RequiredAttribute)));
-            foreach (var property in properties)
-            {
-                ModelError.Add(property.Name, "El campo es requerido");
-            }
-
             return ModelError.Count == 0;
         }
-
 
         public virtual void Guardar2(T entidad)
         {

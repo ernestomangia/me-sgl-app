@@ -18,8 +18,18 @@ namespace ME.Libros.Servicios.General
                 return true;
             }
 
-            //ModelError.Add("Stock", string.Format(ErrorMessages.Stock, productoDominio.Nombre, productoDominio.Stock));
+            ModelError.Add("Stock", string.Format(ErrorMessages.StockInsuficiente, productoDominio.Nombre, productoDominio.Stock));
             return false;
+        }
+
+        public void RestarStock(ProductoDominio producto, int cantidad)
+        {
+            producto.Stock -= cantidad;
+        }
+
+        public void SumarStock(ProductoDominio producto, int cantidad)
+        {
+            producto.Stock += cantidad;
         }
     }
 }

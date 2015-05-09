@@ -121,17 +121,12 @@
     });
 
     $(".formEntidad").on("submit", function () {
-        if ($(this).valid()) {
-            $(this).find(".validationSummary").addClass("hide");
-        } else {
-            $(this).find(".validationSummary").removeClass("hide");
-        }
+        validationSummaryVisibility(this);
     });
 
     $(".formEntidad").on('change', function (e) {
         if (!$(this).find(".validationSummary").hasClass("hide")) {
-            console.log("1");
-            $(this).valid();
+            validationSummaryVisibility(this);
         }
     });
 

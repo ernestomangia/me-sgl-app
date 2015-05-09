@@ -82,10 +82,10 @@
         <div class="form-group form-group-sm">
             @Html.Label("Plan de pago", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                <select class="form-control">
-                    <option></option>
-                    <option value="">Contado</option>
-                    <option value="">Financiado</option>
+                <select class="form-control" required="required">
+                    <option value="">Seleccione</option>
+                    <option value="1" selected="selected">Contado</option>
+                    <option value="2">Financiado</option>
                 </select>
             </div>
         </div>

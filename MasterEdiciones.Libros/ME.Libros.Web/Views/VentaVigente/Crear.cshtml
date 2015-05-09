@@ -28,9 +28,8 @@
             </div>
         </div>
     </div>
-    @Html.ValidationSummary()
 }
-<input id="itemsIndex" type="hidden" name="Cantidad" value="0" />
+<input id="cantidadItems" type="hidden" name="Cantidad" value="0" />
 
 @{ Html.RenderAction("CrearItem"); }
 
@@ -101,13 +100,13 @@
     });
 
     function agregarVentaItem(ventaItem) {
-        var indexItem = parseInt($("#itemsIndex").val());
-        var modificar = getModificarButton(indexItem);
-        var eliminar = getEliminarButton(indexItem);
+        var indexItems = parseInt($("#cantidadItems").val());
+        var modificar = getModificarButton(indexItems);
+        var eliminar = getEliminarButton(indexItems);
         var table = $("#ventaDetalleTable").DataTable();
 
         table.row.add([
-            indexItem + 1,
+            indexItems + 1,
             ventaItem.Producto.Nombre,
             ventaItem.Cantidad,
             ventaItem.Producto.PrecioVenta,
@@ -115,10 +114,10 @@
             modificar + eliminar
         ]).draw();
 
-        var hiddenProductoId = "<input id='Items[" + indexItem + "].ProductoId' type='hidden' name='Items[" + indexItem + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
-        var hiddenCantidad = "<input id='Items[" + indexItem + "].Cantidad' type='hidden' name='Items[" + indexItem + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
+        var hiddenProductoId = "<input id='Items[" + indexItems + "].ProductoId' type='hidden' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
+        var hiddenCantidad = "<input id='Items[" + indexItems + "].Cantidad' type='hidden' name='Items[" + indexItems + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
         $("#formVenta").append(hiddenProductoId + hiddenCantidad);
-        $("#itemsIndex").val(indexItem + 1);
+        $("#cantidadItems").val(indexItems + 1);
     }
 
     function getModificarButton(indexItem) {
@@ -139,8 +138,8 @@
         $("#Items[" + indexItem + "].Cantidad").remove();
         var table = $("#ventaDetalleTable").DataTable();
         table.row(indexItem).remove().draw();
-        var cantidad = parseInt($("#itemsIndex").val());
-        $("#itemsIndex").val(cantidad-1);
+        var cantidad = parseInt($("#cantidadItems").val());
+        $("#cantidadItems").val(cantidad-1);
     }
 
     function modificarVentaItem(indexItem) {

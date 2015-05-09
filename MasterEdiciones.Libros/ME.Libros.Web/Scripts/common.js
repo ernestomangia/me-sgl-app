@@ -140,3 +140,11 @@ function FormatJsonDate(value) {
     var dt = new Date(parseFloat(results[1]));
     return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
 }
+
+function validationSummaryVisibility(form) {
+    if ($(form).valid()) {
+        $(form).find(".validationSummary").addClass("hide");
+    } else {
+        $(form).find(".validationSummary").removeClass("hide");
+    }
+}

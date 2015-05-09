@@ -30,6 +30,7 @@ namespace ME.Libros.EF.Mapeos
 
             // FK
             HasRequired(c => c.Venta);
+            HasRequired(c => c.Cobrador);
 
             ToTable("Cobro");
         }

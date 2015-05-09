@@ -10,6 +10,7 @@ namespace ME.Libros.Dominio.General
         public virtual decimal Monto { get; set; }
         public virtual VentaDominio Venta { get; set; }
         public virtual EstadoCobro EstadoCobro { get; set; }
+        public virtual CobradorDominio Cobrador { get; set; }
 
     }
 }

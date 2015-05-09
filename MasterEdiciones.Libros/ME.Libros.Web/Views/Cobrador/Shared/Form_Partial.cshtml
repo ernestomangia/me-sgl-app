@@ -1,5 +1,4 @@
-﻿@using ME.Libros.Web.Models
-@model ME.Libros.Web.Models.CobradorViewModel
+﻿@model ME.Libros.Web.Models.CobradorViewModel
 @if (Model.Id > 0)
 {
     <div class="row">
@@ -31,9 +30,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Dni, new { @class = "col-md-4 control-label" })
@@ -42,42 +38,116 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="row">
+    
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Localidad, Messages.Localidad, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.Localidad.Id, Model.Localidades, new { @class = "form-control", placeholder = "Localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
-             
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Provincia) })
+
             </div>
         </div>
     </div>
-   
+
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
+
+            </div>
+        </div>
+    </div>
+
 </div>
 
-    <select multiple="multiple"  name="duallistbox_demo1[]">
-     @foreach(var item in Model.Localidades)
-     {
-        <option value=@item.Value>@item.Text</option>
-     }
-            </select>
+<div class="row">
+    <div class="col-md-10">
+        <div class="col-md-10 col-md-offset-2">
+            <div class="form-group form-group-sm">
+                <select multiple="multiple" name="localidadesAsignadas_dualList" id="localidadesAsignadas_dualList">
+                    @foreach (var item in Model.Localidades)
+                    {
+                        bool bandera = true;
 
-    <script type="text/javascript">
-        
-        $(document).ready(prueba());
+                        foreach (var item2 in Model.LocalidadesAsignadas)
+                        {
 
-        function prueba ()
-        {var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
-            nonSelectedListLabel: 'No seleccionado',
-            selectedListLabel: 'Seleccionado',
-            preserveSelectionOnMove: 'moved',
-            moveOnSelect: false,
-            filterPlaceHolder: 'Filtro',
-            infoTextFiltered: 'Filtrado',
-            infoTextEmpty: '0 localidades',
-        });
-        demo1.bootstrapDualListbox('refresh', true);
-        };
+                            if (item.Value == item2.Id.ToString())
+                            {
+                                bandera = false;
+                                break;
+                            }
 
-     
-    </script>
+                        }
+
+                        if (bandera)
+                        {
+                            <option value=@item.Value>@item.Text</option>
+                        }
+                    }
+
+                    @foreach (var item in Model.LocalidadesAsignadas)
+                    {
+                        <option selected="selected" value=@item.Id>@item.Nombre</option>
+                    }
+
+                </select>
+               </div>
+            </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+                $(document).ready(prueba());
+
+                function prueba() {
+                    var demo1 = $('select[name="localidadesAsignadas_dualList"]').bootstrapDualListbox({
+                        nonSelectedListLabel: 'Localidades',
+                        selectedListLabel: 'Localidades asignadas',
+                        preserveSelectionOnMove: 'moved',
+                        moveOnSelect: false,
+                        filterPlaceHolder: 'Filtro',
+                        infoTextFiltered: '<span class="label label-success">Filtrado</span> {0} de {1}',
+                        infoTextEmpty: '0 localidades',
+                        infoText: 'Mostrando {0}',
+                        filterTextClear:'Ver todos'
+                    });
+                    demo1.bootstrapDualListbox('refresh', true);
+                };
+
+
+                $(".provincia").on("change", function () {
+                    var idProvincia = $(".provincia :selected").attr("value");
+                    if (idProvincia > 0) {
+                        $.ajax({
+                            method: "GET",
+                            url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
+                            dataType: "json",
+                            error: function (jqXHR, status, error) {
+                                mensajeError("Error: " + error + " - Status: " + status);
+                            },
+                            success: function (data) {
+                                $(".localidad").empty();
+                                if (data.length > 0) {
+                                    $.each(data, function (key, value) {
+                                        $(".localidad").append(new Option(value.Nombre, value.Id));
+                                    });
+                                } else {
+                                    $(".localidad").append(new Option("Seleccione", ""));
+                                }
+                            },
+                            timeout: 10000,
+                            cache: false
+                        });
+                    } else {
+                        $(".localidad").empty().append(new Option("Seleccione", ""));
+                    }
+                });
+
+            </script>
 

@@ -25,7 +25,7 @@
                 <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
                 <td>@Html.DisplayFor(modelItem => item.Dni)</td>
-                <td>@Html.DisplayFor(modelItem => item.Localidad.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Localidad.Nombre), @Html.DisplayFor(modelItem => item.Localidad.Provincia.Nombre)</td>
                 <td>@string.Join(" | ",item.LocalidadesAsignadas.Select(la=>la.Nombre))</td>
                 <td>
                     <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})">

@@ -67,10 +67,6 @@ namespace ME.Libros.Web.Controllers
         {
 
             long resultado = 0;
-            ModelState.RemoveFor<CobroViewModel>(c => c.Venta.Cliente.Nombre);
-            ModelState.RemoveFor<CobroViewModel>(c => c.Venta.Cliente.Apellido);
-            ModelState.RemoveFor<CobroViewModel>(c => c.Venta.Cliente.Cuil);
-            ModelState.RemoveFor<CobroViewModel>(c => c.Venta.Cliente.Direccion);
 
             if (ModelState.IsValid)
             {
@@ -78,12 +74,15 @@ namespace ME.Libros.Web.Controllers
                 {
                     using (CobroService)
                     {
+                        var venta = VentaService.GetPorId(cobroViewModel.VentaId);
+
                         var cobroDominio = new CobroDominio
                         {
                             FechaAlta = DateTime.Now,
                             Monto = cobroViewModel.Monto,
                             FechaCobro = cobroViewModel.FechaCobro,
-                            Venta = VentaService.GetPorId(cobroViewModel.Venta.Id),
+                            Venta = venta,
+                            Cobrador = venta.Cobrador, 
                             Comision = 0,
                             EstadoCobro = EstadoCobro.Vigente
 
@@ -150,6 +149,19 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        [HttpGet]
+        public ActionResult Modificar(int id)
+        {
+            CobroViewModel cobroViewModel;
+            using (CobroService)
+            {
+                cobroViewModel = new CobroViewModel(CobroService.GetPorId(id));
+            }
+            PrepareModel(cobroViewModel);
+
+            return View(cobroViewModel);
+        }
+
 
         #region Private Methods
 
@@ -160,14 +172,18 @@ namespace ME.Libros.Web.Controllers
                 .Select(c => new ClienteViewModel(c))
                 .Select(c => new { Id = c.Id, Text = c.Id + " - " + c.Apellido + ", " + c.Nombre }), "Id", "Text");
 
-            var ventas = new List<VentaViewModel>();
+            var ventas = new List<Object>();
             if (cobroViewModel.Venta.Cliente.Id > 0)
             {
-                ventas.AddRange(VentaService.Listar(c => c.Cliente.Id == cobroViewModel.Venta.Cliente.Id)
+                ventas.AddRange(VentaService.Listar(c=>c.Cliente.Id == cobroViewModel.ClienteId)
                                                                     .ToList()
-                                                                    .Select(c => new VentaViewModel(c)));
+                                                                    .Select(c => new VentaViewModel(c))
+                                                                    .Select(c=> new {Id=c.Id, Text=c.Id + " - " + c.FechaVenta.ToString("dd/MM/yyyy")})
+                                                                    
+                                                                   
+                                                                    );
             }
-            cobroViewModel.Ventas = new SelectList(ventas, "Id");
+            cobroViewModel.Ventas = new SelectList(ventas, "Id","Text");
         }
 
         #endregion

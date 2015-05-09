@@ -781,6 +781,8 @@
     <Content Include="Views\Cobro\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Cobro\Crear.cshtml" />
     <Content Include="Views\Cobro\Eliminar.cshtml" />
+    <Content Include="Views\Cobro\Modificar.cshtml" />
+    <Content Include="Views\Cobrador\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

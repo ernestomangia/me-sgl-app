@@ -16,7 +16,7 @@ namespace ME.Libros.Web.Models
         public CobroViewModel()
         {
            Venta= new VentaViewModel();
-          
+
         }
 
         public CobroViewModel(CobroDominio cobro)
@@ -27,6 +27,9 @@ namespace ME.Libros.Web.Models
             FechaCobro = cobro.FechaCobro;
             Venta= new VentaViewModel(cobro.Venta);
             Estado = cobro.EstadoCobro;
+            Cobrador = new CobradorViewModel(cobro.Cobrador);
+            VentaId = cobro.Venta.Id;
+            ClienteId = cobro.Venta.Cliente.Id;
 
         }
         #endregion
@@ -48,6 +51,17 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaCobro { get; set; }
+
+
+        [Display(Name = "Venta", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long VentaId { get; set; }
+
+        [Display(Name = "Cliente", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long ClienteId { get; set; }
+
+        public CobradorViewModel Cobrador { get; set; }
 
         public VentaViewModel Venta { get; set; }
 

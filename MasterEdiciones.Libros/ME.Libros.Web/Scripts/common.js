@@ -112,7 +112,7 @@ function AnularEntidad(url, msjSuccess, msjError) {
                 $('.modalEliminar').modal('toggle');
                 mensajeSuccess(msjSuccess);
                 console.log($("#tr_" + id + " .CambioEstado"));
-                dataTable.cell($("#tr_" + id),(5)).data('Anulado').draw();
+                dataTable.cell($("#tr_" + id),(6)).data('Anulado').draw();
                // dataTable.cell(10,5).data('Anulado').draw();
                 $(".btnCancelarEliminar").click();
             } else {

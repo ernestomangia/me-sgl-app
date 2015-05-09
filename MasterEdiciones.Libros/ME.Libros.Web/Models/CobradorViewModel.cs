@@ -28,6 +28,8 @@ namespace ME.Libros.Web.Models
             Dni = cobrador.Dni;
             Localidad = new LocalidadViewModel(cobrador.Localidad);
             LocalidadesAsignadas = new List<LocalidadViewModel>(cobrador.Localidades.Select(la => new LocalidadViewModel(la)));
+            LocalidadId = cobrador.Localidad.Id;
+            ProvinciaId = cobrador.Localidad.Provincia.Id;
         }
         #endregion
 
@@ -55,8 +57,17 @@ namespace ME.Libros.Web.Models
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string Dni { get; set; }
 
+        [Display(Name = "Localidad", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long LocalidadId { get; set; }
+
+        [Display(Name = "Provincia", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long ProvinciaId { get; set; }
 
         public LocalidadViewModel Localidad { get; set; }
+
+        public SelectList Provincias { get; set; }
 
         public SelectList Localidades { get; set; }
 

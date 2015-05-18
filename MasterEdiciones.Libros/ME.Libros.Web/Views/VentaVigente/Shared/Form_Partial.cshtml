@@ -71,7 +71,12 @@
     </fieldset>
 
     <div class="col-md-10" id="ventaDetalle">
-        @Html.Partial("~/Views/VentaItem/Index.cshtml", Model.Items)
+        @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
+        @foreach (var item in Model.Items)
+        {
+            <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
+            <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
+        }
     </div>
 </div>
 <div class="row">
@@ -112,13 +117,6 @@
         </div>
     </div>
     <div class="col-md-10">
-        <hr/>
+        <hr />
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".datepicker").each(function () {
-            $(this).datepicker("setDate", new Date());
-        });
-    });
-</script>

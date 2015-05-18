@@ -4,10 +4,11 @@
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Agregar item
 </a>
-<table id="ventaDetalleTable" class="dataTableCustom">
+<table id="ventaDetalleTable" @*class="dataTableCustom2"*@>
     <thead>
         <tr>
             <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Orden)</th>
+            @*<th class="hidden">@Html.DisplayNameFor(model => model.Id)</th>*@
             <th>@Html.DisplayNameFor(model => model.ProductoId)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Cantidad)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Producto.PrecioVenta)</th>
@@ -26,6 +27,7 @@
     {
         <tr>
             <td>@item.Orden</td>
+            @*<td>@item.Id</td>*@
             <td>@item.Producto.Nombre</td>
             <td class="text-right">@item.Cantidad</td>
             <td class="text-right">@item.Producto.PrecioVenta U.</td>
@@ -41,43 +43,48 @@
         </tr>
     }
 </table>
-
 <input type="hidden" id="idEntidad" />
+@Html.Partial("Eliminar")
+
 <script type="text/javascript">
-    //$(document).ready(function () {
-    //    $('#example').dataTable({
-    //        "footerCallback": function (row, data, start, end, display) {
-    //            var api = this.api(), data;
+    $(document).ready(function() {
+        
 
-    //            // Remove the formatting to get integer data for summation
-    //            var intVal = function (i) {
-    //                return typeof i === 'string' ?
-    //                    i.replace(/[\$,]/g, '') * 1 :
-    //                    typeof i === 'number' ?
-    //                    i : 0;
-    //            };
+        //    $('#example').dataTable({
+        //        "footerCallback": function (row, data, start, end, display) {
+        //            var api = this.api(), data;
 
-    //            // Total over all pages
-    //            total = api
-    //                .column(4)
-    //                .data()
-    //                .reduce(function (a, b) {
-    //                    return intVal(a) + intVal(b);
-    //                });
+        //            // Remove the formatting to get integer data for summation
+        //            var intVal = function (i) {
+        //                return typeof i === 'string' ?
+        //                    i.replace(/[\$,]/g, '') * 1 :
+        //                    typeof i === 'number' ?
+        //                    i : 0;
+        //            };
 
-    //            // Total over this page
-    //            pageTotal = api
-    //                .column(4, { page: 'current' })
-    //                .data()
-    //                .reduce(function (a, b) {
-    //                    return intVal(a) + intVal(b);
-    //                }, 0);
+        //            // Total over all pages
+        //            total = api
+        //                .column(4)
+        //                .data()
+        //                .reduce(function (a, b) {
+        //                    return intVal(a) + intVal(b);
+        //                });
 
-    //            // Update footer
-    //            $(api.column(4).footer()).html(
-    //                '$' + pageTotal + ' ( $' + total + ' total)'
-    //            );
-    //        }
-    //    });
-    //});
+        //            // Total over this page
+        //            pageTotal = api
+        //                .column(4, { page: 'current' })
+        //                .data()
+        //                .reduce(function (a, b) {
+        //                    return intVal(a) + intVal(b);
+        //                }, 0);
+
+        //            // Update footer
+        //            $(api.column(4).footer()).html(
+        //                '$' + pageTotal + ' ( $' + total + ' total)'
+        //            );
+        //        }
+        //    });
+    });
+
+   
 </script>

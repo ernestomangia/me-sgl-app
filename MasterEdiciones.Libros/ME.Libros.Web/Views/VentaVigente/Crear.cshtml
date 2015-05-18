@@ -3,6 +3,8 @@
 <h3>Nueva venta</h3>
 @using (Html.BeginForm("Crear", "VentaVigente", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
+    @Html.AntiForgeryToken()
+    
     @Html.Partial("Shared/Form_Partial", Model)
 
     <div class="row">
@@ -29,17 +31,16 @@
         </div>
     </div>
 }
-<input id="cantidadItems" type="hidden" name="Cantidad" value="0" />
+<input id="cantidadItems" type="hidden" name="Cantidad" value="@Model.Items.Count" />
 
-@{ Html.RenderAction("CrearItem"); }
+@{ Html.RenderAction("CrearItem", "VentaItem"); }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        //$("#btnCrearVenta").on("click", function(e) {
-        //    e.preventDefault();
-        //    $("#formVentaItem").remove();
-        //    $("#formVenta").submit();
-        //});
+
+        $(".datepicker").each(function () {
+            $(this).datepicker("setDate", new Date());
+        });
 
         $("#formVentaItem").on("submit", function (e) {
             e.preventDefault();
@@ -89,15 +90,45 @@
             });
         });
 
-
-        //$("#formVentaItem").validate({
-        //    errorLabelContainer: "#modalAgregarItem .validationSummary",
-        //    wrapper: "li",
-        //    submitHandler: function (form) {
-
+        //var columnas = [6];
+        //var i = 0;
+        //$('#ventaDetalleTable thead th').each(function () {
+        //    var ordenable = !$(this).hasClass("noSort");
+        //    var width = "";
+        //    if ($(this).hasClass("numero")) {
+        //        width = "150px";
         //    }
+        //    if ($(this).hasClass("columnaCodigo")) {
+        //        width = "50px";
+        //    }
+        //    if ($(this).hasClass("columnaAcciones")) {
+        //        width = "50px";
+        //        ordenable = false;
+        //    }
+        //    columnas[i].targets = i;
+        //    columnas[i].ordenable = ordenable;
+        //    columnas[i].width = width;
+        //    i++;
         //});
+        //console.log(columnas);
+
+        $("#ventaDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+        $('#ventaDetalleTable').dataTable({
+            //"columnDefs": columnas
+            //"order": [[3, "desc"]]
+        });
     });
+
+    function dataTablesColumns() {
+        var array = [];
+        array[0] = [];
+        array[1] = [];
+        array[2] = [];
+        array[3] = [];
+        array[4] = [];
+        array[5] = [];
+        return array;
+    }
 
     function agregarVentaItem(ventaItem) {
         var indexItems = parseInt($("#cantidadItems").val());
@@ -107,6 +138,7 @@
 
         table.row.add([
             indexItems + 1,
+            //0,
             ventaItem.Producto.Nombre,
             ventaItem.Cantidad,
             ventaItem.Producto.PrecioVenta,
@@ -114,35 +146,49 @@
             modificar + eliminar
         ]).draw();
 
-        var hiddenProductoId = "<input id='Items[" + indexItems + "].ProductoId' type='hidden' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
-        var hiddenCantidad = "<input id='Items[" + indexItems + "].Cantidad' type='hidden' name='Items[" + indexItems + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
+        var hiddenProductoId = "<input class='hiddenProductoId' id='Items[" + indexItems + "].ProductoId' type='hidden' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
+        var hiddenCantidad = "<input class='hiddenCantidad' id='Items[" + indexItems + "].Cantidad' type='hidden' name='Items[" + indexItems + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
         $("#formVenta").append(hiddenProductoId + hiddenCantidad);
         $("#cantidadItems").val(indexItems + 1);
     }
 
     function getModificarButton(indexItem) {
-        return "<button class='btn btn-warning btn-sm btnModificar' type='button' onclick='modificarVentaItem(" + indexItem + ");' title='Modificar'>" +
+        return ""; return "<button class='btn btn-warning btn-sm btnModificar' type='button' onclick='modificarVentaItem(" + indexItem + ");' title='Modificar'>" +
             "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>" +
             "</button>";
     }
 
     function getEliminarButton(indexItem) {
-        return "<button class='btn btn-danger btn-sm btnEliminar' type='button' onclick='eliminarVentaItem(" + indexItem + ");'  title='Eliminar'>" +
+        return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='setearId(" + indexItem + ");'  title='Eliminar'>" +
             "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
             "</button>";
     }
 
     function eliminarVentaItem(indexItem) {
-        //indexItem = parseInt(indexItem);
-        $("#Items[" + indexItem + "].ProductoId").remove();
-        $("#Items[" + indexItem + "].Cantidad").remove();
+        $("#Items\\[" + indexItem + "\\]\\.ProductoId").remove();
+        $("#Items\\[" + indexItem + "\\]\\.Cantidad").remove();
         var table = $("#ventaDetalleTable").DataTable();
         table.row(indexItem).remove().draw();
-        var cantidad = parseInt($("#cantidadItems").val());
-        $("#cantidadItems").val(cantidad-1);
+        actualizarHiddens();
+        mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
     }
 
     function modificarVentaItem(indexItem) {
+    }
+
+    function actualizarHiddens() {
+        var cantidad = 0;
+        var table = $("#ventaDetalleTable").DataTable();
+        $(".hiddenProductoId").each(function () {
+            table.cell(cantidad, 0).data(cantidad + 1).draw();
+            $(this).attr("id", "Items[" + cantidad + "].ProductoId");
+            $(this).attr("name", "Items[" + cantidad + "].ProductoId");
+            $(this).next().attr("id", "Items[" + cantidad + "].Cantidad");
+            $(this).next().attr("name", "Items[" + cantidad + "].Cantidad");
+            cantidad++;
+        });
+
+        $("#cantidadItems").val(cantidad);
     }
 
 </script>

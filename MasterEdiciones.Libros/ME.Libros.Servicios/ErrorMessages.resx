@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="RequiredItems" xml:space="preserve">
-    <value>No puede realizar la venta si la lista de items esta vacia</value>
+    <value>La venta no puede ser creada porque la lista de items se encuentra vacia</value>
   </data>
   <data name="StockInsuficiente" xml:space="preserve">
     <value>El stock disponible de &lt;b&gt;{0}&lt;/b&gt; es de {1} unidades.</value>

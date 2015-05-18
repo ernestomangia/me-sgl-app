@@ -61,7 +61,7 @@ namespace ME.Libros.Servicios {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No puede realizar la venta si la lista de items esta vacia.
+        ///   Looks up a localized string similar to La venta no puede ser creada porque la lista de items se encuentra vacia.
         /// </summary>
         internal static string RequiredItems {
             get {

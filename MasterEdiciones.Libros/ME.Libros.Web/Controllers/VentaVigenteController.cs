@@ -105,64 +105,6 @@ namespace ME.Libros.Web.Controllers
             return View(ventaViewModel);
         }
 
-        public ActionResult IndexItem()
-        {
-            var ventaViewModel = new VentaItemViewModel();
-
-            return View(ventaViewModel);
-        }
-
-        [HttpGet]
-        public ActionResult CrearItem()
-        {
-            var ventaViewModel = new VentaItemViewModel
-            {
-                Productos = new SelectList(ProductoService.Listar().ToList(), "Id", "Nombre")
-            };
-
-            return PartialView(ventaViewModel);
-        }
-
-        [HttpPost]
-        public JsonResult CrearItem(VentaItemViewModel ventaItemViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    using (ProductoService)
-                    {
-                        var productoDominio = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
-
-                        //Validar stock
-                        if (!ProductoService.VerificarStock(productoDominio, ventaItemViewModel.Cantidad))
-                        {
-                            foreach (var error in ProductoService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
-                        }
-                        else
-                        {
-                            ventaItemViewModel.Producto = new ProductoViewModel(productoDominio);
-                            ventaItemViewModel.PrecioVenta = ventaItemViewModel.Producto.PrecioVenta;
-                            ventaItemViewModel.Monto = ventaItemViewModel.Cantidad * ventaItemViewModel.Producto.PrecioVenta;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-                }
-            }
-
-            return new JsonResult
-            {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), VentaItem = ventaItemViewModel }
-                //JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         [HttpPost]
         public ActionResult Crear(VentaViewModel ventaViewModel)
         {

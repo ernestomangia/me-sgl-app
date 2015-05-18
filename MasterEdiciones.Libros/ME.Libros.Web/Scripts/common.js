@@ -91,7 +91,6 @@ function eliminarEntidad(url, msjSuccess, msjError) {
         timeout: 10000,
         cache: false
     });
-
 }
 
 function AnularEntidad(url, msjSuccess, msjError) {
@@ -132,7 +131,6 @@ function AnularEntidad(url, msjSuccess, msjError) {
     });
 
 }
-
 
 function FormatJsonDate(value) {
     var pattern = /Date\(([^)]+)\)/;

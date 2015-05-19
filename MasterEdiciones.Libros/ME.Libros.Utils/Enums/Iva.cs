@@ -6,7 +6,7 @@ namespace ME.Libros.Utils.Enums
     {
         [Display(Name = "Consumidor Final")]
         ConsumidorFinal = 0,
-        Monotributista = 1,
+        Monotributo = 1,
         [Display(Name = "Responsable Inscripto")]
         ResponsableInscripto = 2,
         Exento = 3,

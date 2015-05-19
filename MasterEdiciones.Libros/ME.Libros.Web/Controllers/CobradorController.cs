@@ -86,7 +86,9 @@ namespace ME.Libros.Web.Controllers
                             Dni = cobradorViewModel.Dni,
                             Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId),
                             Localidades = new List<LocalidadDominio>(),
+                            
                         };
+
 
                         var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
 
@@ -95,8 +97,6 @@ namespace ME.Libros.Web.Controllers
                             cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
 
                         }
-
-
 
 
                         resultado = CobradorService.Guardar(cobradorDominio);
@@ -120,7 +120,7 @@ namespace ME.Libros.Web.Controllers
                     var sqlException = ex.GetBaseException() as SqlException;
                     if (sqlException != null && sqlException.Number == 2601)
                     {
-                        ModelState.AddModelError("Error", string.Format(ErrorMessages.DniRepetido, cobradorViewModel.Dni));
+                        ModelState.AddModelError("Error", string.Format(ErrorMessages.DniRepetidoCobrador, cobradorViewModel.Dni));
                     }
                     else
                     {
@@ -212,7 +212,7 @@ namespace ME.Libros.Web.Controllers
                 if (sqlException != null && sqlException.Number == 2601)
                 {
                     ModelState.AddModelError("Error",
-                        string.Format(ErrorMessages.DniRepetido, cobradorViewModel.Dni));
+                        string.Format(ErrorMessages.DniRepetidoCobrador, cobradorViewModel.Dni));
                 }
                 else
                 {

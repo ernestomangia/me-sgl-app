@@ -84,9 +84,11 @@ namespace ME.Libros.Web.Controllers
                             Venta = venta,
                             Cobrador = venta.Cobrador, 
                             Comision = 0,
-                            EstadoCobro = EstadoCobro.Vigente
-
+                            EstadoCobro = EstadoCobro.Vigente,
                         };
+
+                     
+
                         resultado = CobroService.Guardar(cobroDominio);
                         if (resultado <= 0)
                         {
@@ -132,9 +134,7 @@ namespace ME.Libros.Web.Controllers
                 {
                     cobroDominio = CobroService.GetPorId(id);
                     cobroDominio.EstadoCobro = EstadoCobro.Anulado;
-
                     CobroService.Guardar(cobroDominio);
-
                 }
 
 

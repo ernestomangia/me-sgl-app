@@ -96,8 +96,8 @@ function eliminarEntidad(url, msjSuccess, msjError) {
 
 function AnularEntidad(url, msjSuccess, msjError) {
      var id = $("#idEntidad").val();
-    $(".modalEliminar .validationSummary").addClass("hide");
-    $(".modalEliminar .validationSummary ul").remove();
+    $(".modalAnular .validationSummary").addClass("hide");
+    $(".modalAnular .validationSummary ul").remove();
 
     $.ajax({
         method: "GET",

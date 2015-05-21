@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -21,6 +20,15 @@ namespace ME.Libros.Web.Controllers
         // GET: /Gasto/
 
         public GastoService GastoService { get; set; }
+
+        public GastoController()
+        {
+            var modelContainer = new ModelContainer();
+            GastoService = new GastoService(new EntidadRepository<GastoDominio>(modelContainer));
+            ViewBag.MenuId = 8;
+            ViewBag.Title = "Gastos";
+        }
+
         public ActionResult Index()
         {
             ViewBag.Id = TempData["Id"];
@@ -32,20 +40,10 @@ namespace ME.Libros.Web.Controllers
                 gastos.AddRange(GastoService.Listar()
                     .ToList()
                     .Select(r => new GastoViewModel(r))
-                    .Where(r=>r.Id!=1)
-                    );
+                    .Where(r => r.Id != 1));
             }
 
             return View(gastos);
-
-        }
-
-        public GastoController()
-        {
-            var modelContainer = new ModelContainer();
-            GastoService = new GastoService(new EntidadRepository<GastoDominio>(modelContainer));
-            ViewBag.MenuId = 8;
-            ViewBag.Title = "Gastos";
         }
 
         [HttpGet]
@@ -203,8 +201,5 @@ namespace ME.Libros.Web.Controllers
 
             return View(gastoViewModel);
         }
-
-
-
     }
 }

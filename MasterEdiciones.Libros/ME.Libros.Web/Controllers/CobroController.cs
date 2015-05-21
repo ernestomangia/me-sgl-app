@@ -135,6 +135,7 @@ namespace ME.Libros.Web.Controllers
                     cobroDominio = CobroService.GetPorId(id);
                     cobroDominio.EstadoCobro = EstadoCobro.Anulado;
                     CobroService.Guardar(cobroDominio);
+                    VentaService.Guardar(cobroDominio.Venta);
                 }
 
 

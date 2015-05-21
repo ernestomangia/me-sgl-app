@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
-using ME.Libros.EF.Mapeos;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
-using ME.Libros.Web.Helpers;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
     public class CobradorController : BaseController<CobradorDominio>
     {
-
         public CobradorService CobradorService { get; set; }
         private LocalidadService LocalidadService { get; set; }
         private ProvinciaService ProvinciaService { get; set; }
@@ -70,8 +64,6 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(CobradorViewModel cobradorViewModel)
         {
             long resultado = 0;
-
-
             if (ModelState.IsValid)
             {
                 try
@@ -86,9 +78,7 @@ namespace ME.Libros.Web.Controllers
                             Dni = cobradorViewModel.Dni,
                             Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId),
                             Localidades = new List<LocalidadDominio>(),
-                            
                         };
-
 
                         var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
 
@@ -166,21 +156,17 @@ namespace ME.Libros.Web.Controllers
             }
 
             long resultado = 0;
-
-
-
             try
             {
                 var cobradorDominio = CobradorService.GetPorId(cobradorViewModel.Id);
                 using (CobradorService)
                 {
-                   
+
                     cobradorDominio.Nombre = cobradorViewModel.Nombre;
                     cobradorDominio.Apellido = cobradorViewModel.Apellido;
                     cobradorDominio.Dni = cobradorViewModel.Dni;
                     cobradorDominio.Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId);
                     cobradorDominio.Localidades.Clear();
-
 
                     var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
 
@@ -189,8 +175,8 @@ namespace ME.Libros.Web.Controllers
                         cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
 
                     }
-                
-                resultado = CobradorService.Guardar(cobradorDominio);
+
+                    resultado = CobradorService.Guardar(cobradorDominio);
                     if (resultado <= 0)
                     {
                         foreach (var error in CobradorService.ModelError)
@@ -234,7 +220,6 @@ namespace ME.Libros.Web.Controllers
                 : View(cobradorViewModel);
         }
 
-
         #region Private Methods
 
         private void PrepareModel(CobradorViewModel cobradorViewModel)
@@ -255,14 +240,8 @@ namespace ME.Libros.Web.Controllers
                                                                     .ToList()
                                                                     .Select(l => new LocalidadViewModel(l)));
             }
-
-
-
         }
 
-
-
         #endregion
-
     }
 }

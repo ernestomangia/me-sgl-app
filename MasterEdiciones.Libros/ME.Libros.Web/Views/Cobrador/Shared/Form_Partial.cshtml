@@ -41,7 +41,6 @@
 </div>
 
 <div class="row">
-    
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
@@ -51,7 +50,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
@@ -71,18 +69,7 @@
                 <select multiple="multiple" name="localidadesAsignadas_dualList" id="localidadesAsignadas_dualList">
                     @foreach (var item in Model.Localidades)
                     {
-                        bool bandera = true;
-
-                        foreach (var item2 in Model.LocalidadesAsignadas)
-                        {
-
-                            if (item.Value == item2.Id.ToString())
-                            {
-                                bandera = false;
-                                break;
-                            }
-
-                        }
+                        var bandera = Model.LocalidadesAsignadas.All(item2 => item.Value != item2.Id.ToString());
 
                         if (bandera)
                         {
@@ -94,60 +81,57 @@
                     {
                         <option selected="selected" value=@item.Id>@item.Nombre</option>
                     }
-
                 </select>
-               </div>
             </div>
+        </div>
     </div>
 </div>
 
 <script type="text/javascript">
 
-                $(document).ready(prueba());
+    $(document).ready(prueba());
 
-                function prueba() {
-                    var demo1 = $('select[name="localidadesAsignadas_dualList"]').bootstrapDualListbox({
-                        nonSelectedListLabel: 'Localidades',
-                        selectedListLabel: 'Localidades asignadas',
-                        preserveSelectionOnMove: 'moved',
-                        moveOnSelect: false,
-                        filterPlaceHolder: 'Filtro',
-                        infoTextFiltered: '<span class="label label-success">Filtrado</span> {0} de {1}',
-                        infoTextEmpty: '0 localidades',
-                        infoText: 'Mostrando {0}',
-                        filterTextClear:'Ver todos'
-                    });
-                    demo1.bootstrapDualListbox('refresh', true);
-                };
+    function prueba() {
+        var demo1 = $('select[name="localidadesAsignadas_dualList"]').bootstrapDualListbox({
+            nonSelectedListLabel: 'Localidades',
+            selectedListLabel: 'Localidades asignadas',
+            preserveSelectionOnMove: 'moved',
+            moveOnSelect: false,
+            filterPlaceHolder: 'Filtro',
+            infoTextFiltered: '<span class="label label-success">Filtrado</span> {0} de {1}',
+            infoTextEmpty: '0 localidades',
+            infoText: 'Mostrando {0}',
+            filterTextClear: 'Ver todos'
+        });
+        demo1.bootstrapDualListbox('refresh', true);
+    };
 
-
-                $(".provincia").on("change", function () {
-                    var idProvincia = $(".provincia :selected").attr("value");
-                    if (idProvincia > 0) {
-                        $.ajax({
-                            method: "GET",
-                            url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
-                            dataType: "json",
-                            error: function (jqXHR, status, error) {
-                                mensajeError("Error: " + error + " - Status: " + status);
-                            },
-                            success: function (data) {
-                                $(".localidad").empty();
-                                if (data.length > 0) {
-                                    $.each(data, function (key, value) {
-                                        $(".localidad").append(new Option(value.Nombre, value.Id));
-                                    });
-                                } else {
-                                    $(".localidad").append(new Option("Seleccione", ""));
-                                }
-                            },
-                            timeout: 10000,
-                            cache: false
+    $(".provincia").on("change", function () {
+        var idProvincia = $(".provincia :selected").attr("value");
+        if (idProvincia > 0) {
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
+                dataType: "json",
+                error: function (jqXHR, status, error) {
+                    mensajeError("Error: " + error + " - Status: " + status);
+                },
+                success: function (data) {
+                    $(".localidad").empty();
+                    if (data.length > 0) {
+                        $.each(data, function (key, value) {
+                            $(".localidad").append(new Option(value.Nombre, value.Id));
                         });
                     } else {
-                        $(".localidad").empty().append(new Option("Seleccione", ""));
+                        $(".localidad").append(new Option("Seleccione", ""));
                     }
-                });
-
-            </script>
+                },
+                timeout: 10000,
+                cache: false
+            });
+        } else {
+            $(".localidad").empty().append(new Option("Seleccione", ""));
+        }
+    });
+</script>
 

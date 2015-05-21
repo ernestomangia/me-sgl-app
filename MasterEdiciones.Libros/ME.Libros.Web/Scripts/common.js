@@ -108,7 +108,7 @@ function AnularEntidad(url, msjSuccess, msjError) {
         success: function (data) {
             if (data.Success) {
                 var dataTable = $(".dataTableCustom").DataTable();
-                $('.modalEliminar').modal('toggle');
+                $('.modalAnular').modal('toggle');
                 mensajeSuccess(msjSuccess);
                 console.log($("#tr_" + id + " .CambioEstado"));
                 dataTable.cell($("#tr_" + id),(6)).data('Anulado').draw();
@@ -122,8 +122,8 @@ function AnularEntidad(url, msjSuccess, msjError) {
                     });
                 });
                 errores += "</ul>";
-                $(".modalEliminar .validationSummary").append(errores);
-                $(".modalEliminar .validationSummary").removeClass("hide");
+                $(".modalAnular .validationSummary").append(errores);
+                $(".modalAnular .validationSummary").removeClass("hide");
             }
         },
         timeout: 10000,

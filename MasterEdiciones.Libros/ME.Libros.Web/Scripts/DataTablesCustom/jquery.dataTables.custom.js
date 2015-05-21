@@ -7,8 +7,8 @@
     //],
     //autoWidth: false,
     searching: true,
-    //ordering: true,
-    //order: [],
+    ordering: true,
+    order: [],
     paging: true,
     language: {
         "sProcessing": "Procesando...",

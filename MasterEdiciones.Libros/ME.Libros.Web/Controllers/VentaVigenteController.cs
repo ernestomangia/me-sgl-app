@@ -181,9 +181,14 @@ namespace ME.Libros.Web.Controllers
             return View(ventaViewModel);
         }
 
-        public ActionResult Modificar()
+        [HttpGet]
+        public ActionResult Modificar(int id)
         {
-            var ventaViewModel = new VentaViewModel();
+            VentaViewModel ventaViewModel;
+            using (VentaService)
+            {
+                ventaViewModel = new VentaViewModel(VentaService.GetPorId(id));
+            }
             PrepareModel(ventaViewModel);
 
             return View(ventaViewModel);

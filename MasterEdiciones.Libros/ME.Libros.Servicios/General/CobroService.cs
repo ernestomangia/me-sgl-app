@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ME.Libros.Api.Repositorios;
+﻿using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
 
@@ -27,17 +22,15 @@ namespace ME.Libros.Servicios.General
 
         public override long Guardar(CobroDominio cobroDominio)
         {
-     
-           
             if (cobroDominio.EstadoCobro == EstadoCobro.Vigente)
-            { cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo - cobroDominio.Monto; }
-            else 
+            {
+                cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo - cobroDominio.Monto;
+            }
+            else
             {
                 cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo + cobroDominio.Monto;
             }
-
-
-
+            
             return base.Guardar(cobroDominio);
         }
     }

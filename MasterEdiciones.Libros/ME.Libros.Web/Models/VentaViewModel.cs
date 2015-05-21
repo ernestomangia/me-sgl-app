@@ -30,7 +30,8 @@ namespace ME.Libros.Web.Models
             Saldo = ventaDominio.Saldo;
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
-
+            CobradorId = ventaDominio.Cobrador.Id;
+            
             if (ventaDominio.VentaItems  != null)
             {
                 Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));

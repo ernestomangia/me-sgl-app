@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
+using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Servicios.General
 {
@@ -51,7 +52,7 @@ namespace ME.Libros.Servicios.General
                 }
                 CalcularTotalVenta(ventaDominio);
             }
-            else
+            else if (ventaDominio.Estado == EstadoVenta.Anulada)
             {
                 foreach (var ventaItemDominio in ventaDominio.VentaItems)
                 {

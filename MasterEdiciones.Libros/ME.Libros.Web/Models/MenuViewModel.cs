@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Web.Models
 {
@@ -121,28 +122,28 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 20,
                         Nombre = "Vigentes",
-                        Link = helper.Action("Index", "VentaVigente"),
+                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Vigente }),
                         Posicion = 20
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 21,
                         Nombre = "Pagadas",
-                        Link = "#",
+                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Pagada }),
                         Posicion = 30
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 22,
                         Nombre = "Anuladas",
-                        Link = "#",
+                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Anulada}),
                         Posicion = 40
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 23,
                         Nombre = "Todas",
-                        Link = helper.Action("Index", "Venta"),
+                        Link = helper.Action("Index", "VentaVigente"),
                         Posicion = 50,
                     });
                     break;

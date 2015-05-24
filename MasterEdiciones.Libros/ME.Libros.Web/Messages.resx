@@ -270,4 +270,7 @@
   <data name="Vendedor" xml:space="preserve">
     <value>Vendedor</value>
   </data>
+  <data name="PorcentajeComision" xml:space="preserve">
+    <value>Comisión (%)</value>
+  </data>
 </root>

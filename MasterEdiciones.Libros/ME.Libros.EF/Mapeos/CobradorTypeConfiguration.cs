@@ -26,7 +26,11 @@ namespace ME.Libros.EF.Mapeos
                     {
                         new IndexAttribute("Index") {IsUnique = true}
                     }));
-
+            Property(c => c.PorcentajeComision).IsRequired();
+            Property(c => c.Direccion).HasMaxLength(100);
+            Property(c => c.TelefonoFijo);
+            Property(c => c.Celular);
+            Property(c => c.Email);
             // FK
             HasRequired(c => c.Localidad);
             HasMany(c => c.Localidades)

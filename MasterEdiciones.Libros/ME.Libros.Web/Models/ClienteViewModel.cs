@@ -71,8 +71,8 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Direccion", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [StringLength(100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Direccion { get; set; }
-  
         
         [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Comentario { get; set; }

@@ -50,37 +50,36 @@ namespace ME.Libros.Servicios.General
                     ventaItemDominio.PrecioVenta = ventaItemDominio.Producto.PrecioVenta;
                     CalcularTotalItem(ventaItemDominio);
                 }
+
                 CalcularTotalVenta(ventaDominio);
             }
-            else if (ventaDominio.Estado == EstadoVenta.Anulada)
-            {
-                foreach (var ventaItemDominio in ventaDominio.VentaItems)
-                {
-                    ProductoService.SumarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
-                }
-            }
-
+            
             return base.Guardar(ventaDominio);
         }
 
         public override bool Validar(VentaDominio entidad)
         {
-            //if (entidad.VentaItems.All(ventaItemDominio => ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad)))
-            //{ 
-            //    return base.Validar(entidad);
-            //}
-
-            //foreach (var error in ProductoService.ModelError)
-            //{
-            //    ModelError.Add(error.Key, error.Value);
-            //}
-
             if (entidad.VentaItems.Count == 0)
             {
                 ModelError.Add("Error", ErrorMessages.RequiredItems);
             }
 
             return base.Validar(entidad);
+        }
+
+        public long AnularVenta(long id)
+        {
+            var ventaDominio = GetPorId(id);
+            if (ventaDominio.Estado == EstadoVenta.Vigente)
+            {
+                ventaDominio.Estado = EstadoVenta.Anulada;
+                foreach (var ventaItemDominio in ventaDominio.VentaItems)
+                {
+                    ProductoService.SumarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
+                }
+            }
+
+            return Guardar(ventaDominio);
         }
 
         private static void CalcularTotalItem(VentaItemDominio ventaItemDominio)

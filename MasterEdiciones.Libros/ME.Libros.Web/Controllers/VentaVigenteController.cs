@@ -35,7 +35,7 @@ namespace ME.Libros.Web.Controllers
         }
 
         // GET: Todas
-        public ActionResult Index()
+        public ActionResult Index(EstadoVenta? estado)
         {
             ViewBag.Id = TempData["Id"];
             ViewBag.Mensaje = TempData["Mensaje"];
@@ -43,10 +43,21 @@ namespace ME.Libros.Web.Controllers
             var ventas = new List<VentaViewModel>();
             using (VentaService)
             {
-                ventas.AddRange(VentaService.ListarAsQueryable()
+                if (estado == null)
+                {
+                    ventas.AddRange(VentaService.ListarAsQueryable()
                     .OrderByDescending(v => v.FechaVenta)
                     .ToList()
                     .Select(v => new VentaViewModel(v)));
+                }
+                else
+                {
+                    ventas.AddRange(VentaService.ListarAsQueryable()
+                    .Where(v => v.Estado == estado)
+                    .OrderByDescending(v => v.FechaVenta)
+                    .ToList()
+                    .Select(v => new VentaViewModel(v)));
+                }
             }
 
             return View(ventas);
@@ -79,7 +90,8 @@ namespace ME.Libros.Web.Controllers
             var ventas = new List<VentaViewModel>();
             using (VentaService)
             {
-                ventas.AddRange(VentaService.Listar(v => v.Estado == estado)
+                ventas.AddRange(VentaService.ListarAsQueryable()
+                    .Where(v => v.Estado == estado)
                     .OrderByDescending(v => v.FechaVenta)
                     .ToList()
                     .Select(v => new VentaViewModel(v)));
@@ -201,10 +213,7 @@ namespace ME.Libros.Web.Controllers
             {
                 using (VentaService)
                 {
-                    var ventaDominio = VentaService.GetPorId(id);
-                    ventaDominio.Estado = EstadoVenta.Anulada;
-
-                    VentaService.Guardar(ventaDominio);
+                    VentaService.AnularVenta(id);
                 }
             }
             catch (Exception ex)

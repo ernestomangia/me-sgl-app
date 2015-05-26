@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="General\PlanPagoService.cs" />
     <Compile Include="General\ProveedorService.cs" />
     <Compile Include="General\VendedorService.cs" />
     <Compile Include="General\ClienteService.cs" />

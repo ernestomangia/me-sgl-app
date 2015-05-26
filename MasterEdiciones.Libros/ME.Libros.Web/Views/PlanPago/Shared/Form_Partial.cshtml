@@ -1,0 +1,80 @@
+﻿@model ME.Libros.Web.Models.PlanPagoViewModel
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(p => p.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(p => p.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(p => p.Nombre, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(p => p.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Descripcion, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(p => p.Descripcion, new { @class = "form-control", placeholder = "Descripcion" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(p => p.Tipo, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.EnumDropDownListFor(p => p.Tipo, new { @class = "form-control tipoPlan" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(p => p.CantidadCuotas, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(p => p.CantidadCuotas, new { @class = "form-control cantidadCuotas" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(p => p.Monto, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(p => p.Monto, new { @class = "form-control"})
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    $(document).ready( function () {
+        var idPlan = $(".tipoPlan :selected").attr("value");
+        if (idPlan == 0) {
+            $(".cantidadCuotas").disabled="disabled";
+        }
+    });
+
+    $(".tipoPlan").on("change", function () {
+        var idPlan = $(".tipoPlan :selected").attr("value");
+        if (idPlan == 0) {
+            $(".cantidadCuotas").disabled="disabled";
+        }
+    });
+
+</script>

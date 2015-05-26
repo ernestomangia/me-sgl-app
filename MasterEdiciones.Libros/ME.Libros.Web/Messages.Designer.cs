@@ -61,6 +61,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cantidad de cuotas.
+        /// </summary>
+        public static string CantidadCuotas {
+            get {
+                return ResourceManager.GetString("CantidadCuotas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cliente.
         /// </summary>
         public static string Cliente {
@@ -174,6 +183,15 @@ namespace ME.Libros.Web {
         public static string ElGasto {
             get {
                 return ResourceManager.GetString("ElGasto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El plan de pago.
+        /// </summary>
+        public static string ElPlanPago {
+            get {
+                return ResourceManager.GetString("ElPlanPago", resourceCulture);
             }
         }
         

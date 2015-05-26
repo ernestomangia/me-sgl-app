@@ -23,7 +23,7 @@ namespace ME.Libros.Web.Models
 
     public class Menues
     {
-        public List<MenuViewModel> MenuViewModels { get; set; } 
+        public List<MenuViewModel> MenuViewModels { get; set; }
         public Menues(int menuId)
         {
             MenuViewModels = new List<MenuViewModel>();
@@ -51,10 +51,10 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 2,
                         Nombre = "Cobradores",
-                        Link = helper.Action("Index","Cobrador"),
+                        Link = helper.Action("Index", "Cobrador"),
                         Posicion = 20
                     });
-         
+
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 3,
@@ -87,7 +87,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 7,
                         Nombre = "Zonas",
-                        Link = helper.Action("Index","Zona"),
+                        Link = helper.Action("Index", "Zona"),
                         Posicion = 90
                     });
                     MenuViewModels.Add(new MenuViewModel
@@ -98,7 +98,7 @@ namespace ME.Libros.Web.Models
                         Posicion = 100
                     });
 
-                               MenuViewModels.Add(new MenuViewModel
+                    MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 9,
                         Nombre = "Vendedores",
@@ -114,10 +114,13 @@ namespace ME.Libros.Web.Models
                     });
 
                     break;
-               case 20:
-               case 21:
-               case 22:
-               case 23:
+                case 20:
+                case 21:
+                case 22:
+                case 23:
+                case 30:
+                case 40:
+                case 50:
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 20,
@@ -136,7 +139,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 22,
                         Nombre = "Anuladas",
-                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Anulada}),
+                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Anulada }),
                         Posicion = 40
                     });
                     MenuViewModels.Add(new MenuViewModel
@@ -148,29 +151,30 @@ namespace ME.Libros.Web.Models
                     });
                     break;
                 case 24:
-                     MenuViewModels.Add(new MenuViewModel
+                case 25:
+                    MenuViewModels.Add(new MenuViewModel
+                   {
+                       Id = 24,
+                       Nombre = "Cobros",
+                       Link = helper.Action("Index", "Cobro"),
+                       Posicion = 50,
+                   });
+                    MenuViewModels.Add(new MenuViewModel
                     {
-                        Id = 24,
-                        Nombre = "Cobros",
-                        Link = helper.Action("Index", "Cobro"),
+                        Id = 25,
+                        Nombre = "Compras",
+                        Link = helper.Action("Index", "Compra"),
                         Posicion = 50,
                     });
-                     MenuViewModels.Add(new MenuViewModel
-                     {
-                         Id = 25,
-                         Nombre = "Compras",
-                         Link = helper.Action("Index", "Compra"),
-                         Posicion = 50,
-                     });
                     break;
 
             }
             Seleccionar(menuId);
         }
 
-        public void Seleccionar (int id)
+        public void Seleccionar(int id)
         {
             MenuViewModels.First(m => m.Id == id).Seleccionado = true;
         }
-    } 
+    }
 }

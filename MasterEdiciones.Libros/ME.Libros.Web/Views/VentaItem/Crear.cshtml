@@ -19,7 +19,13 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
+                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", value = "" })
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(vi => vi.PrecioVenta, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(vi => vi.PrecioVenta, new { @class = "form-control", placeholder = Messages.PrecioVenta })
                         </div>
                     </div>
                 </div>

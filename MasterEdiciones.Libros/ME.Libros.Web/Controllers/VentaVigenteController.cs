@@ -41,26 +41,52 @@ namespace ME.Libros.Web.Controllers
             ViewBag.Mensaje = TempData["Mensaje"];
 
             var ventas = new List<VentaViewModel>();
+            var view = "";
             using (VentaService)
             {
                 if (estado == null)
                 {
                     ventas.AddRange(VentaService.ListarAsQueryable()
                     .OrderByDescending(v => v.FechaVenta)
+                    .ThenByDescending(v => v.Id)
                     .ToList()
                     .Select(v => new VentaViewModel(v)));
+                    ViewBag.Title = "Todas";
+                    ViewBag.MenuId = 23;
+                    view = "~/Views/Venta/Index.cshtml";
                 }
                 else
                 {
                     ventas.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == estado)
                     .OrderByDescending(v => v.FechaVenta)
+                    .ThenByDescending(v => v.Id)
                     .ToList()
                     .Select(v => new VentaViewModel(v)));
+
+                    switch (estado)
+                    {
+                        case EstadoVenta.Vigente:
+                            ViewBag.Title = "Vigentes";
+                            ViewBag.MenuId = 20;
+                            view = "~/Views/VentaVigente/Index.cshtml";
+                            break;
+                        case EstadoVenta.Pagada:
+                            ViewBag.Title = "Pagadas";
+                            ViewBag.MenuId = 21;
+                            view = "~/Views/VentaPagada/Index.cshtml";
+                            break;
+                        case EstadoVenta.Anulada:
+                            ViewBag.Title = "Anuladas";
+                            ViewBag.MenuId = 22;
+                            view = "~/Views/VentaAnulada/Index.cshtml";
+                            break;
+                        
+                    }
                 }
             }
 
-            return View(ventas);
+            return View(view, ventas);
         }
 
         public JsonResult ListarVentas(long idCliente)

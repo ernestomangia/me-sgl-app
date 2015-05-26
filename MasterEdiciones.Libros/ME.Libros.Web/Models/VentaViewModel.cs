@@ -24,6 +24,7 @@ namespace ME.Libros.Web.Models
             Id = ventaDominio.Id;
             FechaAlta = ventaDominio.FechaAlta;
             FechaVenta = ventaDominio.FechaVenta;
+            FechaCobro = ventaDominio.FechaCobro;
             Estado = ventaDominio.Estado;
             MontoVendido = ventaDominio.MontoVendido;
             MontoCalculado = ventaDominio.MontoCalculado;
@@ -31,7 +32,8 @@ namespace ME.Libros.Web.Models
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
             CobradorId = ventaDominio.Cobrador.Id;
-            
+            //VendedorId = ventaDominio.Vendedor.Id;
+
             if (ventaDominio.VentaItems  != null)
             {
                 Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));

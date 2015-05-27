@@ -66,14 +66,14 @@
     $(document).ready( function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
-            $(".cantidadCuotas").disabled="disabled";
+            $(".cantidadCuotas :disabled").disabled;
         }
     });
 
     $(".tipoPlan").on("change", function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
-            $(".cantidadCuotas").disabled="disabled";
+            $(".cantidadCuotas :disabled").disabled;
         }
     });
 

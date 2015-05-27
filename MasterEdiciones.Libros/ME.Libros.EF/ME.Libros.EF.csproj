@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapeos\PlanPagoTypeConfiguration.cs" />
     <Compile Include="Mapeos\ProveedorTypeConfiguration.cs" />
     <Compile Include="Mapeos\CobradorTypeConfiguration.cs" />
     <Compile Include="Mapeos\GastoTypeConfiguration.cs" />

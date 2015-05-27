@@ -270,4 +270,13 @@
   <data name="Vendedor" xml:space="preserve">
     <value>Vendedor</value>
   </data>
+  <data name="PorcentajeComision" xml:space="preserve">
+    <value>Comisión (%)</value>
+  </data>
+  <data name="CantidadCuotas" xml:space="preserve">
+    <value>Cantidad de cuotas</value>
+  </data>
+  <data name="ElPlanPago" xml:space="preserve">
+    <value>El plan de pago</value>
+  </data>
 </root>

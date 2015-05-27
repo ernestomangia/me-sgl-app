@@ -30,6 +30,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Dni, new { @class = "col-md-4 control-label" })
@@ -38,6 +40,15 @@
             </div>
         </div>
     </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.PorcentajeComision, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = "PorcentajeComision" })
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div class="row">
@@ -60,6 +71,45 @@
         </div>
     </div>
 
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Direccion, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = Messages.Direccion })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = Messages.TelefonoFijo })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Celular, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+                Ej. (343-6111222)
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
@@ -89,9 +139,9 @@
 
 <script type="text/javascript">
 
-    $(document).ready(prueba());
+    $(document).ready(funcion());
 
-    function prueba() {
+    function funcion() {
         var demo1 = $('select[name="localidadesAsignadas_dualList"]').bootstrapDualListbox({
             nonSelectedListLabel: 'Localidades',
             selectedListLabel: 'Localidades asignadas',
@@ -103,7 +153,29 @@
             infoText: 'Mostrando {0}',
             filterTextClear: 'Ver todos'
         });
+
         demo1.bootstrapDualListbox('refresh', true);
+
+        //$("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList").dblclick(function () {
+
+        //    var option = $("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList option:selected");
+
+        //    demo1.append('<option value='+ option.attr('value') +' selected>' + option.text() +'</option>');
+        //    $("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList").remove(option);
+        //    demo1.bootstrapDualListbox('refresh', true);
+        //    console.log(option);
+        //  //      option.remove();
+        //});
+
+        //$("#bootstrap-duallistbox-selected-list_localidadesAsignadas_dualList").dblclick(function () {
+
+        //    var option = $("#bootstrap-duallistbox-selected-list_localidadesAsignadas_dualList option:selected");
+
+        //    $("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList").append(option);
+        //    $("#bootstrap-duallistbox-selected-list_localidadesAsignadas_dualList").remove(option);
+        //    demo1.bootstrapDualListbox('refresh', true);
+        //});
+
     };
 
     $(".provincia").on("change", function () {

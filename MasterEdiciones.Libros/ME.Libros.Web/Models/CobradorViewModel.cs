@@ -27,6 +27,11 @@ namespace ME.Libros.Web.Models
             Apellido = cobrador.Apellido;
             Dni = cobrador.Dni;
             Localidad = new LocalidadViewModel(cobrador.Localidad);
+            PorcentajeComision = cobrador.PorcentajeComision;
+            Direccion = cobrador.Direccion;
+            TelefonoFijo = cobrador.TelefonoFijo;
+            Celular = cobrador.Celular;
+            Email = cobrador.Email;
             LocalidadesAsignadas = new List<LocalidadViewModel>(cobrador.Localidades.Select(la => new LocalidadViewModel(la)));
             LocalidadId = cobrador.Localidad.Id;
             ProvinciaId = cobrador.Localidad.Provincia.Id;
@@ -51,11 +56,25 @@ namespace ME.Libros.Web.Models
         [RegularExpression(@"^([a-zA-Z]+\s)*[a-zA-Z]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyLetters")]
         public string Apellido { get; set; }
 
+        [Display(Name = "Direccion", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [StringLength(100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        public string Direccion { get; set; }
+
         [Display(Name = "Dni", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(8, MinimumLength = 8, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string Dni { get; set; }
+
+        [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
+        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        public string TelefonoFijo { get; set; }
+
+        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        public string Celular { get; set; }
+
+        public string Email { get; set; }
 
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
@@ -64,6 +83,11 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long ProvinciaId { get; set; }
+
+        [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal PorcentajeComision { get; set; }
 
         public LocalidadViewModel Localidad { get; set; }
 

@@ -9,6 +9,7 @@ using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
+using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -18,6 +19,7 @@ namespace ME.Libros.Web.Controllers
         public CobradorService CobradorService { get; set; }
         private LocalidadService LocalidadService { get; set; }
         private ProvinciaService ProvinciaService { get; set; }
+        private VentaService VentaService { get; set; }
 
         public CobradorController()
         {
@@ -25,6 +27,7 @@ namespace ME.Libros.Web.Controllers
             CobradorService = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
+            VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             ViewBag.MenuId = 2;
             ViewBag.Title = "Cobradores";
             Service = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
@@ -64,6 +67,9 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(CobradorViewModel cobradorViewModel)
         {
             long resultado = 0;
+
+            var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
+
             if (ModelState.IsValid)
             {
                 try
@@ -76,18 +82,20 @@ namespace ME.Libros.Web.Controllers
                             Nombre = cobradorViewModel.Nombre,
                             Apellido = cobradorViewModel.Apellido,
                             Dni = cobradorViewModel.Dni,
+                            PorcentajeComision = cobradorViewModel.PorcentajeComision,
+                            Direccion = cobradorViewModel.Direccion,
+                            TelefonoFijo = cobradorViewModel.TelefonoFijo,
+                            Celular = cobradorViewModel.Celular,
+                            Email = cobradorViewModel.Email,
                             Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId),
                             Localidades = new List<LocalidadDominio>(),
                         };
-
-                        var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
 
                         foreach (var localidad in varlocalidades)
                         {
                             cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
 
                         }
-
 
                         resultado = CobradorService.Guardar(cobradorDominio);
 
@@ -125,6 +133,16 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
+                foreach (var localidad in varlocalidades)
+                {
+                    cobradorViewModel.LocalidadesAsignadas.Add(
+
+                        new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad)))
+
+                        );
+
+                }
+
                 PrepareModel(cobradorViewModel);
             }
 
@@ -155,40 +173,80 @@ namespace ME.Libros.Web.Controllers
                 return View(cobradorViewModel);
             }
 
+            var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
+            var nombreLocalidades = "";
             long resultado = 0;
+
+
+           
+
+
             try
             {
                 var cobradorDominio = CobradorService.GetPorId(cobradorViewModel.Id);
-                using (CobradorService)
+
+            
+               // var listaVentas = VentaService.ListarAsQueryable();
+
+                foreach (var localidadAsignada in cobradorDominio.Localidades)
                 {
 
-                    cobradorDominio.Nombre = cobradorViewModel.Nombre;
-                    cobradorDominio.Apellido = cobradorViewModel.Apellido;
-                    cobradorDominio.Dni = cobradorViewModel.Dni;
-                    cobradorDominio.Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId);
-                    cobradorDominio.Localidades.Clear();
-
-                    var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
-
-                    foreach (var localidad in varlocalidades)
+                    if (varlocalidades.Contains(localidadAsignada.Id.ToString()) == false)
                     {
-                        cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
-
-                    }
-
-                    resultado = CobradorService.Guardar(cobradorDominio);
-                    if (resultado <= 0)
-                    {
-                        foreach (var error in CobradorService.ModelError)
+                        if (VentaService.ListarAsQueryable().Any(v => (v.Cliente.Localidad.Id == localidadAsignada.Id && v.Cobrador.Id == cobradorDominio.Id && v.Estado == EstadoVenta.Vigente)))
                         {
-                            ModelState.AddModelError(error.Key, error.Value);
+                            nombreLocalidades += ", " + localidadAsignada.Nombre;
                         }
                     }
-                    else
+
+                }
+
+                if (nombreLocalidades.Length != 0)
+                {
+                    nombreLocalidades = nombreLocalidades.Substring(2, nombreLocalidades.Length - 2);
+
+                    if (nombreLocalidades.Length == 1)
+                    ModelState.AddModelError("localidad", "La localidad: " + nombreLocalidades + " debe estar asignada ya que existen ventas asociadas al cobrador que intenta modificar");
+                    if (nombreLocalidades.Length>1)
+                    ModelState.AddModelError("localidades","Las localidades: "+nombreLocalidades+ " deben estar asignadas ya que existen ventas asociadas al cobrador que intenta modificar");
+
+                }
+
+                else
+                {
+                    using (CobradorService)
                     {
-                        TempData["Id"] = cobradorViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCobrador,
-                            cobradorViewModel.Id);
+                        cobradorDominio.Nombre = cobradorViewModel.Nombre;
+                        cobradorDominio.Apellido = cobradorViewModel.Apellido;
+                        cobradorDominio.Dni = cobradorViewModel.Dni;
+                        cobradorDominio.PorcentajeComision = cobradorViewModel.PorcentajeComision;
+                        cobradorDominio.Direccion = cobradorViewModel.Direccion;
+                        cobradorDominio.TelefonoFijo = cobradorViewModel.TelefonoFijo;
+                        cobradorDominio.Celular = cobradorViewModel.Celular;
+                        cobradorDominio.Email = cobradorViewModel.Email;
+                        cobradorDominio.Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId);
+                        cobradorDominio.Localidades.Clear();
+
+                        foreach (var localidad in varlocalidades)
+                        {
+                            cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
+
+                        }
+
+                        resultado = CobradorService.Guardar(cobradorDominio);
+                        if (resultado <= 0)
+                        {
+                            foreach (var error in CobradorService.ModelError)
+                            {
+                                ModelState.AddModelError(error.Key, error.Value);
+                            }
+                        }
+                        else
+                        {
+                            TempData["Id"] = cobradorViewModel.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCobrador,
+                                cobradorViewModel.Id);
+                        }
                     }
                 }
             }
@@ -212,6 +270,15 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
+                foreach (var localidad in varlocalidades)
+                {
+                    cobradorViewModel.LocalidadesAsignadas.Add(
+
+                        new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad)))
+
+                        );
+
+                }
                 PrepareModel(cobradorViewModel);
             }
 

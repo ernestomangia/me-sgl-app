@@ -45,3 +45,16 @@
 
 <input type="hidden" id="idEntidad" value="@Model.Id" />
 @*@Html.Partial("Eliminar")*@
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select[name="localidadesAsignadas_dualList_helper2"]').rules("add", {
+            required: true,
+            messages: {
+                required: "Seleccione al menos <b>una localidad</b>"
+            }
+
+        });
+    });
+</script>

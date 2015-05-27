@@ -14,12 +14,6 @@ namespace ME.Libros.Servicios.General
 
         }
 
-        //public CobroService(IRepository<CobroDominio> repository, VentaService ventaService)
-        //    : base(repository)
-        //{
-        //    VentaService = ventaService;
-        //}
-
         public override long Guardar(CobroDominio cobroDominio)
         {
             if (cobroDominio.EstadoCobro == EstadoCobro.Vigente)

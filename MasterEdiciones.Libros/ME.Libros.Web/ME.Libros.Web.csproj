@@ -658,11 +658,13 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\venta.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\PlanPagoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\CobradorController.cs" />
     <Compile Include="Controllers\CobroController.cs" />
@@ -691,6 +693,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlanPagoViewModel.cs" />
     <Compile Include="Models\ProveedorViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
     <Compile Include="Models\CobradorViewModel.cs" />
@@ -786,6 +789,9 @@
     <Content Include="Views\Cobro\Modificar.cshtml" />
     <Content Include="Views\Cobrador\Modificar.cshtml" />
     <Content Include="Views\VentaItem\Eliminar.cshtml" />
+    <Content Include="Views\PlanPago\Index.cshtml" />
+    <Content Include="Views\PlanPago\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\PlanPago\Crear.cshtml" />
     <Content Include="Views\VentaPagada\Index.cshtml" />
     <Content Include="Views\VentaAnulada\Index.cshtml" />
     <None Include="Web.Debug.config">

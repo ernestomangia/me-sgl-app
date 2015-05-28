@@ -658,6 +658,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\venta.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -791,6 +792,8 @@
     <Content Include="Views\PlanPago\Index.cshtml" />
     <Content Include="Views\PlanPago\Shared\Form_Partial.cshtml" />
     <Content Include="Views\PlanPago\Crear.cshtml" />
+    <Content Include="Views\VentaPagada\Index.cshtml" />
+    <Content Include="Views\VentaAnulada\Index.cshtml" />
     <Content Include="Views\PlanPago\Eliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -801,7 +804,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">

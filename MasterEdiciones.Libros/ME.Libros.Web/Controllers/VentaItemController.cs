@@ -28,11 +28,17 @@ namespace ME.Libros.Web.Controllers
             return PartialView(ventaItemViewModels);
         }
 
-        public PartialViewResult CrearItem()
+        [HttpPost]
+        public PartialViewResult CrearItem(List<VentaItemViewModel> ventaItemViewModels)
         {
+            var productoIds = ventaItemViewModels.Select(vi => vi.ProductoId).ToList();
+            var productos = ProductoService.ListarAsQueryable()
+                                            .Where(p => !productoIds.Contains(p.Id))
+                                            .ToList();
+
             var ventaViewModel = new VentaItemViewModel
             {
-                Productos = new SelectList(ProductoService.Listar().ToList(), "Id", "Nombre")
+                Productos = new SelectList(productos, "Id", "Nombre")
             };
 
             return PartialView("~/Views/VentaItem/Crear.cshtml", ventaViewModel);

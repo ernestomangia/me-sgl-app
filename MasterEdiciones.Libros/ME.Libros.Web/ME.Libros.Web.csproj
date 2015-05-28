@@ -791,6 +791,7 @@
     <Content Include="Views\PlanPago\Index.cshtml" />
     <Content Include="Views\PlanPago\Shared\Form_Partial.cshtml" />
     <Content Include="Views\PlanPago\Crear.cshtml" />
+    <Content Include="Views\PlanPago\Eliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

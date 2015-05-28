@@ -55,25 +55,43 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(p => p.Monto, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(p => p.Monto, new { @class = "form-control"})
+                @Html.TextBoxFor(p => p.Monto, new { @class = "form-control monto" })
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    
-    $(document).ready( function () {
+
+    $(document).ready(function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
-            $(".cantidadCuotas :disabled").disabled;
+            $(".cantidadCuotas").attr("disabled", "disabled");
+            $(".cantidadCuotas").removeAttrs("enabled");
+            $(".cantidadCuotas").val("0");
+
+        } else {
+            $(".cantidadCuotas").attr("enabled", "enabled");
+            $(".cantidadCuotas").removeAttrs("disabled");
+
         }
+
+
     });
 
     $(".tipoPlan").on("change", function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
-            $(".cantidadCuotas :disabled").disabled;
+         
+            $(".cantidadCuotas").attr("disabled", "disabled");
+            $(".cantidadCuotas").removeAttrs("enabled");
+            $(".cantidadCuotas").val("0");
+
+
+        } else {
+            $(".cantidadCuotas").attr("enabled", "enabled");
+            $(".cantidadCuotas").removeAttrs("disabled");
+
         }
     });
 

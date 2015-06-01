@@ -69,10 +69,15 @@
             $(".cantidadCuotas").attr("disabled", "disabled");
             $(".cantidadCuotas").removeAttrs("enabled");
             $(".cantidadCuotas").val("0");
+            $(".monto").attr("disabled", "disabled");
+            $(".monto").removeAttrs("enabled");
 
         } else {
             $(".cantidadCuotas").attr("enabled", "enabled");
             $(".cantidadCuotas").removeAttrs("disabled");
+            $(".monto").attr("enabled", "enabled");
+            $(".monto").removeAttrs("disabled");
+
 
         }
 
@@ -86,11 +91,15 @@
             $(".cantidadCuotas").attr("disabled", "disabled");
             $(".cantidadCuotas").removeAttrs("enabled");
             $(".cantidadCuotas").val("0");
+            $(".monto").attr("disabled", "disabled");
+            $(".monto").removeAttrs("enabled");
 
 
         } else {
             $(".cantidadCuotas").attr("enabled", "enabled");
             $(".cantidadCuotas").removeAttrs("disabled");
+            $(".monto").attr("enabled", "enabled");
+            $(".monto").removeAttrs("disabled");
 
         }
     });

@@ -795,6 +795,7 @@
     <Content Include="Views\VentaPagada\Index.cshtml" />
     <Content Include="Views\VentaAnulada\Index.cshtml" />
     <Content Include="Views\PlanPago\Eliminar.cshtml" />
+    <Content Include="Views\PlanPago\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

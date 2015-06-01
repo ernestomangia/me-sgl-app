@@ -9,6 +9,7 @@ using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
+using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Helpers;
 using ME.Libros.Web.Models;
 
@@ -21,6 +22,7 @@ namespace ME.Libros.Web.Controllers
 
         public PlanPagoService PlanPagoService { get; set; }
 
+        private VentaService VentaService { get; set; }
        
         public ActionResult Index()
         {
@@ -43,6 +45,7 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
+            VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             ViewBag.MenuId = 24;
             ViewBag.Title = "Planes de Pago";
         }
@@ -141,6 +144,70 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        public ActionResult Modificar(int id)
+        {
+            PlanPagoViewModel planPagoViewModel;
+            using (PlanPagoService)
+            {
+                
+                var planPagoDominio = PlanPagoService.GetPorId(id);
+                planPagoViewModel = new PlanPagoViewModel(planPagoDominio);
+
+                if (VentaService.ListarAsQueryable().Any(p=>p.PlanPago.Id==planPagoDominio.Id))
+                {
+                    planPagoViewModel.bandera = true;
+                }
+
+            }
+
+            return View(planPagoViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Modificar(PlanPagoViewModel planPagoViewModel)
+        {
+            long resultado = 0;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (PlanPagoService)
+                    {
+                        var planPagoDominio = PlanPagoService.GetPorId(planPagoViewModel.Id);
+                        planPagoDominio.Nombre = planPagoViewModel.Nombre;
+                        planPagoDominio.Descripcion = planPagoViewModel.Descripcion;
+
+                        if(!planPagoViewModel.bandera)
+                        {planPagoDominio.CantidadCuotas = planPagoViewModel.CantidadCuotas;
+                        planPagoDominio.Tipo = planPagoViewModel.Tipo;
+                        planPagoDominio.Monto = planPagoViewModel.Monto;
+                        }
+
+                        resultado = PlanPagoService.Guardar(planPagoDominio);
+                        if (resultado <= 0)
+                        {
+                            foreach (var error in PlanPagoService.ModelError)
+                            {
+                                ModelState.AddModelError(error.Key, error.Value);
+                            }
+                        }
+                        else
+                        {
+                            TempData["Id"] = planPagoDominio.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElPlanPago, planPagoDominio.Id);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
+
+            return resultado > 0
+                ? (ActionResult)RedirectToAction("Index")
+                : View(planPagoViewModel);
+        }
 
 	}
 }

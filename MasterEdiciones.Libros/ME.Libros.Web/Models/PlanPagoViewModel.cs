@@ -50,6 +50,8 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public decimal Monto { get; set; }
 
+        public bool bandera { get; set; }
+
         #endregion
 
 

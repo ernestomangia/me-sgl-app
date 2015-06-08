@@ -4,7 +4,8 @@
         var item = {
             ProductoId: $(this).val(),
             Cantidad: $(this).next(".hiddenCantidad").val(),
-            PrecioVentaVendido: $(this).next(".hiddenPrecioVentaVendido").val()
+            PrecioVentaVendido: $(this).next(".hiddenPrecioVentaVendido").val(),
+            MontoItemVendido: $(this).next(".hiddenMontoItemVendido").val()
         };
         ventaItemViewModels.push(item);
     });
@@ -118,14 +119,18 @@ function actualizarHiddens() {
     var table = $("#ventaDetalleTable").DataTable();
     $(".hiddenProductoId").each(function () {
         table.cell(indexItem, 0).data(indexItem + 1).draw();
-        $(this).attr("id", "Items[" + indexItem + "].ProductoId");
-        $(this).attr("name", "Items[" + indexItem + "].ProductoId");
-        $(this).next(".hiddenCantidad").attr("id", "Items[" + indexItem + "].Cantidad");
-        $(this).next(".hiddenCantidad").attr("name", "Items[" + indexItem + "].Cantidad");
-        $(this).next(".hiddenPrecioVentaVendido").attr("id", "Items[" + indexItem + "].PrecioVentaVendido");
-        $(this).next(".hiddenPrecioVentaVendido").attr("name", "Items[" + indexItem + "].PrecioVentaVendido");
-        $(this).next(".hiddenMontoItemVendido").attr("id", "Items[" + indexItem + "].MontoItemVendido");
-        $(this).next(".hiddenMontoItemVendido").attr("name", "Items[" + indexItem + "].MontoItemVendido");
+        var oldPreFix = "#Items\\[" + $(this).attr("id").substring($(this).attr("id").indexOf("[") + 1, $(this).attr("id").indexOf("]")) + "\\]\\.";
+
+        var preFix = "Items[" + indexItem + "].";
+        // ProductoId
+        $(this).attr("id", preFix + "ProductoId");
+        $(this).attr("name", preFix + "ProductoId");
+        // Cantidad
+        $(oldPreFix + "Cantidad").attr("id", preFix + "Cantidad").attr("name", preFix + "Cantidad");
+        // PrecioVenta
+        $(oldPreFix + "PrecioVentaVendido").attr("id", preFix + "PrecioVentaVendido").attr("name", preFix + "PrecioVentaVendido");
+        // MontoItemVendido 
+        $(oldPreFix + "MontoItemVendido").attr("id", preFix + "MontoItemVendido").attr("name", preFix + "MontoItemVendido");
         indexItem++;
     });
 
@@ -182,7 +187,8 @@ function getProducto() {
             },
             success: function (data) {
                 var precioVenta = parseFloat(data.PrecioVenta);
-                calcularMontoItem(precioVenta);
+                calcularMontoItemVendido(precioVenta);
+                calcularMontoItemCalculado(precioVenta);
                 $("#precioSugerido").text(formatFloat(precioVenta));
                 $("#PrecioVentaVendido").val(formatFloat(precioVenta));
             },
@@ -199,13 +205,23 @@ function formatFloat(value) {
     return Globalize.format(value, "n2");
 }
 
-function calcularMontoItem(precioVentaVendido) {
+function calcularMontoItemVendido(precioVentaVendido) {
     var cantidad = parseInt($("#Cantidad").val());
     if (cantidad > 0 && precioVentaVendido >= 0) {
         var monto = precioVentaVendido * cantidad;
         $("#MontoItemVendido").val(formatFloat(monto));
     } else {
         $("#MontoItemVendido").val("");
+    }
+}
+
+function calcularMontoItemCalculado(precioVentaCalculado) {
+    var cantidad = parseInt($("#Cantidad").val());
+    if (cantidad > 0 && precioVentaCalculado >= 0) {
+        var monto = precioVentaCalculado * cantidad;
+        $("#subtotalSugerido").text(formatFloat(monto));
+    } else {
+        $("#subtotalSugerido").text("-");
     }
 }
 

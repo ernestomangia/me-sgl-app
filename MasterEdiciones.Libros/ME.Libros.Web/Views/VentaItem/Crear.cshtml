@@ -33,6 +33,7 @@
                         @Html.LabelFor(vi => vi.MontoItemVendido, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, autocomplete = "off" })
+                            <span class="label label-primary">Sugerido: $ <span id="subtotalSugerido">-</span></span>
                         </div>
                     </div>
                 </div>
@@ -93,10 +94,19 @@
         getProducto();
     });
 
-    $('#Cantidad, #PrecioVentaVendido').on('keyup change', function(e) {
+    $('#Cantidad').on('keyup change', function (e) {
         if (isValidKey(e.keyCode)) {
             var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
-            calcularMontoItem(precioVentaVendido);
+            calcularMontoItemVendido(precioVentaVendido);
+            var precioVentaCalculado = Globalize.parseFloat($("#precioSugerido").text());
+            calcularMontoItemCalculado(precioVentaCalculado);
+        }
+    });
+
+    $('#PrecioVentaVendido').on('keyup change', function(e) {
+        if (isValidKey(e.keyCode)) {
+            var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
+            calcularMontoItemVendido(precioVentaVendido);
         }
     });
 

@@ -29,19 +29,25 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult CrearItem(List<VentaItemViewModel> ventaItemViewModels)
+        public ActionResult CrearItem(List<VentaItemViewModel> ventaItemViewModels)
         {
+            if (ventaItemViewModels == null)
+            {
+                ventaItemViewModels = new List<VentaItemViewModel>();
+            }
+
             var productoIds = ventaItemViewModels.Select(vi => vi.ProductoId).ToList();
             var productos = ProductoService.ListarAsQueryable()
-                                            .Where(p => !productoIds.Contains(p.Id))
-                                            .ToList();
+                .Where(p => !productoIds.Contains(p.Id))
+                .ToList()
+                .Select(p => new ProductoViewModel(p));
 
             var ventaViewModel = new VentaItemViewModel
             {
                 Productos = new SelectList(productos, "Id", "Nombre")
             };
 
-            return PartialView("~/Views/VentaItem/Crear.cshtml", ventaViewModel);
+            return View("~/Views/VentaItem/Crear.cshtml", ventaViewModel);
         }
 
         [HttpPost]
@@ -54,21 +60,13 @@ namespace ME.Libros.Web.Controllers
                     using (ProductoService)
                     {
                         var productoDominio = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
+                        ventaItemViewModel.Producto = new ProductoViewModel(productoDominio);
+                        ventaItemViewModel.PrecioCosto = ventaItemViewModel.Producto.PrecioCosto;
+                        ventaItemViewModel.PrecioVentaCalculado = productoDominio.PrecioVenta;
+                        ventaItemViewModel.PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido;
+                        ventaItemViewModel.MontoItemCalculado = ventaItemViewModel.Cantidad * productoDominio.PrecioVenta;
+                        ventaItemViewModel.MontoItemVendido = ventaItemViewModel.MontoItemVendido;
 
-                        //Validar stock
-                        if (!ProductoService.VerificarStock(productoDominio, ventaItemViewModel.Cantidad))
-                        {
-                            foreach (var error in ProductoService.ModelError)
-                            {
-                                ModelState.AddModelError(error.Key, error.Value);
-                            }
-                        }
-                        else
-                        {
-                            ventaItemViewModel.Producto = new ProductoViewModel(productoDominio);
-                            ventaItemViewModel.PrecioVenta = ventaItemViewModel.Producto.PrecioVenta;
-                            ventaItemViewModel.Monto = ventaItemViewModel.Cantidad * ventaItemViewModel.Producto.PrecioVenta;
-                        }
                     }
                 }
                 catch (Exception ex)
@@ -80,7 +78,6 @@ namespace ME.Libros.Web.Controllers
             return new JsonResult
             {
                 Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), VentaItem = ventaItemViewModel }
-                //JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
     }

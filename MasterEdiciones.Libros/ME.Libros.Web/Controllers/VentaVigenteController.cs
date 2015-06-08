@@ -178,8 +178,9 @@ namespace ME.Libros.Web.Controllers
                             FechaAlta = DateTime.Now,
                             Cantidad = ventaItemViewModel.Cantidad,
                             Producto = producto,
-                            PrecioVenta = producto.PrecioVenta,
-                            PrecioCosto = producto.PrecioCosto
+                            PrecioVenta = ventaItemViewModel.PrecioVentaVendido,
+                            PrecioCosto = producto.PrecioCosto,
+                            Monto = ventaItemViewModel.MontoItemVendido
                         });
                     }
 

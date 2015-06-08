@@ -117,10 +117,6 @@
             mensajeSuccess('@ViewBag.Mensaje');
         }
 
-        $("input[data-val-length-max]").each(function () {
-            $(this).attr("maxlength", $(this).data().valLengthMax);
-        });
-
         Globalize.culture("es-AR");
         //Globalize.load("es-AR");
         //Globalize.locale("es-AR");
@@ -130,14 +126,15 @@
             $(this).attr('disabled', true);
         });
 
+        setMaxlength();
     });
 
     $(function () {
-        $("[data-hide]").on("click", function () {
+        $(document).on("click", "[data-hide]", function () {
             $(this).closest("." + $(this).attr("data-hide")).addClass("hide");
         });
     });
-
+    
     $(".formEntidad").on("submit", function () {
         validationSummaryVisibility(this);
     });
@@ -150,6 +147,7 @@
 
     jQuery.extend(jQuery.validator.messages, {
         email: '@Html.Raw(string.Format(ErrorMessages.Invalido, "Email"))',
+        digits: 'El {0} debe ser un numero entero'
     });
 
     $('.datepicker').datepicker({
@@ -166,7 +164,4 @@
     $('.modalEliminar').on('shown.bs.modal', function () {
         $(this).find(".btnCancelarEliminar").focus();
     });
-
-   
-    
 </script>

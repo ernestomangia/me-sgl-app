@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("Crear", "VentaItem", FormMethod.Post, new { id = "formVentaItem", @class = "form-horizontal formEntidad" }))
 {
-    <div id="modalAgregarItem" class="modal fade modalAgregarItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div id="modalVentaItem" class="modal fade modalVentaItem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -19,13 +19,20 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad" })
+                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "3", autocomplete = "off" })
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
-                        @Html.LabelFor(vi => vi.PrecioVenta, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(vi => vi.PrecioVentaVendido, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.PrecioVenta, new { @class = "form-control", placeholder = Messages.PrecioVenta })
+                            @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, autocomplete = "off" })
+                            <span class="label label-primary">Sugerido: $ <span id="precioSugerido">-</span></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(vi => vi.MontoItemVendido, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, autocomplete = "off" })
                         </div>
                     </div>
                 </div>
@@ -43,7 +50,7 @@
                         <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                         Cancelar
                     </button>
-                    <button id="btnAceptarVentaItem" name="btnAceptarVentaItem" type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         Agregar
                     </button>
@@ -52,3 +59,53 @@
         </div>
     </div>
 }
+
+<script>
+    $(document).ready(function() {
+        setMaxlength();
+        $("#Cantidad").val("");
+        $("#PrecioVentaVendido").val("");
+        $("#MontoItemVendido").val("");
+
+        jQuery.validator.unobtrusive.parse("#formVentaItem");
+
+        $("#Cantidad").rules("add", {
+            min: 1,
+            messages: {
+                min: "La <b>Cantidad</b> debe ser mayor a 0 unidades</b>"
+            }
+        });
+    });
+
+    $("#formVentaItem").on("submit", function(e) {
+        e.preventDefault();
+        validationSummaryVisibility(this);
+        if ($("#formVentaItem").valid()) {
+            crearVentaItem(this);
+        }
+    });
+
+    $('#modalAgregarItem').on('hidden.bs.modal', function() {
+        $("#contenedorVentaItem").empty();
+    });
+
+    $('#ProductoId').on('change', function() {
+        getProducto();
+    });
+
+    $('#Cantidad, #PrecioVentaVendido').on('keyup change', function(e) {
+        if (isValidKey(e.keyCode)) {
+            var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
+            calcularMontoItem(precioVentaVendido);
+        }
+    });
+
+    $('#MontoItemVendido').on('keyup change', function () {
+        var montoItemVendido = Globalize.parseFloat($(this).val());
+        var cantidad = parseInt($("#Cantidad").val());
+        if (cantidad > 0 && montoItemVendido >= 0) {
+            var precioVentaVendido = montoItemVendido / cantidad;
+            $("#PrecioVentaVendido").val(formatFloat(precioVentaVendido));
+        }
+    });
+</script>

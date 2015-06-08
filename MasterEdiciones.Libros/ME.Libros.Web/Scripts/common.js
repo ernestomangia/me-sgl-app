@@ -146,3 +146,9 @@ function validationSummaryVisibility(form) {
         $(form).find(".validationSummary").removeClass("hide");
     }
 }
+
+function setMaxlength() {
+    $("input[data-val-length-max]").each(function () {
+        $(this).attr("maxlength", $(this).data().valLengthMax);
+    });
+}

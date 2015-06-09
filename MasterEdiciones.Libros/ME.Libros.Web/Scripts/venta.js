@@ -74,15 +74,15 @@ function agregarVentaItem(ventaItem) {
         //0,
         ventaItem.Producto.Nombre,
         ventaItem.Cantidad,
-        ventaItem.PrecioVentaVendido,
-        ventaItem.MontoItemVendido,
+        formatFloat(ventaItem.PrecioVentaVendido),
+        formatFloat(ventaItem.MontoItemVendido),
         modificar + eliminar
     ]).draw();
 
     var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
     var hiddenCantidad = "<input type='hidden'  id='Items[" + indexItems + "].Cantidad' class='hiddenCantidad' name='Items[" + indexItems + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
-    var hiddenPrecioVentaVendido = "<input type='hidden' id='Items[" + indexItems + "].PrecioVentaVendido' class='hiddenPrecioVentaVendido' name='Items[" + indexItems + "].PrecioVentaVendido' value='" + ventaItem.PrecioVentaVendido + "' />";
-    var hiddenMontoItemVendido = "<input type='hidden' id='Items[" + indexItems + "].MontoItemVendido' class='hiddenMontoItemVendido' name='Items[" + indexItems + "].MontoItemVendido' value='" + ventaItem.MontoItemVendido + "' />";
+    var hiddenPrecioVentaVendido = "<input type='hidden' id='Items[" + indexItems + "].PrecioVentaVendido' class='hiddenPrecioVentaVendido' name='Items[" + indexItems + "].PrecioVentaVendido' value='" + formatFloat(ventaItem.PrecioVentaVendido) + "' />";
+    var hiddenMontoItemVendido = "<input type='hidden' id='Items[" + indexItems + "].MontoItemVendido' class='hiddenMontoItemVendido' name='Items[" + indexItems + "].MontoItemVendido' value='" + formatFloat(ventaItem.MontoItemVendido) + "' />";
     $("#formVenta").append(hiddenProductoId + hiddenCantidad + hiddenPrecioVentaVendido + hiddenMontoItemVendido);
     $("#cantidadItems").val(indexItems + 1);
 }
@@ -135,6 +135,11 @@ function actualizarHiddens() {
     });
 
     $("#cantidadItems").val(indexItem);
+
+    indexItem = 0;
+    $(".btnEliminar").each(function () {
+        $(this).attr("onclick", "setearId(" + indexItem + ")");
+    });
 }
 
 function calcularTotales(dt) {
@@ -165,12 +170,13 @@ function calcularTotales(dt) {
         .column(4, { page: 'current' })
         .data()
         .reduce(function (a, b) {
+            b = Globalize.parseFloat(b);
             return intVal(a) + intVal(b);
         }, 0);
 
     // Update footer
     $(api.column(4).footer()).html(
-        '$' + pageTotal + ' ( $' + total + ' total)'
+        '$' + formatFloat(pageTotal) + ' ( $' + total + ' total)'
     );
     $("#MontoVendido, #MontoCalculado").val(total);
 }

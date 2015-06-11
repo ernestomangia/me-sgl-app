@@ -211,7 +211,7 @@
     <value>Nº</value>
   </data>
   <data name="NumeroVenta" xml:space="preserve">
-    <value>Nº</value>
+    <value>Nº venta</value>
   </data>
   <data name="PrecioCosto" xml:space="preserve">
     <value>Precio de costo</value>
@@ -278,5 +278,23 @@
   </data>
   <data name="ElPlanPago" xml:space="preserve">
     <value>El plan de pago</value>
+  </data>
+  <data name="FechaCompra" xml:space="preserve">
+    <value>Fecha de compra</value>
+  </data>
+  <data name="MontoComprado" xml:space="preserve">
+    <value>Monto comprado</value>
+  </data>
+  <data name="NroFactura" xml:space="preserve">
+    <value>Nº factura</value>
+  </data>
+  <data name="NroRemito" xml:space="preserve">
+    <value>Nº remito</value>
+  </data>
+  <data name="NumeroCompra" xml:space="preserve">
+    <value>Nº compra</value>
+  </data>
+  <data name="PrecioCompra" xml:space="preserve">
+    <value>Precio de compra</value>
   </data>
 </root>

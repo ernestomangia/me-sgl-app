@@ -277,6 +277,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de compra.
+        /// </summary>
+        public static string FechaCompra {
+            get {
+                return ResourceManager.GetString("FechaCompra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fecha de nacimiento.
         /// </summary>
         public static string FechaNacimiento {
@@ -394,6 +403,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Monto comprado.
+        /// </summary>
+        public static string MontoComprado {
+            get {
+                return ResourceManager.GetString("MontoComprado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Subtotal.
         /// </summary>
         public static string MontoItem {
@@ -421,6 +439,24 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Nº factura.
+        /// </summary>
+        public static string NroFactura {
+            get {
+                return ResourceManager.GetString("NroFactura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nº remito.
+        /// </summary>
+        public static string NroRemito {
+            get {
+                return ResourceManager.GetString("NroRemito", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Nº.
         /// </summary>
         public static string Numero {
@@ -430,7 +466,16 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nº.
+        ///   Busca una cadena traducida similar a Nº compra.
+        /// </summary>
+        public static string NumeroCompra {
+            get {
+                return ResourceManager.GetString("NumeroCompra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nº venta.
         /// </summary>
         public static string NumeroVenta {
             get {
@@ -444,6 +489,15 @@ namespace ME.Libros.Web {
         public static string PorcentajeComision {
             get {
                 return ResourceManager.GetString("PorcentajeComision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Precio de compra.
+        /// </summary>
+        public static string PrecioCompra {
+            get {
+                return ResourceManager.GetString("PrecioCompra", resourceCulture);
             }
         }
         

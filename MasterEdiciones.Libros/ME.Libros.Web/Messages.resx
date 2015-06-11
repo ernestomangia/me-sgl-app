@@ -216,8 +216,8 @@
   <data name="PrecioCosto" xml:space="preserve">
     <value>Precio de costo</value>
   </data>
-  <data name="PrecioVenta" xml:space="preserve">
-    <value>Precio de venta</value>
+  <data name="PrecioVentaCalculado" xml:space="preserve">
+    <value>Precio de venta calculado</value>
   </data>
   <data name="Provincia" xml:space="preserve">
     <value>Provincia</value>
@@ -246,8 +246,8 @@
   <data name="Nro" xml:space="preserve">
     <value>Nro</value>
   </data>
-  <data name="MontoItem" xml:space="preserve">
-    <value>Subtotal</value>
+  <data name="MontoItemVendido" xml:space="preserve">
+    <value>Subtotal Vendido</value>
   </data>
   <data name="MontoCobro" xml:space="preserve">
     <value>Monto</value>

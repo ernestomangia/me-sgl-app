@@ -231,6 +231,18 @@ namespace ME.Libros.Web.Controllers
             return View(productoViewModel);
         }
 
+        [HttpGet]
+        public JsonResult Get(int id)
+        {
+            var productoViewModel = new ProductoViewModel(ProductoService.GetPorId(id));
+            
+            return new JsonResult
+            {
+                Data = productoViewModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         #region Private Methods
 
         private void PrepareModel(ProductoViewModel productoViewModel)

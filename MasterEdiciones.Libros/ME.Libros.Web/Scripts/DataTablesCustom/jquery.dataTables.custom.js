@@ -32,7 +32,9 @@
         "oAria": {
             "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
             "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-        }
+        },
+        "decimal": ",",
+        "thousands": "."
     },
     lengthMenu: [10, 25, 50],
     pagingType: "full_numbers",

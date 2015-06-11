@@ -32,66 +32,21 @@
             </div>
         </div>
     </div>
-    <input id="cantidadItems" type="hidden" name="Cantidad" value="@Model.Items.Count" />
+    <input type="hidden" id="cantidadItems" name="cantidadItems" value="@Model.Items.Count" />
 }
 
-@*@{ Html.RenderAction("CrearItem", "VentaItem"); }*@
+<div id="contenedorVentaItem"></div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $(".datepicker").each(function () {
             $(this).datepicker("setDate", new Date());
         });
 
-        $("#formVentaItem").on("submit", function (e) {
-            e.preventDefault();
-            if ($("#formVentaItem").valid()) {
-                $(".modalAgregarItem .validationSummary").addClass("hide");
-                $(".modalAgregarItem .validationSummary ul").remove();
-                $.ajax({
-                    method: "POST",
-                    url: $(this).attr("action"),
-                    data: $(this).serialize(),
-                    dataType: "json",
-                    error: function (jqXhr, status, error) {
-                        mensajeError("Ha ocurrido un error");
-                    },
-                    success: function (data) {
-                        if (data.Success) {
-                            var ventaItem = data.VentaItem;
-                            agregarVentaItem(ventaItem);
-                            $('#modalAgregarItem').modal('toggle');
-                            mensajeSuccess("Se agrego el " + ventaItem.Producto.Nombre + " al detalle de la venta");
-                        } else {
-                            var errores = "<ul>";
-                            $.each(data.Errors, function (key, value) {
-                                $.each(value.Value, function (key2, value2) {
-                                    errores += "<li>" + value2 + "</li>";
-                                });
-                            });
-                            errores += "</ul>";
-                            $(".modalAgregarItem .validationSummary").append(errores);
-                            $(".modalAgregarItem .validationSummary").removeClass("hide");
-                        }
-                    },
-                    timeout: 10000,
-                    cache: false
-                });
-            }
+        $("#btnNuevoVentaItem").on("click", function () {
+            abrirModalVentaItem('@Url.Action("CrearItem", "VentaItem")');
         });
-
-        $('#modalAgregarItem').on('hidden.bs.modal', function () {
-            $(this).find(".validationSummary").addClass("hide");
-            //$(this).find(".validationSummary ul").remove();
-            $('#formVentaItem').each(function () {
-                this.reset();
-            });
-            $(this).find('.form-group').each(function () {
-                $(".form-group").removeClass("has-error has-success");
-            });
-        });
-
+        
         //var columnas = [6];
         //var i = 0;
         //$('#ventaDetalleTable thead th').each(function () {
@@ -126,41 +81,7 @@
             "order": [],
             //"columnDefs": columna,
             "footerCallback": function (row, data, start, end, display) {
-                var api = this.api();
-
-                // Remove the formatting to get integer data for summation
-                var intVal = function (i) {
-                    return typeof i === 'string' ?
-                        i.replace(/[\$,]/g, '') * 1 :
-                        typeof i === 'number' ?
-                        i : 0;
-                };
-
-                if (api.column(4).data().length == 0) {
-                    return;
-                }
-
-                // Total over all pages
-                total = api
-                    .column(4)
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    });
-
-                // Total over this page
-                pageTotal = api
-                    .column(4, { page: 'current' })
-                    .data()
-                    .reduce(function (a, b) {
-                        return intVal(a) + intVal(b);
-                    }, 0);
-
-                // Update footer
-                $(api.column(4).footer()).html(
-                    '$' + pageTotal + ' ( $' + total + ' total)'
-                );
-                $("#MontoVendido, #MontoCalculado").val(total);
+                calcularTotales(this);
             }
             //"order": [[3, "desc"]]
         });
@@ -176,41 +97,4 @@
         array[5] = [];
         return array;
     }
-
-    $("#agregarVentaItem").on("click", function () {
-
-        var ventaItemViewModels = new Array();
-        var item = {
-            ProductoId: null,
-            Cantidad: null,
-            PrecioVenta: null
-        };
-        ventaItemViewModels.push(item);
-
-        $(".hiddenProductoId").each(function () {
-            var item = {
-                ProductoId: $(this).val(),
-                Cantidad: $(this).next(".hiddenCantidad").val(),
-                PrecioVenta: $(this).next(".hiddenPrecioVenta").val()
-            };
-            ventaItemViewModels.push(item);
-        });
-
-        $.ajax({
-            method: "POST",
-            url: '@Url.Action("CrearItem", "VentaItem")',
-            contentType: "application/json;charset=utf-8",
-            data: JSON.stringify(ventaItemViewModels),
-            dataType: "html",
-            error: function (jqXhr, status, error) {
-                mensajeError("Ha ocurrido un error");
-            },
-            success: function (data) {
-                $("#formVenta").after(data);
-                $('#modalAgregarItem').modal('toggle');
-            },
-            timeout: 10000,
-            cache: false
-        });
-    });
 </script>

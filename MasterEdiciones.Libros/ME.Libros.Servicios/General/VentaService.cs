@@ -35,20 +35,20 @@ namespace ME.Libros.Servicios.General
 
                 foreach (var ventaItemDominio in ventaDominio.VentaItems)
                 {
-                    if (!ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad))
-                    {
-                        foreach (var error in ProductoService.ModelError)
-                        {
-                            ModelError.Add(error.Key, error.Value);
-                        }
+                    //if (!ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad))
+                    //{
+                    //    foreach (var error in ProductoService.ModelError)
+                    //    {
+                    //        ModelError.Add(error.Key, error.Value);
+                    //    }
 
-                        return -1;
-                    }
+                    //    return -1;
+                    //}
 
                     ProductoService.RestarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
                     ventaItemDominio.PrecioCosto = ventaItemDominio.Producto.PrecioCosto;
-                    ventaItemDominio.PrecioVenta = ventaItemDominio.Producto.PrecioVenta;
-                    CalcularTotalItem(ventaItemDominio);
+                    //ventaItemDominio.PrecioVenta = ventaItemDominio.Producto.PrecioVenta;
+                    //CalcularTotalItem(ventaItemDominio);
                 }
 
                 CalcularTotalVenta(ventaDominio);

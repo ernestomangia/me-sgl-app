@@ -277,7 +277,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Fecha de compra.
+        ///   Looks up a localized string similar to Fecha de compra.
         /// </summary>
         public static string FechaCompra {
             get {
@@ -286,7 +286,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Fecha de nacimiento.
+        ///   Looks up a localized string similar to Fecha de nacimiento.
         /// </summary>
         public static string FechaNacimiento {
             get {
@@ -403,7 +403,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Monto comprado.
+        ///   Looks up a localized string similar to Monto comprado.
         /// </summary>
         public static string MontoComprado {
             get {
@@ -412,8 +412,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Subtotal.
-        ///   Looks up a localized string similar to Subtotal Calculado.
+        ///   Looks up a localized string similar to Subtotal calculado.
         /// </summary>
         public static string MontoItemCalculado {
             get {
@@ -449,7 +448,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nº factura.
+        ///   Looks up a localized string similar to Nº factura.
         /// </summary>
         public static string NroFactura {
             get {
@@ -458,12 +457,12 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nº remito.
+        ///   Looks up a localized string similar to Nº remito.
         /// </summary>
         public static string NroRemito {
             get {
                 return ResourceManager.GetString("NroRemito", resourceCulture);
-        }
+            }
         }
         
         /// <summary>
@@ -476,7 +475,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nº compra.
+        ///   Looks up a localized string similar to Nº compra.
         /// </summary>
         public static string NumeroCompra {
             get {
@@ -485,11 +484,20 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Nº venta.
+        ///   Looks up a localized string similar to Nº venta.
         /// </summary>
         public static string NumeroVenta {
             get {
                 return ResourceManager.GetString("NumeroVenta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plan de pago.
+        /// </summary>
+        public static string PlanPago {
+            get {
+                return ResourceManager.GetString("PlanPago", resourceCulture);
             }
         }
         
@@ -503,7 +511,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Precio de compra.
+        ///   Looks up a localized string similar to Precio de compra.
         /// </summary>
         public static string PrecioCompra {
             get {
@@ -512,7 +520,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Precio de costo.
+        ///   Looks up a localized string similar to Precio de costo.
         /// </summary>
         public static string PrecioCosto {
             get {

@@ -21,6 +21,7 @@ namespace ME.Libros.Web.Controllers
         public CobradorService CobradorService { get; set; }
         public VendedorService VendedorService { get; set; }
         public ProductoService ProductoService { get; set; }
+        public PlanPagoService PlanPagoService { get; set; }
 
         public VentaVigenteController()
         {
@@ -30,6 +31,7 @@ namespace ME.Libros.Web.Controllers
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
             CobradorService = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
             VendedorService = new VendedorService(new EntidadRepository<VendedorDominio>(modelContainer));
+            PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
             ViewBag.Title = "Vigentes";
             ViewBag.MenuId = 20;
         }
@@ -167,6 +169,7 @@ namespace ME.Libros.Web.Controllers
                         Estado = EstadoVenta.Vigente,
                         MontoVendido = ventaViewModel.MontoVendido,
                         Saldo = ventaViewModel.MontoVendido,
+                        PlanPago = PlanPagoService.GetPorId(ventaViewModel.PlanPagoId),
                         VentaItems = new List<VentaItemDominio>(),
                     };
 
@@ -178,9 +181,9 @@ namespace ME.Libros.Web.Controllers
                             FechaAlta = DateTime.Now,
                             Cantidad = ventaItemViewModel.Cantidad,
                             Producto = producto,
-                            PrecioVenta = ventaItemViewModel.PrecioVentaVendido,
+                            PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido,
                             PrecioCosto = producto.PrecioCosto,
-                            Monto = ventaItemViewModel.MontoItemVendido
+                            MontoVendido = ventaItemViewModel.MontoItemVendido
                         });
                     }
 
@@ -270,6 +273,10 @@ namespace ME.Libros.Web.Controllers
             ventaViewModel.Vendedores = new SelectList(VendedorService.Listar()
                 .ToList()
                 .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Cuil }), "Id", "Text");
+
+            ventaViewModel.PlanesPago = new SelectList(PlanPagoService.Listar()
+                .ToList()
+                .Select(p => new PlanPagoViewModel(p)), "Id", "Nombre");
         }
 
         #endregion

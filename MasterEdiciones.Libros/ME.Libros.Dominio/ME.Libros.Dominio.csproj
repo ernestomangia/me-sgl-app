@@ -44,6 +44,7 @@
     <Compile Include="General\CompraDominio.cs" />
     <Compile Include="General\CompraItemDominio.cs" />
     <Compile Include="General\EditorialDominio.cs" />
+    <Compile Include="General\UsuarioDominio.cs" />
     <Compile Include="General\GastoVendedorDominio.cs" />
     <Compile Include="General\GastoCobradorDominio.cs" />
     <Compile Include="General\PlanPagoDominio.cs" />

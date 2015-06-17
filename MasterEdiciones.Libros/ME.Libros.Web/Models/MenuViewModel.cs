@@ -40,6 +40,9 @@ namespace ME.Libros.Web.Models
                 case 8:
                 case 9:
                 case 10:
+                case 11:
+
+              
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 1,
@@ -98,7 +101,7 @@ namespace ME.Libros.Web.Models
                         Posicion = 100
                     });
 
-                               MenuViewModels.Add(new MenuViewModel
+                   MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 9,
                         Nombre = "Vendedores",
@@ -111,6 +114,13 @@ namespace ME.Libros.Web.Models
                         Nombre = "Proveedores",
                         Link = helper.Action("Index", "Proveedor"),
                         Posicion = 40
+                    });
+                    MenuViewModels.Add(new MenuViewModel
+                    {
+                        Id = 11,
+                        Nombre = "Usuarios",
+                        Link = helper.Action("Index", "Usuario"),
+                        Posicion = 0,
                     });
 
                     break;

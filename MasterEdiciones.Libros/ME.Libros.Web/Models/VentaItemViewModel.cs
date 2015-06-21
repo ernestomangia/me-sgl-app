@@ -73,6 +73,8 @@ namespace ME.Libros.Web.Models
 
         public ProductoViewModel Producto { get; set; }
 
+        public VentaViewModel Venta { get; set; }
+
         public SelectList Productos { get; set; }
 
         #endregion

@@ -34,9 +34,10 @@ namespace ME.Libros.Web.Models
             CobradorId = ventaDominio.Cobrador.Id;
             //VendedorId = ventaDominio.Vendedor.Id;
 
-            if (ventaDominio.VentaItems  != null)
+            if (ventaDominio.VentaItems != null)
             {
                 Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
+                Items.ForEach(vi => vi.Venta = this);
             }
         }
 
@@ -70,7 +71,7 @@ namespace ME.Libros.Web.Models
         public decimal Saldo { get; set; }
 
         public EstadoVenta Estado { get; set; }
-        
+
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ClienteId { get; set; }

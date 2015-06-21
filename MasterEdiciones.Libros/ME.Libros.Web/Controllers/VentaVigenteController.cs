@@ -108,33 +108,6 @@ namespace ME.Libros.Web.Controllers
             }
         }
 
-        public ActionResult IndexEstado(EstadoVenta estado)
-        {
-            ViewBag.Id = TempData["Id"];
-            ViewBag.Mensaje = TempData["Mensaje"];
-
-            var ventas = new List<VentaViewModel>();
-            using (VentaService)
-            {
-                ventas.AddRange(VentaService.ListarAsQueryable()
-                    .Where(v => v.Estado == estado)
-                    .OrderByDescending(v => v.FechaVenta)
-                    .ToList()
-                    .Select(v => new VentaViewModel(v)));
-            }
-
-            switch (estado)
-            {
-                case EstadoVenta.Vigente:
-                    {
-                        ViewBag.Title = "Vigentes";
-                        ViewBag.MenuId = 20;
-                        return View("Index", ventas);
-                    }
-            }
-            return View("Index", ventas);
-        }
-
         public ActionResult Crear()
         {
             var ventaViewModel = new VentaViewModel();

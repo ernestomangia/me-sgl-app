@@ -127,7 +127,7 @@ function actualizarHiddens() {
         $(this).attr("name", preFix + "ProductoId");
         // Cantidad
         $(oldPreFix + "Cantidad").attr("id", preFix + "Cantidad").attr("name", preFix + "Cantidad");
-        // PrecioVenta
+        // PrecioVentaVendido
         $(oldPreFix + "PrecioVentaVendido").attr("id", preFix + "PrecioVentaVendido").attr("name", preFix + "PrecioVentaVendido");
         // MontoItemVendido 
         $(oldPreFix + "MontoItemVendido").attr("id", preFix + "MontoItemVendido").attr("name", preFix + "MontoItemVendido");

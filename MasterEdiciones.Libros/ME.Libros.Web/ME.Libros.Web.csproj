@@ -664,6 +664,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
+    <Compile Include="Controllers\CompraVigenteController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\PlanPagoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\CobradorController.cs" />
@@ -693,6 +696,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CompraItemViewModel.cs" />
+    <Compile Include="Models\CompraViewModel.cs" />
+    <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Models\PlanPagoViewModel.cs" />
     <Compile Include="Models\ProveedorViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
@@ -796,6 +802,12 @@
     <Content Include="Views\VentaAnulada\Index.cshtml" />
     <Content Include="Views\PlanPago\Eliminar.cshtml" />
     <Content Include="Views\PlanPago\Modificar.cshtml" />
+    <Content Include="Views\Compra\Index.cshtml" />
+    <Content Include="Views\Usuario\Crear.cshtml" />
+    <Content Include="Views\Usuario\Eliminar.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Modificar.cshtml" />
+    <Content Include="Views\Usuario\Shared\Form_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -805,6 +817,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CompraVigente\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">

@@ -47,7 +47,7 @@ namespace ME.Libros.Servicios.General
 
                     ProductoService.RestarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
                     ventaItemDominio.PrecioCosto = ventaItemDominio.Producto.PrecioCosto;
-                    //ventaItemDominio.PrecioVenta = ventaItemDominio.Producto.PrecioVenta;
+                    //ventaItemDominio.PrecioVentaVendido = ventaItemDominio.Producto.PrecioVentaVendido;
                     //CalcularTotalItem(ventaItemDominio);
                 }
 
@@ -84,12 +84,12 @@ namespace ME.Libros.Servicios.General
 
         private static void CalcularTotalItem(VentaItemDominio ventaItemDominio)
         {
-            ventaItemDominio.Monto = ventaItemDominio.Cantidad * ventaItemDominio.Producto.PrecioVenta;
+            ventaItemDominio.MontoVendido = ventaItemDominio.Cantidad * ventaItemDominio.Producto.PrecioVenta;
         }
 
         private static void CalcularTotalVenta(VentaDominio entidad)
         {
-            entidad.MontoCalculado = entidad.VentaItems.Sum(vi => vi.Monto);
+            entidad.MontoCalculado = entidad.VentaItems.Sum(vi => vi.MontoVendido);
         }
     }
 }

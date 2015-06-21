@@ -211,7 +211,7 @@
     <value>Nº</value>
   </data>
   <data name="NumeroVenta" xml:space="preserve">
-    <value>Nº</value>
+    <value>Nº venta</value>
   </data>
   <data name="PrecioCosto" xml:space="preserve">
     <value>Precio de costo</value>
@@ -279,13 +279,43 @@
   <data name="ElPlanPago" xml:space="preserve">
     <value>El plan de pago</value>
   </data>
+  <data name="FechaCompra" xml:space="preserve">
+    <value>Fecha de compra</value>
+  </data>
+  <data name="MontoComprado" xml:space="preserve">
+    <value>Monto comprado</value>
+  </data>
+  <data name="NroFactura" xml:space="preserve">
+    <value>Nº factura</value>
+  </data>
+  <data name="NroRemito" xml:space="preserve">
+    <value>Nº remito</value>
+  </data>
+  <data name="NumeroCompra" xml:space="preserve">
+    <value>Nº compra</value>
+  </data>
+  <data name="PrecioCompra" xml:space="preserve">
+    <value>Precio de compra</value>
+  </data>
+  <data name="PlanPago" xml:space="preserve">
+    <value>Plan de pago</value>
+  </data>
   <data name="MontoItemCalculado" xml:space="preserve">
-    <value>Subtotal Calculado</value>
+    <value>Subtotal calculado</value>
   </data>
   <data name="PrecioVentaVendido" xml:space="preserve">
     <value>Precio de venta vendido</value>
   </data>
   <data name="PrecioVenta" xml:space="preserve">
     <value>Precio de venta</value>
+  </data>
+  <data name="Contrasena" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="ElUsuario" xml:space="preserve">
+    <value>El Usuario</value>
+  </data>
+  <data name="Usuario" xml:space="preserve">
+    <value>Usuario</value>
   </data>
 </root>

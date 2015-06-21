@@ -1,0 +1,23 @@
+﻿@model ME.Libros.Web.Models.UsuarioViewModel
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Nombre, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(r => r.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Contrasena, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(r => r.Contrasena, new { @class = "form-control", placeholder = "Contraseña" })
+            </div>
+        </div>
+    </div>
+</div>

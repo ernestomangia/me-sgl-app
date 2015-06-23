@@ -1,9 +1,10 @@
-﻿@model ME.Libros.Web.Models.VentaViewModel
+﻿@using ME.Libros.Utils.Enums
+@model ME.Libros.Web.Models.VentaViewModel
 
 <script src="~/Scripts/venta.js"></script>
 
 <h3>Nueva venta</h3>
-@using (Html.BeginForm("Crear", "VentaVigente", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
+@using (Html.BeginForm("Crear", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
     @Html.AntiForgeryToken()
 
@@ -21,7 +22,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="text-right">
-                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
+                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index", new { estado = EstadoVenta.Vigente})">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>

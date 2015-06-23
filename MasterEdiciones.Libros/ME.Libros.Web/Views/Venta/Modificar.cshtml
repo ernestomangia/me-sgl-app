@@ -1,9 +1,10 @@
-﻿@model ME.Libros.Web.Models.VentaViewModel
+﻿@using ME.Libros.Utils.Enums
+@model ME.Libros.Web.Models.VentaViewModel
 
 <script src="~/Scripts/venta.js"></script>
 
 <h2>Modificar venta</h2>
-@using (Html.BeginForm("Crear", "VentaVigente", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
+@using (Html.BeginForm("Modificar", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
 
@@ -27,7 +28,9 @@
         </div>
         <div class="col-md-5">
             <div class="text-right">
-                <a class="btn btn-default" href="@Url.Action("Index")" title="Cancelar">
+                <a class="btn btn-default" href="@Url.Action("Index", new { estado = ViewBag.MenuId == 23
+                                                ? (EstadoVenta?) null
+                                                : Model.Estado})" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>
@@ -39,6 +42,9 @@
         </div>
     </div>
 }
+
+<h2>Cuotas</h2>
+
 
 <script type="text/javascript">
     $(document).ready(function () {

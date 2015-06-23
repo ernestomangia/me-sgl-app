@@ -678,9 +678,8 @@
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\GastoController.cs" />
     <Compile Include="Controllers\VentaItemController.cs" />
-    <Compile Include="Controllers\VentaVigenteController.cs" />
-    <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -753,9 +752,9 @@
     <Content Include="Scripts\jquery.validate.globalize.min.js.map" />
     <Content Include="Views\Producto\Modificar.cshtml" />
     <Content Include="Views\Producto\Detalle.cshtml" />
-    <Content Include="Views\VentaVigente\Index.cshtml" />
-    <Content Include="Views\VentaVigente\Crear.cshtml" />
-    <Content Include="Views\VentaVigente\Modificar.cshtml" />
+    <Content Include="Views\Venta\Vigente\Index.cshtml" />
+    <Content Include="Views\Venta\Crear.cshtml" />
+    <Content Include="Views\Venta\Modificar.cshtml" />
     <Content Include="Views\Localidad\Modificar.cshtml" />
     <Content Include="Views\Localidad\Detalle.cshtml" />
     <Content Include="Views\Zona\Crear.cshtml" />
@@ -767,10 +766,10 @@
     <Content Include="Views\Rubro\Eliminar.cshtml" />
     <Content Include="Views\Producto\Eliminar.cshtml" />
     <Content Include="Views\Editorial\Eliminar.cshtml" />
-    <Content Include="Views\VentaVigente\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Venta\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Cliente\Eliminar.cshtml" />
     <Content Include="Views\Localidad\Eliminar.cshtml" />
-    <Content Include="Views\VentaVigente\Eliminar.cshtml" />
+    <Content Include="Views\Venta\Eliminar.cshtml" />
     <Content Include="Views\Cobrador\Crear.cshtml" />
     <Content Include="Views\Cobrador\Index.cshtml" />
     <Content Include="Views\Cobrador\Shared\Form_Partial.cshtml" />
@@ -798,8 +797,8 @@
     <Content Include="Views\PlanPago\Index.cshtml" />
     <Content Include="Views\PlanPago\Shared\Form_Partial.cshtml" />
     <Content Include="Views\PlanPago\Crear.cshtml" />
-    <Content Include="Views\VentaPagada\Index.cshtml" />
-    <Content Include="Views\VentaAnulada\Index.cshtml" />
+    <Content Include="Views\Venta\Pagada\Index.cshtml" />
+    <Content Include="Views\Venta\Anulada\Index.cshtml" />
     <Content Include="Views\PlanPago\Eliminar.cshtml" />
     <Content Include="Views\PlanPago\Modificar.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />

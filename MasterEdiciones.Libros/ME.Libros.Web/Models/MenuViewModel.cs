@@ -136,28 +136,28 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 20,
                         Nombre = "Vigentes",
-                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Vigente }),
+                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Vigente }),
                         Posicion = 20
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 21,
                         Nombre = "Pagadas",
-                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Pagada }),
+                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Pagada }),
                         Posicion = 30
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 22,
                         Nombre = "Anuladas",
-                        Link = helper.Action("Index", "VentaVigente", new { estado = EstadoVenta.Anulada }),
+                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Anulada }),
                         Posicion = 40
                     });
                     MenuViewModels.Add(new MenuViewModel
-                    {
+                    {   
                         Id = 23,
                         Nombre = "Todas",
-                        Link = helper.Action("Index", "VentaVigente"),
+                        Link = helper.Action("Index", "Venta", new { estado = (EstadoVenta?) null }),
                         Posicion = 50,
                     });
                     MenuViewModels.Add(new MenuViewModel

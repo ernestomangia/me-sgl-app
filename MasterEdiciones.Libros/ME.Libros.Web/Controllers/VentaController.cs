@@ -263,6 +263,11 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        public PartialViewResult VerCuotas(List<CuotaViewModel> cuotaViewModels)
+        {
+            return PartialView(cuotaViewModels);
+        }
+
         #region Private Methods
 
         private void PrepareModel(VentaViewModel ventaViewModel)

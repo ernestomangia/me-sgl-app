@@ -318,4 +318,22 @@
   <data name="Usuario" xml:space="preserve">
     <value>Usuario</value>
   </data>
+  <data name="NroCuota" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="FechaCobrada" xml:space="preserve">
+    <value>Cobrada</value>
+  </data>
+  <data name="FechaVencimiento" xml:space="preserve">
+    <value>Vencimiento</value>
+  </data>
+  <data name="MontoCobroCuota" xml:space="preserve">
+    <value>Monto cobrado</value>
+  </data>
+  <data name="MontoCuota" xml:space="preserve">
+    <value>Monto original</value>
+  </data>
+  <data name="SaldoCuota" xml:space="preserve">
+    <value>Saldo</value>
+  </data>
 </root>

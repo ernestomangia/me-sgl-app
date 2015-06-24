@@ -3,8 +3,8 @@
 @{
     var estado = new Dictionary<EstadoVenta, string>
     {
-        { EstadoVenta.Vigente, "success" }, 
-        { EstadoVenta.Anulada, "danger" }, 
+        { EstadoVenta.Vigente, "success" },
+        { EstadoVenta.Anulada, "danger" },
         { EstadoVenta.Pagada, "default" }
     };
 }
@@ -83,59 +83,75 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <fieldset class="col-md-10">
-        <legend>Detalle</legend>
-    </fieldset>
 
-    <div class="col-md-10" id="ventaDetalle">
-        @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
-        @foreach (var item in Model.Items)
-        {
-            <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
-            <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
-        }
-    </div>
-</div>
 <div class="row">
-    <fieldset class="col-md-10">
-        <legend>Forma de pago</legend>
-    </fieldset>
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
-            @Html.Label("Plan de pago", new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.DropDownListFor(c => c.PlanPagoId, Model.PlanesPago, "Seleccione", new { @class = "form-control" })
-                @*<select class="form-control" required="required">
-                    <option value="">Seleccione</option>
-                    <option value="1" selected="selected">Contado</option>
-                    <option value="2">Financiado</option>
-                </select>*@
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
-            @Html.LabelFor(v => v.MontoCalculado, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(v => v.MontoCalculado, new { @class = "form-control", placeholder = Messages.MontoCalculado, disabled = "disabled" })
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
-            @Html.LabelFor(v => v.MontoVendido, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.TextBoxFor(v => v.MontoVendido, new { @class = "form-control", placeholder = Messages.MontoVendido })
-            </div>
-        </div>
-    </div>
     <div class="col-md-10">
-        <hr />
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#TabVentaDetalle" aria-controls="TabVentaDetalle" role="tab" data-toggle="tab">Detalle</a>
+            </li>
+            <li role="presentation">
+                <a href="#TabFormaPago" aria-controls="TabFormaPago" role="tab" data-toggle="tab">Forma de pago</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="TabVentaDetalle" role="tabpanel" class="tab-pane fade in active">
+                @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
+                @foreach (var item in Model.Items)
+                {
+                    <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
+                    <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
+                }
+            </div>
+
+            <div id="TabFormaPago" role="tabpanel" class="tab-pane fade">
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(v => v.PlanPagoId, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(c => c.PlanPagoId, Model.PlanesPago, "Seleccione", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.Label("Interes", new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Cuotas</h4>
+                    @{ Html.RenderAction("VerCuotas", "Venta", new { cuotaViewModels = Model.Cuotas }); }
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(v => v.MontoCalculado, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(v => v.MontoCalculado, new { @class = "form-control", placeholder = Messages.MontoCalculado, disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(v => v.MontoVendido, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(v => v.MontoVendido, new { @class = "form-control", placeholder = Messages.MontoVendido })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="col-md-10">
+    <hr />
 </div>

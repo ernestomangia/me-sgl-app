@@ -697,6 +697,7 @@
     </Compile>
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
+    <Compile Include="Models\CuotaViewModel.cs" />
     <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Models\PlanPagoViewModel.cs" />
     <Compile Include="Models\ProveedorViewModel.cs" />
@@ -807,6 +808,7 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Modificar.cshtml" />
     <Content Include="Views\Usuario\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Venta\VerCuotas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

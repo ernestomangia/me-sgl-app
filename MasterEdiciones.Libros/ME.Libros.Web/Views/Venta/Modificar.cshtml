@@ -19,12 +19,15 @@
     </div>
     <div class="row">
         <div class="col-md-5">
-            <div class="col-md-8 col-md-offset-4">
-                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar" title="Anular la venta">
-                    <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                    Anular
-                </button>
-            </div>
+            @if (Model.Estado == EstadoVenta.Vigente)
+            {
+                <div class="col-md-8 col-md-offset-4">
+                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar" title="Anular la venta">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                        Anular
+                    </button>
+                </div>
+            }
         </div>
         <div class="col-md-5">
             <div class="text-right">
@@ -43,9 +46,6 @@
     </div>
 }
 
-<h2>Cuotas</h2>
-
-
 <script type="text/javascript">
     $(document).ready(function () {
         $("#ventaDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
@@ -56,5 +56,8 @@
                 calcularTotales(this);
             }
         });
+
+        $("#ventaCuotaTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+        $('#ventaCuotaTable').dataTable();
     });
 </script>

@@ -16,9 +16,6 @@ namespace ME.Libros.Web.Controllers
 {
     public class UsuarioController : BaseController<UsuarioDominio>
     {
-        //
-        // GET: /Usuario/
-
         public UsuarioService UsuarioService { get; set; }
 
         public UsuarioController()
@@ -29,6 +26,8 @@ namespace ME.Libros.Web.Controllers
             ViewBag.Title = "Usuarios";
         }
 
+        //
+        // GET: /Usuario/
         public ActionResult Index()
         {
             ViewBag.Id = TempData["Id"];
@@ -39,8 +38,7 @@ namespace ME.Libros.Web.Controllers
             {
                 usuarios.AddRange(UsuarioService.Listar()
                     .ToList()
-                    .Select(r => new UsuarioViewModel(r))
-                    .Where(r => r.Id != 1));
+                    .Select(r => new UsuarioViewModel(r)));
             }
 
             return View(usuarios);

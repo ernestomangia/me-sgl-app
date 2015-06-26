@@ -2,39 +2,41 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-
 using ME.Libros.Dominio.General;
+using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Web.Models
 {
-    public class CobradorViewModel
+    public class VendedorViewModel
     {
         #region Constructor(s)
 
-        public CobradorViewModel()
+        public VendedorViewModel()
         {
             Localidad = new LocalidadViewModel();
-            LocalidadesAsignadas= new List<LocalidadViewModel>();
+            LocalidadesAsignadas = new List<LocalidadViewModel>();
         }
 
-        public CobradorViewModel(CobradorDominio cobrador)
+        public VendedorViewModel(VendedorDominio vendedorDominio)
         {
-            Id = cobrador.Id;
-            FechaAlta = cobrador.FechaAlta;
-            Nombre = cobrador.Nombre;
-            Apellido = cobrador.Apellido;
-            Dni = cobrador.Dni;
-            Localidad = new LocalidadViewModel(cobrador.Localidad);
-            PorcentajeComision = cobrador.PorcentajeComision;
-            Direccion = cobrador.Direccion;
-            TelefonoFijo = cobrador.TelefonoFijo;
-            Celular = cobrador.Celular;
-            Email = cobrador.Email;
-            LocalidadesAsignadas = new List<LocalidadViewModel>(cobrador.Localidades.Select(la => new LocalidadViewModel(la)));
-            LocalidadId = cobrador.Localidad.Id;
-            ProvinciaId = cobrador.Localidad.Provincia.Id;
+            Id = vendedorDominio.Id;
+            FechaAlta = vendedorDominio.FechaAlta;
+            Nombre = vendedorDominio.Nombre;
+            Apellido = vendedorDominio.Apellido;
+            Dni = vendedorDominio.Dni;
+            Localidad = new LocalidadViewModel(vendedorDominio.Localidad);
+            PorcentajeComision = vendedorDominio.PorcentajeComision;
+            Direccion = vendedorDominio.Direccion;
+            TelefonoFijo = vendedorDominio.TelefonoFijo;
+            Celular = vendedorDominio.Celular;
+            Email = vendedorDominio.Email;
+            LocalidadesAsignadas = new List<LocalidadViewModel>(vendedorDominio.Localidades.Select(la => new LocalidadViewModel(la)));
+            LocalidadId = vendedorDominio.Localidad.Id;
+            ProvinciaId = vendedorDominio.Localidad.Provincia.Id;
         }
+
         #endregion
 
         #region Properties
@@ -98,7 +100,5 @@ namespace ME.Libros.Web.Models
         public List<LocalidadViewModel> LocalidadesAsignadas { get; set; }
 
         #endregion
-
-
     }
 }

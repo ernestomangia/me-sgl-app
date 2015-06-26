@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using ME.Libros.Utils.Enums;
+﻿using System.Collections.Generic;
 
 namespace ME.Libros.Dominio.General
 {

@@ -282,7 +282,7 @@ namespace ME.Libros.Web.Controllers
 
             ventaViewModel.Vendedores = new SelectList(VendedorService.Listar()
                 .ToList()
-                .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Cuil }), "Id", "Text");
+                .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Dni }), "Id", "Text");
 
             ventaViewModel.PlanesPago = new SelectList(PlanPagoService.Listar()
                 .ToList()

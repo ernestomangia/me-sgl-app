@@ -17,13 +17,20 @@ namespace ME.Libros.Web.Controllers
 {
     public class PlanPagoController : BaseController<PlanPagoDominio>
     {
+        public PlanPagoService PlanPagoService { get; set; }
+        public VentaService VentaService { get; set; }
+
+        public PlanPagoController()
+        {
+            var modelContainer = new ModelContainer();
+            PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
+            VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
+            ViewBag.MenuId = 24;
+            ViewBag.Title = "Planes de Pago";
+        }
+
         //
         // GET: /PlanPago/
-
-        public PlanPagoService PlanPagoService { get; set; }
-
-        private VentaService VentaService { get; set; }
-       
         public ActionResult Index()
         {
             ViewBag.Id = TempData["Id"];
@@ -40,16 +47,7 @@ namespace ME.Libros.Web.Controllers
             return View(planPagos);
 
         }
-
-        public PlanPagoController()
-        {
-            var modelContainer = new ModelContainer();
-            PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
-            VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
-            ViewBag.MenuId = 24;
-            ViewBag.Title = "Planes de Pago";
-        }
-
+        
         [HttpGet]
         public ActionResult Crear()
         {

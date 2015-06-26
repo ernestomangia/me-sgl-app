@@ -25,13 +25,48 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
-        $("#btnAceptar").on("click", function () {
-            var id = $("#idEntidad").val();
-            var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElCobrador').replace("{1}", id);
-            eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
+    $("#btnAceptar").on("click", function () {
+        var id = $("#idEntidad").val();
+        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElCobrador').replace("{1}", id);
+        eliminarCobrador("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
+    });
 
+    function eliminarCobrador(url, msjSuccess) {
+        var id = $("#idEntidad").val();
+        $(".modalAnular .validationSummary").addClass("hide");
+        $(".modalAnular .validationSummary ul").remove();
+
+        $.ajax({
+            method: "GET",
+            url: url + "?id=" + id,
+            dataType: "json",
+            error: function (jqXhr, status, error) {
+                mensajeError("Ha ocurrido un error");
+            },
+            success: function (data) {
+                if (data.Success) {
+                    var dataTable = $(".dataTableCustom").DataTable();
+                    $('.modalAnular').modal('toggle');
+                    mensajeSuccess(msjSuccess);
+                    console.log($("#tr_" + id + " .CambioEstado"));
+                    dataTable.cell($("#tr_" + id), (6)).data('Anulado').draw();
+                    $(".btnCancelarEliminar").click();
+                } else {
+                    var errores = "<ul>";
+                    $.each(data.Errors, function (key, value) {
+                        $.each(value.Value, function (key2, value2) {
+                            errores += "<li>" + value2 + "</li>";
+                        });
+                    });
+                    errores += "</ul>";
+                    $(".modalAnular .validationSummary").append(errores);
+                    $(".modalAnular .validationSummary").removeClass("hide");
+                }
+            },
+            timeout: 10000,
+            cache: false
         });
+    }
 </script>
 

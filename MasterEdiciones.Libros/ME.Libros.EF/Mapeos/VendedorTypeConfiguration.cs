@@ -6,9 +6,9 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.EF.Mapeos
 {
-    public class CobradorTypeConfiguration : EntityTypeConfiguration<CobradorDominio>
+    public class VendedorTypeConfiguration : EntityTypeConfiguration<VendedorDominio>
     {
-        public CobradorTypeConfiguration()
+        public VendedorTypeConfiguration()
         {
             //PK
             HasKey(c => c.Id);
@@ -36,15 +36,13 @@ namespace ME.Libros.EF.Mapeos
             HasMany(c => c.Localidades)
                 .WithMany().Map(c =>
                 {
-                    c.ToTable("CobradorLocalidades");
-                    c.MapLeftKey("Cobrador_Id");
+                    c.ToTable("VendedorLocalidades");
+                    c.MapLeftKey("Vendedor_Id");
                     c.MapRightKey("Localidad_Id");
                 });
 
-            //HasMany(c => c.Localidades).WithRequired().WillCascadeOnDelete(true);
-
             // Map Table
-            ToTable("Cobrador");
+            ToTable("Vendedor");
         }
     }
 }

@@ -241,6 +241,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El vendedor.
+        /// </summary>
+        public static string ElVendedor {
+            get {
+                return ResourceManager.GetString("ElVendedor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Nº {1} se anuló exitosamente.
         /// </summary>
         public static string EntidadAnulada {

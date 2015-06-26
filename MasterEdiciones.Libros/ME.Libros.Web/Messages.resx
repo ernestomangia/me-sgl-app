@@ -336,4 +336,7 @@
   <data name="SaldoCuota" xml:space="preserve">
     <value>Saldo</value>
   </data>
+  <data name="ElVendedor" xml:space="preserve">
+    <value>El vendedor</value>
+  </data>
 </root>

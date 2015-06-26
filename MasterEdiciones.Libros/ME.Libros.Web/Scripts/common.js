@@ -94,7 +94,7 @@ function eliminarEntidad(url, msjSuccess, msjError) {
 }
 
 function AnularEntidad(url, msjSuccess, msjError) {
-     var id = $("#idEntidad").val();
+    var id = $("#idEntidad").val();
     $(".modalAnular .validationSummary").addClass("hide");
     $(".modalAnular .validationSummary ul").remove();
 
@@ -111,8 +111,8 @@ function AnularEntidad(url, msjSuccess, msjError) {
                 $('.modalAnular').modal('toggle');
                 mensajeSuccess(msjSuccess);
                 console.log($("#tr_" + id + " .CambioEstado"));
-                dataTable.cell($("#tr_" + id),(6)).data('Anulado').draw();
-               // dataTable.cell(10,5).data('Anulado').draw();
+                dataTable.cell($("#tr_" + id), (6)).data('Anulado').draw();
+                // dataTable.cell(10,5).data('Anulado').draw();
                 $(".btnCancelarEliminar").click();
             } else {
                 var errores = "<ul>";
@@ -129,7 +129,6 @@ function AnularEntidad(url, msjSuccess, msjError) {
         timeout: 10000,
         cache: false
     });
-
 }
 
 function FormatJsonDate(value) {

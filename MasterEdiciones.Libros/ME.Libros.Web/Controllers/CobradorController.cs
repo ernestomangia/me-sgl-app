@@ -283,11 +283,8 @@ namespace ME.Libros.Web.Controllers
                 using (CobradorService)
                 {
                     var cobradorDominio = CobradorService.GetPorId(id);
-                    //if (!VentaService.ListarAsQueryable().Any(v => v.Cobrador.Id == id))
-                    //{
-                        //cobradorDominio.Localidades.Clear();
-                        CobradorService.Eliminar(cobradorDominio);
-                    //}
+                    cobradorDominio.Localidades.Clear();
+                    CobradorService.Eliminar(cobradorDominio);
                 }
             }
             catch (DbUpdateException ex)

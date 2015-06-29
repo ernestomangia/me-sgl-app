@@ -4,18 +4,8 @@
 @using (Html.BeginForm("Modificar", "Gasto", FormMethod.Post, new { id = "formGasto", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-       @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Id)
 
-     <div class="row">
-        <div class="col-md-10">
-            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
-                <a class="close" data-hide="alert" aria-hidden="true">×</a>
-                <b>Mensajes:</b>
-                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-            </div>
-        </div>
-    </div>
- 
     <div class="row">
         <div class="col-md-5">
             <div class="col-md-8 col-md-offset-4">
@@ -41,4 +31,4 @@
 }
 
 @Html.Partial("Eliminar")
-<input type="hidden" id="idEntidad" value="@Model.Id"/>
+<input type="hidden" id="idEntidad" value="@Model.Id" />

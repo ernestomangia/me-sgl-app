@@ -1,44 +1,44 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.PlanPagoViewModel>
 
-    <h3>Planes de Pago</h3>
-    <a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        Nuevo
-    </a>
-    <table class="dataTableCustom">
-        <thead>
-            <tr>
-                <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Id)</th>
-                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
-                <th>@Html.DisplayNameFor(model => model.CantidadCuotas)</th>
-                <th>@Html.DisplayNameFor(model => model.Monto)</th>
-                <th>@Html.DisplayNameFor(model => model.Tipo)</th>
-                <th class="columnaAcciones">Acciones</th>
+<h3>Planes de Pago</h3>
+<a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    Nuevo
+</a>
+<table class="dataTableCustom">
+    <thead>
+        <tr>
+            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.CantidadCuotas)</th>
+            <th>@Html.DisplayNameFor(model => model.Monto)</th>
+            <th>@Html.DisplayNameFor(model => model.Tipo)</th>
+            <th class="columnaAcciones">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id=@("tr_" + item.Id)>
+                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.CantidadCuotas)</td>
+                <td>@Html.DisplayFor(modelItem => item.Monto)</td>
+                <td>@Html.DisplayFor(modelItem => item.Tipo)</td>
+                <td>
+                    <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new {id = item.Id})" title="Modificar plan de pago">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                    <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminarPlanPago" onclick="javascript:setearId(@item.Id);" title="Eliminar plan de pago">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr id=@("tr_" + item.Id)>
-                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                    <td>@Html.DisplayFor(modelItem => item.CantidadCuotas)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Monto)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Tipo)</td>
-                    <td>
-                        <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new {id = item.Id})" title="Modificar el plan de pago">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </a>
-                        <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminarPlanPago" onclick="javascript:setearId(@item.Id);" title="Eliminar el plan de pago">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
-    <input type="hidden" id="idEntidad" />
- @Html.Partial("Eliminar")
+<input type="hidden" id="idEntidad" />
+@Html.Partial("Eliminar")
 
 

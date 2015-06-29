@@ -124,11 +124,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <h4>Cuotas</h4>
-                    @{ Html.RenderAction("VerCuotas", "Venta", new { cuotaViewModels = Model.Cuotas }); }
-                </div>
-
+                @if (Model.Cuotas.Any())
+                {
+                    <div class="row">
+                        <h4>Cuotas</h4>
+                        @{ Html.RenderAction("VerCuotas", "Venta", new { cuotaViewModels = Model.Cuotas }); }
+                    </div>
+                }
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group form-group-sm">

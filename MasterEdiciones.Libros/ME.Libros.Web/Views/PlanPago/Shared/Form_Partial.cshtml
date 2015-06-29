@@ -49,7 +49,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -60,9 +59,17 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
-
     $(document).ready(function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
@@ -77,31 +84,23 @@
             $(".cantidadCuotas").removeAttrs("disabled");
             $(".monto").attr("enabled", "enabled");
             $(".monto").removeAttrs("disabled");
-
-
         }
-
-
     });
 
     $(".tipoPlan").on("change", function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
-         
+
             $(".cantidadCuotas").attr("disabled", "disabled");
             $(".cantidadCuotas").removeAttrs("enabled");
             $(".cantidadCuotas").val("0");
             $(".monto").attr("disabled", "disabled");
             $(".monto").removeAttrs("enabled");
-
-
         } else {
             $(".cantidadCuotas").attr("enabled", "enabled");
             $(".cantidadCuotas").removeAttrs("disabled");
             $(".monto").attr("enabled", "enabled");
             $(".monto").removeAttrs("disabled");
-
         }
     });
-
 </script>

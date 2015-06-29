@@ -151,3 +151,32 @@ function setMaxlength() {
         $(this).attr("maxlength", $(this).data().valLengthMax);
     });
 }
+
+function GetLocalidades() {
+    var idProvincia = $(".provincia :selected").attr("value");
+    if (idProvincia > 0) {
+        $.ajax({
+            method: "GET",
+            url: "/Localidad/ListarLocalidades",
+            data: "id=" + idProvincia,
+            dataType: "json",
+            error: function (jqXHR, status, error) {
+                mensajeError("Error: " + error + " - Status: " + status);
+            },
+            success: function (data) {
+                $(".localidad").empty();
+                if (data.length > 0) {
+                    $.each(data, function (key, value) {
+                        $(".localidad").append(new Option(value.Nombre, value.Id));
+                    });
+                } else {
+                    $(".localidad").append(new Option("Seleccione", ""));
+                }
+            },
+            timeout: 10000,
+            cache: false
+        });
+    } else {
+        $(".localidad").empty().append(new Option("Seleccione", ""));
+    }
+}

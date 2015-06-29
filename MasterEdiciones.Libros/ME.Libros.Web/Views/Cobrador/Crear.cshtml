@@ -7,15 +7,6 @@
 
     <div class="row">
         <div class="col-md-10">
-            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
-                <a class="close" data-hide="alert" aria-hidden="true">×</a>
-                <b>Mensajes:</b>
-                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
@@ -29,15 +20,3 @@
         </div>
     </div>
 }
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('select[name="localidadesAsignadas_dualList_helper2"]').rules("add", {
-            required: true,
-            messages: {
-                required: "Seleccione al menos <b>una localidad</b>"
-            }
-
-        });
-    });
-</script>

@@ -12,7 +12,6 @@
         </div>
     </div>
 }
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -23,7 +22,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-10">
         <div class="form-group">
@@ -31,6 +29,15 @@
             <div class="col-md-10">
                 @Html.TextAreaFor(r => r.Descripcion, new { @class = "form-control", rows = "2", placeholder = "(Detalles del gasto)" })
             </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
         </div>
     </div>
 </div>

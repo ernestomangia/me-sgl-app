@@ -736,7 +736,6 @@
     <Content Include="Views\Localidad\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Localidad\Crear.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
-    <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Scripts\toastr.custom.js" />
     <Content Include="Scripts\jquery.validate.custom.js" />
     <Content Include="Views\Rubro\Index.cshtml" />

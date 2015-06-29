@@ -1,27 +1,15 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
 
 <h3>Modificar cliente</h3>
-
 @using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-
     @Html.HiddenFor(model => model.Id)
-
-    <div class="row">
-        <div class="col-md-10">
-            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
-                <a class="close" data-hide="alert" aria-hidden="true">×</a>
-                <b>Mensajes:</b>
-                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="col-md-5">
             <div class="col-md-8 col-md-offset-4">
-                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar" title="Eliminar el cliente">
+                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarCliente" title="Eliminar cliente">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     Eliminar
                 </button>

@@ -78,7 +78,7 @@ namespace ME.Libros.Web.Models
         public string Email { get; set; }
 
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long LocalidadId { get; set; }
 
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]

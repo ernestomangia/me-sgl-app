@@ -67,7 +67,11 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(CobradorViewModel cobradorViewModel)
         {
             long resultado = 0;
-            var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
+            var localidadIds = new List<string>();
+            if (!string.IsNullOrEmpty(Request.Form["localidadesAsignadas_dualList"]))
+            {
+                localidadIds = Request.Form["localidadesAsignadas_dualList"].Split(',').ToList();
+            }
 
             if (ModelState.IsValid)
             {
@@ -90,9 +94,9 @@ namespace ME.Libros.Web.Controllers
                             Localidades = new List<LocalidadDominio>(),
                         };
 
-                        foreach (var localidad in varlocalidades)
+                        foreach (var localidadId in localidadIds)
                         {
-                            cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
+                            cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidadId))));
                         }
 
                         resultado = CobradorService.Guardar(cobradorDominio);
@@ -132,12 +136,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
-                foreach (var localidad in varlocalidades)
-                {
-                    cobradorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad))));
-                }
-
-                PrepareModel(cobradorViewModel);
+                PrepareModel(cobradorViewModel, localidadIds);
             }
 
             return resultado > 0
@@ -167,38 +166,43 @@ namespace ME.Libros.Web.Controllers
                 return View(cobradorViewModel);
             }
 
-            var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
-            var nombreLocalidades = "";
+            var localidadIds = new List<string>();
+            if (!string.IsNullOrEmpty(Request.Form["localidadesAsignadas_dualList"]))
+            {
+                localidadIds = Request.Form["localidadesAsignadas_dualList"].Split(',').ToList();
+            }
+            var nombreLocalidades = string.Empty;
             long resultado = 0;
 
             try
             {
                 var cobradorDominio = CobradorService.GetPorId(cobradorViewModel.Id);
-
+                var i = 0;
                 foreach (var localidadAsignada in cobradorDominio.Localidades)
                 {
-                    if (varlocalidades.Contains(localidadAsignada.Id.ToString()) == false)
+                    if (!localidadIds.Contains(localidadAsignada.Id.ToString()))
                     {
                         if (VentaService.ListarAsQueryable().Any(v => (v.Cliente.Localidad.Id == localidadAsignada.Id
                                                                        && v.Cobrador.Id == cobradorDominio.Id
                                                                        && v.Estado == EstadoVenta.Vigente)))
                         {
                             nombreLocalidades += ", " + localidadAsignada.Nombre;
+                            i++;
                         }
                     }
                 }
 
-                if (nombreLocalidades.Length != 0)
+                if (i > 0)
                 {
                     nombreLocalidades = nombreLocalidades.Substring(2, nombreLocalidades.Length - 2);
 
-                    if (nombreLocalidades.Length == 1)
+                    if (i == 1)
                     {
                         ModelState.AddModelError("localidad",
                             "La localidad: " + nombreLocalidades +
                             " debe estar asignada ya que existen ventas asociadas al cobrador que intenta modificar");
                     }
-                    if (nombreLocalidades.Length > 1)
+                    else if (i > 1)
                     {
                         ModelState.AddModelError("localidades",
                             "Las localidades: " + nombreLocalidades +
@@ -220,7 +224,7 @@ namespace ME.Libros.Web.Controllers
                         cobradorDominio.Localidad = LocalidadService.GetPorId(cobradorViewModel.LocalidadId);
                         cobradorDominio.Localidades.Clear();
 
-                        foreach (var localidad in varlocalidades)
+                        foreach (var localidad in localidadIds)
                         {
                             cobradorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
                         }
@@ -262,12 +266,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
-                foreach (var localidad in varlocalidades)
-                {
-                    cobradorViewModel.LocalidadesAsignadas.Add(
-                        new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad))));
-                }
-                PrepareModel(cobradorViewModel);
+                PrepareModel(cobradorViewModel, localidadIds);
             }
 
             return resultado > 0
@@ -314,23 +313,36 @@ namespace ME.Libros.Web.Controllers
 
         #region Private Methods
 
-        private void PrepareModel(CobradorViewModel cobradorViewModel)
+        private void PrepareModel(CobradorViewModel cobradorViewModel, List<string> localidadesAsignadasIds = null)
         {
-            cobradorViewModel.Localidades = new SelectList(LocalidadService.Listar().ToList()
-                .Select(l => new LocalidadViewModel(l))
-                .ToList(), "Id", "Nombre");
+            cobradorViewModel.LocalidadesNoAsignadas = new List<LocalidadViewModel>();
+            var localidades = LocalidadService.Listar().ToList();
+            if (localidadesAsignadasIds != null)
+            {
+                foreach (var id in localidadesAsignadasIds)
+                { 
+                    cobradorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(localidades.First(l => l.Id.ToString() == id)));
+                }
+            }
+            
+            foreach (var localidad in localidades.Where(localidad => !cobradorViewModel.LocalidadesAsignadas.Select(l => l.Id).Contains(localidad.Id)))
+            {
+                // Si la localidad no esta asignada, agregarla a la lista de no asignadas
+                cobradorViewModel.LocalidadesNoAsignadas.Add(new LocalidadViewModel(localidad));
+            }
 
             cobradorViewModel.Provincias = new SelectList(ProvinciaService.Listar()
                 .Select(p => new ProvinciaViewModel(p))
                 .ToList(), "Id", "Nombre");
 
-            var localidades = new List<LocalidadViewModel>();
+            var localidadViewModels = new List<LocalidadViewModel>();
             if (cobradorViewModel.ProvinciaId > 0)
             {
-                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == cobradorViewModel.ProvinciaId)
+                localidadViewModels.AddRange(localidades.Where(l => l.Provincia.Id == cobradorViewModel.ProvinciaId)
                     .ToList()
                     .Select(l => new LocalidadViewModel(l)));
             }
+            cobradorViewModel.Localidades = new SelectList(localidadViewModels, "Id", "Nombre");
         }
 
         #endregion

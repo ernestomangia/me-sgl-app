@@ -10,6 +10,7 @@ using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
+using ME.Libros.Web.Helpers;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -66,7 +67,11 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(VendedorViewModel vendedorViewModel)
         {
             long resultado = 0;
-            var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
+            var localidadIds = new List<string>();
+            if (!string.IsNullOrEmpty(Request.Form["localidadesAsignadas_dualList"]))
+            {
+                localidadIds = Request.Form["localidadesAsignadas_dualList"].Split(',').ToList();
+            }
 
             if (ModelState.IsValid)
             {
@@ -89,9 +94,9 @@ namespace ME.Libros.Web.Controllers
                             Localidades = new List<LocalidadDominio>(),
                         };
 
-                        foreach (var localidad in varlocalidades)
+                        foreach (var localidadId in localidadIds)
                         {
-                            vendedorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
+                            vendedorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidadId))));
                         }
 
                         resultado = VendedorService.Guardar(vendedorDominio);
@@ -115,7 +120,8 @@ namespace ME.Libros.Web.Controllers
                     var sqlException = ex.GetBaseException() as SqlException;
                     if (sqlException != null && sqlException.Number == 2601)
                     {
-                        ModelState.AddModelError("Error", string.Format(ErrorMessages.DniRepetido, vendedorViewModel.Dni, "vendedor"));
+                        ModelState.AddModelError("Error",
+                            string.Format(ErrorMessages.DniRepetido, vendedorViewModel.Dni, "cobrador"));
                     }
                     else
                     {
@@ -130,9 +136,9 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
-                foreach (var localidad in varlocalidades)
+                foreach (var localidadId in localidadIds)
                 {
-                    vendedorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad))));
+                    vendedorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidadId))));
                 }
 
                 PrepareModel(vendedorViewModel);
@@ -165,33 +171,48 @@ namespace ME.Libros.Web.Controllers
                 return View(vendedorViewModel);
             }
 
-            var varlocalidades = Request.Form["localidadesAsignadas_dualList"].Split(',');
-            var nombreLocalidades = "";
+            var localidadIds = new List<string>();
+            if (!string.IsNullOrEmpty(Request.Form["localidadesAsignadas_dualList"]))
+            {
+                localidadIds = Request.Form["localidadesAsignadas_dualList"].Split(',').ToList();
+            }
+            var nombreLocalidades = string.Empty;
             long resultado = 0;
 
             try
             {
                 var vendedorDominio = VendedorService.GetPorId(vendedorViewModel.Id);
-
+                var i = 0;
                 foreach (var localidadAsignada in vendedorDominio.Localidades)
                 {
-                    if (varlocalidades.Contains(localidadAsignada.Id.ToString()) == false)
+                    if (localidadIds.Contains(localidadAsignada.Id.ToString()) == false)
                     {
-                        if (VentaService.ListarAsQueryable().Any(v => (v.Cliente.Localidad.Id == localidadAsignada.Id && v.Cobrador.Id == vendedorDominio.Id && v.Estado == EstadoVenta.Vigente)))
+                        if (VentaService.ListarAsQueryable().Any(v => (v.Cliente.Localidad.Id == localidadAsignada.Id
+                                                                        && v.Cobrador.Id == vendedorDominio.Id
+                                                                        && v.Estado == EstadoVenta.Vigente)))
                         {
                             nombreLocalidades += ", " + localidadAsignada.Nombre;
+                            i++;
                         }
                     }
                 }
 
-                if (nombreLocalidades.Length != 0)
+                if (i > 0)
                 {
                     nombreLocalidades = nombreLocalidades.Substring(2, nombreLocalidades.Length - 2);
 
-                    if (nombreLocalidades.Length == 1)
-                        ModelState.AddModelError("localidad", "La localidad: " + nombreLocalidades + " debe estar asignada ya que existen ventas asociadas al cobrador que intenta modificar");
-                    if (nombreLocalidades.Length > 1)
-                        ModelState.AddModelError("localidades", "Las localidades: " + nombreLocalidades + " deben estar asignadas ya que existen ventas asociadas al cobrador que intenta modificar");
+                    if (i == 1)
+                    {
+                        ModelState.AddModelError("localidad",
+                            "La localidad: " + nombreLocalidades +
+                            " debe estar asignada ya que existen ventas asociadas al vendedor que intenta modificar");
+                    }
+                    else if (i > 1)
+                    {
+                        ModelState.AddModelError("localidades",
+                            "Las localidades: " + nombreLocalidades +
+                            " deben estar asignadas ya que existen ventas asociadas al vendedor que intenta modificar");
+                    }
                 }
                 else
                 {
@@ -208,7 +229,7 @@ namespace ME.Libros.Web.Controllers
                         vendedorDominio.Localidad = LocalidadService.GetPorId(vendedorViewModel.LocalidadId);
                         vendedorDominio.Localidades.Clear();
 
-                        foreach (var localidad in varlocalidades)
+                        foreach (var localidad in localidadIds)
                         {
                             vendedorDominio.Localidades.Add(LocalidadService.GetPorId((Convert.ToInt64(localidad))));
                         }
@@ -224,8 +245,7 @@ namespace ME.Libros.Web.Controllers
                         else
                         {
                             TempData["Id"] = vendedorViewModel.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCobrador,
-                                vendedorViewModel.Id);
+                            TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElVendedor, vendedorViewModel.Id);
                         }
                     }
                 }
@@ -250,7 +270,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
-                foreach (var localidad in varlocalidades)
+                foreach (var localidad in localidadIds)
                 {
                     vendedorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad))));
                 }
@@ -260,6 +280,42 @@ namespace ME.Libros.Web.Controllers
             return resultado > 0
                 ? (ActionResult)RedirectToAction("Index")
                 : View(vendedorViewModel);
+        }
+
+        [HttpGet]
+        public JsonResult Eliminar(int id)
+        {
+            try
+            {
+                using (VendedorService)
+                {
+                    var vendedorDominio = VendedorService.GetPorId(id);
+                    vendedorDominio.Localidades.Clear();
+                    VendedorService.Eliminar(vendedorDominio);
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 547)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.DatosAsociados, Messages.ElVendedor));
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            return new JsonResult
+            {
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         #region Private Methods

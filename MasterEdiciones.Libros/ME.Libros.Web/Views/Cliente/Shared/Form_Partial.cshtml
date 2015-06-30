@@ -64,7 +64,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia" })
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia", autocomplete = "off" })
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad" })
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", autocomplete = "off" })
             </div>
         </div>
     </div>
@@ -135,7 +135,7 @@
 </div>
 
 <script type="text/javascript">
-    $(".provincia").on("change", function() {
+    $(".provincia").on("change", function () {
         GetLocalidades();
     });
 </script>

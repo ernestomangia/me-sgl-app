@@ -15,7 +15,8 @@ namespace ME.Libros.Web.Models
         public CobradorViewModel()
         {
             Localidad = new LocalidadViewModel();
-            LocalidadesAsignadas= new List<LocalidadViewModel>();
+            LocalidadesAsignadas = new List<LocalidadViewModel>();
+            LocalidadesNoAsignadas = new List<LocalidadViewModel>();
         }
 
         public CobradorViewModel(CobradorDominio cobrador)
@@ -76,7 +77,7 @@ namespace ME.Libros.Web.Models
         public string Email { get; set; }
 
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long LocalidadId { get; set; }
 
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]
@@ -90,15 +91,14 @@ namespace ME.Libros.Web.Models
 
         public LocalidadViewModel Localidad { get; set; }
 
-        public SelectList Provincias { get; set; }
-
-        public SelectList Localidades { get; set; }
-
         [Display(Name = "LocalidadesAsignadas", ResourceType = typeof(Messages))]
         public List<LocalidadViewModel> LocalidadesAsignadas { get; set; }
 
+        public List<LocalidadViewModel> LocalidadesNoAsignadas { get; set; }
+
+        public SelectList Provincias { get; set; }
+        public SelectList Localidades { get; set; }
+
         #endregion
-
-
     }
 }

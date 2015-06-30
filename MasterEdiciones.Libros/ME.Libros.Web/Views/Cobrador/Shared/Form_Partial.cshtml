@@ -44,19 +44,17 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.PorcentajeComision, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = "PorcentajeComision" })
+                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = "Comisión" })
             </div>
         </div>
     </div>
-
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Provincia) })
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia" })
 
             </div>
         </div>
@@ -65,14 +63,12 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad" })
 
             </div>
         </div>
     </div>
-
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -91,7 +87,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -111,25 +106,19 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-10">
         <div class="col-md-10 col-md-offset-2">
             <div class="form-group form-group-sm">
                 <select multiple="multiple" name="localidadesAsignadas_dualList" id="localidadesAsignadas_dualList">
-                    @foreach (var item in Model.Localidades)
+                    @foreach (var localidadNoAsignada in Model.LocalidadesNoAsignadas)
                     {
-                        var bandera = Model.LocalidadesAsignadas.All(item2 => item.Value != item2.Id.ToString());
-
-                        if (bandera)
-                        {
-                            <option value=@item.Value>@item.Text</option>
-                        }
+                        <option value=@localidadNoAsignada.Id>@localidadNoAsignada.Nombre</option>
                     }
 
-                    @foreach (var item in Model.LocalidadesAsignadas)
+                    @foreach (var localidadAsignada in Model.LocalidadesAsignadas)
                     {
-                        <option selected="selected" value=@item.Id>@item.Nombre</option>
+                        <option selected="selected" value=@localidadAsignada.Id>@localidadAsignada.Nombre</option>
                     }
                 </select>
             </div>
@@ -147,7 +136,7 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         var demo1 = $('select[name="localidadesAsignadas_dualList"]').bootstrapDualListbox({
             nonSelectedListLabel: 'Localidades',
             selectedListLabel: 'Localidades asignadas',
@@ -159,7 +148,7 @@
             infoText: 'Mostrando {0}',
             filterTextClear: 'Ver todos'
         });
-    
+
         demo1.bootstrapDualListbox('refresh', true);
 
         //$('select[name="localidadesAsignadas_dualList_helper2"]').rules("add", {

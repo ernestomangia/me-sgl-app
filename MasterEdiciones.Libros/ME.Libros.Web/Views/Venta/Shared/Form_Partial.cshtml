@@ -153,7 +153,15 @@
         </div>
     </div>
 </div>
-
 <div class="col-md-10">
     <hr />
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
 </div>

@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
-using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Web.Models
 {
@@ -17,6 +16,7 @@ namespace ME.Libros.Web.Models
         {
             Localidad = new LocalidadViewModel();
             LocalidadesAsignadas = new List<LocalidadViewModel>();
+            LocalidadesNoAsignadas = new List<LocalidadViewModel>();
         }
 
         public VendedorViewModel(VendedorDominio vendedorDominio)
@@ -92,12 +92,14 @@ namespace ME.Libros.Web.Models
 
         public LocalidadViewModel Localidad { get; set; }
 
+        [Display(Name = "LocalidadesAsignadas", ResourceType = typeof(Messages))]
+        public List<LocalidadViewModel> LocalidadesAsignadas { get; set; }
+
+        public List<LocalidadViewModel> LocalidadesNoAsignadas { get; set; }
+
         public SelectList Provincias { get; set; }
 
         public SelectList Localidades { get; set; }
-
-        [Display(Name = "LocalidadesAsignadas", ResourceType = typeof(Messages))]
-        public List<LocalidadViewModel> LocalidadesAsignadas { get; set; }
 
         #endregion
     }

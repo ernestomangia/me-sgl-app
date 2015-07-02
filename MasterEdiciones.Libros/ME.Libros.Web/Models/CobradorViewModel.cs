@@ -97,6 +97,7 @@ namespace ME.Libros.Web.Models
         public List<LocalidadViewModel> LocalidadesNoAsignadas { get; set; }
 
         public SelectList Provincias { get; set; }
+
         public SelectList Localidades { get; set; }
 
         #endregion

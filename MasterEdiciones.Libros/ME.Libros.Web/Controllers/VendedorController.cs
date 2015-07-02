@@ -18,9 +18,9 @@ namespace ME.Libros.Web.Controllers
     public class VendedorController : BaseController<VendedorDominio>
     {
         public VendedorService VendedorService { get; set; }
-        private LocalidadService LocalidadService { get; set; }
-        private ProvinciaService ProvinciaService { get; set; }
-        private VentaService VentaService { get; set; }
+        public LocalidadService LocalidadService { get; set; }
+        public ProvinciaService ProvinciaService { get; set; }
+        public VentaService VentaService { get; set; }
 
         public VendedorController()
         {
@@ -136,12 +136,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
-                foreach (var localidadId in localidadIds)
-                {
-                    vendedorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidadId))));
-                }
-
-                PrepareModel(vendedorViewModel);
+                PrepareModel(vendedorViewModel, localidadIds);
             }
 
             return resultado > 0
@@ -270,11 +265,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado == 0)
             {
-                foreach (var localidad in localidadIds)
-                {
-                    vendedorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(LocalidadService.GetPorId(Convert.ToInt64(localidad))));
-                }
-                PrepareModel(vendedorViewModel);
+                PrepareModel(vendedorViewModel, localidadIds);
             }
 
             return resultado > 0
@@ -320,24 +311,36 @@ namespace ME.Libros.Web.Controllers
 
         #region Private Methods
 
-        private void PrepareModel(VendedorViewModel vendedorViewModel)
+        private void PrepareModel(VendedorViewModel vendedorViewModel, IEnumerable<string> localidadesAsignadasIds = null)
         {
-            vendedorViewModel.Localidades = new SelectList(LocalidadService.Listar().ToList()
-                .Select(l => new LocalidadViewModel(l))
-                .ToList(), "Id", "Nombre");
+            vendedorViewModel.LocalidadesNoAsignadas = new List<LocalidadViewModel>();
+            var localidades = LocalidadService.Listar().ToList();
+            if (localidadesAsignadasIds != null)
+            {
+                foreach (var id in localidadesAsignadasIds)
+                {
+                    vendedorViewModel.LocalidadesAsignadas.Add(new LocalidadViewModel(localidades.First(l => l.Id.ToString() == id)));
+                }
+            }
+
+            foreach (var localidad in localidades.Where(localidad => !vendedorViewModel.LocalidadesAsignadas.Select(l => l.Id).Contains(localidad.Id)))
+            {
+                // Si la localidad no esta asignada, agregarla a la lista de no asignadas
+                vendedorViewModel.LocalidadesNoAsignadas.Add(new LocalidadViewModel(localidad));
+            }
 
             vendedorViewModel.Provincias = new SelectList(ProvinciaService.Listar()
                .Select(p => new ProvinciaViewModel(p))
                .ToList(), "Id", "Nombre");
 
-
-            var localidades = new List<LocalidadViewModel>();
+            var localidadViewModels = new List<LocalidadViewModel>();
             if (vendedorViewModel.ProvinciaId > 0)
             {
-                localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == vendedorViewModel.ProvinciaId)
+                localidadViewModels.AddRange(LocalidadService.Listar(l => l.Provincia.Id == vendedorViewModel.ProvinciaId)
                                                                     .ToList()
                                                                     .Select(l => new LocalidadViewModel(l)));
             }
+            vendedorViewModel.Localidades = new SelectList(localidadViewModels, "Id", "Nombre");
         }
 
         #endregion

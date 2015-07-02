@@ -812,6 +812,9 @@
     <Content Include="Views\Venta\VerCuotas.cshtml" />
     <Content Include="Views\Vendedor\Index.cshtml" />
     <Content Include="Views\Vendedor\Eliminar.cshtml" />
+    <Content Include="Views\Vendedor\Crear.cshtml" />
+    <Content Include="Views\Vendedor\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Vendedor\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

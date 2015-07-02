@@ -313,7 +313,7 @@ namespace ME.Libros.Web.Controllers
 
         #region Private Methods
 
-        private void PrepareModel(CobradorViewModel cobradorViewModel, List<string> localidadesAsignadasIds = null)
+        private void PrepareModel(CobradorViewModel cobradorViewModel, IEnumerable<string> localidadesAsignadasIds = null)
         {
             cobradorViewModel.LocalidadesNoAsignadas = new List<LocalidadViewModel>();
             var localidades = LocalidadService.Listar().ToList();

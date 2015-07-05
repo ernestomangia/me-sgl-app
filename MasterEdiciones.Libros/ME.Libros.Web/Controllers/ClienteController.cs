@@ -17,8 +17,8 @@ namespace ME.Libros.Web.Controllers
     public class ClienteController : BaseController<ClienteDominio>
     {
         public ClienteService ClienteService { get; set; }
-        private ProvinciaService ProvinciaService { get; set; }
-        private LocalidadService LocalidadService { get; set; }
+        public ProvinciaService ProvinciaService { get; set; }
+        public LocalidadService LocalidadService { get; set; }
 
         public ClienteController()
         {
@@ -109,7 +109,7 @@ namespace ME.Libros.Web.Controllers
                 var sqlException = ex.GetBaseException() as SqlException;
                 if (sqlException != null && sqlException.Number == 2601)
                 {
-                    ModelState.AddModelError("Error", string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil));
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.CuilRepetido, clienteViewModel.Cuil, "cliente"));
                 }
                 else
                 {

@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Enums\EstadoCobro.cs" />
     <Compile Include="Enums\EstadoCompra.cs" />
+    <Compile Include="Enums\EstadoCuota.cs" />
     <Compile Include="Enums\Iva.cs" />
     <Compile Include="Enums\TipoPlanPago.cs" />
     <Compile Include="Enums\EstadoVenta.cs" />

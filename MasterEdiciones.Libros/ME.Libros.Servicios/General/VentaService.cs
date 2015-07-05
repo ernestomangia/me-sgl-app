@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
@@ -35,25 +36,50 @@ namespace ME.Libros.Servicios.General
 
                 foreach (var ventaItemDominio in ventaDominio.VentaItems)
                 {
-                    //if (!ProductoService.VerificarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad))
-                    //{
-                    //    foreach (var error in ProductoService.ModelError)
-                    //    {
-                    //        ModelError.Add(error.Key, error.Value);
-                    //    }
-
-                    //    return -1;
-                    //}
-
                     ProductoService.RestarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
                     ventaItemDominio.PrecioCosto = ventaItemDominio.Producto.PrecioCosto;
-                    //ventaItemDominio.PrecioVenta = ventaItemDominio.Producto.PrecioVenta;
+                    //ventaItemDominio.PrecioVentaVendido = ventaItemDominio.Producto.PrecioVentaVendido;
                     //CalcularTotalItem(ventaItemDominio);
+                }
+
+                // Plan de pago
+                if (ventaDominio.PlanPago.Tipo == TipoPlanPago.Financiado)
+                {
+                    var monto = ventaDominio.PlanPago.Monto;
+                    for (var i = 0; i < ventaDominio.PlanPago.CantidadCuotas; i++)
+                    {
+                        var fechaVencimiento = ventaDominio.FechaCobro.AddMonths(i).Date;
+                        var cuota = new CuotaDominio
+                        {
+                            FechaAlta = DateTime.Now,
+                            Numero = i + 1,
+                            FechaVencimiento = fechaVencimiento,
+                            // Estado = fechaVencimiento >= DateTime.Now.Date ? EstadoCuota.NoVencida : EstadoCuota.Atrasada,
+                            // DiasAtraso = (DateTime.Now.Date - fechaVencimiento).Days,
+                            Monto = monto
+                        };
+
+                        ventaDominio.Cuotas.Add(cuota);
+                    }
+                }
+                else
+                {
+                    var monto = ventaDominio.MontoVendido;
+
+                    var cuota = new CuotaDominio
+                    {
+                        Numero = 1,
+                        FechaVencimiento = ventaDominio.FechaCobro,
+                        //Estado = EstadoCuota.NoVencida,
+                        Monto = monto
+                    };
+
+                    ventaDominio.Cuotas.Add(cuota);
                 }
 
                 CalcularTotalVenta(ventaDominio);
             }
-            
+
             return base.Guardar(ventaDominio);
         }
 
@@ -84,12 +110,12 @@ namespace ME.Libros.Servicios.General
 
         private static void CalcularTotalItem(VentaItemDominio ventaItemDominio)
         {
-            ventaItemDominio.Monto = ventaItemDominio.Cantidad * ventaItemDominio.Producto.PrecioVenta;
+            ventaItemDominio.MontoVendido = ventaItemDominio.Cantidad * ventaItemDominio.Producto.PrecioVenta;
         }
 
         private static void CalcularTotalVenta(VentaDominio entidad)
         {
-            entidad.MontoCalculado = entidad.VentaItems.Sum(vi => vi.Monto);
+            entidad.MontoCalculado = entidad.VentaItems.Sum(vi => vi.MontoVendido);
         }
     }
 }

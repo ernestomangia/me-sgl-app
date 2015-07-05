@@ -32,6 +32,9 @@ namespace ME.Libros.EF
             modelBuilder.Configurations.AddFromAssembly(GetType().Assembly);
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            //modelBuilder.Entity<CobradorDominio>().HasMany(c=>c.Localidades).WithRequired(l=>l.localidades).WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -141,7 +144,13 @@ namespace ME.Libros.EF
                     FechaAlta = DateTime.Now,
                     Nombre = "Juan",
                     Apellido = "Lopez",
-                    Cuil = "1111111111"
+                    Dni = "35625222",
+                    Localidad = localidades[0],
+                    Localidades = new List<LocalidadDominio>
+                    {
+                        localidades[2],
+                        localidades[3]
+                    }
                 };
 
                 var gasto = new GastoDominio

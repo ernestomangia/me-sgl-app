@@ -664,7 +664,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
+    <Compile Include="Controllers\CompraVigenteController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\CompraPagadaController.cs" />
     <Compile Include="Controllers\PlanPagoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
@@ -677,9 +680,8 @@
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\GastoController.cs" />
     <Compile Include="Controllers\VentaItemController.cs" />
-    <Compile Include="Controllers\VentaVigenteController.cs" />
-    <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
     <Compile Include="ErrorMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -695,8 +697,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
+    <Compile Include="Models\CuotaViewModel.cs" />
+    <Compile Include="Models\UsuarioViewModel.cs" />
     <Compile Include="Models\PlanPagoViewModel.cs" />
     <Compile Include="Models\ProveedorViewModel.cs" />
     <Compile Include="Models\ClienteViewModel.cs" />
@@ -732,7 +737,6 @@
     <Content Include="Views\Localidad\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Localidad\Crear.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
-    <Content Include="Views\Pedido\Index.cshtml" />
     <Content Include="Scripts\toastr.custom.js" />
     <Content Include="Scripts\jquery.validate.custom.js" />
     <Content Include="Views\Rubro\Index.cshtml" />
@@ -751,9 +755,9 @@
     <Content Include="Scripts\jquery.validate.globalize.min.js.map" />
     <Content Include="Views\Producto\Modificar.cshtml" />
     <Content Include="Views\Producto\Detalle.cshtml" />
-    <Content Include="Views\VentaVigente\Index.cshtml" />
-    <Content Include="Views\VentaVigente\Crear.cshtml" />
-    <Content Include="Views\VentaVigente\Modificar.cshtml" />
+    <Content Include="Views\Venta\Vigente\Index.cshtml" />
+    <Content Include="Views\Venta\Crear.cshtml" />
+    <Content Include="Views\Venta\Modificar.cshtml" />
     <Content Include="Views\Localidad\Modificar.cshtml" />
     <Content Include="Views\Localidad\Detalle.cshtml" />
     <Content Include="Views\Zona\Crear.cshtml" />
@@ -765,10 +769,10 @@
     <Content Include="Views\Rubro\Eliminar.cshtml" />
     <Content Include="Views\Producto\Eliminar.cshtml" />
     <Content Include="Views\Editorial\Eliminar.cshtml" />
-    <Content Include="Views\VentaVigente\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Venta\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Cliente\Eliminar.cshtml" />
     <Content Include="Views\Localidad\Eliminar.cshtml" />
-    <Content Include="Views\VentaVigente\Eliminar.cshtml" />
+    <Content Include="Views\Venta\Eliminar.cshtml" />
     <Content Include="Views\Cobrador\Crear.cshtml" />
     <Content Include="Views\Cobrador\Index.cshtml" />
     <Content Include="Views\Cobrador\Shared\Form_Partial.cshtml" />
@@ -796,11 +800,22 @@
     <Content Include="Views\PlanPago\Index.cshtml" />
     <Content Include="Views\PlanPago\Shared\Form_Partial.cshtml" />
     <Content Include="Views\PlanPago\Crear.cshtml" />
-    <Content Include="Views\VentaPagada\Index.cshtml" />
-    <Content Include="Views\VentaAnulada\Index.cshtml" />
+    <Content Include="Views\Venta\Pagada\Index.cshtml" />
+    <Content Include="Views\Venta\Anulada\Index.cshtml" />
     <Content Include="Views\PlanPago\Eliminar.cshtml" />
     <Content Include="Views\PlanPago\Modificar.cshtml" />
     <Content Include="Views\Compra\Index.cshtml" />
+    <Content Include="Views\Usuario\Crear.cshtml" />
+    <Content Include="Views\Usuario\Eliminar.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Modificar.cshtml" />
+    <Content Include="Views\Usuario\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Venta\VerCuotas.cshtml" />
+    <Content Include="Views\Vendedor\Index.cshtml" />
+    <Content Include="Views\Vendedor\Eliminar.cshtml" />
+    <Content Include="Views\Vendedor\Crear.cshtml" />
+    <Content Include="Views\Vendedor\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Vendedor\Modificar.cshtml" />
     <Content Include="Views\CompraPagada\Index.cshtml" />
     <Content Include="Views\CompraAnulada\Index.cshtml" />
     <Content Include="Views\CompraPagada\Shared\Form_Partial.cshtml" />

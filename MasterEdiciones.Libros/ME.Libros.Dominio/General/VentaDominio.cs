@@ -22,7 +22,8 @@ namespace ME.Libros.Dominio.General
         public virtual VendedorDominio Vendedor { get; set; }
         public virtual CobradorDominio Cobrador { get; set; }
         public virtual PlanPagoDominio PlanPago { get; set; }
-        
+        public virtual List<CuotaDominio> Cuotas { get; set; }
+
         #endregion
     }
 }

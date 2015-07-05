@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using ME.Libros.Utils.Enums
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -31,29 +32,29 @@
     <script src="~/Scripts/jquery.validate.custom.js"></script>
 
     @*<script src="~/Scripts/cldr.js"></script>
-    <script src="~/Scripts/cldr/event.js"></script>
-    <script src="~/Scripts/cldr/supplemental.js"></script>
+        <script src="~/Scripts/cldr/event.js"></script>
+        <script src="~/Scripts/cldr/supplemental.js"></script>
 
-    <script src="~/Scripts/globalize.js"></script>
-    <script src="~/Scripts/globalize/message.js"></script>
-    <script src="~/Scripts/globalize/number.js"></script>
-    <script src="~/Scripts/globalize/plural.js"></script>
-    <script src="~/Scripts/globalize/date.js"></script>
-    <script src="~/Scripts/globalize/currency.js"></script>
-    <script src="~/Scripts/globalize/relative-time.js"></script>*@
+        <script src="~/Scripts/globalize.js"></script>
+        <script src="~/Scripts/globalize/message.js"></script>
+        <script src="~/Scripts/globalize/number.js"></script>
+        <script src="~/Scripts/globalize/plural.js"></script>
+        <script src="~/Scripts/globalize/date.js"></script>
+        <script src="~/Scripts/globalize/currency.js"></script>
+        <script src="~/Scripts/globalize/relative-time.js"></script>*@
 
     @*<script src="~/Scripts/globalize.culture.es-AR.js"></script>*@
 
     <script src="~/Scripts/globalize/globalize.js"></script>
     <script src="~/Scripts/globalize/cultures/globalize.culture.es-AR.js"></script>
     <script src="~/Scripts/jquery.validate.globalize.js"></script>
-    
+
     <script src="~/Scripts/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="~/Scripts/DataTablesCustom/boostrap/dataTables.bootstrap.js"></script>
     <script src="~/Scripts/DataTables-1.10.7/extensions/KeyTable/js/dataTables.keyTable.js"></script>
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.config.custom.js"></script>
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.custom.js"></script>
-    
+
     <script src="~/Scripts/common.js"></script>
 </head>
 <body>
@@ -72,7 +73,7 @@
                         @Html.ActionLink("Administración", "Index", "Cliente")
                     </li>
                     <li>
-                        @Html.ActionLink("Ventas", "Index", "VentaVigente")
+                        @Html.ActionLink("Ventas", "Index", "Venta", new { estado = EstadoVenta.Vigente }, null)
                     </li>
                     <li>
                         @Html.ActionLink("Compras", "Index", "CompraPagada")
@@ -81,7 +82,9 @@
                         @Html.ActionLink("Tesoseria", "Index", "Cobro")
                     </li>
                     <li><a href="#">Reportes</a></li>
-                    <li><a href="#">Sistema</a></li>
+                    <li>
+                        @Html.ActionLink("Sistema", "Index", "Usuario")
+                    </li>
                     <li><a href="#">Ayuda</a></li>
                     <li><a href="#">Salir</a></li>
                 </ul>
@@ -137,7 +140,7 @@
             $(this).closest("." + $(this).attr("data-hide")).addClass("hide");
         });
     });
-    
+
     $(".formEntidad").on("submit", function () {
         validationSummaryVisibility(this);
     });

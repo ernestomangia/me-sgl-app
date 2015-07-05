@@ -50,14 +50,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapeos\VendedorTypeConfiguration.cs" />
     <Compile Include="Mapeos\CompraItemTypeConfiguration.cs" />
     <Compile Include="Mapeos\CompraTypeConfiguration.cs" />
+    <Compile Include="Mapeos\UsuarioTypeConfiguration.cs" />
     <Compile Include="Mapeos\PlanPagoTypeConfiguration.cs" />
     <Compile Include="Mapeos\ProveedorTypeConfiguration.cs" />
     <Compile Include="Mapeos\CobradorTypeConfiguration.cs" />
     <Compile Include="Mapeos\GastoTypeConfiguration.cs" />
     <Compile Include="Mapeos\VentaItemTypeConfiguration.cs" />
     <Compile Include="Mapeos\CobroTypeConfiguration.cs" />
+    <Compile Include="Mapeos\CuotaTypeConfiguration.cs" />
     <Compile Include="Mapeos\VentaTypeConfiguration.cs" />
     <Compile Include="Mapeos\ClienteTypeConfiguration.cs" />
     <Compile Include="Mapeos\EditorialTypeConfiguration.cs" />

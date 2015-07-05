@@ -94,7 +94,7 @@ function eliminarEntidad(url, msjSuccess, msjError) {
 }
 
 function AnularEntidad(url, msjSuccess, msjError) {
-     var id = $("#idEntidad").val();
+    var id = $("#idEntidad").val();
     $(".modalAnular .validationSummary").addClass("hide");
     $(".modalAnular .validationSummary ul").remove();
 
@@ -111,8 +111,8 @@ function AnularEntidad(url, msjSuccess, msjError) {
                 $('.modalAnular').modal('toggle');
                 mensajeSuccess(msjSuccess);
                 console.log($("#tr_" + id + " .CambioEstado"));
-                dataTable.cell($("#tr_" + id),(6)).data('Anulado').draw();
-               // dataTable.cell(10,5).data('Anulado').draw();
+                dataTable.cell($("#tr_" + id), (6)).data('Anulado').draw();
+                // dataTable.cell(10,5).data('Anulado').draw();
                 $(".btnCancelarEliminar").click();
             } else {
                 var errores = "<ul>";
@@ -129,7 +129,6 @@ function AnularEntidad(url, msjSuccess, msjError) {
         timeout: 10000,
         cache: false
     });
-
 }
 
 function FormatJsonDate(value) {
@@ -151,4 +150,33 @@ function setMaxlength() {
     $("input[data-val-length-max]").each(function () {
         $(this).attr("maxlength", $(this).data().valLengthMax);
     });
+}
+
+function GetLocalidades() {
+    var idProvincia = $(".provincia :selected").attr("value");
+    if (idProvincia > 0) {
+        $.ajax({
+            method: "GET",
+            url: "/Localidad/ListarLocalidades",
+            data: "id=" + idProvincia,
+            dataType: "json",
+            error: function (jqXHR, status, error) {
+                mensajeError("Error: " + error + " - Status: " + status);
+            },
+            success: function (data) {
+                $(".localidad").empty();
+                if (data.length > 0) {
+                    $.each(data, function (key, value) {
+                        $(".localidad").append(new Option(value.Nombre, value.Id));
+                    });
+                } else {
+                    $(".localidad").append(new Option("Seleccione", ""));
+                }
+            },
+            timeout: 10000,
+            cache: false
+        });
+    } else {
+        $(".localidad").empty().append(new Option("Seleccione", ""));
+    }
 }

@@ -41,6 +41,8 @@ namespace ME.Libros.EF.Mapeos
                     c.MapRightKey("Localidad_Id");
                 });
 
+            //HasMany(c => c.Localidades).WithRequired().WillCascadeOnDelete(true);
+
             // Map Table
             ToTable("Cobrador");
         }

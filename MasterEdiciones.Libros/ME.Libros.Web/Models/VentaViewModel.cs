@@ -17,6 +17,7 @@ namespace ME.Libros.Web.Models
         {
             Cliente = new ClienteViewModel();
             Items = new List<VentaItemViewModel>();
+            Cuotas = new List<CuotaViewModel>();
         }
 
         public VentaViewModel(VentaDominio ventaDominio)
@@ -32,12 +33,21 @@ namespace ME.Libros.Web.Models
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
             CobradorId = ventaDominio.Cobrador.Id;
+            //TODO: completar con vendedor
             //VendedorId = ventaDominio.Vendedor.Id;
+            PlanPago = new PlanPagoViewModel(ventaDominio.PlanPago);
+            PlanPagoId = ventaDominio.PlanPago.Id;
 
-            if (ventaDominio.VentaItems  != null)
+            if (ventaDominio.VentaItems != null)
             {
+                // puede ser null esta lista?
                 Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
+                Items.ForEach(vi => vi.Venta = this);
             }
+
+            Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
+            Cuotas.ForEach(c => c.Venta = this);
+
         }
 
         #endregion
@@ -70,7 +80,7 @@ namespace ME.Libros.Web.Models
         public decimal Saldo { get; set; }
 
         public EstadoVenta Estado { get; set; }
-        
+
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ClienteId { get; set; }
@@ -80,15 +90,21 @@ namespace ME.Libros.Web.Models
         public long CobradorId { get; set; }
 
         [Display(Name = "Vendedor", ResourceType = typeof(Messages))]
+        //[Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long? VendedorId { get; set; }
 
-        public ClienteViewModel Cliente { get; set; }
+        [Display(Name = "PlanPago", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long PlanPagoId { get; set; }
 
         public List<VentaItemViewModel> Items { get; set; }
-
+        public List<CuotaViewModel> Cuotas { get; set; }
+        public ClienteViewModel Cliente { get; set; }
+        public PlanPagoViewModel PlanPago { get; set; }
         public SelectList Clientes { get; set; }
         public SelectList Cobradores { get; set; }
         public SelectList Vendedores { get; set; }
+        public SelectList PlanesPago { get; set; }
 
         #endregion
     }

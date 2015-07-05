@@ -44,19 +44,17 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.PorcentajeComision, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = "PorcentajeComision" })
+                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = "Comisión" })
             </div>
         </div>
     </div>
-
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia", placeholder = "Provincia", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Provincia) })
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia" })
 
             </div>
         </div>
@@ -65,14 +63,12 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", placeholder = "Localidad", required = "required", data_val_required = string.Format(ErrorMessages.Requerida, Messages.Localidad) })
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad" })
 
             </div>
         </div>
     </div>
-
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -91,7 +87,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -111,37 +106,37 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-10">
         <div class="col-md-10 col-md-offset-2">
             <div class="form-group form-group-sm">
                 <select multiple="multiple" name="localidadesAsignadas_dualList" id="localidadesAsignadas_dualList">
-                    @foreach (var item in Model.Localidades)
+                    @foreach (var localidadNoAsignada in Model.LocalidadesNoAsignadas)
                     {
-                        var bandera = Model.LocalidadesAsignadas.All(item2 => item.Value != item2.Id.ToString());
-
-                        if (bandera)
-                        {
-                            <option value=@item.Value>@item.Text</option>
-                        }
+                        <option value=@localidadNoAsignada.Id>@localidadNoAsignada.Nombre</option>
                     }
 
-                    @foreach (var item in Model.LocalidadesAsignadas)
+                    @foreach (var localidadAsignada in Model.LocalidadesAsignadas)
                     {
-                        <option selected="selected" value=@item.Id>@item.Nombre</option>
+                        <option selected="selected" value=@localidadAsignada.Id>@localidadAsignada.Nombre</option>
                     }
                 </select>
             </div>
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
-
-    $(document).ready(funcion());
-
-    function funcion() {
+    $(document).ready(function () {
         var demo1 = $('select[name="localidadesAsignadas_dualList"]').bootstrapDualListbox({
             nonSelectedListLabel: 'Localidades',
             selectedListLabel: 'Localidades asignadas',
@@ -156,10 +151,15 @@
 
         demo1.bootstrapDualListbox('refresh', true);
 
+        //$('select[name="localidadesAsignadas_dualList_helper2"]').rules("add", {
+        //    required: true,
+        //    messages: {
+        //        required: "Debe asignar al menos una <b>Localidad</b>."
+        //    }
+        //});
+
         //$("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList").dblclick(function () {
-
         //    var option = $("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList option:selected");
-
         //    demo1.append('<option value='+ option.attr('value') +' selected>' + option.text() +'</option>');
         //    $("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList").remove(option);
         //    demo1.bootstrapDualListbox('refresh', true);
@@ -168,42 +168,15 @@
         //});
 
         //$("#bootstrap-duallistbox-selected-list_localidadesAsignadas_dualList").dblclick(function () {
-
         //    var option = $("#bootstrap-duallistbox-selected-list_localidadesAsignadas_dualList option:selected");
-
         //    $("#bootstrap-duallistbox-nonselected-list_localidadesAsignadas_dualList").append(option);
         //    $("#bootstrap-duallistbox-selected-list_localidadesAsignadas_dualList").remove(option);
         //    demo1.bootstrapDualListbox('refresh', true);
         //});
-
-    };
+    });
 
     $(".provincia").on("change", function () {
-        var idProvincia = $(".provincia :selected").attr("value");
-        if (idProvincia > 0) {
-            $.ajax({
-                method: "GET",
-                url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
-                dataType: "json",
-                error: function (jqXHR, status, error) {
-                    mensajeError("Error: " + error + " - Status: " + status);
-                },
-                success: function (data) {
-                    $(".localidad").empty();
-                    if (data.length > 0) {
-                        $.each(data, function (key, value) {
-                            $(".localidad").append(new Option(value.Nombre, value.Id));
-                        });
-                    } else {
-                        $(".localidad").append(new Option("Seleccione", ""));
-                    }
-                },
-                timeout: 10000,
-                cache: false
-            });
-        } else {
-            $(".localidad").empty().append(new Option("Seleccione", ""));
-        }
+        GetLocalidades();
     });
 </script>
 

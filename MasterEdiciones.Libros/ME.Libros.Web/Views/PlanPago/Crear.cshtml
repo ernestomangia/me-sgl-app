@@ -7,15 +7,6 @@
 
     <div class="row">
         <div class="col-md-10">
-            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
-                <a class="close" data-hide="alert" aria-hidden="true">×</a>
-                <b>Mensajes:</b>
-                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
@@ -35,18 +26,15 @@
         $(".cantidadCuotas").rules("add", {
             min: 2,
             messages: {
-                min: "La cantidad de cuotas debe ser mayor a 1 <b> cuando el plan es financiado </b>"
+                min: "La <b>Cantidad de cuotas</b> debe ser mayor a 1"
             }
-        }
-        );
+        });
 
         $(".monto").rules("add", {
             min: 1,
             messages: {
-                min: "El <b>monto no puede ser 0 </b>"
+                min: "El <b>Monto</b> no puede ser 0"
             }
-        }
-    );
+        });
     });
-
 </script>

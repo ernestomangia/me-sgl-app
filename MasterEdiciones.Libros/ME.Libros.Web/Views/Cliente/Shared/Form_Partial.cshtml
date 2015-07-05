@@ -50,21 +50,21 @@
     </div>
 </div>
 @*<div class="row">
-        <div class="col-md-10">
-            <div class="form-group form-group-sm">
-                @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
-                <div class="col-md-4">
-                    @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
-                </div>
+    <div class="col-md-10">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
             </div>
         </div>
-    </div>*@
+    </div>
+</div>*@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia" })
+                @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia", autocomplete = "off" })
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad" })
+                @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", autocomplete = "off" })
             </div>
         </div>
     </div>
@@ -105,7 +105,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -125,34 +124,18 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     $(".provincia").on("change", function () {
-        var idProvincia = $(".provincia :selected").attr("value");
-        if (idProvincia > 0) {
-            $.ajax({
-                method: "GET",
-                url: '@Url.Action("ListarLocalidades", "Localidad")' + "?id=" + idProvincia,
-                dataType: "json",
-                error: function (jqXHR, status, error) {
-                    mensajeError("Error: " + error + " - Status: " + status);
-                },
-                success: function (data) {
-                    $(".localidad").empty();
-                    if (data.length > 0) {
-                        $.each(data, function (key, value) {
-                            $(".localidad").append(new Option(value.Nombre, value.Id));
-                        });
-                    } else {
-                        $(".localidad").append(new Option("Seleccione", ""));
-                    }
-                },
-                timeout: 10000,
-                cache: false
-            });
-        } else {
-            $(".localidad").empty().append(new Option("Seleccione", ""));
-        }
+        GetLocalidades();
     });
-
 </script>

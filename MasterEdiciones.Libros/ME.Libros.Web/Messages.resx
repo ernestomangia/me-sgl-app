@@ -297,4 +297,46 @@
   <data name="PrecioCompra" xml:space="preserve">
     <value>Precio de compra</value>
   </data>
+  <data name="PlanPago" xml:space="preserve">
+    <value>Plan de pago</value>
+  </data>
+  <data name="MontoItemCalculado" xml:space="preserve">
+    <value>Subtotal calculado</value>
+  </data>
+  <data name="PrecioVentaVendido" xml:space="preserve">
+    <value>Precio de venta vendido</value>
+  </data>
+  <data name="PrecioVenta" xml:space="preserve">
+    <value>Precio de venta</value>
+  </data>
+  <data name="Contrasena" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="ElUsuario" xml:space="preserve">
+    <value>El Usuario</value>
+  </data>
+  <data name="Usuario" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="NroCuota" xml:space="preserve">
+    <value>#</value>
+  </data>
+  <data name="FechaCobrada" xml:space="preserve">
+    <value>Cobrada</value>
+  </data>
+  <data name="FechaVencimiento" xml:space="preserve">
+    <value>Vencimiento</value>
+  </data>
+  <data name="MontoCobroCuota" xml:space="preserve">
+    <value>Monto cobrado</value>
+  </data>
+  <data name="MontoCuota" xml:space="preserve">
+    <value>Monto original</value>
+  </data>
+  <data name="SaldoCuota" xml:space="preserve">
+    <value>Saldo</value>
+  </data>
+  <data name="ElVendedor" xml:space="preserve">
+    <value>El vendedor</value>
+  </data>
 </root>

@@ -43,10 +43,11 @@
 
 @Html.Partial("Eliminar")
 <input type="hidden" id="idEntidad" value="@Model.Id" />
+<input type="hidden" id="idBandera" value="@Model.bandera" />
 
 <script type="text/javascript">
     $(document).ready(function () {
-        if ($("#bandera").val()) {
+        if ($("#idBandera").val()) {
             $("#mensajediv").show();
             $(".cantidadCuotas").attr("disabled", "disabled");
             $(".monto").attr("disabled", "disabled");

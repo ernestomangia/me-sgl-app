@@ -666,7 +666,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
-    <Compile Include="Controllers\CompraVigenteController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\CompraPagadaController.cs" />
     <Compile Include="Controllers\PlanPagoController.cs" />

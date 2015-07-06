@@ -179,14 +179,14 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 27,
                         Nombre = "Pagadas",
-                        Link = helper.Action("Index", "CompraVigente", new {estado = EstadoCompra.Pagada}),
+                        Link = helper.Action("Index", "CompraPagada", new {estado = EstadoCompra.Pagada}),
                         Posicion = 70
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 28,
                         Nombre = "Anuladas",
-                        Link = helper.Action("Index", "CompraVigente", new {estado = EstadoCompra.Anulada}),
+                        Link = helper.Action("Index", "CompraPagada", new { estado = EstadoCompra.Anulada }),
                         Posicion = 80
                     });
                     break;

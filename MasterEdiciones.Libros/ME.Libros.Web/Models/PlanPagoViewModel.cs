@@ -22,7 +22,6 @@ namespace ME.Libros.Web.Models
             Nombre = planPago.Nombre;
             Descripcion = planPago.Descripcion;
             CantidadCuotas = planPago.CantidadCuotas;
-            Tipo = planPago.Tipo;
             Monto = planPago.Monto;
         }
 
@@ -43,9 +42,6 @@ namespace ME.Libros.Web.Models
         [Display(Name = "CantidadCuotas", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public int CantidadCuotas { get; set; }
-
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        public TipoPlanPago Tipo { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public decimal Monto { get; set; }

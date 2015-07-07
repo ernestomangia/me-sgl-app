@@ -63,9 +63,6 @@ namespace ME.Libros.Web.Controllers
                 return View(planPagoViewModel);
             }
 
-            if (planPagoViewModel.Tipo == 0)
-                planPagoViewModel.CantidadCuotas = 1;
-
             long resultado = 0;
             try
             {
@@ -78,7 +75,6 @@ namespace ME.Libros.Web.Controllers
                         Descripcion = planPagoViewModel.Descripcion,
                         CantidadCuotas = planPagoViewModel.CantidadCuotas,
                         Monto = planPagoViewModel.Monto,
-                        Tipo = planPagoViewModel.Tipo,
                     };
 
                     resultado = PlanPagoService.Guardar(planPagoDominio);
@@ -177,7 +173,6 @@ namespace ME.Libros.Web.Controllers
 
                         if(!planPagoViewModel.bandera)
                         {planPagoDominio.CantidadCuotas = planPagoViewModel.CantidadCuotas;
-                        planPagoDominio.Tipo = planPagoViewModel.Tipo;
                         planPagoDominio.Monto = planPagoViewModel.Monto;
                         }
 

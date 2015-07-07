@@ -24,7 +24,6 @@ namespace ME.Libros.EF.Mapeos
             Property(p => p.Nombre).HasMaxLength(100).IsRequired();
             Property(p => p.Descripcion).HasMaxLength(150).IsOptional();
             Property(p => p.CantidadCuotas).IsRequired();
-            Property(p => p.Tipo).IsRequired();
             Property(p => p.Monto).IsRequired();
 
             // Map Table

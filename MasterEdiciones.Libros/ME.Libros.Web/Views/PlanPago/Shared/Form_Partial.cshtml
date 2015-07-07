@@ -34,22 +34,12 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(p => p.Tipo, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.EnumDropDownListFor(p => p.Tipo, new { @class = "form-control tipoPlan" })
-            </div>
-        </div>
-    </div>
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
             @Html.LabelFor(p => p.CantidadCuotas, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(p => p.CantidadCuotas, new { @class = "form-control cantidadCuotas" })
             </div>
         </div>
     </div>
-</div>
-<div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(p => p.Monto, new { @class = "col-md-4 control-label" })
@@ -70,7 +60,7 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    @* $(document).ready(function () {
         var idPlan = $(".tipoPlan :selected").attr("value");
         if (idPlan == 0) {
             $(".cantidadCuotas").attr("disabled", "disabled");
@@ -102,5 +92,5 @@
             $(".monto").attr("enabled", "enabled");
             $(".monto").removeAttrs("disabled");
         }
-    });
+    });*@
 </script>

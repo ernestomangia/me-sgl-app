@@ -12,7 +12,6 @@ namespace ME.Libros.Web.Models
 
         public CuotaViewModel()
         {
-            //Venta = new VentaViewModel();
         }
 
         public CuotaViewModel(CuotaDominio cuotaDominio)
@@ -23,11 +22,13 @@ namespace ME.Libros.Web.Models
             Estado = cuotaDominio.Estado;
             FechaVencimiento = cuotaDominio.FechaVencimiento;
             FechaCobro = cuotaDominio.FechaCobro;
-            Atraso = cuotaDominio.DiasAtraso;
+            //Atraso = cuotaDominio.DiasAtraso;
+            Atraso = cuotaDominio.FechaCobro.HasValue
+                ? (cuotaDominio.FechaCobro.Value - cuotaDominio.FechaVencimiento.Date).Days
+                : 0;
             Monto = cuotaDominio.Monto;
             MontoCobro = cuotaDominio.MontoCobro;
             Saldo = cuotaDominio.Saldo;
-            //Venta = new VentaViewModel(cuotaDominio.Venta);
         }
 
         #endregion

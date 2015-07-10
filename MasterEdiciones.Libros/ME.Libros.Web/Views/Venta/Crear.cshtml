@@ -12,15 +12,6 @@
 
     <div class="row">
         <div class="col-md-10">
-            <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
-                <a class="close" data-hide="alert" aria-hidden="true">×</a>
-                <b>Mensajes:</b>
-                @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
             <div class="text-right">
                 <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index", new { estado = EstadoVenta.Vigente})">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
@@ -47,7 +38,7 @@
         $("#btnNuevoVentaItem").on("click", function () {
             abrirModalVentaItem('@Url.Action("CrearItem", "VentaItem")');
         });
-        
+
         //var columnas = [6];
         //var i = 0;
         //$('#ventaDetalleTable thead th').each(function () {
@@ -82,9 +73,21 @@
             "order": [],
             //"columnDefs": columna,
             "footerCallback": function (row, data, start, end, display) {
-                calcularTotales(this);
+                calcularTotales(this, row, data, start, end, display);
+            },
+            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                $('td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("text-right");
+            },
+            lengthMenu: [5, 10]
+        });
+
+        $('#formVenta').validate().settings.ignore = false;
+        $("#cantidadItems").rules("add", {
+            min: 1,
+            messages: {
+                min: "Debe agregar al menos un <b>Item</b> al Detalle de la venta"
+                //min: "El <b>Detalle</b> de la venta esta vacio"
             }
-            //"order": [[3, "desc"]]
         });
     });
 

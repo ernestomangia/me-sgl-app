@@ -33,21 +33,20 @@ namespace ME.Libros.Web.Models
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
             CobradorId = ventaDominio.Cobrador.Id;
-            //TODO: completar con vendedor
-            //VendedorId = ventaDominio.Vendedor.Id;
+            VendedorId = ventaDominio.Vendedor.Id;
             PlanPago = new PlanPagoViewModel(ventaDominio.PlanPago);
             PlanPagoId = ventaDominio.PlanPago.Id;
-
-            if (ventaDominio.VentaItems != null)
+            // Items
+            Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
+            var i = 0;
+            Items.ForEach(vi =>
             {
-                // puede ser null esta lista?
-                Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
-                Items.ForEach(vi => vi.Venta = this);
-            }
-
+                vi.Venta = this;
+                vi.Orden = ++i;
+            });
+            // Cuotas
             Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
             Cuotas.ForEach(c => c.Venta = this);
-
         }
 
         #endregion
@@ -90,8 +89,8 @@ namespace ME.Libros.Web.Models
         public long CobradorId { get; set; }
 
         [Display(Name = "Vendedor", ResourceType = typeof(Messages))]
-        //[Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        public long? VendedorId { get; set; }
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        public long VendedorId { get; set; }
 
         [Display(Name = "PlanPago", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]

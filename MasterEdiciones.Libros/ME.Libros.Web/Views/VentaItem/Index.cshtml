@@ -11,18 +11,17 @@
     <thead>
         <tr>
             <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Orden)</th>
-            @*<th class="hidden">@Html.DisplayNameFor(model => model.Id)</th>*@
             <th>@Html.DisplayNameFor(model => model.ProductoId)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Cantidad)</th>
-            <th class="numero">@Html.DisplayNameFor(model => model.PrecioVentaVendido)</th>
-            <th class="numero" style="width: 150px;">@Html.DisplayNameFor(model => model.MontoItemVendido)</th>
+            <th class="moneda">@Html.DisplayNameFor(model => model.PrecioVentaVendido)</th>
+            <th class="moneda" style="width: 150px;">@Html.DisplayNameFor(model => model.MontoItemVendido)</th>
             <th class="columnaAcciones">Acciones</th>
         </tr>
     </thead>
     <tfoot>
         <tr>
             <th colspan="4" style="text-align:right">Total:</th>
-            <th class="text-right">$ @Model.Sum(vi => vi.MontoItemVendido)</th>
+            <th class="text-right">@*@Model.Sum(vi => vi.MontoItemVendido)*@</th>
             <th></th>
         </tr>
     </tfoot>
@@ -30,7 +29,6 @@
     {
         <tr>
             <td>@item.Orden</td>
-            @*<td>@item.Id</td>*@
             <td>@item.Producto.Nombre</td>
             <td class="text-right">@Html.DisplayFor(c => item.Cantidad)</td>
             <td class="text-right">@Html.DisplayFor(c => item.PrecioVentaVendido)</td>

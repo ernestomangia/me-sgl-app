@@ -44,7 +44,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(p => p.Stock, new { @class = "col-md-4 control-label" })
             <div class="col-md-2">
-                @Html.TextBoxFor(p => p.Stock, new { @class = "form-control" })
+                @Html.TextBoxFor(p => p.Stock, new { @class = "form-control", maxlenght = 6 })
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(p => p.PrecioCosto, new { @class = "col-md-4 control-label", data_val_number = string.Format(ErrorMessages.Numeric, Messages.Stock) })
+            @Html.LabelFor(p => p.PrecioCosto, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(p => p.PrecioCosto, new { @class = "form-control", maxlenght = 15, data_val_number = string.Format(ErrorMessages.Decimal, Messages.PrecioCosto) })
             </div>

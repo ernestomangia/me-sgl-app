@@ -97,12 +97,13 @@
 
         <div class="tab-content">
             <div id="TabVentaDetalle" role="tabpanel" class="tab-pane fade in active">
+                <br />
                 @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
-                @foreach (var item in Model.Items)
+                @*@foreach (var item in Model.Items)
                 {
                     <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
                     <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
-                }
+                }*@
             </div>
 
             <div id="TabFormaPago" role="tabpanel" class="tab-pane fade">
@@ -112,7 +113,7 @@
                         <div class="form-group form-group-sm">
                             @Html.LabelFor(v => v.PlanPagoId, new { @class = "col-md-4 control-label" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(c => c.PlanPagoId, Model.PlanesPago, "Seleccione", new { @class = "form-control" })
+                                @Html.DropDownListFor(v => v.PlanPagoId, Model.PlanesPago, "Seleccione", new { @class = "form-control" })
                             </div>
                         </div>
                     </div>
@@ -124,13 +125,6 @@
                         </div>
                     </div>
                 </div>
-                @if (Model.Cuotas.Any())
-                {
-                    <div class="row">
-                        <h4>Cuotas</h4>
-                        @{ Html.RenderAction("VerCuotas", "Venta", new { cuotaViewModels = Model.Cuotas }); }
-                    </div>
-                }
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group form-group-sm">
@@ -149,6 +143,13 @@
                         </div>
                     </div>
                 </div>
+                @if (Model.Cuotas.Any())
+                {
+                    <div class="row">
+                        <h4>Cuotas</h4>
+                        @{ Html.RenderAction("VerCuotas", "Venta", new { cuotaViewModels = Model.Cuotas }); }
+                    </div>
+                }
             </div>
         </div>
     </div>

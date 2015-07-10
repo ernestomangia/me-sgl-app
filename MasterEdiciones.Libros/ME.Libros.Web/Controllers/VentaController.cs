@@ -119,8 +119,7 @@ namespace ME.Libros.Web.Controllers
         {
             var ventaViewModel = new VentaViewModel();
             PrepareModel(ventaViewModel);
-            ViewBag.Title = "Vigentes";
-            ViewBag.MenuId = 20;
+            SetMenuVigente();
 
             return View(ventaViewModel);
         }
@@ -131,6 +130,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(ventaViewModel);
+                SetMenuVigente();
                 return View(ventaViewModel);
             }
 
@@ -146,6 +146,7 @@ namespace ME.Libros.Web.Controllers
                         FechaCobro = ventaViewModel.FechaCobro,
                         Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
                         Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
+                        Vendedor = VendedorService.GetPorId(ventaViewModel.VendedorId),
                         Estado = EstadoVenta.Vigente,
                         MontoVendido = ventaViewModel.MontoVendido,
                         Saldo = ventaViewModel.MontoVendido,
@@ -163,7 +164,6 @@ namespace ME.Libros.Web.Controllers
                             Cantidad = ventaItemViewModel.Cantidad,
                             Producto = producto,
                             PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido,
-                            PrecioCosto = producto.PrecioCosto,
                             MontoVendido = ventaItemViewModel.MontoItemVendido
                         });
                     }
@@ -201,6 +201,7 @@ namespace ME.Libros.Web.Controllers
             }
 
             PrepareModel(ventaViewModel);
+            SetMenuVigente();
             return View(ventaViewModel);
         }
 
@@ -219,8 +220,7 @@ namespace ME.Libros.Web.Controllers
                 switch (ventaViewModel.Estado)
                 {
                     case EstadoVenta.Vigente:
-                        ViewBag.Title = "Vigentes";
-                        ViewBag.MenuId = 20;
+                        SetMenuVigente();
                         break;
                     case EstadoVenta.Pagada:
                         ViewBag.Title = "Pagadas";
@@ -287,6 +287,12 @@ namespace ME.Libros.Web.Controllers
             ventaViewModel.PlanesPago = new SelectList(PlanPagoService.Listar()
                 .ToList()
                 .Select(p => new PlanPagoViewModel(p)), "Id", "Nombre");
+        }
+
+        private void SetMenuVigente()
+        {
+            ViewBag.Title = "Vigentes";
+            ViewBag.MenuId = 20;
         }
 
         #endregion

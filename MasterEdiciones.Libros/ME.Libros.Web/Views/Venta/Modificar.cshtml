@@ -44,11 +44,21 @@
             "order": [],
             //"columnDefs": columna,
             "footerCallback": function (row, data, start, end, display) {
-                calcularTotales(this);
-            }
+                calcularTotales(this, row, data, start, end, display);
+            },
+            lengthMenu: [5, 10],
         });
 
         $("#ventaCuotaTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
         $('#ventaCuotaTable').dataTable();
+
+        $("#FechaVenta").attr("disabled", "disabled");
+        $("#FechaCobro").attr("disabled", "disabled");
+        $("#ClienteId").attr("disabled", "disabled");
+        $("#CobradorId").attr("disabled", "disabled");
+        $("#VendedorId").attr("disabled", "disabled");
+        $("#VendedorId").attr("disabled", "disabled");
+        $("#PlanPagoId").attr("disabled", "disabled");
+        $("#MontoVendido").attr("disabled", "disabled");
     });
 </script>

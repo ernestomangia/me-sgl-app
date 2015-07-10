@@ -70,13 +70,12 @@ function agregarVentaItem(ventaItem) {
     var table = $("#ventaDetalleTable").DataTable();
     var nroItem = indexItems + 1;
     table.row.add([
-        nroItem,
-        //0,
-        ventaItem.Producto.Nombre,
-        ventaItem.Cantidad,
-        formatFloat(ventaItem.PrecioVentaVendido),
-        formatFloat(ventaItem.MontoItemVendido),
-        modificar + eliminar
+            nroItem,
+            ventaItem.Producto.Nombre,
+            ventaItem.Cantidad,
+            formatCurrency(ventaItem.PrecioVentaVendido),
+            formatCurrency(ventaItem.MontoItemVendido),
+            modificar + eliminar
     ]).draw();
 
     var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
@@ -142,43 +141,47 @@ function actualizarHiddens() {
     });
 }
 
-function calcularTotales(dt) {
+function calcularTotales(dt, row, data, start, end, display) {
     var api = dt.api();
 
     if (api.column(4).data().length == 0) {
         return;
     }
-
-    // Remove the formatting to get integer data for summation
-    var intVal = function (i) {
-        return typeof i === 'string' ?
-            i.replace(/[\$,]/g, '') * 1 :
-            typeof i === 'number' ?
-            i : 0;
+    // Remove the formatting to get float data for summation
+    var floatVal = function (i) {
+        return typeof i === 'string'
+            ? Globalize.parseFloat(i)
+            : typeof i === 'number'
+                ? i
+                : 0;
     };
 
     // Total over all pages
-    total = api
+    var total = api
         .column(4)
         .data()
         .reduce(function (a, b) {
-            return intVal(a) + intVal(b);
+            return floatVal(a) + floatVal(b);
         });
 
     // Total over this page
-    pageTotal = api
+    var pageTotal = api
         .column(4, { page: 'current' })
         .data()
         .reduce(function (a, b) {
-            b = Globalize.parseFloat(b);
-            return intVal(a) + intVal(b);
-        }, 0);
+            return floatVal(a) + floatVal(b);
+        });
+
+    if (api.column(4).data().length == 1) {
+        total = floatVal(total);
+        pageTotal = floatVal(pageTotal);
+    }
 
     // Update footer
-    $(api.column(4).footer()).html(
-        '$' + formatFloat(pageTotal) + ' ( $' + total + ' total)'
-    );
-    $("#MontoVendido, #MontoCalculado").val(total);
+    $(api.column(4).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ' total)');
+    if ($("#Id").length == 0) {
+        $("#MontoVendido, #MontoCalculado").val(formatFloat(total));
+    }
 }
 
 function getProducto() {
@@ -209,6 +212,10 @@ function getProducto() {
 
 function formatFloat(value) {
     return Globalize.format(value, "n2");
+}
+
+function formatCurrency(value) {
+    return "$ " + Globalize.format(value, "n2");
 }
 
 function calcularMontoItemVendido(precioVentaVendido) {

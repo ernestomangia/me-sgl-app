@@ -47,7 +47,7 @@ namespace ME.Libros.Web.Models
         public string Descripcion { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
+        //[RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public long Stock { get; set; }
 
         [Display(Name = "CodigoBarra", ResourceType = typeof(Messages))]

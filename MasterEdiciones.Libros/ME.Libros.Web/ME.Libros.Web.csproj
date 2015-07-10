@@ -666,8 +666,8 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
-    <Compile Include="Controllers\CompraVigenteController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\CompraPagadaController.cs" />
     <Compile Include="Controllers\PlanPagoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\CobradorController.cs" />
@@ -816,6 +816,10 @@
     <Content Include="Views\Vendedor\Crear.cshtml" />
     <Content Include="Views\Vendedor\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Vendedor\Modificar.cshtml" />
+    <Content Include="Views\CompraPagada\Index.cshtml" />
+    <Content Include="Views\CompraAnulada\Index.cshtml" />
+    <Content Include="Views\CompraPagada\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\CompraPagada\Crear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -825,7 +829,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CompraVigente\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ME.Libros.Api\ME.Libros.Api.csproj">

@@ -12,13 +12,13 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class CompraVigenteController : Controller
+    public class CompraPagadaController : Controller
     {
         public CompraService CompraService { get; set; }
         public ProveedorService ProveedorService { get; set; }
         public ProductoService ProductoService { get; set; }
 
-        public CompraVigenteController()
+        public CompraPagadaController()
         {
             var modelContainer = new ModelContainer();
             ProductoService = new ProductoService(new EntidadRepository<ProductoDominio>(modelContainer));
@@ -78,6 +78,25 @@ namespace ME.Libros.Web.Controllers
 
             return View(view, compras);
         }
+
+        public ActionResult Crear()
+        {
+            var compraViewModel = new CompraViewModel();
+            PrepareModel(compraViewModel);
+
+            return View(compraViewModel);
+        }
+
+        #region Private Methods
+
+        private void PrepareModel(CompraViewModel compraViewModel)
+        {
+            compraViewModel.Proveedores = new SelectList(ProveedorService.Listar()
+                .ToList()
+                .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Cuil }), "Id", "Text");
+        }
+
+        #endregion
 
 	}
 }

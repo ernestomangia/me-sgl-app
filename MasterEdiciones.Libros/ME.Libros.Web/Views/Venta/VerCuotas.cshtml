@@ -31,7 +31,7 @@
         <tr>
             <td>@Html.DisplayFor(c => item.Numero)</td>
             <td class="text-center">
-                @Html.DisplayFor(c => item.Estado.GetDisplayName())
+                @item.Estado.GetDisplayName()
             </td>
             <td class="text-center">@item.FechaVencimiento.ToString("dd/MM/yyyy")</td>
             <td class="text-center">

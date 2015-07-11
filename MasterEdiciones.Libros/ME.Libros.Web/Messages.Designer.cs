@@ -484,7 +484,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subtotal Vendido.
+        ///   Looks up a localized string similar to Subtotal vendido.
         /// </summary>
         public static string MontoItemVendido {
             get {

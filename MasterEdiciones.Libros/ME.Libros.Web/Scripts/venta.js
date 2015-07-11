@@ -196,8 +196,7 @@ function getProducto() {
             },
             success: function (data) {
                 var precioVenta = parseFloat(data.PrecioVenta);
-                calcularMontoItemVendido(precioVenta);
-                calcularMontoItemCalculado(precioVenta);
+                calcularMontosItem(precioVenta);
                 $("#precioSugerido").text(formatFloat(precioVenta));
                 $("#PrecioVentaVendido").val(formatFloat(precioVenta));
             },
@@ -218,6 +217,15 @@ function formatCurrency(value) {
     return "$ " + Globalize.format(value, "n2");
 }
 
+function calcularMontosItem(precioVentaCalculado, precioVentaVendido) {
+    if (precioVentaVendido === undefined) {
+        precioVentaVendido = precioVentaCalculado;
+    }
+    calcularMontoItemVendido(precioVentaVendido);
+    calcularMontoItemCalculado(precioVentaCalculado);
+    calcularDiferencia();
+}
+
 function calcularMontoItemVendido(precioVentaVendido) {
     var cantidad = parseInt($("#Cantidad").val());
     if (cantidad > 0 && precioVentaVendido >= 0) {
@@ -235,6 +243,28 @@ function calcularMontoItemCalculado(precioVentaCalculado) {
         $("#subtotalSugerido").text(formatFloat(monto));
     } else {
         $("#subtotalSugerido").text("-");
+    }
+}
+
+function calcularDiferencia() {
+    var montoCalculado = Globalize.parseFloat($("#subtotalSugerido").text());
+    var montoVendido = Globalize.parseFloat($("#MontoItemVendido").val());
+    var cantidad = parseInt($("#Cantidad").val());
+    if (cantidad > 0 && montoCalculado > 0 && montoVendido >= 0) {
+        var difAbsoluta = montoVendido - montoCalculado;
+        var difRelativaPorcentual = (difAbsoluta / montoCalculado) * 100;
+        if (difAbsoluta < 0) {
+            $("#diferencia").parent().switchClass("label-success label-default", "label-danger");
+        } else if (difAbsoluta > 0) {
+            $("#diferencia").parent().switchClass("label-danger label-default", "label-success");
+        } else {
+            $("#diferencia").parent().switchClass("label-danger label-success", "label-default");
+        }
+        $("#diferencia").text(formatFloat(difAbsoluta) + " | " + formatFloat(difRelativaPorcentual) + "%");
+    } else {
+        // Si el precio de venta del producto es 0 no calcular diferencia de montos
+        $("#diferencia").text("-");
+        $("#diferencia").parent().switchClass("label-success label-danger", "label-default");
     }
 }
 

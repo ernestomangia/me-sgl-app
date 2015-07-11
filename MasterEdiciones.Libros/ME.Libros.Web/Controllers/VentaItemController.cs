@@ -66,7 +66,6 @@ namespace ME.Libros.Web.Controllers
                         ventaItemViewModel.PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido;
                         ventaItemViewModel.MontoItemCalculado = ventaItemViewModel.Cantidad * productoDominio.PrecioVenta;
                         ventaItemViewModel.MontoItemVendido = ventaItemViewModel.MontoItemVendido;
-
                     }
                 }
                 catch (Exception ex)

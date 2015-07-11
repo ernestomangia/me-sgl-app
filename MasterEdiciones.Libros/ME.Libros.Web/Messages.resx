@@ -247,7 +247,7 @@
     <value>Nro</value>
   </data>
   <data name="MontoItemVendido" xml:space="preserve">
-    <value>Subtotal Vendido</value>
+    <value>Subtotal vendido</value>
   </data>
   <data name="MontoCobro" xml:space="preserve">
     <value>Monto</value>

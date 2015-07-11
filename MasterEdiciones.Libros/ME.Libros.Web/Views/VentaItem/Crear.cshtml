@@ -19,21 +19,30 @@
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "3", autocomplete = "off" })
+                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "4", autocomplete = "off" })
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(vi => vi.PrecioVentaVendido, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, autocomplete = "off" })
+                            @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", autocomplete = "off" })
                             <span class="label label-primary">Sugerido: $ <span id="precioSugerido">-</span></span>
                         </div>
                     </div>
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(vi => vi.MontoItemVendido, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, autocomplete = "off" })
+                            @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "8", autocomplete = "off" })
                             <span class="label label-primary">Sugerido: $ <span id="subtotalSugerido">-</span></span>
+                        </div>
+                    </div>
+                    <div class="form-group form-group-sm">
+                        <div class="col-md-offset-2 col-md-10">
+                            <h3>
+                                <span class="label label-default" style="display: block;text-align: left;">
+                                    Diferencia: $ <span id="diferencia">-</span>
+                                </span>
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -62,7 +71,7 @@
 }
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         setMaxlength();
         $("#Cantidad").val("");
         $("#PrecioVentaVendido").val("");
@@ -76,9 +85,23 @@
                 min: "La <b>Cantidad</b> debe ser mayor a 0 unidades</b>"
             }
         });
+
+        $("#PrecioVentaVendido").rules("add", {
+            min: 0,
+            messages: {
+                min: "El <b>Precio de venta vendido</b> debe ser mayor o igual a $ 0,00</b>"
+            }
+        });
+
+        $("#MontoItemVendido").rules("add", {
+            min: 0,
+            messages: {
+                min: "El <b>Subtotal vendido</b> debe ser mayor o igual a $ 0,00</b>"
+            }
+        });
     });
 
-    $("#formVentaItem").on("submit", function(e) {
+    $("#formVentaItem").on("submit", function (e) {
         e.preventDefault();
         validationSummaryVisibility(this);
         if ($("#formVentaItem").valid()) {
@@ -86,27 +109,27 @@
         }
     });
 
-    $('#modalAgregarItem').on('hidden.bs.modal', function() {
+    $('#modalAgregarItem').on('hidden.bs.modal', function () {
         $("#contenedorVentaItem").empty();
     });
 
-    $('#ProductoId').on('change', function() {
+    $('#ProductoId').on('change', function () {
         getProducto();
     });
 
     $('#Cantidad').on('keyup change', function (e) {
         if (isValidKey(e.keyCode)) {
             var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
-            calcularMontoItemVendido(precioVentaVendido);
             var precioVentaCalculado = Globalize.parseFloat($("#precioSugerido").text());
-            calcularMontoItemCalculado(precioVentaCalculado);
+            calcularMontosItem(precioVentaCalculado, precioVentaVendido);
         }
     });
 
-    $('#PrecioVentaVendido').on('keyup change', function(e) {
+    $('#PrecioVentaVendido').on('keyup change', function (e) {
         if (isValidKey(e.keyCode)) {
             var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
             calcularMontoItemVendido(precioVentaVendido);
+            calcularDiferencia();
         }
     });
 
@@ -116,6 +139,7 @@
         if (cantidad > 0 && montoItemVendido >= 0) {
             var precioVentaVendido = montoItemVendido / cantidad;
             $("#PrecioVentaVendido").val(formatFloat(precioVentaVendido));
+            calcularDiferencia();
         }
     });
 </script>

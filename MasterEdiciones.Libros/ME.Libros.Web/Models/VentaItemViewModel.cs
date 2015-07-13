@@ -21,10 +21,13 @@ namespace ME.Libros.Web.Models
             Id = ventaItemDominio.Id;
             FechaAlta = ventaItemDominio.FechaAlta;
             Cantidad = ventaItemDominio.Cantidad;
-            MontoItemVendido = ventaItemDominio.MontoVendido;
             PrecioVentaVendido = ventaItemDominio.PrecioVentaVendido;
+            PrecioVentaCalculado = ventaItemDominio.PrecioVentaCalculado;
+            MontoItemVendido = ventaItemDominio.MontoVendido;
+            MontoItemCalculado = ventaItemDominio.MontoCalculado;
             PrecioCosto = ventaItemDominio.PrecioCosto;
             Producto = new ProductoViewModel(ventaItemDominio.Producto);
+            ProductoId = ventaItemDominio.Producto.Id;
         }
 
         #endregion

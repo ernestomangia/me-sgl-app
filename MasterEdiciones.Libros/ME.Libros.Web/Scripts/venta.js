@@ -1,20 +1,23 @@
-﻿function abrirModalVentaItem(url) {
+﻿function abrirModalVentaItem(url, productoId) {
     var ventaItemViewModels = new Array();
+    var i = 0;
     $(".hiddenProductoId").each(function () {
+        var preFix = "#Items\\[" + i + "\\]\\.";
         var item = {
-            ProductoId: $(this).val(),
-            Cantidad: $(this).next(".hiddenCantidad").val(),
-            PrecioVentaVendido: $(this).next(".hiddenPrecioVentaVendido").val(),
-            MontoItemVendido: $(this).next(".hiddenMontoItemVendido").val()
+            ProductoId: $(preFix + "ProductoId").val(),
+            Cantidad: $(preFix + "Cantidad").val(),
+            PrecioVentaVendido: $(preFix + "PrecioVentaVendido").val(),
+            MontoItemVendido: $(preFix + "MontoItemVendido").val()
         };
         ventaItemViewModels.push(item);
+        i++;
     });
 
     $.ajax({
         method: "POST",
         url: url,
         contentType: "application/json;charset=utf-8",
-        data: JSON.stringify(ventaItemViewModels),
+        data: JSON.stringify({ ventaItemViewModels: ventaItemViewModels, productoId: productoId }),
         dataType: "html",
         error: function (jqXhr, status, error) {
             mensajeError("Ha ocurrido un error");
@@ -65,8 +68,8 @@ function crearVentaItem(form) {
 
 function agregarVentaItem(ventaItem) {
     var indexItems = parseInt($("#cantidadItems").val());
-    var modificar = getModificarButton(indexItems);
-    var eliminar = getEliminarButton(indexItems);
+    var modificar = getHtmlBotonModificar(ventaItem.ProductoId);
+    var eliminar = getHtmlBotonEliminar(indexItems);
     var table = $("#ventaDetalleTable").DataTable();
     var nroItem = indexItems + 1;
     table.row.add([
@@ -75,7 +78,7 @@ function agregarVentaItem(ventaItem) {
             ventaItem.Cantidad,
             formatCurrency(ventaItem.PrecioVentaVendido),
             formatCurrency(ventaItem.MontoItemVendido),
-            modificar + eliminar
+            modificar + " " + eliminar
     ]).draw();
 
     var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
@@ -86,14 +89,14 @@ function agregarVentaItem(ventaItem) {
     $("#cantidadItems").val(indexItems + 1);
 }
 
-function getModificarButton(indexItem) {
-    return ""; return "<button class='btn btn-warning btn-sm btnModificar' type='button' onclick='modificarVentaItem(" + indexItem + ");' title='Modificar'>" +
+function getHtmlBotonModificar(productoId) {
+    return "<button class='btn btn-warning btn-sm btnModificar' type='button' onclick='javascript:abrirModalVentaItem(\"/VentaItem/ModificarItem\", " + productoId + ");' title='Modificar item'>" +
         "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>" +
         "</button>";
 }
 
-function getEliminarButton(indexItem) {
-    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='setearId(" + indexItem + ");'  title='Eliminar'>" +
+function getHtmlBotonEliminar(indexItem) {
+    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='javascript:setearId(" + indexItem + ");' title='Eliminar item'>" +
         "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
         "</button>";
 }

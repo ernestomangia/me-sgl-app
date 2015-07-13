@@ -821,6 +821,8 @@
     <Content Include="Views\CompraAnulada\Index.cshtml" />
     <Content Include="Views\CompraPagada\Shared\Form_Partial.cshtml" />
     <Content Include="Views\CompraPagada\Crear.cshtml" />
+    <Content Include="Views\VentaItem\Modificar.cshtml" />
+    <Content Include="Views\VentaItem\Shared\Form_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

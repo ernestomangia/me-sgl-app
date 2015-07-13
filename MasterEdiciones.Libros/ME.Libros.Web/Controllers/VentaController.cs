@@ -134,54 +134,55 @@ namespace ME.Libros.Web.Controllers
                 return View(ventaViewModel);
             }
 
+            var ventaDominio = new VentaDominio
+            {
+                FechaAlta = DateTime.Now,
+                FechaVenta = ventaViewModel.FechaVenta,
+                FechaCobro = ventaViewModel.FechaCobro,
+                Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
+                Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
+                Vendedor = VendedorService.GetPorId(ventaViewModel.VendedorId),
+                MontoVendido = ventaViewModel.MontoVendido,
+                Saldo = ventaViewModel.MontoVendido,
+                PlanPago = PlanPagoService.GetPorId(ventaViewModel.PlanPagoId),
+                VentaItems = new List<VentaItemDominio>(),
+                Cuotas = new List<CuotaDominio>()
+            };
+
+            foreach (var ventaItemViewModel in ventaViewModel.Items)
+            {
+                var producto = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
+                ventaDominio.VentaItems.Add(new VentaItemDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Cantidad = ventaItemViewModel.Cantidad,
+                    Producto = producto,
+                    PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido,
+                    MontoVendido = ventaItemViewModel.MontoItemVendido
+                });
+            }
+
             long resultado = 0;
             try
             {
                 using (VentaService)
                 {
-                    var ventaDominio = new VentaDominio
-                    {
-                        FechaAlta = DateTime.Now,
-                        FechaVenta = ventaViewModel.FechaVenta,
-                        FechaCobro = ventaViewModel.FechaCobro,
-                        Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
-                        Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
-                        Vendedor = VendedorService.GetPorId(ventaViewModel.VendedorId),
-                        Estado = EstadoVenta.Vigente,
-                        MontoVendido = ventaViewModel.MontoVendido,
-                        Saldo = ventaViewModel.MontoVendido,
-                        PlanPago = PlanPagoService.GetPorId(ventaViewModel.PlanPagoId),
-                        VentaItems = new List<VentaItemDominio>(),
-                        Cuotas = new List<CuotaDominio>()
-                    };
-
-                    foreach (var ventaItemViewModel in ventaViewModel.Items)
-                    {
-                        var producto = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
-                        ventaDominio.VentaItems.Add(new VentaItemDominio
-                        {
-                            FechaAlta = DateTime.Now,
-                            Cantidad = ventaItemViewModel.Cantidad,
-                            Producto = producto,
-                            PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido,
-                            MontoVendido = ventaItemViewModel.MontoItemVendido
-                        });
-                    }
-
                     resultado = VentaService.Guardar(ventaDominio);
-                    if (resultado <= 0)
+                }
+
+                if (resultado <= 0)
+                {
+                    foreach (var error in VentaService.ModelError)
                     {
-                        foreach (var error in VentaService.ModelError)
-                        {
-                            ModelState.AddModelError(error.Key, error.Value);
-                        }
-                    }
-                    else
-                    {
-                        TempData["Id"] = ventaDominio.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaVenta, ventaDominio.Id);
+                        ModelState.AddModelError(error.Key, error.Value);
                     }
                 }
+                else
+                {
+                    TempData["Id"] = ventaDominio.Id;
+                    TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaVenta, ventaDominio.Id);
+                }
+
             }
             catch (DbEntityValidationException ex)
             {
@@ -197,7 +198,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado > 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { estado = ventaDominio.Estado });
             }
 
             PrepareModel(ventaViewModel);

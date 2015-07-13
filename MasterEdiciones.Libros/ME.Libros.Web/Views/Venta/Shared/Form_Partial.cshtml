@@ -3,9 +3,9 @@
 @{
     var estado = new Dictionary<EstadoVenta, string>
     {
-        { EstadoVenta.Vigente, "success" },
+        { EstadoVenta.Vigente, "info" },
         { EstadoVenta.Anulada, "danger" },
-        { EstadoVenta.Pagada, "default" }
+        { EstadoVenta.Pagada, "success" }
     };
 }
 
@@ -43,7 +43,18 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(v => v.FechaCobro, new { @class = "col-md-4 control-label" })
+            @*@Html.LabelFor(v => v.FechaCobro, new
+                                               {
+                                                   @class = "col-md-4 control-label",
+                                                   data_toggle = "tooltip",
+                                                   data_placement = "bottom",
+                                                   title = ""
+                                               })*@
+            <label for="FechaCobro" class="col-md-4 control-label">
+                <span data-toggle="tooltip" data-placement="bottom" title="Fecha en la que el cliente se compromete a abonar la 1º cuota del plan. Las fechas de vencimiento de las restantes cuotas se determinan a partir de ésta.">
+                    @Html.DisplayNameFor(v => v.FechaCobro)
+                </span>
+            </label>
             <div class="col-md-8">
                 @Html.TextBoxFor(v => v.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
             </div>
@@ -100,10 +111,10 @@
                 <br />
                 @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
                 @*@foreach (var item in Model.Items)
-                {
-                    <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
-                    <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
-                }*@
+                    {
+                        <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
+                        <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
+                    }*@
             </div>
 
             <div id="TabFormaPago" role="tabpanel" class="tab-pane fade">

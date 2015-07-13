@@ -69,6 +69,7 @@
     <Compile Include="General\ProvinciaService.cs" />
     <Compile Include="General\GastoService.cs" />
     <Compile Include="General\RubroService.cs" />
+    <Compile Include="General\VentaItemService.cs" />
     <Compile Include="General\ZonaService.cs" />
     <Compile Include="General\VentaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

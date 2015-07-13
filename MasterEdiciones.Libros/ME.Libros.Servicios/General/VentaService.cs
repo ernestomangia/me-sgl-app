@@ -51,26 +51,29 @@ namespace ME.Libros.Servicios.General
                     GenerarCuotas(ventaDominio);
 
                     // TODO: Generar plan de pago a partir de un interes
+                    ventaDominio.Estado = EstadoVenta.Vigente;
                 }
                 else
                 {
                     // Contado
-                    var monto = ventaDominio.MontoVendido;
-
-                    // Si es contado no lleva cuota?
+                    // Generar cobro porque es contado
                     var cuota = new CuotaDominio
                     {
+                        FechaAlta = DateTime.Now,
                         Numero = 0,
-                        FechaVencimiento = ventaDominio.FechaCobro,
+                        FechaVencimiento = ventaDominio.FechaVenta,
+                        FechaCobro = ventaDominio.FechaVenta,
                         Estado = EstadoCuota.Pagada,
-                        Monto = monto
+                        Monto = ventaDominio.MontoVendido,
+                        MontoCobro = ventaDominio.MontoVendido,
+                        DiasAtraso = 0,
+                        Interes = 0,
+                        Saldo = 0
                     };
 
-                    // Generar cobro porque es contado
-
+                    ventaDominio.Estado = EstadoVenta.Pagada;
                     ventaDominio.Cuotas.Add(cuota);
                 }
-
                 CalcularTotalVenta(ventaDominio);
             }
 

@@ -665,6 +665,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\IvaController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -698,6 +699,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\IvaViewModel.cs" />
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
@@ -823,6 +825,11 @@
     <Content Include="Views\CompraPagada\Crear.cshtml" />
     <Content Include="Views\VentaItem\Modificar.cshtml" />
     <Content Include="Views\VentaItem\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Iva\Crear.cshtml" />
+    <Content Include="Views\Iva\Eliminar.cshtml" />
+    <Content Include="Views\Iva\Index.cshtml" />
+    <Content Include="Views\Iva\Modificar.cshtml" />
+    <Content Include="Views\Iva\Shared\Form_Partial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

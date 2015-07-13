@@ -56,6 +56,7 @@
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="General\CompraService.cs" />
+    <Compile Include="General\IvaService.cs" />
     <Compile Include="General\UsuarioService.cs" />
     <Compile Include="General\PlanPagoService.cs" />
     <Compile Include="General\ProveedorService.cs" />

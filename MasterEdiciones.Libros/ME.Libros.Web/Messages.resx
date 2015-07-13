@@ -339,4 +339,10 @@
   <data name="ElVendedor" xml:space="preserve">
     <value>El vendedor</value>
   </data>
+  <data name="Alicuota" xml:space="preserve">
+    <value>Alicuota</value>
+  </data>
+  <data name="ElIva" xml:space="preserve">
+    <value>El Iva</value>
+  </data>
 </root>

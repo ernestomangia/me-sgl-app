@@ -39,8 +39,8 @@ namespace ME.Libros.Web.Controllers
             {
                 gastos.AddRange(GastoService.Listar()
                     .ToList()
-                    .Select(r => new GastoViewModel(r))
-                    );
+                    .Where(r => r.Id != 1)
+                    .Select(r => new GastoViewModel(r)));
             }
 
             return View(gastos);

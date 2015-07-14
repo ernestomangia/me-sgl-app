@@ -1,4 +1,5 @@
 ﻿@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Helpers
 @model ME.Libros.Web.Models.VentaViewModel
 @{
     var estado = new Dictionary<EstadoVenta, string>
@@ -43,18 +44,12 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @*@Html.LabelFor(v => v.FechaCobro, new
+            @Html.LabelWithTooltipFor(v => v.FechaCobro, new
                                                {
                                                    @class = "col-md-4 control-label",
-                                                   data_toggle = "tooltip",
                                                    data_placement = "bottom",
-                                                   title = ""
-                                               })*@
-            <label for="FechaCobro" class="col-md-4 control-label">
-                <span data-toggle="tooltip" data-placement="bottom" title="Fecha en la que el cliente se compromete a abonar la 1º cuota del plan. Las fechas de vencimiento de las restantes cuotas se determinan a partir de ésta.">
-                    @Html.DisplayNameFor(v => v.FechaCobro)
-                </span>
-            </label>
+                                                   title = "Fecha en la que el cliente se compromete a abonar la 1º cuota del plan. Las fechas de vencimiento de las restantes cuotas se determinan a partir de ésta."
+                                               })
             <div class="col-md-8">
                 @Html.TextBoxFor(v => v.FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = Messages.FechaCobro })
             </div>

@@ -693,6 +693,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Helpers\ModelStateHelper.cs" />
     <Compile Include="Messages.Designer.cs">
       <DesignTime>True</DesignTime>

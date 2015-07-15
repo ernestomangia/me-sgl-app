@@ -13,14 +13,11 @@
     };
 
     // Tell the validator that we want numbers parsed using Globalize
-
     $.validator.methods.number = function (value, element) {
-        var val = Globalize.parseFloat(value);
-        return this.optional(element) || ($.isNumeric(val));
+        return this.optional(element) || (handleGroups(value) && !isNaN(Globalize.parseFloat(value)));
     };
 
     // Tell the validator that we want dates parsed using Globalize
-
     $.validator.methods.date = function (value, element) {
         var val = Globalize.parseDate(value);
         return this.optional(element) || (val);

@@ -4,6 +4,7 @@ using System.Data.Entity;
 
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
+using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.EF
 {
@@ -55,13 +56,11 @@ namespace ME.Libros.EF
                     new ProvinciaDominio {Nombre = "Santa Cruz", FechaAlta = DateTime.Now},
                 };
 
-
-                var zona = new ZonaDominio
+                var zonaSinDefinir = new ZonaDominio
                 {
                     Nombre = "Sin definir",
                     Descripcion = "Zona sin definir",
                     FechaAlta = DateTime.Now
-
                 };
 
                 var localidades = new List<LocalidadDominio>
@@ -102,27 +101,13 @@ namespace ME.Libros.EF
                         Provincia = provincias.First(p => p.Nombre.Equals("Santa Fe"))
                     },
                 };
-
-                var editorial = new EditorialDominio
-                {
-                    Nombre = "Sin definir",
-                    Descripcion = "Editorial sin definir",
-                    FechaAlta = DateTime.Now
-                };
-
-                var rubro = new RubroDominio
-                {
-                    Nombre = "Sin definir",
-                    Descripcion = "Rubro sin definir",
-                    FechaAlta = DateTime.Now
-                };
-
+                
                 provincias.ForEach(p => context.Set<ProvinciaDominio>().Add(p));
                 localidades.ForEach(l =>
                 {
                     context.Set<LocalidadDominio>().Add(l);
                     l.FechaAlta = DateTime.Now;
-                    l.Zona = zona;
+                    l.Zona = zonaSinDefinir;
                 });
 
                 var cobrador = new CobradorDominio
@@ -152,20 +137,57 @@ namespace ME.Libros.EF
                         localidades[3]
                     }
                 };
-
-                var gasto = new GastoDominio
+                
+                // Entidades sin definir
+                var editorialSinDefinir = new EditorialDominio
                 {
                     Nombre = "Sin definir",
-                    Descripcion = "Gasto sin definir",
+                    Descripcion = "Editorial sin definir",
                     FechaAlta = DateTime.Now
                 };
 
-                context.Set<GastoDominio>().Add(gasto);
+                var rubroSinDefinir = new RubroDominio
+                {
+                    Nombre = "Sin definir",
+                    Descripcion = "Rubro sin definir",
+                    FechaAlta = DateTime.Now
+                };
+
+                var gastoSinDefinir = new GastoDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Sin definir",
+                    Descripcion = "Gasto sin definir",
+                };
+
+                var planPagoContado = new PlanPagoDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Contado",
+                    Descripcion = "Contado",
+                    Monto = 0,
+                    CantidadCuotas = 0,
+                    Tipo = TipoPlanPago.Contado
+                };
+
+                var enciclopedia = new ProductoDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Enciclopedia",
+                    Descripcion = "Enciclopedia",
+                    PrecioVenta = 132.50m,
+                    Rubro = rubroSinDefinir,
+                    Editorial = editorialSinDefinir
+                };
+
+                context.Set<PlanPagoDominio>().Add(planPagoContado);
+                context.Set<GastoDominio>().Add(gastoSinDefinir);
                 context.Set<CobradorDominio>().Add(cobrador);
                 context.Set<VendedorDominio>().Add(vendedor);
-                context.Set<ZonaDominio>().Add(zona);
-                context.Set<EditorialDominio>().Add(editorial);
-                context.Set<RubroDominio>().Add(rubro);
+                context.Set<ZonaDominio>().Add(zonaSinDefinir);
+                context.Set<EditorialDominio>().Add(editorialSinDefinir);
+                context.Set<RubroDominio>().Add(rubroSinDefinir);
+                context.Set<ProductoDominio>().Add(enciclopedia);
                 context.SaveChanges();
             }
         }

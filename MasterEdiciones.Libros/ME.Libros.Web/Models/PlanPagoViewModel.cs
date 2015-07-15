@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
+
 using ME.Libros.Dominio.General;
-using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Web.Models
 {
     public class PlanPagoViewModel
     {
-
         #region Constructor(s)
+
         public PlanPagoViewModel()
         {
 
         }
+
         public PlanPagoViewModel(PlanPagoDominio planPago)
         {
             Id = planPago.Id;
@@ -44,15 +41,11 @@ namespace ME.Libros.Web.Models
         public int CantidadCuotas { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Monto { get; set; }
 
-        public bool bandera { get; set; }
+        public bool Modificable { get; set; }
 
         #endregion
-
-
-
-
-
     }
 }

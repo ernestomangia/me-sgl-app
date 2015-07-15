@@ -1,0 +1,52 @@
+﻿@model ME.Libros.Web.Models.IvaViewModel
+@if (Model.Id > 0)
+{
+   <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(r => r.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(r => r.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Nombre, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(r => r.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Alicuota, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(r => r.Alicuota, new { @class = "form-control", placeholder = "Porcentaje de alicuota" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
+</div>

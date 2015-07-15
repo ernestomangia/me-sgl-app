@@ -14,19 +14,19 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class GastoController : BaseController<GastoDominio>
+    public class IvaController : BaseController<IvaDominio>
     {
         //
-        // GET: /Gasto/
+        // GET: /Iva/
 
-        public GastoService GastoService { get; set; }
+        public IvaService IvaService { get; set; }
 
-        public GastoController()
+        public IvaController()
         {
             var modelContainer = new ModelContainer();
-            GastoService = new GastoService(new EntidadRepository<GastoDominio>(modelContainer));
-            ViewBag.MenuId = 8;
-            ViewBag.Title = "Gastos";
+            IvaService = new IvaService(new EntidadRepository<IvaDominio>(modelContainer));
+            ViewBag.MenuId = 12;
+            ViewBag.Title = "Iva";
         }
 
         public ActionResult Index()
@@ -34,53 +34,53 @@ namespace ME.Libros.Web.Controllers
             ViewBag.Id = TempData["Id"];
             ViewBag.Mensaje = TempData["Mensaje"];
 
-            var gastos = new List<GastoViewModel>();
-            using (GastoService)
+            var iva = new List<IvaViewModel>();
+            using (IvaService)
             {
-                gastos.AddRange(GastoService.Listar()
+                iva.AddRange(IvaService.Listar()
                     .ToList()
-                    .Where(r => r.Id != 1)
-                    .Select(r => new GastoViewModel(r)));
+                    .Select(r => new IvaViewModel(r))
+                    );
             }
 
-            return View(gastos);
+            return View(iva);
         }
 
         [HttpGet]
         public ActionResult Crear()
         {
-            var gastoViewModel = new GastoViewModel();
-            return View(gastoViewModel);
+            var ivaViewModel = new IvaViewModel();
+            return View(ivaViewModel);
         }
 
         [HttpPost]
-        public ActionResult Crear(GastoViewModel gastoViewModel)
+        public ActionResult Crear(IvaViewModel ivaViewModel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    using (GastoService)
+                    using (IvaService)
                     {
-                        var gastoDominio = new GastoDominio
+                        var ivaDominio = new IvaDominio
                         {
                             FechaAlta = DateTime.Now,
-                            Nombre = gastoViewModel.Nombre,
-                            Descripcion = gastoViewModel.Descripcion,
+                            Nombre = ivaViewModel.Nombre,
+                            Alicuota = ivaViewModel.Alicuota,
                         };
 
-                        gastoViewModel.Id = GastoService.Guardar(gastoDominio);
-                        if (gastoViewModel.Id <= 0)
+                        ivaViewModel.Id = IvaService.Guardar(ivaDominio);
+                        if (ivaViewModel.Id <= 0)
                         {
-                            foreach (var error in GastoService.ModelError)
+                            foreach (var error in IvaService.ModelError)
                             {
                                 ModelState.AddModelError(error.Key, error.Value);
                             }
                         }
                         else
                         {
-                            TempData["Id"] = gastoViewModel.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El gasto", gastoDominio.Id);
+                            TempData["Id"] = ivaViewModel.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El iva", ivaDominio.Id);
                         }
                     }
                 }
@@ -91,9 +91,9 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-            return gastoViewModel.Id > 0
+            return ivaViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
-                    : View(gastoViewModel);
+                    : View(ivaViewModel);
         }
 
         [HttpGet]
@@ -103,9 +103,9 @@ namespace ME.Libros.Web.Controllers
             {
                 try
                 {
-                    using (GastoService)
+                    using (IvaService)
                     {
-                        GastoService.Eliminar(GastoService.GetPorId(id));
+                        IvaService.Eliminar(IvaService.GetPorId(id));
                     }
                 }
                 catch (DbUpdateException ex)
@@ -138,13 +138,13 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public ActionResult Modificar(int id)
         {
-            var gastoViewModel = new GastoViewModel();
+            var ivaViewModel = new IvaViewModel();
             try
             {
-                using (GastoService)
+                using (IvaService)
                 {
-                    var gastoDominio = GastoService.GetPorId(id);
-                    gastoViewModel = new GastoViewModel(gastoDominio);
+                    var ivaDominio = IvaService.GetPorId(id);
+                    ivaViewModel = new IvaViewModel(ivaDominio);
                 }
             }
             catch (Exception ex)
@@ -153,53 +153,53 @@ namespace ME.Libros.Web.Controllers
                 ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
-            return View(gastoViewModel);
+            return View(ivaViewModel);
         }
 
         [HttpPost]
-        public ActionResult Modificar(GastoViewModel gastoViewModel)
+        public ActionResult Modificar(IvaViewModel ivaViewModel)
         {
             long resultado = 0;
             if (ModelState.IsValid)
             {
-                using (GastoService)
+                using (IvaService)
                 {
-                    var gastoDominio = GastoService.GetPorId(gastoViewModel.Id);
-                    gastoDominio.Nombre = gastoViewModel.Nombre;
-                    gastoDominio.Descripcion = gastoViewModel.Descripcion;
+                    var ivaDominio = IvaService.GetPorId(ivaViewModel.Id);
+                    ivaDominio.Nombre = ivaViewModel.Nombre;
+                    ivaDominio.Alicuota = ivaViewModel.Alicuota;
 
-                    resultado = GastoService.Guardar(gastoDominio);
+                    resultado = IvaService.Guardar(ivaDominio);
                     if (resultado <= 0)
                     {
-                        foreach (var error in GastoService.ModelError)
+                        foreach (var error in IvaService.ModelError)
                         {
                             ModelState.AddModelError(error.Key, error.Value);
                         }
                     }
                     else
                     {
-                        TempData["Id"] = gastoViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El gasto", gastoViewModel.Id);
+                        TempData["Id"] = ivaViewModel.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El iva", ivaViewModel.Id);
                     }
                 }
             }
 
 
-            return gastoViewModel.Id > 0
+            return ivaViewModel.Id > 0
                     ? (ActionResult)RedirectToAction("Index")
-                    : View(gastoViewModel);
+                    : View(ivaViewModel);
         }
 
         [HttpGet]
         public ActionResult Detalle(int id)
         {
-            GastoViewModel gastoViewModel;
-            using (GastoService)
+            IvaViewModel ivaViewModel;
+            using (IvaService)
             {
-                gastoViewModel = new GastoViewModel(GastoService.GetPorId(id));
+                ivaViewModel = new IvaViewModel(IvaService.GetPorId(id));
             }
 
-            return View(gastoViewModel);
+            return View(ivaViewModel);
         }
     }
 }

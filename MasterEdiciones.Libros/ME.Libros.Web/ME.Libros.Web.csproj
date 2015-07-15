@@ -586,6 +586,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.bootstrap-duallistbox.js" />
     <Content Include="Scripts\jquery.validate.globalize.js" />
     <Content Include="Scripts\jquery.validate.globalize.min.js" />
@@ -665,6 +666,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\IvaController.cs" />
     <Compile Include="Controllers\CompraItemController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
@@ -693,12 +695,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\HtmlExtensions.cs" />
     <Compile Include="Helpers\ModelStateHelper.cs" />
     <Compile Include="Messages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\IvaViewModel.cs" />
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
@@ -818,6 +822,13 @@
     <Content Include="Views\Vendedor\Crear.cshtml" />
     <Content Include="Views\Vendedor\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Vendedor\Modificar.cshtml" />
+    <Content Include="Views\VentaItem\Modificar.cshtml" />
+    <Content Include="Views\VentaItem\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Iva\Crear.cshtml" />
+    <Content Include="Views\Iva\Eliminar.cshtml" />
+    <Content Include="Views\Iva\Index.cshtml" />
+    <Content Include="Views\Iva\Modificar.cshtml" />
+    <Content Include="Views\Iva\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Compra\CompraPagada\Index.cshtml" />
     <Content Include="Views\Compra\CompraAnulada\Index.cshtml" />
     <Content Include="Views\Compra\CompraPagada\Shared\Form_Partial.cshtml" />

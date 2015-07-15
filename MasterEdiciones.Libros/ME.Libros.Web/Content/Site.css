@@ -64,3 +64,15 @@ footer {
 .floatLeft {
     float: left;
 }
+
+[data-toggle="tooltip"] {
+    border-bottom: 1px dashed #444;
+    cursor: help;
+}
+
+.tooltip-inner {
+    font-size: 115%;
+    text-align: left;
+    max-width: 300px;
+    width: 300px; 
+}

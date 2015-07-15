@@ -1,0 +1,101 @@
+﻿@model ME.Libros.Web.Models.VentaItemViewModel
+
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "4", autocomplete = "off" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(vi => vi.PrecioVentaVendido, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", autocomplete = "off" })
+        <span class="label label-primary">
+            Sugerido: $
+            <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.PrecioVentaCalculado).ToHtmlString() : "-")</span>
+        </span>
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(vi => vi.MontoItemVendido, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "8", autocomplete = "off" })
+        <span class="label label-primary">
+            Sugerido: $ 
+            <span id="subtotalSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.MontoItemCalculado).ToHtmlString() : "-")</span>
+        </span>
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    <div class="col-md-offset-2 col-md-10">
+        <h3>
+            <span class="label label-default" style="display: block;text-align: left;">
+                Diferencia: $ <span id="diferencia">-</span>
+            </span>
+        </h3>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        setMaxlength();
+        jQuery.validator.unobtrusive.parse("#formVentaItem");
+
+        $("#Cantidad").rules("add", {
+            min: 1,
+            messages: {
+                min: "La <b>Cantidad</b> debe ser mayor a 0 unidades</b>"
+            }
+        });
+
+        $("#PrecioVentaVendido").rules("add", {
+            min: 0,
+            messages: {
+                min: "El <b>Precio de venta vendido</b> debe ser mayor o igual a $ 0,00</b>"
+            }
+        });
+
+        $("#MontoItemVendido").rules("add", {
+            min: 0,
+            messages: {
+                min: "El <b>Subtotal vendido</b> debe ser mayor o igual a $ 0,00</b>"
+            }
+        });
+    });
+
+    $('#ProductoId').on('change', function () {
+        getProducto();
+    });
+
+    $('#Cantidad').on('keyup change', function (e) {
+        if (isValidKey(e.keyCode)) {
+            var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
+            var precioVentaCalculado = Globalize.parseFloat($("#precioSugerido").text());
+            calcularMontosItem(precioVentaCalculado, precioVentaVendido);
+        }
+    });
+
+    $('#PrecioVentaVendido').on('keyup change', function (e) {
+        if (isValidKey(e.keyCode)) {
+            var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
+            calcularMontoItemVendido(precioVentaVendido);
+            calcularDiferencia();
+        }
+    });
+
+    $('#MontoItemVendido').on('keyup change', function () {
+        var montoItemVendido = Globalize.parseFloat($(this).val());
+        var cantidad = parseInt($("#Cantidad").val());
+        if (cantidad > 0 && montoItemVendido >= 0) {
+            var precioVentaVendido = montoItemVendido / cantidad;
+            $("#PrecioVentaVendido").val(formatFloat(precioVentaVendido));
+            calcularDiferencia();
+        }
+    });
+</script>

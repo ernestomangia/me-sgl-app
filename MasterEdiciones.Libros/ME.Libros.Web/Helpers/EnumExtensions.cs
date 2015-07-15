@@ -9,11 +9,14 @@ namespace ME.Libros.Web.Helpers
     {
         public static string GetDisplayName(this Enum enumValue)
         {
-            return enumValue.GetType()
-                            .GetMember(enumValue.ToString())
-                            .First()
-                            .GetCustomAttribute<DisplayAttribute>()
-                            .GetName();
+            var displayAttribute = enumValue.GetType()
+                .GetMember(enumValue.ToString())
+                .First()
+                .GetCustomAttribute<DisplayAttribute>();
+
+            return displayAttribute != null 
+                ? displayAttribute.GetName() 
+                : Enum.GetName(enumValue.GetType(), enumValue);
         }
     }
 }

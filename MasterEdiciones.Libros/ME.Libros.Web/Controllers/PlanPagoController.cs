@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -39,15 +39,15 @@ namespace ME.Libros.Web.Controllers
             var planPagos = new List<PlanPagoViewModel>();
             using (PlanPagoService)
             {
-                planPagos.AddRange(PlanPagoService.Listar()
+                planPagos.AddRange(PlanPagoService.ListarAsQueryable()
+                    .Where(p => p.Tipo == TipoPlanPago.Financiado)
                     .ToList()
                     .Select(p => new PlanPagoViewModel(p)));
             }
 
             return View(planPagos);
-
         }
-        
+
         [HttpGet]
         public ActionResult Crear()
         {
@@ -75,6 +75,7 @@ namespace ME.Libros.Web.Controllers
                         Descripcion = planPagoViewModel.Descripcion,
                         CantidadCuotas = planPagoViewModel.CantidadCuotas,
                         Monto = planPagoViewModel.Monto,
+                        Tipo = TipoPlanPago.Financiado
                     };
 
                     resultado = PlanPagoService.Guardar(planPagoDominio);
@@ -143,13 +144,13 @@ namespace ME.Libros.Web.Controllers
             PlanPagoViewModel planPagoViewModel;
             using (PlanPagoService)
             {
-                
+
                 var planPagoDominio = PlanPagoService.GetPorId(id);
                 planPagoViewModel = new PlanPagoViewModel(planPagoDominio);
 
-                if (VentaService.ListarAsQueryable().Any(p=>p.PlanPago.Id==planPagoDominio.Id))
+                if (VentaService.ListarAsQueryable().Any(p => p.PlanPago.Id == planPagoDominio.Id))
                 {
-                    planPagoViewModel.bandera = true;
+                    planPagoViewModel.Modificable = true;
                 }
 
             }
@@ -171,9 +172,10 @@ namespace ME.Libros.Web.Controllers
                         planPagoDominio.Nombre = planPagoViewModel.Nombre;
                         planPagoDominio.Descripcion = planPagoViewModel.Descripcion;
 
-                        if(!planPagoViewModel.bandera)
-                        {planPagoDominio.CantidadCuotas = planPagoViewModel.CantidadCuotas;
-                        planPagoDominio.Monto = planPagoViewModel.Monto;
+                        if (!planPagoViewModel.Modificable)
+                        {
+                            planPagoDominio.CantidadCuotas = planPagoViewModel.CantidadCuotas;
+                            planPagoDominio.Monto = planPagoViewModel.Monto;
                         }
 
                         resultado = PlanPagoService.Guardar(planPagoDominio);
@@ -202,5 +204,5 @@ namespace ME.Libros.Web.Controllers
                 : View(planPagoViewModel);
         }
 
-	}
+    }
 }

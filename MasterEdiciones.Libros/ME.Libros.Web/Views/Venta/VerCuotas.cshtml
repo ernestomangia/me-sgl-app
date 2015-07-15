@@ -1,6 +1,4 @@
-﻿@using System.Reflection
-@using ME.Libros.Utils.Enums
-@using ME.Libros.Web.Helpers
+﻿@using ME.Libros.Web.Helpers
 @model IEnumerable<ME.Libros.Web.Models.CuotaViewModel>
 
 <table id="ventaCuotaTable" @*class="dataTableCustom2"*@>
@@ -23,7 +21,7 @@
             <th class="text-right">$ @Model.Sum(vi => vi.Monto)</th>
             <th class="text-right">$ @Model.Sum(vi => vi.Interes)</th>
             <th class="text-right">$ @Model.Sum(vi => vi.MontoCobro)</th>
-            <th></th>
+            <th class="text-right">$ @Model.Sum(vi => vi.Monto + vi.Interes - vi.MontoCobro)</th>
         </tr>
     </tfoot>
     @foreach (var item in Model)

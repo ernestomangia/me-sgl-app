@@ -180,6 +180,7 @@
     <Content Include="Content\jasny-bootstrap.css.map" />
     <Content Include="Content\toastr.less" />
     <Content Include="Content\toastr.scss" />
+    <Content Include="Scripts\compra.js" />
     <Content Include="Scripts\DataTables-1.10.7\extensions\AutoFill\js\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.7\extensions\AutoFill\js\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.7\extensions\AutoFill\Readme.txt" />
@@ -664,6 +665,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CompraItemController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -816,10 +818,12 @@
     <Content Include="Views\Vendedor\Crear.cshtml" />
     <Content Include="Views\Vendedor\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Vendedor\Modificar.cshtml" />
-    <Content Include="Views\CompraPagada\Index.cshtml" />
-    <Content Include="Views\CompraAnulada\Index.cshtml" />
-    <Content Include="Views\CompraPagada\Shared\Form_Partial.cshtml" />
-    <Content Include="Views\CompraPagada\Crear.cshtml" />
+    <Content Include="Views\Compra\CompraPagada\Index.cshtml" />
+    <Content Include="Views\Compra\CompraAnulada\Index.cshtml" />
+    <Content Include="Views\Compra\CompraPagada\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Compra\Crear.cshtml" />
+    <Content Include="Views\CompraItem\Index.cshtml" />
+    <Content Include="Views\CompraItem\Crear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -16,7 +16,7 @@ namespace ME.Libros.Web.Models
         public CompraViewModel()
         {
             Proveedor = new ProveedorViewModel();
-            //Items = new List<CompraItemViewModel>();
+            Items = new List<CompraItemViewModel>();
         }
 
         public CompraViewModel(CompraDominio compraDominio)
@@ -27,13 +27,20 @@ namespace ME.Libros.Web.Models
             Estado = compraDominio.Estado;
             MontoComprado = compraDominio.MontoComprado;
             MontoCalculado = compraDominio.MontoCalculado;
+            NroRemito = compraDominio.NroRemito;
+            NroFactura = compraDominio.NroFactura;
             Proveedor = new ProveedorViewModel(compraDominio.Proveedor);
             ProveedorId = compraDominio.Proveedor.Id;
 
-            //if (ventaDominio.VentaItems  != null)
-            //{
-            //    Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
-            //}
+            // Items
+            Items = new List<CompraItemViewModel>(compraDominio.CompraItems.Select(ci => new CompraItemViewModel(ci)));
+            var i = 0;
+            Items.ForEach(ci =>
+            {
+                ci.Compra = this;
+                ci.Orden = ++i;
+            });
+         
         }
 
         #endregion
@@ -51,6 +58,7 @@ namespace ME.Libros.Web.Models
         public DateTime FechaCompra { get; set; }
 
         [Display(Name = "NroRemito", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public string NroRemito { get; set; }
 
         [Display(Name = "NroFactura", ResourceType = typeof(Messages))]
@@ -71,7 +79,7 @@ namespace ME.Libros.Web.Models
 
         public ProveedorViewModel Proveedor { get; set; }
 
-        public List<VentaItemViewModel> Items { get; set; }
+        public List<CompraItemViewModel> Items { get; set; }
 
         public SelectList Proveedores { get; set; }
 

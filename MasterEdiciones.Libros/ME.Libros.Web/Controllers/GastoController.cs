@@ -9,7 +9,7 @@ using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
-using ME.Libros.Web.Helpers;
+using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -39,8 +39,8 @@ namespace ME.Libros.Web.Controllers
             {
                 gastos.AddRange(GastoService.Listar()
                     .ToList()
-                    .Select(r => new GastoViewModel(r))
-                    );
+                    .Where(r => r.Id != 1)
+                    .Select(r => new GastoViewModel(r)));
             }
 
             return View(gastos);

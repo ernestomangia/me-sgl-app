@@ -180,6 +180,7 @@
     <Content Include="Content\jasny-bootstrap.css.map" />
     <Content Include="Content\toastr.less" />
     <Content Include="Content\toastr.scss" />
+    <Content Include="Scripts\compra.js" />
     <Content Include="Scripts\DataTables-1.10.7\extensions\AutoFill\js\dataTables.autoFill.js" />
     <Content Include="Scripts\DataTables-1.10.7\extensions\AutoFill\js\dataTables.autoFill.min.js" />
     <Content Include="Scripts\DataTables-1.10.7\extensions\AutoFill\Readme.txt" />
@@ -663,9 +664,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\LongModelBinder.cs" />
+    <Compile Include="App_Start\DecimalModelBinder.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\IvaController.cs" />
+    <Compile Include="Controllers\CompraItemController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -689,11 +694,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\EnumExtensions.cs" />
-    <Compile Include="Helpers\ModelStateHelper.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Extensions\ModelStateExtensions.cs" />
     <Compile Include="Messages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -819,10 +826,6 @@
     <Content Include="Views\Vendedor\Crear.cshtml" />
     <Content Include="Views\Vendedor\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Vendedor\Modificar.cshtml" />
-    <Content Include="Views\CompraPagada\Index.cshtml" />
-    <Content Include="Views\CompraAnulada\Index.cshtml" />
-    <Content Include="Views\CompraPagada\Shared\Form_Partial.cshtml" />
-    <Content Include="Views\CompraPagada\Crear.cshtml" />
     <Content Include="Views\VentaItem\Modificar.cshtml" />
     <Content Include="Views\VentaItem\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Iva\Crear.cshtml" />
@@ -830,6 +833,12 @@
     <Content Include="Views\Iva\Index.cshtml" />
     <Content Include="Views\Iva\Modificar.cshtml" />
     <Content Include="Views\Iva\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Compra\CompraPagada\Index.cshtml" />
+    <Content Include="Views\Compra\CompraAnulada\Index.cshtml" />
+    <Content Include="Views\Compra\CompraPagada\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Compra\Crear.cshtml" />
+    <Content Include="Views\CompraItem\Index.cshtml" />
+    <Content Include="Views\CompraItem\Crear.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

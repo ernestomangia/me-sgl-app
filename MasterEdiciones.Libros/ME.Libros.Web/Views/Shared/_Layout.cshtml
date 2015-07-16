@@ -49,6 +49,7 @@
     <script src="~/Scripts/globalize/globalize.js"></script>
     <script src="~/Scripts/globalize/cultures/globalize.culture.es-AR.js"></script>
     <script src="~/Scripts/jquery.validate.globalize.js"></script>
+    <script src="~/Scripts/jquery.validate.globalize.custom.js"></script>
 
     <script src="~/Scripts/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
     <script src="~/Scripts/DataTablesCustom/boostrap/dataTables.bootstrap.js"></script>
@@ -77,7 +78,7 @@
                         @Html.ActionLink("Ventas", "Index", "Venta", new { estado = EstadoVenta.Vigente }, null)
                     </li>
                     <li>
-                        @Html.ActionLink("Compras", "Index", "CompraPagada")
+                        @Html.ActionLink("Compras", "Index", "Compra")
                     </li>
                     <li>
                         @Html.ActionLink("Tesoseria", "Index", "Cobro")

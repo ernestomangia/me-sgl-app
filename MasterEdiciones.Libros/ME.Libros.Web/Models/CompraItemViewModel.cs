@@ -47,15 +47,19 @@ namespace ME.Libros.Web.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal PrecioCosto { get; set; }
 
-        [Display(Name = "MontoItem", ResourceType = typeof(Messages))]
+        [Display(Name = "MontoItemComprado", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Monto { get; set; }
+
+        public List<CompraItemViewModel> Items { get; set; }
 
         [Display(Name = "Producto", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ProductoId { get; set; }
 
         public ProductoViewModel Producto { get; set; }
+
+        public CompraViewModel Compra { get; set; }
 
         public SelectList Productos { get; set; }
 

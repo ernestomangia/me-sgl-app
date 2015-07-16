@@ -19,6 +19,8 @@ namespace ME.Libros.Web.Controllers
         public ClienteService ClienteService { get; set; }
         public ProvinciaService ProvinciaService { get; set; }
         public LocalidadService LocalidadService { get; set; }
+        public IvaService IvaService { get; set; }
+
 
         public ClienteController()
         {
@@ -26,6 +28,8 @@ namespace ME.Libros.Web.Controllers
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
+            IvaService = new IvaService(new EntidadRepository<IvaDominio>(modelContainer));
+
             ViewBag.MenuId = 1;
             ViewBag.Title = "Clientes";
             Service = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
@@ -83,7 +87,6 @@ namespace ME.Libros.Web.Controllers
                                                  FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
                                                  Direccion = clienteViewModel.Direccion,
                                                  Comentario = clienteViewModel.Comentario,
-                                                 Iva = clienteViewModel.Iva,
                                                  Email = clienteViewModel.Email,
                                                  TelefonoFijo = clienteViewModel.TelefonoFijo,
                                                  Celular = clienteViewModel.Celular,
@@ -204,7 +207,6 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Direccion = clienteViewModel.Direccion;
                     clienteDominio.Comentario = clienteViewModel.Comentario;
                     clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
-                    clienteDominio.Iva = clienteViewModel.Iva;
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
                     clienteDominio.Email = clienteViewModel.Email;
@@ -279,10 +281,18 @@ namespace ME.Libros.Web.Controllers
             if (clienteViewModel.ProvinciaId > 0)
             {
                 localidades.AddRange(LocalidadService.Listar(l => l.Provincia.Id == clienteViewModel.ProvinciaId)
-                                                                    .ToList()
-                                                                    .Select(l => new LocalidadViewModel(l)));
+                    .ToList()
+                    .Select(l => new LocalidadViewModel(l)));
             }
             clienteViewModel.Localidades = new SelectList(localidades, "Id", "Nombre");
+
+
+            clienteViewModel.Ivas = new SelectList(IvaService.Listar()
+                .Select(p => new IvaViewModel(p))
+                .ToList(), "Id", "Nombre", "Alicuota");
+
+            var ivas = new List<IvaViewModel>();
+
         }
 
         #endregion

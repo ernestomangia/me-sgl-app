@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 using ME.Libros.Dominio.General;
 
@@ -12,11 +13,15 @@ namespace ME.Libros.Web.Models
         {
         }
 
-        public IvaViewModel(IvaDominio iva)
+          public IvaViewModel(IvaDominio iva)
         {
             Id = iva.Id;
             Nombre = iva.Nombre;
-            Alicuota = iva.Alicuota;
+              Alicuota = iva.Alicuota;
+
+              //  Id = ivaDominio.Id;
+              // Nombre = ivaDominio.Nombre;
+              // Alicuota = ivaDominio.Alicuota;
         }
         
         #endregion

@@ -385,6 +385,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Iva.
+        /// </summary>
+        public static string Iva {
+            get {
+                return ResourceManager.GetString("Iva", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La editorial.
         /// </summary>
         public static string LaEditorial {

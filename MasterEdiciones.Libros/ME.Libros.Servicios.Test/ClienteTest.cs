@@ -50,7 +50,7 @@ namespace ME.Libros.Servicios.Test
                                         }
                     },
                     
-                    Iva = Iva.Exento
+                 //   Iva = Iva.Exento
                 };
                 servicio.Guardar(cliente);
                 CollectionAssert.Contains(servicio.Listar().ToList(), cliente);

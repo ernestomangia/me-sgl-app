@@ -22,7 +22,7 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.FechaCompra).IsRequired();
             Property(c => c.MontoCalculado).IsRequired();
             Property(c => c.MontoComprado).IsRequired();
-            Property(c => c.NroFactura).IsRequired();
+            Property(c => c.NroFactura).IsOptional();
             Property(c => c.NroRemito).IsRequired();
 
             // FK

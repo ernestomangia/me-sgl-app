@@ -339,6 +339,12 @@
   <data name="ElVendedor" xml:space="preserve">
     <value>El vendedor</value>
   </data>
+  <data name="MontoItemComprado" xml:space="preserve">
+    <value>Subtotal Comprado</value>
+  </data>
+  <data name="LaCompra" xml:space="preserve">
+    <value>La compra</value>
+  </data>
   <data name="Alicuota" xml:space="preserve">
     <value>Alicuota</value>
   </data>

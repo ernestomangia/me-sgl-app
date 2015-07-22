@@ -1,0 +1,86 @@
+﻿@model ME.Libros.Web.Models.CompraItemViewModel
+
+<div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "3", autocomplete = "off" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(vi => vi.PrecioCosto, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.PrecioCosto, new { @class = "form-control", placeholder = Messages.PrecioCosto, autocomplete = "off" })
+        <span class="label label-primary">Sugerido: $ <span id="precioSugerido">-</span></span>
+    </div>
+</div>
+<div class="form-group form-group-sm">
+    @Html.LabelFor(vi => vi.MontoItemComprado, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.MontoItemComprado, new { @class = "form-control", placeholder = Messages.MontoItemComprado, autocomplete = "off" })
+        <span class="label label-primary">Sugerido: $ <span id="subtotalSugerido">-</span></span>
+    </div>
+</div>
+
+@*<script>
+    $(document).ready(function () {
+        setMaxlength();
+        jQuery.validator.unobtrusive.parse("#formCompraItem");
+
+        $("#Cantidad").rules("add", {
+            min: 1,
+            messages: {
+                min: "La <b>Cantidad</b> debe ser mayor a 0 unidades</b>"
+            }
+        });
+
+        $("#PrecioCosto").rules("add", {
+            min: 0,
+            messages: {
+                min: "El <b>Precio de compra</b> debe ser mayor o igual a $ 0,00</b>"
+            }
+        });
+
+        $("#MontoItemComprado").rules("add", {
+            min: 0,
+            messages: {
+                min: "El <b>Subtotal comprado</b> debe ser mayor o igual a $ 0,00</b>"
+            }
+        });
+    });
+
+    $('#ProductoId').on('change', function () {
+        getProducto();
+    });
+
+    $('#Cantidad').on('keyup change', function (e) {
+        if (isValidKey(e.keyCode)) {
+            var precioCosto = Globalize.parseFloat($("#PrecioCosto").val());
+            var precioCompraCalculado = Globalize.parseFloat($("#precioSugerido").text());
+            calcularMontosItem(precioCompraCalculado, precioCosto);
+        }
+    });
+
+    $('#PreciCosto').on('keyup change', function (e) {
+        if (isValidKey(e.keyCode)) {
+            var precioCosto = Globalize.parseFloat($("#precioCosto").val());
+            calcularMontoItemComprado(precioCosto);
+            calcularDiferencia();
+        }
+    });
+
+    $('#MontoItemComprado').on('keyup change', function () {
+        var montoItemComprado = Globalize.parseFloat($(this).val());
+        var cantidad = parseInt($("#Cantidad").val());
+        if (cantidad > 0 && montoItemComprado >= 0) {
+            var precioCosto = montoItemComprado / cantidad;
+            $("#PrecioCosto").val(formatFloat(precioCosto));
+            calcularDiferencia();
+        }
+    });
+</script>*@

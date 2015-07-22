@@ -10,32 +10,7 @@
                     <h4 class="modal-title" id="myModalLabel">Nuevo item</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group form-group-sm">
-                        @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "3", autocomplete = "off" })
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        @Html.LabelFor(vi => vi.PrecioCosto, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.PrecioCosto, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, autocomplete = "off" })
-                            <span class="label label-primary">Sugerido: $ <span id="precioSugerido">-</span></span>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-sm">
-                        @Html.LabelFor(vi => vi.Monto, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(vi => vi.Monto, new { @class = "form-control", placeholder = Messages.MontoItemComprado, autocomplete = "off" })
-                            <span class="label label-primary">Sugerido: $ <span id="subtotalSugerido">-</span></span>
-                        </div>
-                    </div>
+                    @Html.Partial("Shared/Form_Partial", Model)
                 </div>
                 <div class="modal-footer">
                     <div class="row text-left">
@@ -60,3 +35,23 @@
         </div>
     </div>
 }
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Cantidad").val("");
+        $("#PrecioCosto").val("");
+        $("#MontoItemComprado").val("");
+    });
+
+    $("#formCompraItem").on("submit", function (e) {
+        e.preventDefault();
+        validationSummaryVisibility(this);
+        if ($("#formCompraItem").valid()) {
+            crearCompraItem(this);
+        }
+    });
+
+    $('#modalAgregarItem').on('hidden.bs.modal', function () {
+        $("#contenedorCompraItem").empty();
+    });
+</script>*@

@@ -22,7 +22,7 @@ namespace ME.Libros.Web.Models
             Id = compraItemDominio.Id;
             FechaAlta = compraItemDominio.FechaAlta;
             Cantidad = compraItemDominio.Cantidad;
-            Monto = compraItemDominio.Monto;
+            MontoItemComprado = compraItemDominio.Monto;
             PrecioCosto = compraItemDominio.PrecioCosto;
             Producto = new ProductoViewModel(compraItemDominio.Producto);
         }
@@ -49,7 +49,7 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "MontoItemComprado", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]
-        public decimal Monto { get; set; }
+        public decimal MontoItemComprado { get; set; }
 
         public List<CompraItemViewModel> Items { get; set; }
 

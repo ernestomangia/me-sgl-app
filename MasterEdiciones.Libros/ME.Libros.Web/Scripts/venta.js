@@ -113,9 +113,6 @@ function eliminarVentaItem(indexItem) {
     mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
 }
 
-function modificarVentaItem(indexItem) {
-}
-
 function actualizarHiddens() {
     var indexItem = 0;
     var table = $("#ventaDetalleTable").DataTable();

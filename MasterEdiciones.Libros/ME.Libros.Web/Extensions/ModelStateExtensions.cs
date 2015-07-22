@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Collections;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 
-namespace ME.Libros.Web.Helpers
+namespace ME.Libros.Web.Extensions
 {
-    public static class ModelStateHelper
+    public static class ModelStateExtensions
     {
         public static IEnumerable GetErrors(this ModelStateDictionary modelState)
         {

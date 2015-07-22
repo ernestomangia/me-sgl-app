@@ -24,7 +24,8 @@ namespace ME.Libros.Web.Models
             Apellido = cliente.Apellido;
             Cuil = cliente.Cuil;
             FechaNacimiento = cliente.FechaNacimiento.HasValue ? cliente.FechaNacimiento.Value : (DateTime?)null;
-            Iva = cliente.Iva;
+            Iva = new IvaViewModel(cliente.Iva);
+            IvaId = cliente.Iva.Id;
             Direccion = cliente.Direccion;
             Comentario = cliente.Comentario;
             TelefonoFijo = cliente.TelefonoFijo;
@@ -66,8 +67,9 @@ namespace ME.Libros.Web.Models
         //[DataType(DataType.Date, ErrorMessage = "Fecha incorrecta mvc5")]
         public DateTime? FechaNacimiento { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        public Iva Iva { get; set; }
+        [Display(Name = "Iva", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        public long IvaId { get; set; }
 
         [Display(Name = "Direccion", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
@@ -93,10 +95,13 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long ProvinciaId { get; set; }
-
         public LocalidadViewModel Localidad { get; set; }
+        public IvaViewModel Iva { get; set; }
         public SelectList Provincias { get; set; }
         public SelectList Localidades { get; set; }
+        public SelectList Ivas { get; set; }
+        
+       
 
         #endregion
     }

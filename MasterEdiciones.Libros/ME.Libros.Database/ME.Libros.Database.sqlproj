@@ -66,5 +66,6 @@
     <Build Include="Tables\Localidad.sql" />
     <Build Include="Tables\Provincia.sql" />
     <Build Include="Tables\__MigrationHistory.sql" />
+    <Build Include="Tables\Iva.sql" />
   </ItemGroup>
 </Project>

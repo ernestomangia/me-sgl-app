@@ -102,6 +102,33 @@ namespace ME.Libros.Web.Controllers
             return View(subFolder + "Index", ventas);
         }
 
+        [HttpPost]
+        public JsonResult Search(VentaTodasViewModel ventaTodasViewModel)
+        {
+            var ventas = VentaService.ListarAsQueryable()
+                .Where(v => (ventaTodasViewModel.EstadoVenta == null || v.Estado == ventaTodasViewModel.EstadoVenta)
+                    && (string.IsNullOrWhiteSpace(ventaTodasViewModel.Cliente)
+                        || string.Format("{0} {1}", v.Cliente.Nombre, v.Cliente.Apellido).Contains(ventaTodasViewModel.Cliente))
+                    && (string.IsNullOrWhiteSpace(ventaTodasViewModel.Cobrador)
+                        || string.Format("{0} {1}", v.Cobrador.Nombre, v.Cobrador.Apellido).Contains(ventaTodasViewModel.Cobrador))
+                    && (string.IsNullOrWhiteSpace(ventaTodasViewModel.Vendedor)
+                        || string.Format("{0} {1}", v.Vendedor.Nombre, v.Vendedor.Apellido).Contains(ventaTodasViewModel.Vendedor))
+                    && (!ventaTodasViewModel.Desde.HasValue
+                        || v.FechaVenta >= ventaTodasViewModel.Desde)
+                    && (!ventaTodasViewModel.Hasta.HasValue
+                        || v.FechaVenta <= ventaTodasViewModel.Hasta))
+                    .OrderByDescending(v => v.FechaVenta)
+                    .ThenByDescending(v => v.Id)
+                    .ToList()
+                    .Select(v => new VentaViewModel(v));
+
+            return new JsonResult
+            {
+                Data = ventas,
+                //JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult ListarVentas(long idCliente)
         {
             var ventas = new List<VentaViewModel>();

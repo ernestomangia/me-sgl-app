@@ -2,17 +2,30 @@
 @model ME.Libros.Web.Models.VentaTodasViewModel
 
 <h3>Ventas</h3>
-<p>
-    <a class="btn btn-info in" role="button" data-toggle="collapse" href="#collapseFiltros" aria-expanded="true" aria-controls="collapseFiltros">
-        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-        Filtrar
-    </a>
-</p>
+@*<p>
+        <a class="btn btn-info in" role="button" data-toggle="collapse" href="#collapseFiltros" aria-expanded="true" aria-controls="collapseFiltros">
+            <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+            Filtrar
+        </a>
+    </p>*@
 <div id="collapseFiltros" class="collapse in">
-    <div class="well">
-        <form class="form-horizontal">
+    <div class="well well-sm">
+        <h6 class="text-center"><b>Filtros</b></h6>
+        @using (Ajax.BeginForm("Search", Model,
+            new AjaxOptions()
+            {
+                HttpMethod = "POST",
+                OnSuccess = "alert('sucess');",
+                OnFailure = "alert('fail');",
+
+            }, new { id = "formVenta", @class = "form-horizontal" }))
+        {
+            
+        @*}
+        @using (Html.BeginForm("Index", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal" }))
+        {*@
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(v => v.Cliente, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -20,7 +33,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(v => v.Cobrador, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -28,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(v => v.Vendedor, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -36,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(v => v.EstadoVenta, "Estado", new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -44,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(v => v.Desde, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -52,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.LabelFor(v => v.Hasta, new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -63,7 +76,11 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-right">
+                    <div class="text-center">
+                        <button type="reset" class="btn btn-default" title="Buscar ventas">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                            Limpiar
+                        </button>
                         <button type="submit" class="btn btn-success" title="Buscar ventas">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             Buscar
@@ -71,7 +88,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        }
     </div>
 </div>
 

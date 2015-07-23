@@ -49,14 +49,20 @@ namespace ME.Libros.Web.Controllers
             {
                 if (estado == null)
                 {
+                    var ventaTodasViewModel = new VentaTodasViewModel();
                     // Listar todas
-                    ventas.AddRange(VentaService.ListarAsQueryable()
-                    .OrderByDescending(v => v.FechaVenta)
-                    .ThenByDescending(v => v.Id)
-                    .ToList()
-                    .Select(v => new VentaViewModel(v)));
+                    ventaTodasViewModel.VentaViewModels
+                        .AddRange(VentaService.ListarAsQueryable()
+                            .OrderByDescending(v => v.FechaVenta)
+                            .ThenByDescending(v => v.Id)
+                            .ToList()
+                            .Select(v => new VentaViewModel(v)));
 
                     Session.Add("MenuTodas", true);
+                    ViewBag.Title = title;
+                    ViewBag.MenuId = menuId;
+
+                    return View(subFolder + "Index", ventaTodasViewModel);
                 }
                 else
                 {

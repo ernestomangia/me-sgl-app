@@ -16,6 +16,9 @@ namespace ME.Libros.Web.Models
         public VentaViewModel()
         {
             Cliente = new ClienteViewModel();
+            Cobrador = new CobradorViewModel();
+            Vendedor = new VendedorViewModel();
+            Cliente = new ClienteViewModel();
             Items = new List<VentaItemViewModel>();
             Cuotas = new List<CuotaViewModel>();
         }
@@ -32,7 +35,9 @@ namespace ME.Libros.Web.Models
             Saldo = ventaDominio.Saldo;
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
+            Cobrador = new CobradorViewModel(ventaDominio.Cobrador);
             CobradorId = ventaDominio.Cobrador.Id;
+            Vendedor = new VendedorViewModel(ventaDominio.Vendedor);
             VendedorId = ventaDominio.Vendedor.Id;
             PlanPago = new PlanPagoViewModel(ventaDominio.PlanPago);
             PlanPagoId = ventaDominio.PlanPago.Id;
@@ -99,6 +104,8 @@ namespace ME.Libros.Web.Models
         public List<VentaItemViewModel> Items { get; set; }
         public List<CuotaViewModel> Cuotas { get; set; }
         public ClienteViewModel Cliente { get; set; }
+        public CobradorViewModel Cobrador { get; set; }
+        public VendedorViewModel Vendedor { get; set; }
         public PlanPagoViewModel PlanPago { get; set; }
         public SelectList Clientes { get; set; }
         public SelectList Cobradores { get; set; }

@@ -6,7 +6,7 @@
         var item = {
             ProductoId: $(preFix + "ProductoId").val(),
             Cantidad: $(preFix + "Cantidad").val(),
-            PrecioCosto: $(preFix + "PrecioCosto").val(),
+            PrecioCompraComprado: $(preFix + "PrecioCompraComprado").val(),
             MontoItemComprado: $(preFix + "MontoItemComprado").val()
         };
         compraItemViewModels.push(item);
@@ -76,16 +76,16 @@ function agregarCompraItem(compraItem) {
             nroItem,
             compraItem.Producto.Nombre,
             compraItem.Cantidad,
-            formatCurrency(compraItem.PrecioCosto),
+            formatCurrency(compraItem.PrecioCompraComprado),
             formatCurrency(compraItem.MontoItemComprado),
             modificar + " " + eliminar
     ]).draw();
 
     var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + compraItem.ProductoId + "' />";
     var hiddenCantidad = "<input type='hidden'  id='Items[" + indexItems + "].Cantidad' class='hiddenCantidad' name='Items[" + indexItems + "].Cantidad' value='" + compraItem.Cantidad + "' />";
-    var hiddenPrecioCosto = "<input type='hidden' id='Items[" + indexItems + "].PrecioCosto' class='hiddenPrecioCosto' name='Items[" + indexItems + "].PrecioCosto' value='" + formatFloat(compraItem.PrecioCosto) + "' />";
+    var hiddenPrecioCompraComprado = "<input type='hidden' id='Items[" + indexItems + "].PrecioCompraComprado' class='hiddenPrecioCompraComprado' name='Items[" + indexItems + "].PrecioCompraComprado' value='" + formatFloat(compraItem.PrecioCompraComprado) + "' />";
     var hiddenMontoItemComprado = "<input type='hidden' id='Items[" + indexItems + "].MontoItemComprado' class='hiddenMontoItemComprado' name='Items[" + indexItems + "].MontoItemComprado' value='" + formatFloat(compraItem.MontoItemComprado) + "' />";
-    $("#formCompra").append(hiddenProductoId + hiddenCantidad + hiddenPrecioCosto + hiddenMontoItemComprado);
+    $("#formCompra").append(hiddenProductoId + hiddenCantidad + hiddenPrecioCompraComprado + hiddenMontoItemComprado);
     $("#cantidadItems").val(indexItems + 1);
 }
 
@@ -104,7 +104,7 @@ function getHtmlBotonEliminar(indexItem) {
 function eliminarCompraItem(indexItem) {
     $("#Items\\[" + indexItem + "\\]\\.ProductoId").remove();
     $("#Items\\[" + indexItem + "\\]\\.Cantidad").remove();
-    $("#Items\\[" + indexItem + "\\]\\.PrecioCosto").remove();
+    $("#Items\\[" + indexItem + "\\]\\.PrecioCompraComprado").remove();
     $("#Items\\[" + indexItem + "\\]\\.MontoItemComprado").remove();
     var table = $("#compraDetalleTable").DataTable();
     table.row(indexItem).remove().draw();
@@ -129,8 +129,8 @@ function actualizarHiddens() {
         $(this).attr("name", preFix + "ProductoId");
         // Cantidad
         $(oldPreFix + "Cantidad").attr("id", preFix + "Cantidad").attr("name", preFix + "Cantidad");
-        // PrecioCosto
-        $(oldPreFix + "PrecioCosto").attr("id", preFix + "PrecioCosto").attr("name", preFix + "PrecioCosto");
+        // PrecioCompraComprado
+        $(oldPreFix + "PrecioCompraComprado").attr("id", preFix + "PrecioCompraComprado").attr("name", preFix + "PrecioCompraComprado");
         // MontoItemComprado 
         $(oldPreFix + "MontoItemComprado").attr("id", preFix + "MontoItemComprado").attr("name", preFix + "MontoItemComprado");
         indexItem++;
@@ -198,16 +198,16 @@ function getProducto() {
                 mensajeError("Error: " + error + " - Status: " + status);
             },
             success: function (data) {
-                var precioCompra = parseFloat(data.PrecioCompra);
+                var precioCompra = parseFloat(data.PrecioCosto);
                 calcularMontosItem(precioCompra);
                 $("#precioSugerido").text(formatFloat(precioCompra));
-                $("#PrecioCosto").val(formatFloat(precioCompra));
+                $("#PrecioCompraComprado").val(formatFloat(precioCompra));
             },
             timeout: 10000,
             cache: false
         });
     } else {
-        $("#PrecioCosto, #MontoItemComprado").val("");
+        $("#PrecioCompraComprado, #MontoItemComprado").val("");
         $("#precioSugerido").text("-");
     }
 }
@@ -220,19 +220,19 @@ function formatCurrency(value) {
     return "$ " + Globalize.format(value, "n2");
 }
 
-function calcularMontosItem(precioCompraCalculado, precioCosto) {
-    if (precioCosto === undefined) {
-        precioCosto = precioCompraCalculado;
+function calcularMontosItem(precioCompraCalculado, precioCompraComprado) {
+    if (precioCompraComprado === undefined) {
+        precioCompraComprado = precioCompraCalculado;
     }
-    calcularMontoItemComprado(precioCosto);
+    calcularMontoItemComprado(precioCompraComprado);
     calcularMontoItemCalculado(precioCompraCalculado);
     calcularDiferencia();
 }
 
-function calcularMontoItemComprado(precioCosto) {
+function calcularMontoItemComprado(precioCompraComprado) {
     var cantidad = parseInt($("#Cantidad").val());
-    if (cantidad > 0 && precioCosto >= 0) {
-        var monto = precioCosto * cantidad;
+    if (cantidad > 0 && precioCompraComprado >= 0) {
+        var monto = precioCompraComprado * cantidad;
         $("#MontoItemComprado").val(formatFloat(monto));
     } else {
         $("#MontoItemComprado").val("");
@@ -251,10 +251,10 @@ function calcularMontoItemCalculado(precioCompraCalculado) {
 
 function calcularDiferencia() {
     var montoCalculado = Globalize.parseFloat($("#subtotalSugerido").text());
-    var montoVendido = Globalize.parseFloat($("#MontoItemComprado").val());
+    var montComprado = Globalize.parseFloat($("#MontoItemComprado").val());
     var cantidad = parseInt($("#Cantidad").val());
-    if (cantidad > 0 && montoCalculado > 0 && montoVendido >= 0) {
-        var difAbsoluta = montoVendido - montoCalculado;
+    if (cantidad > 0 && montoCalculado > 0 && montComprado >= 0) {
+        var difAbsoluta = montComprado - montoCalculado;
         var difRelativaPorcentual = (difAbsoluta / montoCalculado) * 100;
         if (difAbsoluta < 0) {
             $("#diferencia").parent().switchClass("label-success label-default", "label-danger");

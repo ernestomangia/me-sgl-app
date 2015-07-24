@@ -55,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="General\CompraItemService.cs" />
     <Compile Include="General\CompraService.cs" />
     <Compile Include="General\IvaService.cs" />
     <Compile Include="General\UsuarioService.cs" />

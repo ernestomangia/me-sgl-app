@@ -1,33 +1,35 @@
 ﻿@model ME.Libros.Web.Models.CompraItemViewModel
 
 <div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(ci => ci.ProductoId, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
+        @Html.DropDownListFor(ci => ci.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
     </div>
 </div>
 <div class="form-group form-group-sm">
-    @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(ci => ci.Cantidad, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "3", autocomplete = "off" })
+        @Html.TextBoxFor(ci => ci.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "4", autocomplete = "off" })
     </div>
 </div>
 <div class="form-group form-group-sm">
-    @Html.LabelFor(vi => vi.PrecioCosto, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(ci => ci.PrecioCompraComprado, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(vi => vi.PrecioCosto, new { @class = "form-control", placeholder = Messages.PrecioCosto, autocomplete = "off" })
-        <span class="label label-primary">Sugerido: $ <span id="precioSugerido">-</span></span>
+        @Html.TextBoxFor(ci => ci.PrecioCompraComprado, new { @class = "form-control", placeholder = Messages.PrecioCompraComprado, maxlength = "8", autocomplete = "off" })
+        <span class="label label-primary">
+            Precio Anterior: $
+            <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(ci => ci.PrecioCompraCalculado).ToHtmlString() : "-")</span>
+        </span>
     </div>
 </div>
 <div class="form-group form-group-sm">
-    @Html.LabelFor(vi => vi.MontoItemComprado, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(ci => ci.MontoItemComprado, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(vi => vi.MontoItemComprado, new { @class = "form-control", placeholder = Messages.MontoItemComprado, autocomplete = "off" })
-        <span class="label label-primary">Sugerido: $ <span id="subtotalSugerido">-</span></span>
+        @Html.TextBoxFor(ci => ci.MontoItemComprado, new { @class = "form-control", placeholder = Messages.MontoItemComprado, maxlength = "8", autocomplete = "off" })
     </div>
 </div>
 
-@*<script>
+<script>
     $(document).ready(function () {
         setMaxlength();
         jQuery.validator.unobtrusive.parse("#formCompraItem");
@@ -39,10 +41,10 @@
             }
         });
 
-        $("#PrecioCosto").rules("add", {
+        $("#PrecioCompraComprado").rules("add", {
             min: 0,
             messages: {
-                min: "El <b>Precio de compra</b> debe ser mayor o igual a $ 0,00</b>"
+                min: "El <b>Precio de compra comprado</b> debe ser mayor o igual a $ 0,00</b>"
             }
         });
 
@@ -60,17 +62,16 @@
 
     $('#Cantidad').on('keyup change', function (e) {
         if (isValidKey(e.keyCode)) {
-            var precioCosto = Globalize.parseFloat($("#PrecioCosto").val());
+            var precioCompraComprado = Globalize.parseFloat($("#PrecioCompraComprado").val());
             var precioCompraCalculado = Globalize.parseFloat($("#precioSugerido").text());
-            calcularMontosItem(precioCompraCalculado, precioCosto);
+            calcularMontosItem(precioCompraCalculado, precioCompraComprado);
         }
     });
 
-    $('#PreciCosto').on('keyup change', function (e) {
+    $('#PrecioCompraComprado').on('keyup change', function (e) {
         if (isValidKey(e.keyCode)) {
-            var precioCosto = Globalize.parseFloat($("#precioCosto").val());
-            calcularMontoItemComprado(precioCosto);
-            calcularDiferencia();
+            var precioCompraComprado = Globalize.parseFloat($("#PrecioCompraComprado").val());
+            calcularMontoItemComprado(precioCompraComprado);
         }
     });
 
@@ -78,9 +79,8 @@
         var montoItemComprado = Globalize.parseFloat($(this).val());
         var cantidad = parseInt($("#Cantidad").val());
         if (cantidad > 0 && montoItemComprado >= 0) {
-            var precioCosto = montoItemComprado / cantidad;
-            $("#PrecioCosto").val(formatFloat(precioCosto));
-            calcularDiferencia();
+            var precioCompraComprado = montoItemComprado / cantidad;
+            $("#PrecioCompraComprado").val(formatFloat(precioCompraComprado));
         }
     });
-</script>*@
+</script>

@@ -22,9 +22,13 @@ namespace ME.Libros.Web.Models
             Id = compraItemDominio.Id;
             FechaAlta = compraItemDominio.FechaAlta;
             Cantidad = compraItemDominio.Cantidad;
-            MontoItemComprado = compraItemDominio.Monto;
+            MontoItemComprado = compraItemDominio.MontoComprado;
             PrecioCosto = compraItemDominio.PrecioCosto;
+            MontoItemCalculado = compraItemDominio.MontoCalculado;
+            PrecioCompraCalculado = compraItemDominio.PrecioCompraCalculado;
+            PrecioCompraComprado = compraItemDominio.PrecioCompraComprado;
             Producto = new ProductoViewModel(compraItemDominio.Producto);
+            ProductoId = compraItemDominio.Producto.Id;
         }
 
         #endregion
@@ -43,13 +47,30 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public int Cantidad { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [Display(Name = "PrecioCosto", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal PrecioCosto { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [Display(Name = "MontoItemComprado", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoItemComprado { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Display(Name = "MontoItemCalculado", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoItemCalculado { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Display(Name = "PrecioCompraCalculado", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal PrecioCompraCalculado { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Display(Name = "PrecioCompraComprado", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal PrecioCompraComprado { get; set; }
 
         public List<CompraItemViewModel> Items { get; set; }
 

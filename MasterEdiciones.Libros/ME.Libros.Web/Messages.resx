@@ -354,4 +354,10 @@
   <data name="Iva" xml:space="preserve">
     <value>Iva</value>
   </data>
+  <data name="PrecioCompraComprado" xml:space="preserve">
+    <value>Precio de compra comprado</value>
+  </data>
+  <data name="PrecioCompraCalculado" xml:space="preserve">
+    <value>Precio de compra calculado</value>
+  </data>
 </root>

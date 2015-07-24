@@ -11,6 +11,7 @@ using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
+using LinqKit;
 
 namespace ME.Libros.Web.Controllers
 {
@@ -105,27 +106,51 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public JsonResult Search(VentaTodasViewModel ventaTodasViewModel)
         {
+            var predicateBuilder = PredicateBuilder.True<VentaDominio>();
+            if (ventaTodasViewModel.EstadoVenta != null)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.Estado == ventaTodasViewModel.EstadoVenta);
+            }
+            if (!string.IsNullOrWhiteSpace(ventaTodasViewModel.Cliente))
+            {
+                predicateBuilder = predicateBuilder.And(v => (v.Cliente.Nombre + " " + v.Cliente.Apellido).Contains(ventaTodasViewModel.Cliente));
+            }
+            if (!string.IsNullOrWhiteSpace(ventaTodasViewModel.Cobrador))
+            {
+                predicateBuilder = predicateBuilder.And(v => (v.Cobrador.Nombre + " " + v.Cobrador.Apellido).Contains(ventaTodasViewModel.Cobrador));
+            }
+            if (!string.IsNullOrWhiteSpace(ventaTodasViewModel.Vendedor))
+            {
+                predicateBuilder = predicateBuilder.And(v => (v.Vendedor.Nombre + " " + v.Vendedor.Apellido).Contains(ventaTodasViewModel.Vendedor));
+            }
+            if (ventaTodasViewModel.Desde.HasValue)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.FechaVenta >= ventaTodasViewModel.Desde);
+            }
+            if (ventaTodasViewModel.Hasta.HasValue)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.FechaVenta <= ventaTodasViewModel.Hasta);
+            }
+
             var ventas = VentaService.ListarAsQueryable()
-                .Where(v => (ventaTodasViewModel.EstadoVenta == null || v.Estado == ventaTodasViewModel.EstadoVenta)
-                    && (string.IsNullOrWhiteSpace(ventaTodasViewModel.Cliente)
-                        || string.Format("{0} {1}", v.Cliente.Nombre, v.Cliente.Apellido).Contains(ventaTodasViewModel.Cliente))
-                    && (string.IsNullOrWhiteSpace(ventaTodasViewModel.Cobrador)
-                        || string.Format("{0} {1}", v.Cobrador.Nombre, v.Cobrador.Apellido).Contains(ventaTodasViewModel.Cobrador))
-                    && (string.IsNullOrWhiteSpace(ventaTodasViewModel.Vendedor)
-                        || string.Format("{0} {1}", v.Vendedor.Nombre, v.Vendedor.Apellido).Contains(ventaTodasViewModel.Vendedor))
-                    && (!ventaTodasViewModel.Desde.HasValue
-                        || v.FechaVenta >= ventaTodasViewModel.Desde)
-                    && (!ventaTodasViewModel.Hasta.HasValue
-                        || v.FechaVenta <= ventaTodasViewModel.Hasta))
-                    .OrderByDescending(v => v.FechaVenta)
-                    .ThenByDescending(v => v.Id)
-                    .ToList()
-                    .Select(v => new VentaViewModel(v));
+                .AsExpandable()
+                .Where(predicateBuilder)
+                .OrderByDescending(v => v.FechaVenta)
+                .ThenByDescending(v => v.Id)
+                .ToList()
+                .Select(v => new VentaViewModel(v))
+                .ToList();
+
+            // TODO: revisar este fix, borra relacion de items y cuotas con la venta
+            foreach (var ventaViewModel in ventas)
+            {
+                ventaViewModel.Items.ForEach(vi => vi.Venta = null);
+                ventaViewModel.Cuotas.ForEach(vi => vi.Venta = null);
+            }
 
             return new JsonResult
             {
-                Data = ventas,
-                //JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                Data = ventas.ToList()
             };
         }
 

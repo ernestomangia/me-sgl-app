@@ -12,18 +12,18 @@
     <div class="well well-sm">
         <h6 class="text-center"><b>Filtros</b></h6>
         @using (Ajax.BeginForm("Search", Model,
-            new AjaxOptions()
+            new AjaxOptions
             {
                 HttpMethod = "POST",
-                OnSuccess = "alert('sucess');",
-                OnFailure = "alert('fail');",
-
+                OnSuccess = "onSuccess",
+                OnFailure = "onError",
+                AllowCache = false,
             }, new { id = "formVenta", @class = "form-horizontal" }))
         {
-            
-        @*}
-        @using (Html.BeginForm("Index", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal" }))
-        {*@
+
+            @*}
+                @using (Html.BeginForm("Index", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal" }))
+                {*@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group form-group-sm">
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<table class="dataTableCustom">
+<table id="dataTableVentas" class="dataTableCustom">
     <thead>
         <tr>
             <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.VentaViewModels[0].Id)</th>
@@ -134,3 +134,35 @@
         </tr>
     }
 </table>
+
+<script type="text/javascript">
+    function onSuccess(data) {
+        var table = $("#dataTableVentas").dataTable();
+        table.fnClearTable();
+
+        if (data.length > 0) {
+            $.each(data, function (index, result) {
+                table.fnAddData(resultToArray(result), true);
+            });
+        }
+    };
+
+    function onError() {
+        mensajeError("Ha ocurrido un error");
+    };
+
+    function resultToArray(result) {
+        var array = [];
+        array.push(result.Id);
+        array.push(result.FechaAlta);
+        array.push(result.Estado);
+        array.push(result.Cliente.Apellido + ", " + result.Cliente.Nombre);
+        array.push(result.Cliente.Cuil);
+        array.push(result.Cobrador.Nombre);
+        array.push(result.Vendedor.Nombre);
+        array.push(result.MontoVendido);
+        array.push(result.Saldo);
+        array.push("");
+        return array;
+    }
+</script>

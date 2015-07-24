@@ -1,40 +1,131 @@
-﻿@model IEnumerable<ME.Libros.Web.Models.VentaViewModel>
+﻿@using ME.Libros.Utils.Enums
+@model ME.Libros.Web.Models.VentaTodasViewModel
 
 <h3>Ventas</h3>
-@*<a class="btn btn-info" href="#" role="button">
-    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-    Filtrar
-</a>*@
+@*<p>
+        <a class="btn btn-info in" role="button" data-toggle="collapse" href="#collapseFiltros" aria-expanded="true" aria-controls="collapseFiltros">
+            <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+            Filtrar
+        </a>
+    </p>*@
+<div id="collapseFiltros" class="collapse in">
+    <div class="well well-sm">
+        <h6 class="text-center"><b>Filtros</b></h6>
+        @using (Ajax.BeginForm("Search", Model,
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "onSuccess",
+                OnFailure = "onError",
+                AllowCache = false,
+            }, new { id = "formVenta", @class = "form-horizontal" }))
+        {
 
-<table class="dataTableCustom">
+            @*}
+                @using (Html.BeginForm("Index", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal" }))
+                {*@
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(v => v.Cliente, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(v => v.Cliente, new { @class = "form-control", placeholder = "Cliente" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(v => v.Cobrador, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(v => v.Cobrador, new { @class = "form-control", placeholder = "Cobrador" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(v => v.Vendedor, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(v => v.Vendedor, new { @class = "form-control", placeholder = "Vendedor" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(v => v.EstadoVenta, "Estado", new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.EnumDropDownListFor(v => v.EstadoVenta, "Seleccione", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(v => v.Desde, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(v => v.Desde, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Desde" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(v => v.Hasta, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(v => v.Hasta, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Hasta" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <button type="reset" class="btn btn-default" title="Buscar ventas">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                            Limpiar
+                        </button>
+                        <button type="submit" class="btn btn-success" title="Buscar ventas">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<table id="dataTableVentas" class="dataTableCustom">
     <thead>
         <tr>
-            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Id)</th>
-            <th>@Html.DisplayNameFor(model => model.FechaVenta)</th>
-            <th>@Html.DisplayNameFor(model => model.Estado)</th>
+            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.VentaViewModels[0].Id)</th>
+            <th>@Html.DisplayNameFor(model => model.VentaViewModels[0].FechaVenta)</th>
+            <th>@Html.DisplayNameFor(model => model.VentaViewModels[0].Estado)</th>
             <th>Cliente</th>
-            <th>@Html.DisplayNameFor(model => model.Cliente.Cuil)</th>
-            <th class="numero">@Html.DisplayNameFor(model => model.MontoVendido)</th>
-            <th class="numero">@Html.DisplayNameFor(model => model.Saldo)</th>
+            <th>@Html.DisplayNameFor(model => model.VentaViewModels[0].Cliente.Cuil)</th>
+            <th>Cobrador</th>
+            <th>Vendedor</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.VentaViewModels[0].MontoVendido)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.VentaViewModels[0].Saldo)</th>
             <th class="columnaAcciones">Acciones</th>
         </tr>
     </thead>
-    @foreach (var item in Model)
+    @foreach (var item in Model.VentaViewModels)
     {
         var mostrarAnular = item.Estado == EstadoVenta.Vigente;
         <tr id=@("tr_"+ item.Id) class="fila">
-            <td>@Html.DisplayFor(modelItem => item.Id)</td>
-            <td>@Html.DisplayFor(modelItem => item.FechaVenta)</td>
-            <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-            <td>@Html.DisplayFor(modelItem => item.Cliente.Apellido), @Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
-            <td>@Html.DisplayFor(modelItem => item.Cliente.Cuil)</td>
-            <td class="text-right">@Html.DisplayFor(modelItem => item.MontoVendido)</td>
-            <td class="text-right">@Html.DisplayFor(modelItem => item.Saldo)</td>
+            <td>@Html.DisplayFor(venta => item.Id)</td>
+            <td>@Html.DisplayFor(venta => item.FechaVenta)</td>
+            <td>@Html.DisplayFor(venta => item.Estado)</td>
+            <td>@Html.DisplayFor(venta => item.Cliente.Apellido), @Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
+            <td>@Html.DisplayFor(venta => item.Cliente.Cuil)</td>
+            <td>@Html.DisplayFor(venta => item.Cobrador.Nombre)</td>
+            <td>@Html.DisplayFor(venta => item.Vendedor.Nombre)</td>
+            <td class="text-right">@Html.DisplayFor(venta => item.MontoVendido)</td>
+            <td class="text-right">@Html.DisplayFor(venta => item.Saldo)</td>
             <td>
                 <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})" title="Modificar venta">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </a>
-                @if(mostrarAnular) {
+                @if (mostrarAnular)
+                {
                     <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminar" onclick="javascript:setearId(@item.Id);" title="Anular venta">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                     </button>
@@ -43,3 +134,35 @@
         </tr>
     }
 </table>
+
+<script type="text/javascript">
+    function onSuccess(data) {
+        var table = $("#dataTableVentas").dataTable();
+        table.fnClearTable();
+
+        if (data.length > 0) {
+            $.each(data, function (index, result) {
+                table.fnAddData(resultToArray(result), true);
+            });
+        }
+    };
+
+    function onError() {
+        mensajeError("Ha ocurrido un error");
+    };
+
+    function resultToArray(result) {
+        var array = [];
+        array.push(result.Id);
+        array.push(result.FechaAlta);
+        array.push(result.Estado);
+        array.push(result.Cliente.Apellido + ", " + result.Cliente.Nombre);
+        array.push(result.Cliente.Cuil);
+        array.push(result.Cobrador.Nombre);
+        array.push(result.Vendedor.Nombre);
+        array.push(result.MontoVendido);
+        array.push(result.Saldo);
+        array.push("");
+        return array;
+    }
+</script>

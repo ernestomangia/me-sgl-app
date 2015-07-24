@@ -4,6 +4,8 @@
 <script src="~/Scripts/venta.js"></script>
 
 <h3>Nueva venta</h3>
+<h5>Para crear una nueva venta completá los siguientes datos, agregá productos desde la pestaña <b>Detalle</b> y seleccioná un plan de pago desde la pestaña <b>Forma de pago</b>.</h5>
+<hr>
 @using (Html.BeginForm("Crear", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
     @Html.AntiForgeryToken()

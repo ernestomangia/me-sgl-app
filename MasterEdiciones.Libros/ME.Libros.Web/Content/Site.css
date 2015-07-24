@@ -4,6 +4,12 @@
     font-size: 140%;
 }
 
+@media (min-width: 768px) {
+  .form-horizontal .form-group-sm .control-label {
+    font-size: 14px;
+  }
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     width: 100%;

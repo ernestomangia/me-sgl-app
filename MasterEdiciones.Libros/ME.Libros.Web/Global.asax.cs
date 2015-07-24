@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using EFlogger.EntityFramework6;
 
 namespace ME.Libros.Web
 {
@@ -14,6 +15,7 @@ namespace ME.Libros.Web
 
             ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
             ModelBinders.Binders.Add(typeof(long), new LongModelBinder());
+            //EFloggerFor6.Initialize();
         }
     }
 }

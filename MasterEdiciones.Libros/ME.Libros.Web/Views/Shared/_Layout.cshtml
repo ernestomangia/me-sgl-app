@@ -31,6 +31,7 @@
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
     <script src="~/Scripts/jquery.validate.custom.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
     @*<script src="~/Scripts/cldr.js"></script>
         <script src="~/Scripts/cldr/event.js"></script>
@@ -162,7 +163,8 @@
     $('.datepicker').datepicker({
         language: 'es',
         todayBtn: 'linked',
-        todayHighlight: true
+        todayHighlight: true,
+        orientation: "left top"
     });
 
     $('.modalEliminar').on('hidden.bs.modal', function () {

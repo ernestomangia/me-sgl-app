@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
@@ -103,6 +104,11 @@ namespace ME.Libros.Servicios.General
             }
 
             return Guardar(ventaDominio);
+        }
+
+        public List<VentaDominio> Buscar(string cliente, string cobrador, string vendedor)
+        {
+            throw new NotImplementedException();
         }
 
         #region Private Methods

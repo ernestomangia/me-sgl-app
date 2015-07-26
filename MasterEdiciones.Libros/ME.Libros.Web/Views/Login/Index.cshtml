@@ -1,30 +1,68 @@
-﻿@model IEnumerable<ME.Libros.Web.Models.LoginViewModel>
+﻿@model ME.Libros.Web.Models.LoginViewModel
 
-
-
-<!DOCTYPE html>
-<body>
-    <form>
-        
-        <div class="col-md-3">
-            <h3>Login</h3>
-            <div class="form-group">
-                <label for="inputUsuario">Usuario</label>
-                <input type="text" class="form-control" id="inputUsuario" placeholder="Usuario">
-            </div>
-            <div class="form-group">
-                <label for="inputPassword">Contraseña</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
-            </div>
-           
+@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "formLogin", @class = "form-signin formLogin" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-body panelLogin">
+            <fieldset>
+                <legend>Login</legend>
+                <div class="form-group">
+                    @Html.LabelFor(l => l.Usuario, new { @class = "control-label" })
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </div>
+                        @Html.TextBoxFor(l => l.Usuario, new { @class = "form-control", placeholder = "Usuario" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(l => l.Contrasena, new { @class = "control-label" })
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        </div>
+                        @Html.PasswordFor(l => l.Contrasena, new { @class = "form-control", placeholder = "Contraseña" })
+                    </div>
+                </div>
                 <div class="checkbox">
-                    <label><input type="checkbox"> Recordar contraseña</label>
+                    <label>
+                        @Html.CheckBoxFor(model => model.Recordarme)
+                        <i>Recordarme</i>
+                    </label>
                 </div>
-                <div class="text-right">
-                    <button type="submit" class="btn btn-success">Loguearse</button>
+                <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                    <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                    <b>Mensajes:</b>
+                    @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
                 </div>
-            </div>
-       
-    </form>
-</body>
-</html>
+                <button type="submit" class="btn btn-success btn-block" title="Iniciar sesion">
+                    Log in
+                </button>
+            </fieldset>
+        </div>
+    </div>
+}
+
+@*<form>
+    <div class="col-md-3">
+    <h3>Login</h3>
+    <div class="form-group">
+        <label for="inputUsuario">Usuario</label>
+        <input type="text" class="form-control" id="inputUsuario" placeholder="Usuario">
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Contraseña</label>
+        <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+    </div>
+
+    <div class="checkbox">
+        <label>
+            <input type="checkbox"> Recordarme
+        </label>
+    </div>
+    <div class="text-right">
+        <button type="submit" class="btn btn-success">Loguearse</button>
+    </div>
+    </div>
+    </form>*@

@@ -15,10 +15,15 @@ namespace ME.Libros.Web
             //    url: "Venta/{estado}",
             //    defaults: new { controller = "Venta", action = "Index" });
 
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Cliente", action = "Index", id = UrlParameter.Optional });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Cliente", action = "Index", id = UrlParameter.Optional });
+                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional });
         }
     }
 }

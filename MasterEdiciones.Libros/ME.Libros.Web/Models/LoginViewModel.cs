@@ -30,9 +30,12 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public string Usuario { get; set; }
 
-        [StringLength(30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Display(Name = "Contrasena", ResourceType = typeof(Messages))]
+        [StringLength(30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public string Contrasena { get; set; }
+
+        public bool Recordarme { get; set; }
 
         #endregion
     }

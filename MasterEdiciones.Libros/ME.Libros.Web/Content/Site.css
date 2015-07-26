@@ -5,9 +5,9 @@
 }
 
 @media (min-width: 768px) {
-  .form-horizontal .form-group-sm .control-label {
-    font-size: 14px;
-  }
+    .form-horizontal .form-group-sm .control-label {
+        font-size: 14px;
+    }
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -80,5 +80,18 @@ footer {
     font-size: 115%;
     text-align: left;
     max-width: 300px;
-    width: 300px; 
+    width: 300px;
+}
+
+.form-signin {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.panelLogin {
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: #FAFAFA;
+    /*background-color: #F5F5F5;*/
 }

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
-using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -22,7 +16,7 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             LoginService = new LoginService(new EntidadRepository<LoginDominio>(modelContainer));
-            ViewBag.MenuId = 13;
+            //ViewBag.MenuId = 13;
             ViewBag.Title = "Login";
         }
 
@@ -30,19 +24,35 @@ namespace ME.Libros.Web.Controllers
         // GET: /Login/
         public ActionResult Index()
         {
-            ViewBag.Id = TempData["Id"];
-            ViewBag.Mensaje = TempData["Mensaje"];
+            //var logins = new List<LoginViewModel>();
+            //using (LoginService)
+            //{
+            //    logins.AddRange(LoginService.Listar()
+            //        .ToList()
+            //        .Select(r => new LoginViewModel(r)));
+            //}
 
-            var logins = new List<LoginViewModel>();
-            using (LoginService)
-            {
-                logins.AddRange(LoginService.Listar()
-                    .ToList()
-                    .Select(r => new LoginViewModel(r)));
-            }
-
-            return View(logins);
+            return View(new LoginViewModel());
         }
 
-          }
+        [HttpPost]
+        public ActionResult Login(LoginViewModel loginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //TODO: Almacenar cookie Recordar usuario y contraseña
+                //TODO: Validar si usuario y contraseña son correctos
+
+                return RedirectToAction("Index", "Cliente");
+            }
+
+            return View("Index", loginViewModel);
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index");
+        }
+    }
 }

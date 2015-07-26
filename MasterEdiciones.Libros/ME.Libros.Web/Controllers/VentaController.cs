@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using ME.Libros.Dominio.General;
+using ME.Libros.DTO;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
@@ -65,37 +66,35 @@ namespace ME.Libros.Web.Controllers
 
                     return View(subFolder + "Index", ventaTodasViewModel);
                 }
-                else
-                {
-                    Session.Remove("MenuTodas");
-                    ventas.AddRange(VentaService.ListarAsQueryable()
+
+                Session.Remove("MenuTodas");
+                ventas.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == estado)
                     .OrderByDescending(v => v.FechaVenta)
                     .ThenByDescending(v => v.Id)
                     .ToList()
                     .Select(v => new VentaViewModel(v)));
 
-                    switch (estado)
-                    {
-                        case EstadoVenta.Vigente:
-                            title = "Vigentes";
-                            menuId = 20;
-                            subFolder = "Vigente";
-                            break;
-                        case EstadoVenta.Pagada:
-                            title = "Pagadas";
-                            menuId = 21;
-                            subFolder = "Pagada";
-                            break;
-                        case EstadoVenta.Anulada:
-                            title = "Anuladas";
-                            menuId = 22;
-                            subFolder = "Anulada";
-                            break;
+                switch (estado)
+                {
+                    case EstadoVenta.Vigente:
+                        title = "Vigentes";
+                        menuId = 20;
+                        subFolder = "Vigente";
+                        break;
+                    case EstadoVenta.Pagada:
+                        title = "Pagadas";
+                        menuId = 21;
+                        subFolder = "Pagada";
+                        break;
+                    case EstadoVenta.Anulada:
+                        title = "Anuladas";
+                        menuId = 22;
+                        subFolder = "Anulada";
+                        break;
 
-                    }
-                    subFolder += "/";
                 }
+                subFolder += "/";
             }
             ViewBag.Title = title;
             ViewBag.MenuId = menuId;
@@ -106,43 +105,12 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public JsonResult Search(VentaTodasViewModel ventaTodasViewModel)
         {
-            var predicateBuilder = PredicateBuilder.True<VentaDominio>();
-            if (ventaTodasViewModel.EstadoVenta != null)
-            {
-                predicateBuilder = predicateBuilder.And(v => v.Estado == ventaTodasViewModel.EstadoVenta);
-            }
-            if (!string.IsNullOrWhiteSpace(ventaTodasViewModel.Cliente))
-            {
-                predicateBuilder = predicateBuilder.And(v => (v.Cliente.Nombre + " " + v.Cliente.Apellido).Contains(ventaTodasViewModel.Cliente));
-            }
-            if (!string.IsNullOrWhiteSpace(ventaTodasViewModel.Cobrador))
-            {
-                predicateBuilder = predicateBuilder.And(v => (v.Cobrador.Nombre + " " + v.Cobrador.Apellido).Contains(ventaTodasViewModel.Cobrador));
-            }
-            if (!string.IsNullOrWhiteSpace(ventaTodasViewModel.Vendedor))
-            {
-                predicateBuilder = predicateBuilder.And(v => (v.Vendedor.Nombre + " " + v.Vendedor.Apellido).Contains(ventaTodasViewModel.Vendedor));
-            }
-            if (ventaTodasViewModel.Desde.HasValue)
-            {
-                predicateBuilder = predicateBuilder.And(v => v.FechaVenta >= ventaTodasViewModel.Desde);
-            }
-            if (ventaTodasViewModel.Hasta.HasValue)
-            {
-                predicateBuilder = predicateBuilder.And(v => v.FechaVenta <= ventaTodasViewModel.Hasta);
-            }
-
-            var ventas = VentaService.ListarAsQueryable()
-                .AsExpandable()
-                .Where(predicateBuilder)
-                .OrderByDescending(v => v.FechaVenta)
-                .ThenByDescending(v => v.Id)
-                .ToList()
+            var ventaViewModels = VentaService.Listar(DtoHelper.ConvertToDto(ventaTodasViewModel))
                 .Select(v => new VentaViewModel(v))
                 .ToList();
 
             // TODO: revisar este fix, borra relacion de items y cuotas con la venta
-            foreach (var ventaViewModel in ventas)
+            foreach (var ventaViewModel in ventaViewModels)
             {
                 ventaViewModel.Items.ForEach(vi => vi.Venta = null);
                 ventaViewModel.Cuotas.ForEach(vi => vi.Venta = null);
@@ -150,7 +118,7 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = ventas.ToList()
+                Data = ventaViewModels.ToList()
             };
         }
 

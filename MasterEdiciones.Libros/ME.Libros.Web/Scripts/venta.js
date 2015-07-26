@@ -209,14 +209,6 @@ function getProducto() {
     }
 }
 
-function formatFloat(value) {
-    return Globalize.format(value, "n2");
-}
-
-function formatCurrency(value) {
-    return "$ " + Globalize.format(value, "n2");
-}
-
 function calcularMontosItem(precioVentaCalculado, precioVentaVendido) {
     if (precioVentaVendido === undefined) {
         precioVentaVendido = precioVentaCalculado;

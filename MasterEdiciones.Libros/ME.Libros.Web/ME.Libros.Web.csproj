@@ -702,6 +702,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\DtoHelper.cs" />
     <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -867,6 +868,10 @@
     <ProjectReference Include="..\ME.Libros.Dominio\ME.Libros.Dominio.csproj">
       <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
       <Name>ME.Libros.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.DTO\ME.Libros.DTO.csproj">
+      <Project>{0e5874d6-f308-4659-a057-7ddba4003b22}</Project>
+      <Name>ME.Libros.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\ME.Libros.EF\ME.Libros.EF.csproj">
       <Project>{b156ec49-3d61-4f47-a657-25029dc7b99d}</Project>

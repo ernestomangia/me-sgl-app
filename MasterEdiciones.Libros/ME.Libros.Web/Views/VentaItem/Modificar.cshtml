@@ -47,6 +47,13 @@
     $(document).ready(function () {
         calcularDiferencia();
 
+        //$("#formVentaItem").on("submit", function (e) {
+        //    e.preventDefault();
+        //    validationSummaryVisibility(this);
+        //    if ($("#formVentaItem").valid()) {
+        //    }
+        //});
+
         if ($("#IdVentaItem").length == 1) {
             $("#ProductoId, #Cantidad, #PrecioVentaVendido, #MontoItemVendido").attr("disabled", "disabled");
             $("#ProductoId").attr("disabled", "disabled");

@@ -20,8 +20,9 @@ namespace ME.Libros.EF.Mapeos
             Property(ci => ci.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(ci => ci.FechaAlta).IsRequired();
             Property(ci => ci.Cantidad).IsRequired();
-            Property(ci => ci.Monto).IsRequired();
+            Property(ci => ci.MontoComprado).IsRequired();
             Property(ci => ci.PrecioCosto).IsRequired();
+            Property(ci => ci.PrecioCompraComprado).IsRequired();
 
             // FK
             HasRequired(vi => vi.Compra);

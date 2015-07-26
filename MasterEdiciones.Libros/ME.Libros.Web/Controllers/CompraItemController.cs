@@ -7,6 +7,7 @@ using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
+using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -16,11 +17,13 @@ namespace ME.Libros.Web.Controllers
         //
         // GET: /CompraItem/
         public ProductoService ProductoService { get; set; }
+        public CompraItemService CompraItemService { get; set; }
 
         public CompraItemController()
         {
             var modelContainer = new ModelContainer();
             ProductoService = new ProductoService(new EntidadRepository<ProductoDominio>(modelContainer));
+            CompraItemService = new CompraItemService(new EntidadRepository<CompraItemDominio>(modelContainer));
         }
 
         // GET: VentaItem
@@ -49,6 +52,36 @@ namespace ME.Libros.Web.Controllers
             };
 
             return View("~/Views/CompraItem/Crear.cshtml", compraViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Crear(CompraItemViewModel compraItemViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (ProductoService)
+                    {
+                        var productoDominio = ProductoService.GetPorId(compraItemViewModel.ProductoId);
+                        compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
+                        compraItemViewModel.PrecioCosto = compraItemViewModel.Producto.PrecioCosto;
+                        compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioVenta;
+                        compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
+                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad * productoDominio.PrecioCosto;
+                        compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
+
+            return new JsonResult
+            {
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), CompraItem = compraItemViewModel }
+            };
         }
 	}
 }

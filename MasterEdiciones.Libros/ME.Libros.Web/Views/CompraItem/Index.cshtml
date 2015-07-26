@@ -13,7 +13,7 @@
                 <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Orden)</th>
                 <th>@Html.DisplayNameFor(model => model.ProductoId)</th>
                 <th class="numero">@Html.DisplayNameFor(model => model.Cantidad)</th>
-                <th class="moneda">@Html.DisplayNameFor(model => model.PrecioCosto)</th>
+                <th class="moneda">@Html.DisplayNameFor(model => model.PrecioCompraComprado)</th>
                 <th class="moneda" style="width: 150px;">@Html.DisplayNameFor(model => model.MontoItemComprado)</th>
                 <th class="columnaAcciones">Acciones</th>
             </tr>
@@ -31,7 +31,7 @@
                 <td>@item.Orden</td>
                 <td>@item.Producto.Nombre</td>
                 <td class="text-right">@Html.DisplayFor(c => item.Cantidad)</td>
-                <td class="text-right">@Html.DisplayFor(c => item.PrecioCosto)</td>
+                <td class="text-right">@Html.DisplayFor(c => item.PrecioCompraComprado)</td>
                 <td class="text-right">@Html.DisplayFor(c => item.MontoItemComprado)</td>
                 <td>
                     @{

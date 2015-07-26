@@ -679,6 +679,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompraItemController.cs" />
     <Compile Include="Controllers\IvaController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -716,6 +717,7 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\IvaViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
@@ -850,6 +852,7 @@
     <Content Include="Views\CompraItem\Index.cshtml" />
     <Content Include="Views\CompraItem\Crear.cshtml" />
     <Content Include="Views\CompraItem\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

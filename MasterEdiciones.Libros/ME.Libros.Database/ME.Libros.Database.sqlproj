@@ -67,7 +67,7 @@
     <Build Include="Tables\Provincia.sql" />
     <Build Include="Tables\__MigrationHistory.sql" />
     <Build Include="Tables\Iva.sql" />
-    <Build Include="Tables\Login.sql" />
+    <Build Include="Tables\Usuario.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ME.Libros.Database.refactorlog" />

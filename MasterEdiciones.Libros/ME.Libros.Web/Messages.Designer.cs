@@ -115,6 +115,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Confirmar Contraseña.
+        /// </summary>
+        public static string ConfirmarContrasena {
+            get {
+                return ResourceManager.GetString("ConfirmarContrasena", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Contraseña.
         /// </summary>
         public static string Contrasena {

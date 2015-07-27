@@ -312,6 +312,9 @@
   <data name="Contrasena" xml:space="preserve">
     <value>Contraseña</value>
   </data>
+  <data name="ConfirmarContrasena" xml:space="preserve">
+    <value>Confirmar Contraseña</value>
+  </data>
   <data name="ElUsuario" xml:space="preserve">
     <value>El Usuario</value>
   </data>

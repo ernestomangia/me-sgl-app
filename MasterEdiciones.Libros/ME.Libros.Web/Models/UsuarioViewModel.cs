@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using ICSharpCode.NRefactory.CSharp.Refactoring;
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
@@ -32,7 +32,8 @@ namespace ME.Libros.Web.Models
         [StringLength(50, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public string Nombre { get; set; }
-
+        
+        [MinLength(8,ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringMinLength")]
         [StringLength(50, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Display(Name = "Contrasena", ResourceType = typeof(Messages))]
         public string Contrasena { get; set; }

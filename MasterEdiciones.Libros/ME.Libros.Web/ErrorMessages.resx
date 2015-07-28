@@ -144,6 +144,9 @@
   <data name="StringLength" xml:space="preserve">
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres como máximo</value>
   </data>
+  <data name="StringMinLength" xml:space="preserve">
+    <value>La contraseña debe tener al menos 8 caracteres</value>
+  </data>
   <data name="PasswordEquals" xml:space="preserve">
     <value>Las contraseñas no coinciden</value>
   </data>

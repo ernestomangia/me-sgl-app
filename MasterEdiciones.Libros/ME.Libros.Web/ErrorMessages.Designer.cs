@@ -275,5 +275,14 @@ namespace ME.Libros.Web {
                 return ResourceManager.GetString("StringLength", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña debe tener al menos 8 caracteres.
+        /// </summary>
+        public static string StringMinLength {
+            get {
+                return ResourceManager.GetString("StringMinLength", resourceCulture);
+            }
+        }
     }
 }

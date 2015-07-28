@@ -169,8 +169,6 @@ namespace ME.Libros.Web.Controllers
                     usuarioDominio.Nombre = usuarioViewModel.Nombre;
                     usuarioDominio.Contrasena = usuarioViewModel.Contrasena;
                     usuarioDominio.ConfirmarContrasena = usuarioViewModel.ConfirmarContrasena;
-
-                    
                     resultado = UsuarioService.Guardar(usuarioDominio);
                     if (resultado <= 0)
                     {

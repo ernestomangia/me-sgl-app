@@ -854,6 +854,7 @@
     <Content Include="Views\CompraItem\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\CompraItem\Modificar.cshtml" />
+    <Content Include="Views\CompraItem\Eliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

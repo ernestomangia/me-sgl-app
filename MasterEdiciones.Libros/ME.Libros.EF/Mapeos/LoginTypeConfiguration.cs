@@ -5,9 +5,9 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.EF.Mapeos
 {
-    class UsuarioTypeConfiguration: EntityTypeConfiguration<UsuarioDominio>
+    class LoginTypeConfiguration: EntityTypeConfiguration<LoginDominio>
     {
-        public UsuarioTypeConfiguration()
+        public LoginTypeConfiguration()
         {
             //PK
             HasKey(r => r.Id);
@@ -15,11 +15,11 @@ namespace ME.Libros.EF.Mapeos
             //Properties
             Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(r => r.FechaAlta).IsRequired();
-            Property(r => r.Nombre).IsRequired().HasMaxLength(50);
-            Property(r => r.Contrasena).IsRequired().HasMaxLength(50);
-            Property(r => r.ConfirmarContrasena).IsRequired().HasMaxLength(50);
+            Property(r => r.Usuario).IsRequired().HasMaxLength(30);
+            Property(r => r.Contrasena).IsOptional().HasMaxLength(30);
+
             //Map Table
-            ToTable("Usuario");
+            ToTable("Login");
         }
     }
 }

@@ -40,3 +40,38 @@
         }
     }
 });
+
+function calcularTotalColumna(dt, columnArray) {
+    var api = dt.api();
+
+    for (var i = 0; i < columnArray.length; i++) {
+        var column = columnArray[i];
+
+        // Total over all pages
+        var total = api
+            .column(column)
+            .data()
+            .reduce(function (a, b) {
+                return getFloatVal(a) + getFloatVal(b);
+            }, 0);
+
+        // Total over this page
+        var pageTotal = api
+        .column(column, { page: 'current' })
+        .data()
+        .reduce(function (a, b) {
+            return getFloatVal(a) + getFloatVal(b);
+        }, 0);
+
+        // Update footer
+        $(api.column(column).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ')');
+    }
+}
+
+function getFloatVal(i) {
+    return typeof i === 'string'
+            ? Globalize.parseFloat(i)
+            : typeof i === 'number'
+                ? i
+                : 0;
+}

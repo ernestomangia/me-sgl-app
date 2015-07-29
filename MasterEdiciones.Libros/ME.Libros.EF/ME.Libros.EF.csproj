@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mapeos\IvaTypeConfiguration.cs" />
+    <Compile Include="Mapeos\LoginTypeConfiguration.cs" />
     <Compile Include="Mapeos\VendedorTypeConfiguration.cs" />
     <Compile Include="Mapeos\CompraItemTypeConfiguration.cs" />
     <Compile Include="Mapeos\CompraTypeConfiguration.cs" />

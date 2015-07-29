@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A1864D6-3874-4357-A8B6-E8DCB660A70C}</ProjectGuid>
+    <ProjectGuid>{0E5874D6-F308-4659-A057-7DDBA4003B22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ME.Libros.Dominio</RootNamespace>
-    <AssemblyName>ME.Libros.Dominio</AssemblyName>
+    <RootNamespace>ME.Libros.DTO</RootNamespace>
+    <AssemblyName>ME.Libros.DTO</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,40 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseDominio.cs" />
-    <Compile Include="General\CobroDominio.cs" />
-    <Compile Include="General\CompraDominio.cs" />
-    <Compile Include="General\CompraItemDominio.cs" />
-    <Compile Include="General\CuotaDominio.cs" />
-    <Compile Include="General\EditorialDominio.cs" />
-    <Compile Include="General\IvaDominio.cs" />
-    <Compile Include="General\LoginDominio.cs" />
-    <Compile Include="General\UsuarioDominio.cs" />
-    <Compile Include="General\GastoVendedorDominio.cs" />
-    <Compile Include="General\GastoCobradorDominio.cs" />
-    <Compile Include="General\PlanPagoDominio.cs" />
-    <Compile Include="General\GastoDominio.cs" />
-    <Compile Include="General\ProductoDominio.cs" />
-    <Compile Include="General\ClienteDominio.cs" />
-    <Compile Include="General\LocalidadDominio.cs" />
-    <Compile Include="General\CobradorDominio.cs" />
-    <Compile Include="General\ProveedorDominio.cs" />
-    <Compile Include="General\ProvinciaDominio.cs" />
-    <Compile Include="General\RubroDominio.cs" />
-    <Compile Include="General\VendedorDominio.cs" />
-    <Compile Include="General\VentaDominio.cs" />
-    <Compile Include="General\VentaItemDominio.cs" />
-    <Compile Include="General\ZonaDominio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VentaSearchDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
       <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>
       <Name>ME.Libros.Utils</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DiagramaClase.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

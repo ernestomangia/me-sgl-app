@@ -41,6 +41,7 @@ namespace ME.Libros.Web.Models
                 case 9:
                 case 10:
                 case 12:
+                case 13:
                 case 24:
                     MenuViewModels.Add(new MenuViewModel
                     {
@@ -120,8 +121,6 @@ namespace ME.Libros.Web.Models
                         Link = helper.Action("Index", "Iva"),
                         Posicion = 110
                     });
-
-
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 24,
@@ -141,28 +140,28 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 20,
                         Nombre = "Vigentes",
-                        Link = helper.Action("Index", "Venta", new {estado = EstadoVenta.Vigente}),
+                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Vigente }),
                         Posicion = 20
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 21,
                         Nombre = "Pagadas",
-                        Link = helper.Action("Index", "Venta", new {estado = EstadoVenta.Pagada}),
+                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Pagada }),
                         Posicion = 30
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 22,
                         Nombre = "Anuladas",
-                        Link = helper.Action("Index", "Venta", new {estado = EstadoVenta.Anulada}),
+                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Anulada }),
                         Posicion = 40
                     });
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 23,
                         Nombre = "Todas",
-                        Link = helper.Action("Index", "Venta", new {estado = (EstadoVenta?) null}),
+                        Link = helper.Action("Index", "Venta", new { estado = (EstadoVenta?)null }),
                         Posicion = 50,
                     });
                     break;
@@ -189,7 +188,7 @@ namespace ME.Libros.Web.Models
                     {
                         Id = 27,
                         Nombre = "Pagadas",
-                        Link = helper.Action("Index", "Compra", new {estado = EstadoCompra.Pagada}),
+                        Link = helper.Action("Index", "Compra", new { estado = EstadoCompra.Pagada }),
                         Posicion = 70
                     });
                     MenuViewModels.Add(new MenuViewModel
@@ -208,7 +207,6 @@ namespace ME.Libros.Web.Models
                         Link = helper.Action("Index", "Usuario"),
                         Posicion = 10,
                     });
-
                     break;
             }
             Seleccionar(menuId);

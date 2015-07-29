@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using LinqKit;
+
 using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
+using ME.Libros.DTO;
 using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Servicios.General
@@ -106,9 +109,40 @@ namespace ME.Libros.Servicios.General
             return Guardar(ventaDominio);
         }
 
-        public List<VentaDominio> Buscar(string cliente, string cobrador, string vendedor)
+        public List<VentaDominio> Listar(VentaSearchDto ventaSearchDto)
         {
-            throw new NotImplementedException();
+            var predicateBuilder = PredicateBuilder.True<VentaDominio>();
+            if (ventaSearchDto.EstadoVenta != null)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.Estado == ventaSearchDto.EstadoVenta);
+            }
+            if (!string.IsNullOrWhiteSpace(ventaSearchDto.Cliente))
+            {
+                predicateBuilder = predicateBuilder.And(v => (v.Cliente.Nombre + " " + v.Cliente.Apellido).Contains(ventaSearchDto.Cliente));
+            }
+            if (!string.IsNullOrWhiteSpace(ventaSearchDto.Cobrador))
+            {
+                predicateBuilder = predicateBuilder.And(v => (v.Cobrador.Nombre + " " + v.Cobrador.Apellido).Contains(ventaSearchDto.Cobrador));
+            }
+            if (!string.IsNullOrWhiteSpace(ventaSearchDto.Vendedor))
+            {
+                predicateBuilder = predicateBuilder.And(v => (v.Vendedor.Nombre + " " + v.Vendedor.Apellido).Contains(ventaSearchDto.Vendedor));
+            }
+            if (ventaSearchDto.Desde.HasValue)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.FechaVenta >= ventaSearchDto.Desde);
+            }
+            if (ventaSearchDto.Hasta.HasValue)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.FechaVenta <= ventaSearchDto.Hasta);
+            }
+             
+            return ListarAsQueryable()
+                .AsExpandable()
+                .Where(predicateBuilder)
+                .OrderByDescending(v => v.FechaVenta)
+                .ThenByDescending(v => v.Id)
+                .ToList();
         }
 
         #region Private Methods

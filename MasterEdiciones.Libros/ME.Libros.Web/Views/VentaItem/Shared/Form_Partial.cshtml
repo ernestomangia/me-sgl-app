@@ -15,7 +15,10 @@
 <div class="form-group form-group-sm">
     @Html.LabelFor(vi => vi.PrecioVentaVendido, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", autocomplete = "off" })
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", autocomplete = "off" })
+        </div>
         <span class="label label-primary">
             Sugerido: $
             <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.PrecioVentaCalculado).ToHtmlString() : "-")</span>
@@ -25,9 +28,12 @@
 <div class="form-group form-group-sm">
     @Html.LabelFor(vi => vi.MontoItemVendido, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "8", autocomplete = "off" })
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "8", autocomplete = "off" })
+        </div>
         <span class="label label-primary">
-            Sugerido: $ 
+            Sugerido: $
             <span id="subtotalSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.MontoItemCalculado).ToHtmlString() : "-")</span>
         </span>
     </div>

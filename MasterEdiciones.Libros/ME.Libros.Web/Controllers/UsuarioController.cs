@@ -65,9 +65,12 @@ namespace ME.Libros.Web.Controllers
                             FechaAlta = DateTime.Now,
                             Nombre = usuarioViewModel.Nombre,
                             Contrasena = usuarioViewModel.Contrasena,
+                            ConfirmarContrasena = usuarioViewModel.ConfirmarContrasena,
                         };
 
+                        if(usuarioViewModel.Contrasena==usuarioViewModel.ConfirmarContrasena)
                         usuarioViewModel.Id = UsuarioService.Guardar(usuarioDominio);
+
                         if (usuarioViewModel.Id <= 0)
                         {
                             foreach (var error in UsuarioService.ModelError)
@@ -165,7 +168,7 @@ namespace ME.Libros.Web.Controllers
                     var usuarioDominio = UsuarioService.GetPorId(usuarioViewModel.Id);
                     usuarioDominio.Nombre = usuarioViewModel.Nombre;
                     usuarioDominio.Contrasena = usuarioViewModel.Contrasena;
-
+                    usuarioDominio.ConfirmarContrasena = usuarioViewModel.ConfirmarContrasena;
                     resultado = UsuarioService.Guardar(usuarioDominio);
                     if (resultado <= 0)
                     {

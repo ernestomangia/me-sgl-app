@@ -312,6 +312,9 @@
   <data name="Contrasena" xml:space="preserve">
     <value>Contraseña</value>
   </data>
+  <data name="ConfirmarContrasena" xml:space="preserve">
+    <value>Confirmar Contraseña</value>
+  </data>
   <data name="ElUsuario" xml:space="preserve">
     <value>El Usuario</value>
   </data>
@@ -359,5 +362,11 @@
   </data>
   <data name="PrecioCompraCalculado" xml:space="preserve">
     <value>Precio de compra calculado</value>
+  </data>
+  <data name="ElLogin" xml:space="preserve">
+    <value>El Login</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
 </root>

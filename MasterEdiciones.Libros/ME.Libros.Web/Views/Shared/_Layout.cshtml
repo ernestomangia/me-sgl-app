@@ -72,24 +72,28 @@
             </div>
             <div class="navbar-collapse collapse navbar-left">
                 <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        @Html.ActionLink("Administración", "Index", "Cliente")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Ventas", "Index", "Venta", new { estado = EstadoVenta.Vigente }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Compras", "Index", "Compra")
-                    </li>
-                    <li>
-                        @Html.ActionLink("Tesoseria", "Index", "Cobro")
-                    </li>
-                    <li><a href="#">Reportes</a></li>
-                    <li>
-                        @Html.ActionLink("Sistema", "Index", "Usuario")
-                    </li>
-                    <li><a href="#">Ayuda</a></li>
-                    <li><a href="#">Salir</a></li>
+                    @if (ViewBag.MenuId != null)
+                    {
+                        <li>
+                            @Html.ActionLink("Administración", "Index", "Cliente")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Ventas", "Index", "Venta", new { estado = EstadoVenta.Vigente }, null)
+                        </li>
+                        <li>
+                            @Html.ActionLink("Compras", "Index", "Compra")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Tesoseria", "Index", "Cobro")
+                        </li>
+                        <li><a href="#">Reportes</a></li>
+                        <li>
+                            @Html.ActionLink("Sistema", "Index", "Usuario")
+                        </li>
+                        <li><a href="#">Ayuda</a></li>
+                        <li>@Html.ActionLink("Salir", "Logout", "Login")</li>
+                    }
+
                 </ul>
             </div>
         </div>
@@ -145,7 +149,7 @@
         });
     });
 
-    $(".formEntidad").on("submit", function () {
+    $(".formEntidad, .formLogin").on("submit", function () {
         validationSummaryVisibility(this);
     });
 
@@ -176,7 +180,7 @@
         $(this).find(".btnCancelarEliminar").focus();
     });
 
-    $(function() {
+    $(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>

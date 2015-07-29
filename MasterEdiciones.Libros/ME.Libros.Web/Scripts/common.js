@@ -131,7 +131,8 @@ function AnularEntidad(url, msjSuccess, msjError) {
     });
 }
 
-function FormatJsonDate(value) {
+function ConvertJsonDateToDate(value) {
+    return new Date(parseInt(value.substr(6)));
     var pattern = /Date\(([^)]+)\)/;
     var results = pattern.exec(value);
     var dt = new Date(parseFloat(results[1]));
@@ -179,4 +180,17 @@ function GetLocalidades() {
     } else {
         $(".localidad").empty().append(new Option("Seleccione", ""));
     }
+}
+
+function formatFloat(value) {
+    return Globalize.format(value, "N2");
+}
+
+function formatCurrency(value) {
+    //return "$ " + Globalize.format(value, "n2");
+    return Globalize.format(value, "C");
+}
+
+function formatToShortDate(value) {
+    return Globalize.format(value, "d");
 }

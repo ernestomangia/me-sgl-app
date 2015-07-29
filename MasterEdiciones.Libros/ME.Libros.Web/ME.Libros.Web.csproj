@@ -679,6 +679,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompraItemController.cs" />
     <Compile Include="Controllers\IvaController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -702,6 +703,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Extensions\DtoHelper.cs" />
     <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -715,6 +717,7 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\IvaViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
@@ -849,6 +852,7 @@
     <Content Include="Views\CompraItem\Index.cshtml" />
     <Content Include="Views\CompraItem\Crear.cshtml" />
     <Content Include="Views\CompraItem\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\CompraItem\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -868,6 +872,10 @@
     <ProjectReference Include="..\ME.Libros.Dominio\ME.Libros.Dominio.csproj">
       <Project>{3a1864d6-3874-4357-a8b6-e8dcb660a70c}</Project>
       <Name>ME.Libros.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.DTO\ME.Libros.DTO.csproj">
+      <Project>{0e5874d6-f308-4659-a057-7ddba4003b22}</Project>
+      <Name>ME.Libros.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\ME.Libros.EF\ME.Libros.EF.csproj">
       <Project>{b156ec49-3d61-4f47-a657-25029dc7b99d}</Project>

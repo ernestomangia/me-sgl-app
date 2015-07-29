@@ -43,10 +43,9 @@
             $(this).datepicker("setDate", new Date());
         });
 
-        $("#btnNuevoCompraItem").on("click", function() {
+        $("#btnNuevoCompraItem").on("click", function () {
             abrirModalCompraItem('@Url.Action("CrearItem", "CompraItem")');
         });
-    });
 
     var columna = [
           {
@@ -69,4 +68,12 @@
         lengthMenu: [5, 10]
     });
 
+    $('#formCompra').validate().settings.ignore = false;
+    $("#cantidadItems").rules("add", {
+        min: 1,
+        messages: {
+            min: "Debe agregar al menos un <b>Item</b> al Detalle de la compra"
+        }
+    });
+    });
 </script>

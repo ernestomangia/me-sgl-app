@@ -849,6 +849,7 @@
     <Content Include="Views\CompraItem\Index.cshtml" />
     <Content Include="Views\CompraItem\Crear.cshtml" />
     <Content Include="Views\CompraItem\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\CompraItem\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

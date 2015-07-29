@@ -212,14 +212,6 @@ function getProducto() {
     }
 }
 
-function formatFloat(value) {
-    return Globalize.format(value, "n2");
-}
-
-function formatCurrency(value) {
-    return "$ " + Globalize.format(value, "n2");
-}
-
 function calcularMontosItem(precioCompraCalculado, precioCompraComprado) {
     if (precioCompraComprado === undefined) {
         precioCompraComprado = precioCompraCalculado;

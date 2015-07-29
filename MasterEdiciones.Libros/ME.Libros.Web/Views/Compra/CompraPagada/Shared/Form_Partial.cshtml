@@ -50,7 +50,6 @@
         </div>
     </div>
 </div>
-
 <div class="row">
     <fieldset class="col-md-10">
         <legend>Detalle</legend>
@@ -58,7 +57,6 @@
     </div>
     <div class="tab-content">
 <div id="TabCompraDetalle" role="tabpanel" class="tab-pane fade in active">
-    <br />
     @{ Html.RenderAction("Index", "CompraItem", new { compraItemViewModels = Model.Items }); }
     @*@foreach (var item in Model.Items)
                 {

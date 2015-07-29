@@ -65,8 +65,7 @@ namespace ME.Libros.Web.Controllers
                     {
                         var productoDominio = ProductoService.GetPorId(compraItemViewModel.ProductoId);
                         compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
-                        compraItemViewModel.PrecioCosto = compraItemViewModel.Producto.PrecioCosto;
-                        compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioVenta;
+                        compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioCosto;
                         compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
                         compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad * productoDominio.PrecioCosto;
                         compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
@@ -83,5 +82,77 @@ namespace ME.Libros.Web.Controllers
                 Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), CompraItem = compraItemViewModel }
             };
         }
+
+        [HttpPost]
+        public ActionResult ModificarItem(List<CompraItemViewModel> compraItemViewModels, int productoId)
+        {
+            // Listar IDs de los items ya agregados, exceptuar el que se esta modificando
+            var productoIds = compraItemViewModels.Where(vi => vi.ProductoId != productoId)
+                .Select(vi => vi.ProductoId)
+                .ToList();
+            var productos = ProductoService.ListarAsQueryable()
+                .Where(p => !productoIds.Contains(p.Id))
+                .ToList()
+                .Select(p => new ProductoViewModel(p))
+                .ToList();
+
+            var compraItemViewModel = compraItemViewModels.First(vi => vi.ProductoId == productoId);
+            compraItemViewModel.Productos = new SelectList(productos, "Id", "Nombre");
+            compraItemViewModel.Producto = productos.First(p => p.Id == productoId);
+            compraItemViewModel.PrecioCompraComprado = compraItemViewModel.Producto.PrecioVenta;
+            compraItemViewModel.MontoItemCalculado = compraItemViewModel.PrecioCompraCalculado * compraItemViewModel.Cantidad;
+
+            return View("Modificar", compraItemViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Modificar(int id)
+        {
+            CompraItemViewModel compraItemViewModel;
+            using (CompraItemService)
+            {
+                compraItemViewModel = new CompraItemViewModel(CompraItemService.GetPorId(id));
+            }
+
+            // Listar IDs de los items ya agregados, exceptuar el que se esta modificando
+            var productos = ProductoService.ListarAsQueryable()
+                .Where(p => p.Id == compraItemViewModel.ProductoId)
+                .ToList()
+                .Select(p => new ProductoViewModel(p))
+                .ToList();
+
+            compraItemViewModel.Productos = new SelectList(productos, "Id", "Nombre");
+            return View(compraItemViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Modificar(CompraItemViewModel compraItemViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    using (ProductoService)
+                    {
+                        var productoDominio = ProductoService.GetPorId(compraItemViewModel.ProductoId);
+                        compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
+                        compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioCosto;
+                        compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
+                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad * productoDominio.PrecioCosto;
+                        compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
+
+            return new JsonResult
+            {
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), CompraItem = compraItemViewModel }
+            };
+        }
+
 	}
 }

@@ -196,6 +196,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El usuario o contraseña suministradas son incorrectas..
+        /// </summary>
+        public static string InvalidUserPassword {
+            get {
+                return ResourceManager.GetString("InvalidUserPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe ser numerico.
         /// </summary>
         public static string Numeric {

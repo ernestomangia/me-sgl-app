@@ -93,7 +93,6 @@
                         <li><a href="#">Ayuda</a></li>
                         <li>@Html.ActionLink("Salir", "Logout", "Login")</li>
                     }
-
                 </ul>
             </div>
         </div>
@@ -117,7 +116,13 @@
         }
         <div class="navbar navbar-fixed-bottom ">
             <div class="container">
-                <p>&copy; Sistema Gestion de Libros v1.0</p>
+                <p></p>
+                <div class="pull-left">
+                    Sistema Gestion de Libros
+                </div>
+                <div class="pull-right">
+                    <p class="text-muted">&copy; @DateTime.Now.Year, Todos los derechos reservados.</p>
+                </div>
             </div>
         </div>
     </div>

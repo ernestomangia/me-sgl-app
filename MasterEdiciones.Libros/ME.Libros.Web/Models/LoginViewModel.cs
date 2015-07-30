@@ -14,17 +14,13 @@ namespace ME.Libros.Web.Models
 
         public LoginViewModel(LoginDominio login)
         {
-            Id = login.Id;
             Usuario = login.Usuario;
-            Contrasena = login.Contrasena;
+            Password = login.Contrasena;
         }
         
         #endregion
 
         #region Properties
-
-        [Display(Name = "Codigo", ResourceType = typeof(Messages))]
-        public long Id { get; set; }
 
         [StringLength(30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
@@ -33,8 +29,10 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Contrasena", ResourceType = typeof(Messages))]
         [StringLength(30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
-        public string Contrasena { get; set; }
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
 
+        [Display(Name = "Recordarme?")]
         public bool Recordarme { get; set; }
 
         #endregion

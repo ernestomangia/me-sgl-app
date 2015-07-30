@@ -588,6 +588,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -678,6 +681,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompraItemController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\IvaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
@@ -704,6 +708,7 @@
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DtoHelper.cs" />
+    <Compile Include="Filters\CustomHandleErrorAttribute.cs" />
     <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -852,7 +857,9 @@
     <Content Include="Views\CompraItem\Index.cshtml" />
     <Content Include="Views\CompraItem\Crear.cshtml" />
     <Content Include="Views\CompraItem\Shared\Form_Partial.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -887,6 +894,10 @@
     <ProjectReference Include="..\ME.Libros.Servicios\ME.Libros.Servicios.csproj">
       <Project>{9c444727-01ef-4c61-bec2-c043b895575a}</Project>
       <Name>ME.Libros.Servicios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Transversal\ME.Libros.Logging.csproj">
+      <Project>{065387ba-d124-4cf2-929c-471c41b6eecf}</Project>
+      <Name>ME.Libros.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
       <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>

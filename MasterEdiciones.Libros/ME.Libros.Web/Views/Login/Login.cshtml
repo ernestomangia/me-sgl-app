@@ -1,0 +1,57 @@
+﻿@model ME.Libros.Web.Models.LoginViewModel
+
+@using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "formLogin", @class = "form-signin formLogin" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel panel-default">
+        <div class="panel-body panelLogin">
+            <fieldset>
+                <legend>Login</legend>
+                @*@Html.ValidationSummary(true, null, new { @class = "text-danger" })*@
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                        @Html.ValidationSummary(true)
+                    </div>
+                }
+
+                <div class="form-group">
+                    @*@Html.LabelFor(l => l.Usuario, new { @class = "control-label" })*@
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        </div>
+                        @Html.TextBoxFor(l => l.Usuario, new { @class = "form-control", placeholder = "Usuario" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Usuario, null, new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @*@Html.LabelFor(l => l.Password, new { @class = "control-label" })*@
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        </div>
+                        @Html.PasswordFor(l => l.Password, new { @class = "form-control", placeholder = "Contraseña" })
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(model => model.Recordarme)
+                        <i>Recordarme</i>
+                    </label>
+                </div>
+                @*<div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                        <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                        <b>Mensajes:</b>
+                        @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+                    </div>*@
+                <button type="submit" class="btn btn-success btn-block" title="Iniciar sesion">
+                    Log in
+                </button>
+            </fieldset>
+        </div>
+    </div>
+}

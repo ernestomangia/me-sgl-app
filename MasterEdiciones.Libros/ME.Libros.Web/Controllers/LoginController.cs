@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
-
+﻿using System;
+using System.Web.Mvc;
+using System.Web.Security;
+using ME.Libros.Api.Logging;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
+using ME.Libros.Logging;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Web.Models;
@@ -14,45 +17,58 @@ namespace ME.Libros.Web.Controllers
 
         public LoginController()
         {
+            var logguer = new Logger();
+            logguer.Log("App Starts", SeveridadLog.Info);
             var modelContainer = new ModelContainer();
             LoginService = new LoginService(new EntidadRepository<LoginDominio>(modelContainer));
-            //ViewBag.MenuId = 13;
             ViewBag.Title = "Login";
         }
 
         //
         // GET: /Login/
-        public ActionResult Index()
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
         {
-            //var logins = new List<LoginViewModel>();
-            //using (LoginService)
-            //{
-            //    logins.AddRange(LoginService.Listar()
-            //        .ToList()
-            //        .Select(r => new LoginViewModel(r)));
-            //}
-
+            ViewBag.ReturnUrl = returnUrl;
             return View(new LoginViewModel());
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel loginViewModel)
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel loginViewModel, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 //TODO: Almacenar cookie Recordar usuario y contraseña
                 //TODO: Validar si usuario y contraseña son correctos
 
-                return RedirectToAction("Index", "Cliente");
+                if (true || Membership.ValidateUser(loginViewModel.Usuario, loginViewModel.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(loginViewModel.Usuario, loginViewModel.Recordarme);
+                    if (Url.IsLocalUrl(returnUrl)
+                       && returnUrl.Length > 1
+                       && returnUrl.StartsWith("/")
+                       && !returnUrl.StartsWith("//")
+                       && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+
+                    return RedirectToAction("Index", "Cliente");
+                }
+
+                ModelState.AddModelError(string.Empty, ErrorMessages.InvalidUserPassword);
             }
 
-            return View("Index", loginViewModel);
+            return View(loginViewModel);
         }
 
         public ActionResult Logout()
         {
-            Session.Clear();
-            return RedirectToAction("Index");
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Index", "Cliente");
         }
     }
 }

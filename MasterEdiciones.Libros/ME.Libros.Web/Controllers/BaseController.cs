@@ -79,5 +79,34 @@ namespace ME.Libros.Web.Controllers
 
         //    return false;
         //}
+
+        /*protected override void OnException(ExceptionContext filterContext)
+        {
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+
+            var action = filterContext.RouteData.Values["action"].ToString();
+            var controller = filterContext.RouteData.Values["controller"].ToString();
+            var handleErrorAttribute = new HandleErrorInfo(filterContext.Exception, controller, action);
+            
+            filterContext.Result = new ViewResult
+            {
+                ViewName = "Error",
+                ViewData = new ViewDataDictionary(handleErrorAttribute),
+            };
+            
+            //filterContext.Result = View("Error/Error", handleErrorAttribute);
+            //filterContext.Result = View(new RouteValueDictionary
+            //    (new
+            //    {
+            //        controller = "Error",
+            //        action = "Error",
+            //        handleErrorInfo = handleErrorAttribute
+            //    }));
+            filterContext.ExceptionHandled = true;
+            //base.OnException(filterContext);
+        }*/
     }
 }

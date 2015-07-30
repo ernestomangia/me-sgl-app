@@ -860,6 +860,8 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\CompraItem\Modificar.cshtml" />
+    <Content Include="Views\CompraItem\Eliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

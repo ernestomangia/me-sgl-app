@@ -6,7 +6,8 @@
 
         public virtual string Nombre { get; set; }
         public virtual string Contrasena { get; set; }
-
+        public virtual string ConfirmarContrasena { get; set; }
+        
         #endregion
     }
 }

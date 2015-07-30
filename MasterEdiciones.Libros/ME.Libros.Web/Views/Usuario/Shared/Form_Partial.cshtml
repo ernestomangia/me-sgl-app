@@ -22,6 +22,17 @@
     </div>
 </div>
 <div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            <div class="col-md-8 col-md-offset-4">
+                @Html.PasswordFor(r => r.ConfirmarContrasena, new { @class = "form-control", placeholder = "Confirmar Contraseña" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
     <div class="col-md-10">
         <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
             <a class="close" data-hide="alert" aria-hidden="true">×</a>

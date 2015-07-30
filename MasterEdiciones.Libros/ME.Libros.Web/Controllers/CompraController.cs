@@ -94,7 +94,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
-              //  SetMenuVigente();
+              // SetMenuVigente();
                 return View(compraViewModel);
             }
 
@@ -112,22 +112,22 @@ namespace ME.Libros.Web.Controllers
                         MontoComprado = compraViewModel.MontoComprado,
                         MontoCalculado = compraViewModel.MontoCalculado,
                         NroFactura = compraViewModel.NroFactura,
-                        NroRemito = compraViewModel.NroRemito
-                       // VentaItems = new List<VentaItemDominio>(),
+                        NroRemito = compraViewModel.NroRemito,
+                        CompraItems = new List<CompraItemDominio>(),
                     };
 
-                    //foreach (var ventaItemViewModel in compraViewModel.Items)
-                    //{
-                    //    var producto = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
-                    //    compraDominio.VentaItems.Add(new VentaItemDominio
-                    //    {
-                    //        FechaAlta = DateTime.Now,
-                    //        Cantidad = ventaItemViewModel.Cantidad,
-                    //        Producto = producto,
-                    //        PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido,
-                    //        MontoVendido = ventaItemViewModel.MontoItemVendido
-                    //    });
-                    //}
+                    foreach (var compraItemViewModel in compraViewModel.Items)
+                    {
+                        var producto = ProductoService.GetPorId(compraItemViewModel.ProductoId);
+                        compraDominio.CompraItems.Add(new CompraItemDominio()
+                        {
+                            FechaAlta = DateTime.Now,
+                            Cantidad = compraItemViewModel.Cantidad,
+                            Producto = producto,
+                            PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado,
+                            MontoComprado = compraItemViewModel.MontoItemComprado
+                        });
+                    }
 
                     resultado = CompraService.Guardar(compraDominio);
                     if (resultado <= 0)

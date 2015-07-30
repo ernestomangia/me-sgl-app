@@ -1,6 +1,6 @@
 ﻿@using ME.Libros.Web.Models
 
-<div class="menuLateral">
+<aside class="menuLateral">
     <ul class="nav nav-pills nav-stacked" style="max-width: 200px;">
         @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
         {
@@ -9,13 +9,12 @@
             </li>
         }
     </ul>
-</div>
+</aside>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $(".menuLateral ul li a").on("click", function () {
             showAjaxLoader();
-            //window.location = $(this).attr("href");
         });
     });
 </script>

@@ -187,6 +187,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El formato del email no es correcto.
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El &lt;b&gt;{0}&lt;/b&gt; es inválido.
         /// </summary>
         public static string Invalido {
@@ -196,7 +205,16 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El usuario o contraseña suministradas son incorrectas..
+        ///   Busca una cadena traducida similar a El formato del teléfono no es correcto.
+        /// </summary>
+        public static string InvalidTel {
+            get {
+                return ResourceManager.GetString("InvalidTel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El usuario o contraseña suministradas son incorrectas..
         /// </summary>
         public static string InvalidUserPassword {
             get {
@@ -205,7 +223,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe ser numerico.
+        ///   Busca una cadena traducida similar a El &lt;b&gt;{0}&lt;/b&gt; debe ser numerico.
         /// </summary>
         public static string Numeric {
             get {

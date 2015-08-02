@@ -305,24 +305,25 @@ function modificarVentaItem(form) {
 
 function actualizarVentaItemRow(ventaItem) {
     // TODO: buscar fila correspiente al item modificar y actualizar todas las columnas
-    //var indexItems = parseInt($("#cantidadItems").val());
-    ////var modificar = getHtmlBotonModificar(ventaItem.ProductoId);
-    ////var eliminar = getHtmlBotonEliminar(indexItems);
-    //var table = $("#ventaDetalleTable").DataTable();
-    //var nroItem = indexItems + 1;
-    //table.row.add([
-    //        nroItem,
-    //        ventaItem.Producto.Nombre,
-    //        ventaItem.Cantidad,
-    //        formatCurrency(ventaItem.PrecioVentaVendido),
-    //        formatCurrency(ventaItem.MontoItemVendido),
-    //        modificar + " " + eliminar
-    //]).draw();
+    var hiddenProductoId = $(".hiddenProductoId[value=" + ventaItem.ProductoId + "]");
+    var subtringStart = hiddenProductoId.attr("id").indexOf("[") + 1;
+    var subtringEnd = hiddenProductoId.attr("id").indexOf("]");
+    var indexItem = parseInt(hiddenProductoId.attr("id").substring(subtringStart, subtringEnd));
 
-    ////var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
-    ////var hiddenCantidad = "<input type='hidden'  id='Items[" + indexItems + "].Cantidad' class='hiddenCantidad' name='Items[" + indexItems + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
-    ////var hiddenPrecioVentaVendido = "<input type='hidden' id='Items[" + indexItems + "].PrecioVentaVendido' class='hiddenPrecioVentaVendido' name='Items[" + indexItems + "].PrecioVentaVendido' value='" + formatFloat(ventaItem.PrecioVentaVendido) + "' />";
-    ////var hiddenMontoItemVendido = "<input type='hidden' id='Items[" + indexItems + "].MontoItemVendido' class='hiddenMontoItemVendido' name='Items[" + indexItems + "].MontoItemVendido' value='" + formatFloat(ventaItem.MontoItemVendido) + "' />";
-    ////$("#formVenta").append(hiddenProductoId + hiddenCantidad + hiddenPrecioVentaVendido + hiddenMontoItemVendido);
-    //$("#cantidadItems").val(indexItems + 1);
+    // Actualizar hiddens del  item modificado
+    $("#Items\\[" + indexItem + "\\]\\.Cantidad").val(ventaItem.Cantidad);
+    $("#Items\\[" + indexItem + "\\]\\.PrecioVentaVendido").val(formatFloat(ventaItem.PrecioVentaVendido));
+    $("#Items\\[" + indexItem + "\\]\\.MontoItemVendido").val(formatFloat(ventaItem.MontoItemVendido));
+
+    // Actualizar la fila del DataTable correspondiente al item
+    var table = $("#ventaDetalleTable").DataTable();
+    table.cell(indexItem, 2)
+        .data(ventaItem.Cantidad);
+    table.cell(indexItem, 3)
+        .data(formatCurrency(ventaItem.PrecioVentaVendido));
+    table.cell(indexItem, 4)
+        .data(formatCurrency(ventaItem.MontoItemVendido));
+
+    // Redibujar para recalcular footer
+    table.draw();
 }

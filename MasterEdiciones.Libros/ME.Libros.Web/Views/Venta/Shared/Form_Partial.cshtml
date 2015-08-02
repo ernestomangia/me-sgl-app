@@ -13,7 +13,7 @@
 @if (Model.Id > 0)
 {
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="form-group form-group-sm">
                 @Html.LabelFor(c => c.Id, new { @class = "col-md-4 control-label" })
                 <div class="col-md-8">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="form-group form-group-sm">
                 <div class="col-md-offset-4 col-md-8">
                     <h2 style="margin:0;">
@@ -34,7 +34,7 @@
 }
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.FechaVenta, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelWithTooltipFor(v => v.FechaCobro, new
                                                {
@@ -57,7 +57,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.ClienteId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -65,14 +65,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
-
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.CobradorId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -80,7 +73,9 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+</div>
+<div class="row">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.VendedorId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -88,10 +83,15 @@
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-sm">
+            
+        </div>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
                 <a href="#TabVentaDetalle" aria-controls="TabVentaDetalle" role="tab" data-toggle="tab">Detalle</a>
@@ -166,11 +166,11 @@
         </div>
     </div>
 </div>
-<div class="col-md-10">
+<div class="col-md-12">
     <hr />
 </div>
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
             <a class="close" data-hide="alert" aria-hidden="true">×</a>
             <b>Mensajes:</b>

@@ -89,7 +89,7 @@ namespace ME.Libros.Web.Models
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{7})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string Celular { get; set; }
 
-        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]
+        //[RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]
         public string Email { get; set; }
         
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]

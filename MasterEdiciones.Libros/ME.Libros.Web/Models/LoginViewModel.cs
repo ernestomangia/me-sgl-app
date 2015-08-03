@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using ME.Libros.Dominio.General;
-
 namespace ME.Libros.Web.Models
 {
     public class LoginViewModel
@@ -10,12 +8,6 @@ namespace ME.Libros.Web.Models
 
         public LoginViewModel()
         {
-        }
-
-        public LoginViewModel(LoginDominio login)
-        {
-            Usuario = login.Usuario;
-            Password = login.Contrasena;
         }
         
         #endregion
@@ -26,13 +18,13 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public string Usuario { get; set; }
 
-        [Display(Name = "Contrasena", ResourceType = typeof(Messages))]
+        [Display(Name = "Password", ResourceType = typeof(Messages))]
         [StringLength(30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Recordarme?")]
+        [Display(Name = "Recordarme", ResourceType = typeof(Messages))]
         public bool Recordarme { get; set; }
 
         #endregion

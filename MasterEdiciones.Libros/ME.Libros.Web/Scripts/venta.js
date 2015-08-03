@@ -304,7 +304,6 @@ function modificarVentaItem(form) {
 }
 
 function actualizarVentaItemRow(ventaItem) {
-    // TODO: buscar fila correspiente al item modificar y actualizar todas las columnas
     var hiddenProductoId = $(".hiddenProductoId[value=" + ventaItem.ProductoId + "]");
     var subtringStart = hiddenProductoId.attr("id").indexOf("[") + 1;
     var subtringEnd = hiddenProductoId.attr("id").indexOf("]");

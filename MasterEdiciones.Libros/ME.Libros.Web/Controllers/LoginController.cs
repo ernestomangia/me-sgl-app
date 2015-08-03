@@ -1,12 +1,11 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 using ME.Libros.Api.Logging;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
-using ME.Libros.Logging;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
+using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -17,8 +16,6 @@ namespace ME.Libros.Web.Controllers
 
         public LoginController()
         {
-            var logguer = new Logger();
-            logguer.Log("App Starts", SeveridadLog.Info);
             var modelContainer = new ModelContainer();
             LoginService = new LoginService(new EntidadRepository<LoginDominio>(modelContainer));
             ViewBag.Title = "Login";
@@ -46,6 +43,9 @@ namespace ME.Libros.Web.Controllers
                 if (true || Membership.ValidateUser(loginViewModel.Usuario, loginViewModel.Password))
                 {
                     FormsAuthentication.SetAuthCookie(loginViewModel.Usuario, loginViewModel.Recordarme);
+
+                    LogHelper.Log("LOGIN - User: " + loginViewModel.Usuario, SeveridadLog.Info);
+
                     if (Url.IsLocalUrl(returnUrl)
                        && returnUrl.Length > 1
                        && returnUrl.StartsWith("/")

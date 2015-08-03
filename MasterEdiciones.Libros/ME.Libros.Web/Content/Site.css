@@ -96,6 +96,10 @@ footer {
     /*background-color: #F5F5F5;*/
 }
 
+.nav-tabs {
+    margin-bottom: 20px;
+}
+
 /*Sidebar*/
 body,html,.row-offcanvas {
   height:100%;

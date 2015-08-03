@@ -195,4 +195,7 @@
   <data name="InvalidUserPassword" xml:space="preserve">
     <value>El usuario o contraseña suministradas son incorrectas.</value>
   </data>
+  <data name="RepetirPasswordRequerido" xml:space="preserve">
+    <value>El campo &lt;b&gt;{0}&lt;/b&gt; es requerido</value>
+  </data>
 </root>

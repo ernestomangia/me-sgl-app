@@ -103,7 +103,6 @@
 
         <div class="tab-content">
             <div id="TabVentaDetalle" role="tabpanel" class="tab-pane fade in active">
-                <br />
                 @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
                 @*@foreach (var item in Model.Items)
                     {
@@ -113,7 +112,6 @@
             </div>
 
             <div id="TabFormaPago" role="tabpanel" class="tab-pane fade">
-                <br />
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group form-group-sm">

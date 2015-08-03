@@ -141,7 +141,7 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>El formato del email no es correcto</value>
   </data>
-  <data name="InvalidTel" xml:space="preserve">
+ <data name="InvalidTel" xml:space="preserve">
     <value>El formato del teléfono no es correcto</value>
   </data>
   <data name="RangeLenght" xml:space="preserve">

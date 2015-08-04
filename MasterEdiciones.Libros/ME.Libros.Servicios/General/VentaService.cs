@@ -60,23 +60,9 @@ namespace ME.Libros.Servicios.General
                 else
                 {
                     // Contado
-                    // Generar cobro porque es contado
-                    var cuota = new CuotaDominio
-                    {
-                        FechaAlta = DateTime.Now,
-                        Numero = 0,
-                        FechaVencimiento = ventaDominio.FechaVenta,
-                        FechaCobro = ventaDominio.FechaVenta,
-                        Estado = EstadoCuota.Pagada,
-                        Monto = ventaDominio.MontoVendido,
-                        MontoCobro = ventaDominio.MontoVendido,
-                        DiasAtraso = 0,
-                        Interes = 0,
-                        Saldo = 0
-                    };
+                    // TODO: Generar cobro porque es contado
 
                     ventaDominio.Estado = EstadoVenta.Pagada;
-                    ventaDominio.Cuotas.Add(cuota);
                 }
                 CalcularTotalVenta(ventaDominio);
             }
@@ -97,12 +83,17 @@ namespace ME.Libros.Servicios.General
         public long AnularVenta(long id)
         {
             var ventaDominio = GetPorId(id);
-            if (ventaDominio.Estado == EstadoVenta.Vigente)
+            if (ventaDominio.Estado == EstadoVenta.Vigente || ventaDominio.Estado == EstadoVenta.Pagada)
             {
                 ventaDominio.Estado = EstadoVenta.Anulada;
                 foreach (var ventaItemDominio in ventaDominio.VentaItems)
                 {
                     ProductoService.SumarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
+                }
+
+                foreach (var cuotaDominio in ventaDominio.Cuotas)
+                {
+                    //TODO: las cuotas se anulan?
                 }
             }
 

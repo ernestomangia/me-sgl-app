@@ -12,7 +12,7 @@ namespace ME.Libros.Dominio.General
         public virtual EstadoCuota Estado { get; set; }
         public virtual DateTime FechaVencimiento { get; set; }
         public virtual DateTime? FechaCobro { get; set; }
-        public virtual int DiasAtraso { get; set; }
+        public virtual long DiasAtraso { get; set; }
         public virtual decimal Monto { get; set; }
         public virtual decimal MontoCobro { get; set; }
         public virtual decimal Saldo { get; set; }

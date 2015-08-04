@@ -9,6 +9,7 @@ using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
+using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -164,6 +165,61 @@ namespace ME.Libros.Web.Controllers
             PrepareModel(compraViewModel);
        //     SetMenuVigente();
             return View(compraViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Modificar(int id)
+        {
+            CompraViewModel compraViewModel;
+            using (CompraService)
+            {
+                compraViewModel = new CompraViewModel(CompraService.GetPorId(id));
+            }
+            PrepareModel(compraViewModel);
+
+            if (Session["MenuTodas"] == null)
+            {
+                switch (compraViewModel.Estado)
+                {
+                    case EstadoCompra.Pagada:
+                        ViewBag.Title = "Pagadas";
+                        ViewBag.MenuId = 27;
+                        break;
+                    case EstadoCompra.Anulada:
+                        ViewBag.Title = "Anuladas";
+                        ViewBag.MenuId = 28;
+                        break;
+                }
+            }
+            else
+            {
+                ViewBag.Title = "Todas";
+                ViewBag.MenuId = 26;
+            }
+
+            return View(compraViewModel);
+        }
+
+        [HttpGet]
+        public JsonResult Eliminar(int id)
+        {
+            try
+            {
+                using (CompraService)
+                {
+                    CompraService.AnularCompra(id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            return new JsonResult
+            {
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         #region Private Methods

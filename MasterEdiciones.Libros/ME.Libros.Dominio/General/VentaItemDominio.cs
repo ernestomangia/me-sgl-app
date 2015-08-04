@@ -4,6 +4,7 @@
     {
         #region Properties
 
+        public virtual int Orden { get; set; }
         public virtual int Cantidad { get; set; }
         public virtual decimal PrecioCosto { get; set; }
         public virtual decimal PrecioVentaCalculado { get; set; }

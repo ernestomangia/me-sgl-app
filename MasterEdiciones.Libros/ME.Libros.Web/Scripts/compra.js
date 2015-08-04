@@ -113,7 +113,39 @@ function eliminarCompraItem(indexItem) {
     mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
 }
 
-function modificarCompraItem(indexItem) {
+function modificarCompraItem(form) {
+    $(".modalCompraItem .validationSummary").addClass("hide");
+    $(".modalCompraItem .validationSummary ul").remove();
+
+    $.ajax({
+        method: "POST",
+        url: $(form).attr("action"),
+        data: $(form).serialize(),
+        dataType: "json",
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
+        },
+        success: function (data) {
+            if (data.Success) {
+                var compraItem = data.CompraItem;
+                actualizarCompraItemRow(compraItem);
+                $('#modalCompraItem').modal('toggle');
+                mensajeSuccess("Se modifico el " + compraItem.Producto.Nombre + " exitosamente");
+            } else {
+                var errores = "<ul>";
+                $.each(data.Errors, function (key, value) {
+                    $.each(value.Value, function (key2, value2) {
+                        errores += "<li>" + value2 + "</li>";
+                    });
+                });
+                errores += "</ul>";
+                $(".modalCompraItem .validationSummary").append(errores);
+                $(".modalCompraItem .validationSummary").removeClass("hide");
+            }
+        },
+        timeout: 10000,
+        cache: false
+    });
 }
 
 function actualizarHiddens() {
@@ -269,4 +301,28 @@ function isValidKey(keyCode) {
         (keyCode >= 96 && keyCode <= 105) || // 0-9 numpad
         keyCode == 188 || // Tab
         keyCode == 8; // Back space
+}
+
+function actualizarCompraItemRow(compraItem) {
+    var hiddenProductoId = $(".hiddenProductoId[value=" + compraItem.ProductoId + "]");
+    var subtringStart = hiddenProductoId.attr("id").indexOf("[") + 1;
+    var subtringEnd = hiddenProductoId.attr("id").indexOf("]");
+    var indexItem = parseInt(hiddenProductoId.attr("id").substring(subtringStart, subtringEnd));
+
+    // Actualizar hiddens del  item modificado
+    $("#Items\\[" + indexItem + "\\]\\.Cantidad").val(compraItem.Cantidad);
+    $("#Items\\[" + indexItem + "\\]\\.PrecioCompraComprado").val(formatFloat(compraItem.PrecioCompraComprado));
+    $("#Items\\[" + indexItem + "\\]\\.MontoItemComprado").val(formatFloat(compraItem.MontoItemComprado));
+
+    // Actualizar la fila del DataTable correspondiente al item
+    var table = $("#compraDetalleTable").DataTable();
+    table.cell(indexItem, 2)
+        .data(compraItem.Cantidad);
+    table.cell(indexItem, 3)
+        .data(formatCurrency(compraItem.PrecioCompraComprado));
+    table.cell(indexItem, 4)
+        .data(formatCurrency(compraItem.MontoItemComprado));
+
+    // Redibujar para recalcular footer
+    table.draw();
 }

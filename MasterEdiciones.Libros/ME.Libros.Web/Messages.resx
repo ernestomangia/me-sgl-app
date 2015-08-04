@@ -283,7 +283,7 @@
     <value>Fecha de compra</value>
   </data>
   <data name="MontoComprado" xml:space="preserve">
-    <value>Monto comprado</value>
+    <value>Monto</value>
   </data>
   <data name="NroFactura" xml:space="preserve">
     <value>Nº factura</value>
@@ -343,7 +343,7 @@
     <value>El vendedor</value>
   </data>
   <data name="MontoItemComprado" xml:space="preserve">
-    <value>Subtotal Comprado</value>
+    <value>Subtotal</value>
   </data>
   <data name="LaCompra" xml:space="preserve">
     <value>La compra</value>

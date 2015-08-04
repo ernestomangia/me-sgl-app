@@ -110,11 +110,43 @@ namespace ME.Libros.EF
                     l.Zona = zonaSinDefinir;
                 });
 
+                var cf = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Consumidor Final",
+                    Alicuota = 0
+                };
+
+                var monotributo = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Monotributo",
+                    Alicuota = 0
+                };
+
+                var ri = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Responsable Inscripto",
+                    Alicuota = 21
+                };
+
+                var cliente = new ClienteDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Gonzalo",
+                    Apellido = "Sanchez Bolaños",
+                    Cuil = "20205236665",
+                    Localidad = localidades[0],
+                    Direccion = "San Juan 500",
+                    Iva = cf
+                };
+
                 var cobrador = new CobradorDominio
                 {
                     FechaAlta = DateTime.Now,
-                    Nombre = "Juan",
-                    Apellido = "Perez",
+                    Nombre = "Jose",
+                    Apellido = "Lopez",
                     Dni = "35625222",
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
@@ -175,19 +207,36 @@ namespace ME.Libros.EF
                     FechaAlta = DateTime.Now,
                     Nombre = "Enciclopedia",
                     Descripcion = "Enciclopedia",
+                    PrecioCosto = 80.25m,
                     PrecioVenta = 132.50m,
+                    Rubro = rubroSinDefinir,
+                    Editorial = editorialSinDefinir
+                };
+
+                var diccionario = new ProductoDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Diccionario",
+                    Descripcion = "Diccionario",
+                    PrecioCosto = 20.25m,
+                    PrecioVenta = 42.50m,
                     Rubro = rubroSinDefinir,
                     Editorial = editorialSinDefinir
                 };
 
                 context.Set<PlanPagoDominio>().Add(planPagoContado);
                 context.Set<GastoDominio>().Add(gastoSinDefinir);
+                context.Set<ClienteDominio>().Add(cliente);
                 context.Set<CobradorDominio>().Add(cobrador);
                 context.Set<VendedorDominio>().Add(vendedor);
                 context.Set<ZonaDominio>().Add(zonaSinDefinir);
                 context.Set<EditorialDominio>().Add(editorialSinDefinir);
                 context.Set<RubroDominio>().Add(rubroSinDefinir);
                 context.Set<ProductoDominio>().Add(enciclopedia);
+                context.Set<ProductoDominio>().Add(diccionario);
+                context.Set<IvaDominio>().Add(cf);
+                context.Set<IvaDominio>().Add(monotributo);
+                context.Set<IvaDominio>().Add(ri);
                 context.SaveChanges();
             }
         }

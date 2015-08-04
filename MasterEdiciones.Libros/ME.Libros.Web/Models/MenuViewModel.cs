@@ -181,7 +181,7 @@ namespace ME.Libros.Web.Models
                      {
                         Id = 26,
                          Nombre = "Todas",
-                        Link = helper.Action("Index", "Compra"),
+                        Link = helper.Action("Index", "Compra", new { estado = (EstadoVenta?)null }),
                         Posicion = 90,
                      });
                     MenuViewModels.Add(new MenuViewModel

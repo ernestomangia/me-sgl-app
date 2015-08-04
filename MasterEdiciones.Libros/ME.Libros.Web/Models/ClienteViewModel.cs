@@ -104,8 +104,6 @@ namespace ME.Libros.Web.Models
         public SelectList Provincias { get; set; }
         public SelectList Localidades { get; set; }
         public SelectList Ivas { get; set; }
-        
-       
 
         #endregion
     }

@@ -1,4 +1,13 @@
-﻿@model ME.Libros.Web.Models.CompraViewModel
+﻿@using ME.Libros.Utils.Enums
+@model ME.Libros.Web.Models.CompraViewModel
+
+@{
+    var estado = new Dictionary<EstadoCompra, string>
+    {
+        { EstadoCompra.Anulada, "danger" },
+        { EstadoCompra.Pagada, "success" }
+    };
+}
 
 @if (Model.Id > 0)
 {
@@ -8,6 +17,15 @@
                 @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4">
                     @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                <div class="col-md-offset-8 col-md-4">
+                    <h2 style="margin:0;">
+                        <span class="label label-@(estado[Model.Estado])" style="display: block;">@Html.DisplayTextFor(v => v.Estado)</span>
+                    </h2>
                 </div>
             </div>
         </div>
@@ -35,7 +53,7 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.ProveedorId, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.Proveedor, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.DropDownListFor(c => c.ProveedorId, Model.Proveedores, "Seleccione", new { @class = "form-control" })
             </div>

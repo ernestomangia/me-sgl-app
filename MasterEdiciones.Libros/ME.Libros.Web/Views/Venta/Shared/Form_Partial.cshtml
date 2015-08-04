@@ -1,5 +1,6 @@
 ﻿@using ME.Libros.Utils.Enums
 @using ME.Libros.Web.Extensions
+@using Mono.CSharp
 @model ME.Libros.Web.Models.VentaViewModel
 @{
     var estado = new Dictionary<EstadoVenta, string>
@@ -85,7 +86,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group form-group-sm">
-            
+
         </div>
     </div>
 </div>
@@ -104,11 +105,16 @@
         <div class="tab-content">
             <div id="TabVentaDetalle" role="tabpanel" class="tab-pane fade in active">
                 @{ Html.RenderAction("Index", "VentaItem", new { ventaItemViewModels = Model.Items }); }
-                @*@foreach (var item in Model.Items)
+                @if (Model.Estado == EstadoVenta.None)
+                {
+                    for (var i = 0; i < Model.Items.Count; i++)
                     {
-                        <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
-                        <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
-                    }*@
+                        @Html.HiddenFor(vi => Model.Items[i].ProductoId, new { id = "Items[" + i + "].ProductoId", @class = "hiddenProductoId" })
+                        @Html.HiddenFor(vi => Model.Items[i].Cantidad, new { id = "Items[" + i + "].Cantidad", @class = "hiddenCantidad" })
+                        @Html.HiddenFor(vi => Model.Items[i].PrecioVentaVendido, new { id = "Items[" + i + "].PrecioVentaVendido", @class = "hiddenPrecioVentaVendido" })
+                        @Html.HiddenFor(vi => Model.Items[i].MontoItemVendido, new { id = "Items[" + i + "].MontoItemVendido", @class = "hiddenMontoItemVendido" })
+                    }
+                }
             </div>
 
             <div id="TabFormaPago" role="tabpanel" class="tab-pane fade">

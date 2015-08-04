@@ -33,9 +33,11 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Codigo", ResourceType = typeof(Messages))]
         public long Id { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Nombre { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Apellido { get; set; }
 
@@ -60,6 +62,7 @@ namespace ME.Libros.Web.Models
         public string ConfirmarPassword { get; set; }
 
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

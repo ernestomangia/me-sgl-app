@@ -1,0 +1,54 @@
+﻿@using ME.Libros.Utils.Enums
+@model ME.Libros.Web.Models.CompraViewModel
+
+<script src="~/Scripts/compra.js"></script>
+
+<h2>Modificar compra</h2>
+@using (Html.BeginForm("Modificar", "Compra", FormMethod.Post, new { id = "formCompra", @class = "form-horizontal formEntidad" }))
+{
+    @Html.Partial("CompraPagada/Shared/Form_Partial", Model)
+
+    <div class="row">
+        <div class="col-md-10">
+            <div class="text-right">
+                @if (Model.Estado == EstadoCompra.Pagada)
+                {
+                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar" title="Anular compra">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                        Anular
+                    </button>
+                }
+                <a class="btn btn-default" href="@Url.Action("Index", new { estado = ViewBag.MenuId == 26
+                                                     ? (EstadoCompra?) null
+                                                     : Model.Estado})" title="Cancelar">
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                    Cancelar
+                </a>
+                <button type="submit" class="btn btn-warning" title="Modificar cliente">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    Modificar
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="contenedorCompraItem"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#compraDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+        $('#compraDetalleTable').dataTable({
+            "order": [],
+            //"columnDefs": columna,
+            "footerCallback": function (row, data, start, end, display) {
+                calcularTotales(this, row, data, start, end, display);
+            },
+            lengthMenu: [5, 10],
+        });
+
+        $("#FechaCompra").attr("disabled", "disabled");
+        $("#ProveedorId").attr("disabled", "disabled");
+        $("#MontoComprado").attr("disabled", "disabled");
+    });
+</script>

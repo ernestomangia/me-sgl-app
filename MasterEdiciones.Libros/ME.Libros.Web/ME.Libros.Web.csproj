@@ -117,6 +117,10 @@
     <Content Include="Content\bootstrap-datepicker3.standalone.min.css" />
     <Content Include="Content\bootstrap-duallistbox.css" />
     <Content Include="Content\bootstrap-navbar-custom.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\bootstrap3\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -179,6 +183,9 @@
     <Content Include="Content\jasny-bootstrap.css.map" />
     <Content Include="Content\toastr.less" />
     <Content Include="Content\toastr.scss" />
+    <Content Include="Scripts\bootstrap-switch-custom.js" />
+    <Content Include="Scripts\bootstrap-switch.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\compra.js" />
@@ -708,6 +715,7 @@
       <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DtoHelper.cs" />
+    <Compile Include="Extensions\LogHelper.cs" />
     <Compile Include="Filters\CustomHandleErrorAttribute.cs" />
     <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -862,6 +870,8 @@
     <Content Include="Views\Shared\NotFound.cshtml" />
     <Content Include="Views\CompraItem\Modificar.cshtml" />
     <Content Include="Views\CompraItem\Eliminar.cshtml" />
+    <Content Include="Views\Compra\Modificar.cshtml" />
+    <Content Include="Views\Compra\Eliminar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

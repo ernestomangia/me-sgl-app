@@ -58,8 +58,8 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Cuil", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"\d{2}[-. ]\d{8}[-. ]\d{1}", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidCuil")]
         public string Cuil { get; set; }
 
         [Display(Name = "FechaNacimiento", ResourceType = typeof(Messages))]
@@ -82,11 +82,11 @@ namespace ME.Libros.Web.Models
         
         [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^\(?([0-9]{2,3})\)?[-. ]?([0-9])?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
+        [RegularExpression(@"\d{2,4}[-. ]\d{6,8}", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string TelefonoFijo { get; set; }
 
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^\(?([0-9]{2,3})\)?[-. ]?([0-9])?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
+        [RegularExpression(@"\d{2,4}[-. ]\d{6,8}", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string Celular { get; set; }
 
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]

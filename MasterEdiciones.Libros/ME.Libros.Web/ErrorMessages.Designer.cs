@@ -187,7 +187,16 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El formato del email no es correcto.
+        ///   Busca una cadena traducida similar a El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
+        /// </summary>
+        public static string InvalidCuil {
+            get {
+                return ResourceManager.GetString("InvalidCuil", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
         /// </summary>
         public static string InvalidEmail {
             get {
@@ -205,7 +214,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a El formato del teléfono no es correcto.
+        ///   Busca una cadena traducida similar a El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
         /// </summary>
         public static string InvalidTel {
             get {

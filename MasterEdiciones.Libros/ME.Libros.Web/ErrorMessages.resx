@@ -139,10 +139,13 @@
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>El formato del email no es correcto</value>
+    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
   </data>
  <data name="InvalidTel" xml:space="preserve">
-    <value>El formato del teléfono no es correcto</value>
+    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
+  </data>
+  <data name="InvalidCuil" xml:space="preserve">
+    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
   </data>
   <data name="RangeLenght" xml:space="preserve">
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener entre {1} y {2} caracteres</value>

@@ -19,7 +19,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Nombre, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre", style = "text-transform: capitalize" })
+                @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control text-capitalize", placeholder = "Nombre" })
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Apellido, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control", placeholder = "Apellido", style= "text-transform: capitalize" })
+                @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control text-capitalize", placeholder = "Apellido"})
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Direccion, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = Messages.Direccion, style = "text-transform: capitalize" })
+                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control text-capitalize", placeholder = Messages.Direccion })
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
         <div class="form-group">
             @Html.LabelFor(c => c.Comentario, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control", rows = "3", placeholder = "Detalles de la dirección, horarios disponibles, etc.", style = "text-transform: uppercase" })
+                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control text-uppercase", rows = "3", placeholder = "Detalles de la dirección, horarios disponibles, etc." })
             </div>
         </div>
     </div>

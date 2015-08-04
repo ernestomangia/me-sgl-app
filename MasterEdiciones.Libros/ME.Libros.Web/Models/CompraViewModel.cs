@@ -59,9 +59,13 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "NroRemito", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [StringLength(20, MinimumLength = 14, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string NroRemito { get; set; }
 
         [Display(Name = "NroFactura", ResourceType = typeof(Messages))]
+        [StringLength(20, MinimumLength = 14, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string NroFactura { get; set; }
 
         [Display(Name = "MontoCalculado", ResourceType = typeof(Messages))]

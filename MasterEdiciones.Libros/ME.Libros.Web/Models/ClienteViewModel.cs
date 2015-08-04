@@ -71,6 +71,7 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long IvaId { get; set; }
 
+        
         [Display(Name = "Direccion", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         [StringLength(100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
@@ -78,14 +79,17 @@ namespace ME.Libros.Web.Models
         
         [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         public string Comentario { get; set; }
-
+        
         [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{7})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string TelefonoFijo { get; set; }
 
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{7})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string Celular { get; set; }
 
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]
         public string Email { get; set; }
         
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]
@@ -100,8 +104,6 @@ namespace ME.Libros.Web.Models
         public SelectList Provincias { get; set; }
         public SelectList Localidades { get; set; }
         public SelectList Ivas { get; set; }
-        
-       
 
         #endregion
     }

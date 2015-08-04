@@ -187,11 +187,38 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El formato del email no es correcto.
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a El &lt;b&gt;{0}&lt;/b&gt; es inválido.
         /// </summary>
         public static string Invalido {
             get {
                 return ResourceManager.GetString("Invalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El formato del teléfono no es correcto.
+        /// </summary>
+        public static string InvalidTel {
+            get {
+                return ResourceManager.GetString("InvalidTel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El usuario o contraseña suministradas son incorrectas..
+        /// </summary>
+        public static string InvalidUserPassword {
+            get {
+                return ResourceManager.GetString("InvalidUserPassword", resourceCulture);
             }
         }
         
@@ -237,6 +264,15 @@ namespace ME.Libros.Web {
         public static string RangeLenght {
             get {
                 return ResourceManager.GetString("RangeLenght", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El campo &lt;b&gt;{0}&lt;/b&gt; es requerido.
+        /// </summary>
+        public static string RepetirPasswordRequerido {
+            get {
+                return ResourceManager.GetString("RepetirPasswordRequerido", resourceCulture);
             }
         }
         

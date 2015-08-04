@@ -1,36 +1,95 @@
 ﻿@model ME.Libros.Web.Models.UsuarioViewModel
 
+<h4>Datos personales</h4>
+@Html.AntiForgeryToken()
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(r => r.Nombre, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(u => u.Nombre, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(r => r.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                @Html.TextBoxFor(u => u.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(u => u.Apellido, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(u => u.Apellido, new { @class = "form-control", placeholder = "Apellido" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(u => u.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(u => u.EmailConfirmado, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.CheckBoxFor(u => u.EmailConfirmado, new { @class = "form-control", disabled = "disabled" })
             </div>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
-            @Html.LabelFor(r => r.Contrasena, new { @class = "col-md-4 control-label" })
-            <div class="col-md-8">
-                @Html.PasswordFor(r => r.Contrasena, new { @class = "form-control", placeholder = "Contraseña" })
+    <div class="col-md-10">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#TabDatosUsuario" aria-controls="TabDatosUsuario" role="tab" data-toggle="tab">Datos usuario</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="TabDatosUsuario" role="tabpanel" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(r => r.UserName, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(r => r.UserName, new { @class = "form-control", placeholder = Messages.UserName })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(u => u.Habilitado, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.CheckBoxFor(u => u.Habilitado, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(r => r.Password, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(r => r.Password, new { @class = "form-control", placeholder = Messages.Password })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(r => r.ConfirmarPassword, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.PasswordFor(r => r.ConfirmarPassword, new { @class = "form-control", placeholder = Messages.ConfirmarPassword })
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-5">
-        <div class="form-group form-group-sm">
-            <div class="col-md-8 col-md-offset-4">
-                @Html.PasswordFor(r => r.ConfirmarContrasena, new { @class = "form-control", placeholder = "Confirmar Contraseña" })
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div class="row">
     <div class="col-md-10">
@@ -41,3 +100,10 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Habilitado").bootstrapSwitch({ state: true });
+        $("#EmailConfirmado").bootstrapSwitch({ state: false });
+    });
+</script>

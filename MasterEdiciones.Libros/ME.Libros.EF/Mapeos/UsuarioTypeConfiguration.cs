@@ -15,9 +15,17 @@ namespace ME.Libros.EF.Mapeos
             //Properties
             Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(r => r.FechaAlta).IsRequired();
-            Property(r => r.Nombre).IsRequired().HasMaxLength(50);
-            Property(r => r.Contrasena).IsRequired().HasMaxLength(50);
-            Property(r => r.ConfirmarContrasena).IsRequired().HasMaxLength(50);
+
+            Property(r => r.Nombre).HasMaxLength(80).IsRequired();
+            Property(r => r.Apellido).HasMaxLength(80).IsRequired();
+            Property(r => r.UserName).HasMaxLength(50).IsRequired();
+            Property(r => r.Password).HasMaxLength(50).IsRequired();
+            Property(r => r.Email).HasMaxLength(80).IsOptional();
+            Property(r => r.EmailConfirmado).IsRequired();
+            Property(r => r.Habilitado).IsRequired();
+            Property(r => r.UltimoLogin).IsOptional();
+            Property(r => r.CantidadIntentosFallidos).IsRequired();
+
             //Map Table
             ToTable("Usuario");
         }

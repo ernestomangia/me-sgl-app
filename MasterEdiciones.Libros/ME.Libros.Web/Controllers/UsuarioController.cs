@@ -52,8 +52,10 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Crear(UsuarioViewModel usuarioViewModel)
         {
+            long resultado = 0;
             if (ModelState.IsValid)
             {
                 try
@@ -64,14 +66,17 @@ namespace ME.Libros.Web.Controllers
                         {
                             FechaAlta = DateTime.Now,
                             Nombre = usuarioViewModel.Nombre,
-                            Contrasena = usuarioViewModel.Contrasena,
-                            ConfirmarContrasena = usuarioViewModel.ConfirmarContrasena,
+                            Apellido = usuarioViewModel.Apellido,
+                            UserName = usuarioViewModel.UserName,
+                            Password = usuarioViewModel.Password,
+                            Email = usuarioViewModel.Email,
+                            EmailConfirmado = false,
+                            CantidadIntentosFallidos = 0,
+                            Habilitado = usuarioViewModel.Habilitado
                         };
 
-                        if(usuarioViewModel.Contrasena==usuarioViewModel.ConfirmarContrasena)
-                        usuarioViewModel.Id = UsuarioService.Guardar(usuarioDominio);
-
-                        if (usuarioViewModel.Id <= 0)
+                        resultado = UsuarioService.Guardar(usuarioDominio);
+                        if (resultado <= 0)
                         {
                             foreach (var error in UsuarioService.ModelError)
                             {
@@ -80,8 +85,8 @@ namespace ME.Libros.Web.Controllers
                         }
                         else
                         {
-                            TempData["Id"] = usuarioViewModel.Id;
-                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, "El usuario", usuarioDominio.Id);
+                            TempData["Id"] = usuarioDominio.Id;
+                            TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElUsuario, usuarioDominio.Id);
                         }
                     }
                 }
@@ -92,9 +97,9 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-            return usuarioViewModel.Id > 0
-                    ? (ActionResult)RedirectToAction("Index")
-                    : View(usuarioViewModel);
+            return resultado > 0
+                ? (ActionResult)RedirectToAction("Index")
+                : View(usuarioViewModel);
         }
 
         [HttpGet]
@@ -135,7 +140,6 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
-
         [HttpGet]
         public ActionResult Modificar(int id)
         {
@@ -158,6 +162,7 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Modificar(UsuarioViewModel usuarioViewModel)
         {
             long resultado = 0;
@@ -166,9 +171,8 @@ namespace ME.Libros.Web.Controllers
                 using (UsuarioService)
                 {
                     var usuarioDominio = UsuarioService.GetPorId(usuarioViewModel.Id);
-                    usuarioDominio.Nombre = usuarioViewModel.Nombre;
-                    usuarioDominio.Contrasena = usuarioViewModel.Contrasena;
-                    usuarioDominio.ConfirmarContrasena = usuarioViewModel.ConfirmarContrasena;
+                    usuarioDominio.UserName = usuarioViewModel.UserName;
+                    usuarioDominio.Password = usuarioViewModel.Password;
                     resultado = UsuarioService.Guardar(usuarioDominio);
                     if (resultado <= 0)
                     {
@@ -180,27 +184,14 @@ namespace ME.Libros.Web.Controllers
                     else
                     {
                         TempData["Id"] = usuarioViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, "El usuario", usuarioViewModel.Id);
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElUsuario, usuarioViewModel.Id);
                     }
                 }
             }
 
-
-            return usuarioViewModel.Id > 0
-                    ? (ActionResult)RedirectToAction("Index")
-                    : View(usuarioViewModel);
-        }
-
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            UsuarioViewModel usuarioViewModel;
-            using (UsuarioService)
-            {
-                usuarioViewModel = new UsuarioViewModel(UsuarioService.GetPorId(id));
-            }
-
-            return View(usuarioViewModel);
+            return resultado > 0
+                ? (ActionResult)RedirectToAction("Index")
+                : View(usuarioViewModel);
         }
     }
 }

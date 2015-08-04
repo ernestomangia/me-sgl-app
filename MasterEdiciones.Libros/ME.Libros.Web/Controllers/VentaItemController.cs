@@ -82,6 +82,7 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        // Dibuja el modal para modificar item cuando el usuario esta creando la venta
         [HttpPost]
         public ActionResult ModificarItem(List<VentaItemViewModel> ventaItemViewModels, int productoId)
         {
@@ -104,6 +105,7 @@ namespace ME.Libros.Web.Controllers
             return View("Modificar", ventaItemViewModel);
         }
 
+        // Dibuja el modal para modificar item cuando el la venta ya esta creada
         [HttpGet]
         public ActionResult Modificar(int id)
         {
@@ -150,7 +152,12 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), VentaItem = ventaItemViewModel }
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    VentaItem = ventaItemViewModel
+                }
             };
         }
     }

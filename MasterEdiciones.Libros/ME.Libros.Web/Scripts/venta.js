@@ -267,3 +267,62 @@ function isValidKey(keyCode) {
         keyCode == 188 || // Tab
         keyCode == 8; // Back space
 }
+
+function modificarVentaItem(form) {
+    $(".modalVentaItem .validationSummary").addClass("hide");
+    $(".modalVentaItem .validationSummary ul").remove();
+
+    $.ajax({
+        method: "POST",
+        url: $(form).attr("action"),
+        data: $(form).serialize(),
+        dataType: "json",
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
+        },
+        success: function (data) {
+            if (data.Success) {
+                var ventaItem = data.VentaItem;
+                actualizarVentaItemRow(ventaItem);
+                $('#modalVentaItem').modal('toggle');
+                mensajeSuccess("Se modifico el " + ventaItem.Producto.Nombre + " exitosamente [Mock]");
+            } else {
+                var errores = "<ul>";
+                $.each(data.Errors, function (key, value) {
+                    $.each(value.Value, function (key2, value2) {
+                        errores += "<li>" + value2 + "</li>";
+                    });
+                });
+                errores += "</ul>";
+                $(".modalVentaItem .validationSummary").append(errores);
+                $(".modalVentaItem .validationSummary").removeClass("hide");
+            }
+        },
+        timeout: 10000,
+        cache: false
+    });
+}
+
+function actualizarVentaItemRow(ventaItem) {
+    var hiddenProductoId = $(".hiddenProductoId[value=" + ventaItem.ProductoId + "]");
+    var subtringStart = hiddenProductoId.attr("id").indexOf("[") + 1;
+    var subtringEnd = hiddenProductoId.attr("id").indexOf("]");
+    var indexItem = parseInt(hiddenProductoId.attr("id").substring(subtringStart, subtringEnd));
+
+    // Actualizar hiddens del  item modificado
+    $("#Items\\[" + indexItem + "\\]\\.Cantidad").val(ventaItem.Cantidad);
+    $("#Items\\[" + indexItem + "\\]\\.PrecioVentaVendido").val(formatFloat(ventaItem.PrecioVentaVendido));
+    $("#Items\\[" + indexItem + "\\]\\.MontoItemVendido").val(formatFloat(ventaItem.MontoItemVendido));
+
+    // Actualizar la fila del DataTable correspondiente al item
+    var table = $("#ventaDetalleTable").DataTable();
+    table.cell(indexItem, 2)
+        .data(ventaItem.Cantidad);
+    table.cell(indexItem, 3)
+        .data(formatCurrency(ventaItem.PrecioVentaVendido));
+    table.cell(indexItem, 4)
+        .data(formatCurrency(ventaItem.MontoItemVendido));
+
+    // Redibujar para recalcular footer
+    table.draw();
+}

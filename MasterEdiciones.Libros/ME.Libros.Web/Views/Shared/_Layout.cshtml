@@ -15,6 +15,7 @@
     <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-duallistbox.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 
     @* Scripts *@
@@ -27,6 +28,8 @@
     <script src="~/Scripts/jquery.bootstrap-duallistbox.js"></script>
     <script src="~/Scripts/toastr.js"></script>
     <script src="~/Scripts/toastr.custom.js"></script>
+    <script src="~/Scripts/bootstrap-switch.js"></script>
+    <script src="~/Scripts/bootstrap-switch-custom.js"></script>
 
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
@@ -61,7 +64,7 @@
     <script src="~/Scripts/common.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-default-custom navbar-fixed-top">
         <div class="container">
             <div class="navbar-header navbar-left">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -69,6 +72,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                @*<a class="navbar-brand" href="@Url.Action("Index", "Cliente")">SGL</a>*@
             </div>
             <div class="navbar-collapse collapse navbar-left">
                 <ul class="nav navbar-nav navbar-left">
@@ -93,12 +97,33 @@
                         <li><a href="#">Ayuda</a></li>
                         <li>@Html.ActionLink("Salir", "Logout", "Login")</li>
                     }
-
                 </ul>
             </div>
         </div>
     </div>
-
+    @*<div class="row-offcanvas row-offcanvas-left">
+        <div id="sidebar" class="sidebar-offcanvas">
+            <div class="col-md-12">
+                <h5></h5>
+                <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                        <li><a href="#">Section</a></li>
+                    </ul>
+                @if (ViewBag.MenuId != null)
+                {
+                    @Html.Action("Index", "MenuLateral", new { id = ViewBag.MenuId })
+                }
+            </div>
+        </div>*@
+    @*<div id="main">*@
     <div class="container body-content">
         <img id="loading-indicator" src="~/Content/img/ajax-loader.gif" style="display:none" />
         @if (ViewBag.MenuId != null)
@@ -115,9 +140,15 @@
         {
             @RenderBody()
         }
-        <div class="navbar navbar-fixed-bottom ">
+        <div class="navbar navbar-fixed-bottom navbar-default">
             <div class="container">
-                <p>&copy; Sistema Gestion de Libros v1.0</p>
+                <p></p>
+                <div class="pull-left">
+                    <p class="text-muted">Sistema Gestion de Libros</p>
+                </div>
+                <div class="pull-right">
+                    <p class="text-muted">&copy; @DateTime.Now.Year, Todos los derechos reservados.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -160,7 +191,7 @@
     //});
 
     jQuery.extend(jQuery.validator.messages, {
-        email: '@Html.Raw(string.Format(ErrorMessages.Invalido, "Email"))',
+        email: '@Html.Raw(string.Format(ErrorMessages.InvalidEmail, "Email"))',
         digits: 'El {0} debe ser un numero entero'
     });
 

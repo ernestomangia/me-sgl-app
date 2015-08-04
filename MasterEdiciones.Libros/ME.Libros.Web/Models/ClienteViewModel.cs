@@ -82,11 +82,11 @@ namespace ME.Libros.Web.Models
         
         [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{7})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
+        [RegularExpression(@"^\(?([0-9]{2,3})\)?[-. ]?([0-9])?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string TelefonoFijo { get; set; }
 
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{7})?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
+        [RegularExpression(@"^\(?([0-9]{2,3})\)?[-. ]?([0-9])?$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidTel")]
         public string Celular { get; set; }
 
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidEmail")]

@@ -67,7 +67,8 @@ namespace ME.Libros.Web.Controllers
                         compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
                         compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioCosto;
                         compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
-                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad * productoDominio.PrecioCosto;
+                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad*
+                                                                 productoDominio.PrecioCosto;
                         compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
                     }
                 }
@@ -79,7 +80,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), CompraItem = compraItemViewModel }
+                Data =
+                    new
+                    {
+                        Success = ModelState.IsValid,
+                        Errors = ModelState.GetErrors(),
+                        CompraItem = compraItemViewModel
+                    }
             };
         }
 
@@ -100,7 +107,8 @@ namespace ME.Libros.Web.Controllers
             compraItemViewModel.Productos = new SelectList(productos, "Id", "Nombre");
             compraItemViewModel.Producto = productos.First(p => p.Id == productoId);
             compraItemViewModel.PrecioCompraComprado = compraItemViewModel.Producto.PrecioVenta;
-            compraItemViewModel.MontoItemCalculado = compraItemViewModel.PrecioCompraCalculado * compraItemViewModel.Cantidad;
+            compraItemViewModel.MontoItemCalculado = compraItemViewModel.PrecioCompraCalculado*
+                                                     compraItemViewModel.Cantidad;
 
             return View("Modificar", compraItemViewModel);
         }
@@ -138,7 +146,8 @@ namespace ME.Libros.Web.Controllers
                         compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
                         compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioCosto;
                         compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
-                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad * productoDominio.PrecioCosto;
+                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad*
+                                                                 productoDominio.PrecioCosto;
                         compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
                     }
                 }
@@ -150,9 +159,14 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(), CompraItem = compraItemViewModel }
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    CompraItem = compraItemViewModel
+                }
             };
-        }
 
-	}
+        }
+    }
 }

@@ -50,4 +50,18 @@
             $("#ProductoId").attr("disabled", "disabled");
         }
     });
+
+    $("#formCompraItem").on("submit", function (e) {
+        e.preventDefault();
+        validationSummaryVisibility(this);
+        if ($("#formCompraItem").valid()) {
+            modificarCompraItem(this);
+        }
+    });
+
+    $('#modalAgregarItem').on('hidden.bs.modal', function () {
+        $("#contenedorCompraItem").empty();
+    });
+
+
 </script>

@@ -90,6 +90,7 @@ namespace ME.Libros.Web.Controllers
                                                  Email = clienteViewModel.Email,
                                                  TelefonoFijo = clienteViewModel.TelefonoFijo,
                                                  Celular = clienteViewModel.Celular,
+                                                 Celular2 = clienteViewModel.Celular2,
                                                  Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
                                                  Iva = IvaService.GetPorId(clienteViewModel.IvaId)
                                              };
@@ -210,6 +211,7 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
+                    clienteDominio.Celular2 = clienteViewModel.Celular2;
                     clienteDominio.Email = clienteViewModel.Email;
                     clienteDominio.Iva = IvaService.GetPorId(clienteViewModel.IvaId);
 

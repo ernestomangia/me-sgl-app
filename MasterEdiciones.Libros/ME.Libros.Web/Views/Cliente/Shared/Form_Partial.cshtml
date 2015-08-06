@@ -112,6 +112,7 @@
             @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = Messages.TelefonoFijo })
+                Ej. (343-6111222)
             </div>
         </div>
     </div>
@@ -120,6 +121,17 @@
             @Html.LabelFor(c => c.Celular, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+                Ej. (343-6111222)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5 col-md-offset-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Celular2, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Celular2, new { @class = "form-control", type = "tel", placeholder = "Celular Alternativo" })
                 Ej. (343-6111222)
             </div>
         </div>

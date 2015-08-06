@@ -234,6 +234,9 @@
   <data name="TelefonoFijo" xml:space="preserve">
     <value>Teléfono fijo</value>
   </data>
+  <data name="Celular2" xml:space="preserve">
+    <value>Celular Alternativo</value>
+  </data>
   <data name="MontoVendido" xml:space="preserve">
     <value>Monto vendido</value>
   </data>

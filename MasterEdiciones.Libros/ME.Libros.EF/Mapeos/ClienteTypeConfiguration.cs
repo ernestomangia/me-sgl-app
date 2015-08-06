@@ -20,7 +20,7 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.Nombre).HasMaxLength(100).IsRequired();
             Property(c => c.Apellido).HasMaxLength(100).IsRequired();
             Property(c => c.FechaNacimiento).IsOptional();
-            Property(c => c.Cuil).HasMaxLength(11)
+            Property(c => c.Cuil).HasMaxLength(13)
                 .IsRequired()
                 .HasColumnAnnotation("Index",
                     new IndexAnnotation(new[]
@@ -30,6 +30,7 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.Direccion).HasMaxLength(200).IsRequired();
             Property(c => c.Comentario).HasMaxLength(250);
             Property(c => c.Celular).HasMaxLength(11).IsOptional();
+            Property(c => c.Celular2).HasMaxLength(11).IsOptional();
             Property(c => c.TelefonoFijo).HasMaxLength(11).IsOptional();
             Property(c => c.Email).HasMaxLength(100).IsOptional();
 

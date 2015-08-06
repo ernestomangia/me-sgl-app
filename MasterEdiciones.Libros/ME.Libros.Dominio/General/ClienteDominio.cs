@@ -18,6 +18,7 @@ namespace ME.Libros.Dominio.General
         public virtual string Comentario { get; set; }
         public virtual string TelefonoFijo { get; set; }
         public virtual string Celular { get; set; }
+        public virtual string Celular2 { get; set; }
         public virtual string Email { get; set; }
         public virtual LocalidadDominio Localidad { get; set; }
 

@@ -381,4 +381,13 @@
   <data name="EmailConfirmado" xml:space="preserve">
     <value>Email confirmado</value>
   </data>
+  <data name="MontoComision" xml:space="preserve">
+    <value>Comision</value>
+  </data>
+  <data name="MontoFacturado" xml:space="preserve">
+    <value>Monto facturado</value>
+  </data>
+  <data name="MontoNeto" xml:space="preserve">
+    <value>Monto neto</value>
+  </data>
 </root>

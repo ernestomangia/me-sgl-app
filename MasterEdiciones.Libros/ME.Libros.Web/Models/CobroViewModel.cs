@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
@@ -11,11 +8,11 @@ namespace ME.Libros.Web.Models
 {
     public class CobroViewModel
     {
-         #region constructor(s)
+        #region Constructor(s)
 
         public CobroViewModel()
         {
-           Venta= new VentaViewModel();
+            Venta = new VentaViewModel();
 
         }
 
@@ -25,13 +22,13 @@ namespace ME.Libros.Web.Models
             FechaAlta = cobro.FechaAlta;
             Monto = cobro.Monto;
             FechaCobro = cobro.FechaCobro;
-            Venta= new VentaViewModel(cobro.Venta);
-            Estado = cobro.EstadoCobro;
+            Venta = new VentaViewModel(cobro.Venta);
+            Estado = cobro.Estado;
             Cobrador = new CobradorViewModel(cobro.Cobrador);
             VentaId = cobro.Venta.Id;
             ClienteId = cobro.Venta.Cliente.Id;
-
         }
+
         #endregion
 
         #region Properties

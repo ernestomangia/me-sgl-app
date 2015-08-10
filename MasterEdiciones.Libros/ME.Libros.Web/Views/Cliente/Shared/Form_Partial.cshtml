@@ -7,7 +7,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Codigo, new { @class = "col-md-2 control-label" })
             <div class="col-md-4">
-                @Html.TextBoxDisabledFor(c => c.Codigo,  new { @class = "form-control", maxlength = 10, disabled = Model.Id > 0 } )
+                @Html.TextBoxDisabledFor(c => c.Codigo, new { @class = "form-control", maxlength = 10, disabled = Model.Id > 0 })
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Cuil, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = Messages.Cuil })
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", data_mask = "99-99999999-9", placeholder = Messages.Cuil })
             </div>
         </div>
     </div>

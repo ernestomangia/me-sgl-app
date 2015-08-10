@@ -50,7 +50,7 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Cuil", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
+        [RegularExpression(@"\d{2}[-. ]\d{8}[-. ]\d{1}", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "InvalidCuil")]
         [Cuil]
         public string Cuil { get; set; }
 

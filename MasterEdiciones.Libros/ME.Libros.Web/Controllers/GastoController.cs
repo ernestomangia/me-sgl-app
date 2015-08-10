@@ -189,17 +189,5 @@ namespace ME.Libros.Web.Controllers
                     ? (ActionResult)RedirectToAction("Index")
                     : View(gastoViewModel);
         }
-
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            GastoViewModel gastoViewModel;
-            using (GastoService)
-            {
-                gastoViewModel = new GastoViewModel(GastoService.GetPorId(id));
-            }
-
-            return View(gastoViewModel);
-        }
     }
 }

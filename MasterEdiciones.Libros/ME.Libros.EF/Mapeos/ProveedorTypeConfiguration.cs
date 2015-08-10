@@ -18,13 +18,9 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.FechaAlta).IsRequired();
             
             Property(c => c.RazonSocial).HasMaxLength(100).IsRequired();
-            Property(c => c.Cuil).HasMaxLength(11)
+            Property(c => c.Cuil).HasMaxLength(13)
                 .IsRequired()
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new[]
-                    {
-                        new IndexAttribute("Index") {IsUnique = true}
-                    }));
+                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
             Property(c => c.Direccion).HasMaxLength(200).IsOptional();
             Property(c => c.Celular).HasMaxLength(11).IsOptional();
             Property(c => c.TelefonoFijo).HasMaxLength(11).IsOptional();

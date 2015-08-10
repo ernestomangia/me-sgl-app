@@ -47,7 +47,6 @@ namespace ME.Libros.Web.Models
         public string Descripcion { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        //[RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public long Stock { get; set; }
 

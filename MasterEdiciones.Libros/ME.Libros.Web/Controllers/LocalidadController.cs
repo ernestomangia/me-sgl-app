@@ -207,20 +207,6 @@ namespace ME.Libros.Web.Controllers
                 : View(localidadViewModel);
         }
 
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            LocalidadViewModel localidadViewModel;
-            using (LocalidadService)
-            {
-                localidadViewModel = new LocalidadViewModel(LocalidadService.GetPorId(id));
-            }
-
-            PrepareModel(localidadViewModel);
-
-            return View(localidadViewModel);
-        }
-
         public JsonResult ListarLocalidades(int id)
         {
             var localidades = new List<LocalidadViewModel>();

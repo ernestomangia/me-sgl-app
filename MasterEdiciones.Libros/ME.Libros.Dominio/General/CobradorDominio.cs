@@ -8,7 +8,7 @@ namespace ME.Libros.Dominio.General
 
         public virtual string Nombre { get; set; }
         public virtual string Apellido { get; set; }
-        public virtual string Dni { get; set; }
+        public virtual long Dni { get; set; }
         public virtual string Direccion { get; set; }
         public virtual string TelefonoFijo { get; set; }
         public virtual string Celular { get; set; }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Web.Routing;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Models;
 
@@ -49,6 +51,25 @@ namespace ME.Libros.Web.Extensions
                 throw new ArgumentException(string.Format("Type {0} is not an enum", typeOfProperty));
             var enumValues = new SelectList(Enum.GetValues(typeOfProperty).Cast<Enum>());
             return htmlHelper.DropDownListFor(modelExpression, enumValues.Where(v => v.Value != "0"), firstElement, htmlAttributes);
+        }
+
+        public static IHtmlString TextBoxDisabledFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, object htmlAttributes)
+        {
+            var attributes = new RouteValueDictionary(htmlAttributes);
+            object disabled;
+            if (attributes.TryGetValue("disabled", out disabled))
+            {
+                if ((bool)disabled)
+                {
+                    attributes["disabled"] = "disabled";
+                }
+                else
+                {
+                    attributes.Remove("disabled");
+                }
+            }
+
+            return htmlHelper.TextBoxFor(expression, attributes);
         }
 
         //public static MvcHtmlString TooltipFor(this HtmlHelper html, MetricaViewModel model)

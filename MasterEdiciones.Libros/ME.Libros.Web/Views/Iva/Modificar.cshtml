@@ -8,12 +8,15 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="col-md-8 col-md-offset-4">
-                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarIva" title="Eliminar Iva">
-                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    Eliminar
-                </button>
-            </div>
+            @if(Model.HabilitarEliminar)
+            { 
+                <div class="col-md-8 col-md-offset-4">
+                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarIva" title="Eliminar Iva">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        Eliminar
+                    </button>
+                </div>
+            }
         </div>
         <div class="col-md-2">
             <div class="text-right">

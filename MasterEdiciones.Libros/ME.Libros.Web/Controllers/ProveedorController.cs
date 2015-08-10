@@ -242,20 +242,6 @@ namespace ME.Libros.Web.Controllers
                 : View(proveedorViewModel);
         }
 
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            ProveedorViewModel proveedorViewModel;
-            using (ProveedorService)
-            {
-                proveedorViewModel = new ProveedorViewModel(ProveedorService.GetPorId(id));
-            }
-
-            PrepareModel(proveedorViewModel);
-
-            return View(proveedorViewModel);
-        }
-
         #region Private Methods
 
         private void PrepareModel(ProveedorViewModel proveedorViewModel)

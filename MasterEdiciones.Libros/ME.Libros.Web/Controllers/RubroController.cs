@@ -184,17 +184,5 @@ namespace ME.Libros.Web.Controllers
                 ? (ActionResult)RedirectToAction("Index")
                 : View(rubroViewModel);
         }
-
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            RubroViewModel rubroViewModel;
-            using (RubroService)
-            {
-                rubroViewModel = new RubroViewModel(RubroService.GetPorId(id));
-            }
-
-            return View(rubroViewModel);
-        }
     }
 }

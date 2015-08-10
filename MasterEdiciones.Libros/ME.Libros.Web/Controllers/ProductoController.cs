@@ -217,20 +217,6 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            ProductoViewModel productoViewModel;
-            using (ProductoService)
-            {
-                productoViewModel = new ProductoViewModel(ProductoService.GetPorId(id));
-            }
-
-            PrepareModel(productoViewModel);
-
-            return View(productoViewModel);
-        }
-
-        [HttpGet]
         public JsonResult Get(int id)
         {
             var productoViewModel = new ProductoViewModel(ProductoService.GetPorId(id));

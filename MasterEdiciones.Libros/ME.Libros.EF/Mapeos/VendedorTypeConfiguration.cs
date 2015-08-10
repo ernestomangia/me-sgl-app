@@ -19,13 +19,9 @@ namespace ME.Libros.EF.Mapeos
 
             Property(c => c.Nombre).HasMaxLength(100).IsRequired();
             Property(c => c.Apellido).HasMaxLength(100).IsRequired();
-            Property(c => c.Dni).HasMaxLength(8)
+            Property(c => c.Dni)
                 .IsRequired()
-                .HasColumnAnnotation("Index",
-                    new IndexAnnotation(new[]
-                    {
-                        new IndexAttribute("Index") {IsUnique = true}
-                    }));
+                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
             Property(c => c.PorcentajeComision).IsRequired();
             Property(c => c.Direccion).HasMaxLength(100);
             Property(c => c.TelefonoFijo);

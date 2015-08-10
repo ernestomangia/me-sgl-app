@@ -709,10 +709,10 @@
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
-    <Compile Include="ErrorMessages.Designer.cs">
+    <Compile Include="ErrorMessages.designer.cs">
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DtoHelper.cs" />
     <Compile Include="Extensions\LogHelper.cs" />
@@ -754,6 +754,7 @@
     <Compile Include="Models\VentaViewModel.cs" />
     <Compile Include="Models\ZonaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\CuilAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -778,25 +779,20 @@
     <Content Include="Views\Rubro\Crear.cshtml" />
     <Content Include="Views\Rubro\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Rubro\Modificar.cshtml" />
-    <Content Include="Views\Rubro\Detalle.cshtml" />
     <Content Include="Views\Editorial\Index.cshtml" />
     <Content Include="Views\Editorial\Crear.cshtml" />
     <Content Include="Views\Editorial\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Editorial\Modificar.cshtml" />
-    <Content Include="Views\Editorial\Detalle.cshtml" />
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Crear.cshtml" />
     <Content Include="Views\Producto\Shared\Form_Partial.cshtml" />
     <Content Include="Scripts\jquery.validate.globalize.min.js.map" />
     <Content Include="Views\Producto\Modificar.cshtml" />
-    <Content Include="Views\Producto\Detalle.cshtml" />
     <Content Include="Views\Venta\Vigente\Index.cshtml" />
     <Content Include="Views\Venta\Crear.cshtml" />
     <Content Include="Views\Venta\Modificar.cshtml" />
     <Content Include="Views\Localidad\Modificar.cshtml" />
-    <Content Include="Views\Localidad\Detalle.cshtml" />
     <Content Include="Views\Zona\Crear.cshtml" />
-    <Content Include="Views\Zona\Detalle.cshtml" />
     <Content Include="Views\Zona\Index.cshtml" />
     <Content Include="Views\Zona\Modificar.cshtml" />
     <Content Include="Views\Zona\Shared\Form_Partial.cshtml" />
@@ -814,7 +810,6 @@
     <Content Include="Views\Cobrador\Eliminar.cshtml" />
     <Content Include="Views\Gasto\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Gasto\Crear.cshtml" />
-    <Content Include="Views\Gasto\Detalle.cshtml" />
     <Content Include="Views\Gasto\Eliminar.cshtml" />
     <Content Include="Views\Gasto\Index.cshtml" />
     <Content Include="Views\Gasto\Modificar.cshtml" />

@@ -197,17 +197,5 @@ namespace ME.Libros.Web.Controllers
                 ? (ActionResult)RedirectToAction("Index")
                 : View(editorialViewModel);
         }
-
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            EditorialViewModel editorialViewModel;
-            using (EditorialService)
-            {
-                editorialViewModel = new EditorialViewModel(EditorialService.GetPorId(id));
-            }
-
-            return View(editorialViewModel);
-        }
     }
 }

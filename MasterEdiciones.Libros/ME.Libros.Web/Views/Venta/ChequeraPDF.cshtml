@@ -1,0 +1,54 @@
+﻿@model ME.Libros.Web.Models.VentaViewModel
+@{
+    ViewBag.Title = "GenerarChequera";
+}
+
+@foreach (var cuota in Model.Cuotas)
+{
+    <div style="border: 1px dotted #000000;">
+        <div class="row">
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.Id):</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => model.Id)</b></div>
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.FechaVenta):</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => model.FechaVenta)</b></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.ClienteId):</b></div>
+            <div class="col-md-2"><b>@Model.Cliente.Apellido, @Model.Cliente.Nombre</b></div>
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.Cliente.Cuil):</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => model.Cliente.Cuil)</b></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.PlanPagoId):</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => model.PlanPago.Nombre)</b></div>
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.PlanPago.CantidadCuotas):</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</b></div>
+            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.PlanPago.Monto):</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => model.PlanPago.Monto)</b></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><b>Cuota:</b></div>
+            <div class="col-md-2"><b>@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</b></div>
+        </div>
+        <h5>Productos</h5>
+        @foreach (var item in Model.Items)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Cod</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@item.Producto.Id</td>
+                        <td>@item.Producto.Nombre</td>
+                        <td>@item.Cantidad</td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+}

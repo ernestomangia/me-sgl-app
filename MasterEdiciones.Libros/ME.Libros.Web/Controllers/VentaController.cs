@@ -11,6 +11,8 @@ using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
+using Rotativa;
+using Rotativa.Options;
 
 namespace ME.Libros.Web.Controllers
 {
@@ -293,6 +295,25 @@ namespace ME.Libros.Web.Controllers
         public PartialViewResult VerCuotas(List<CuotaViewModel> cuotaViewModels)
         {
             return PartialView(cuotaViewModels);
+        }
+
+        public ActionResult GenerarChequera(int id)
+        {
+            //var headers = new Dictionary<string, string> { { "Content-Disposition", "attachment; filename=ChequeraVentaNro" + id + ".pdf" } };
+            return new ActionAsPdf("ChequeraPDF", new { id })
+            {
+                //FileName = "ChequeraVentaNro" + id + ".pdf",
+                PageOrientation = Orientation.Portrait,
+                PageSize = Size.A4,
+                //CustomHeaders = headers,
+            };
+        }
+
+        public ActionResult ChequeraPDF(int id)
+        {
+            var venta = new VentaViewModel(VentaService.GetPorId(id));
+            //Response.AddHeader("Content-Disposition", "attachment; filename=ChequeraVentaNro" + id + ".pdf");
+            return View(venta);
         }
 
         #region Private Methods

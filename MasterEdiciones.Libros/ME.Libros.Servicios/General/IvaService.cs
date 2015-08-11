@@ -1,4 +1,6 @@
-﻿using ME.Libros.Api.Repositorios;
+﻿using System;
+using System.Linq;
+using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Servicios.General
@@ -9,6 +11,18 @@ namespace ME.Libros.Servicios.General
             : base(repository)
         {
             
+        }
+
+        public int GetCodigoCorrelativo()
+        {
+            try
+            {
+                return ListarAsQueryable().Max(iva => iva.Codigo) + 1;
+            }
+            catch (InvalidOperationException)
+            {
+                return 1;
+            }
         }
     }
 }

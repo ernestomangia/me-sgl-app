@@ -133,7 +133,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CUIL/CUIT.
+        ///   Looks up a localized string similar to CUIT.
         /// </summary>
         public static string Cuil {
             get {

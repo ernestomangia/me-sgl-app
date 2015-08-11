@@ -3,52 +3,157 @@
     ViewBag.Title = "GenerarChequera";
 }
 
-@foreach (var cuota in Model.Cuotas)
-{
-    <div style="border: 1px dotted #000000;">
-        <div class="row">
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.Id):</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => model.Id)</b></div>
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.FechaVenta):</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => model.FechaVenta)</b></div>
+<style type="text/css">
+    .page-breaker {
+        display: block;
+        clear: both;
+        page-break-inside: avoid;
+    }
+</style>
+
+<div class="container">
+    @foreach (var cuota in Model.Cuotas)
+    {
+        <div class="row page-breaker" style="padding-bottom: 5px; padding-top: 5px;border-top: 1px dotted; border-left: 1px solid; border-right: 1px solid; border-bottom: 1px dotted;">
+            <div class="col-xs-3">
+                <div class="row">
+                    <div class="col-xs-5"><b>@Html.DisplayNameFor(model => model.Id):</b></div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => model.Id).ToString().PadLeft(10, '0')</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"><b>@Html.DisplayNameFor(model => model.ClienteId):</b></div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => model.Cliente.Apellido), @Html.DisplayFor(model => model.Cliente.Nombre)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"><b>@Html.DisplayNameFor(model => model.Cliente.Codigo):</b></div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => model.Cliente.Codigo).ToString().PadLeft(10, '0')</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5">
+                        <b>
+                            @(Model.Cliente.Iva.Codigo != 3
+                                  ? Html.DisplayNameFor(model => model.Cliente.Dni)
+                                  : Html.DisplayNameFor(model => model.Cliente.Cuil)):
+                        </b>
+                    </div>
+                    <div class="col-xs-7">
+                        @(Model.Cliente.Iva.Codigo != 3
+                              ? Html.DisplayFor(model => model.Cliente.Dni)
+                              : Html.DisplayFor(model => model.Cliente.Cuil))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"><b>@Html.DisplayNameFor(model => model.PlanPagoId):</b></div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => model.PlanPago.Nombre)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"><b>Cuota Nº:</b></div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-5"><b>@Html.DisplayNameFor(model => model.PlanPago.Monto):</b></div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => model.PlanPago.Monto)</div>
+                </div>
+                <div class="row" style="margin-top: 75px;">
+                    <div class="col-xs-12"><h6 class="floatRight" style="line-height: 0;"><i>Talón Cobrador</i></h6></div>
+                </div>
+            </div>
+            <div class="col-xs-9" style="border-left: 1px dotted;">
+                <div class="row">
+                    <div class="col-xs-2"><b>@Html.DisplayNameFor(model => model.Id):</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => model.Id).ToString().PadLeft(10, '0')</div>
+                    <div class="col-xs-3"><b>@Html.DisplayNameFor(model => model.FechaVenta):</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => model.FechaVenta)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.ClienteId):</b></div>
+                    <div class="col-xs-3">@Html.DisplayFor(model => model.Cliente.Apellido), @Html.DisplayFor(model => model.Cliente.Nombre)</div>
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.Cliente.Codigo):</b></div>
+                    <div class="col-xs-3">@Html.DisplayFor(model => model.Cliente.Codigo).ToString().PadLeft(10, '0')</div>
+                    <div class="col-xs-1">
+                        <b>
+                            @(Model.Cliente.Iva.Codigo != 3
+                                  ? Html.DisplayNameFor(model => model.Cliente.Dni)
+                                  : Html.DisplayNameFor(model => model.Cliente.Cuil)):
+                        </b>
+                    </div>
+                    <div class="col-xs-3">
+                        @(Model.Cliente.Iva.Codigo != 3
+                              ? Html.DisplayFor(model => model.Cliente.Dni)
+                              : Html.DisplayFor(model => model.Cliente.Cuil))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.Cliente.Direccion):</b></div>
+                    <div class="col-xs-3">@Html.DisplayFor(model => model.Cliente.Direccion)</div>
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.Cliente.Localidad):</b></div>
+                    <div class="col-xs-3">@Html.DisplayFor(model => model.Cliente.Localidad.Nombre), @Html.DisplayFor(model => model.Cliente.Localidad.Provincia.Nombre)</div>
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.Cliente.Localidad.ZonaId): </b></div>
+                    <div class="col-xs-3">@Html.DisplayFor(model => model.Cliente.Localidad.Zona.Nombre)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12"><b>@Html.DisplayNameFor(model => model.Cliente.Comentario):</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        @(!string.IsNullOrEmpty(Model.Cliente.Comentario)
+                              ? Html.DisplayFor(model => model.Cliente.Comentario).ToString()
+                              : "-")
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2"><b>@Html.DisplayNameFor(model => model.Cliente.TelefonoFijo):</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => model.Cliente.TelefonoFijo)</div>
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.Cliente.Celular):</b></div>
+                    <div class="col-xs-4">
+                        @if (!string.IsNullOrEmpty(Model.Cliente.Celular))
+                        {
+                            @Html.DisplayFor(model => model.Cliente.Celular)
+                        }
+                        @if (!string.IsNullOrEmpty(Model.Cliente.Celular2))
+                        {
+                            @:/ @Html.DisplayFor(model => model.Cliente.Celular2)
+                        }
+                        @if (string.IsNullOrEmpty(Model.Cliente.Celular) && string.IsNullOrEmpty(Model.Cliente.Celular2))
+                        {
+                            @:-
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-2"><b>@Html.DisplayNameFor(model => model.PlanPagoId):</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => model.PlanPago.Nombre)</div>
+                    <div class="col-xs-2"><b>Cuota Nº:</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</div>
+                    <div class="col-xs-1"><b>@Html.DisplayNameFor(model => model.PlanPago.Monto):</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => model.PlanPago.Monto)</div>
+                </div>
+                <h5>Obras adquiridas</h5>
+                @foreach (var item in Model.Items)
+                {
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Cod</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@item.Producto.Id</td>
+                                <td>@item.Producto.Nombre</td>
+                                <td>@item.Cantidad</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                <div class="row">
+                    <div class="col-xs-3"><b>@Html.DisplayNameFor(model => model.MontoVendido):</b></div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => model.MontoVendido)</div>
+                    <div class="col-xs-7"><h6 class="floatRight" style="line-height: 0;"><i>Talón Cliente</i></h6></div>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.ClienteId):</b></div>
-            <div class="col-md-2"><b>@Model.Cliente.Apellido, @Model.Cliente.Nombre</b></div>
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.Cliente.Cuil):</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => model.Cliente.Cuil)</b></div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.PlanPagoId):</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => model.PlanPago.Nombre)</b></div>
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.PlanPago.CantidadCuotas):</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</b></div>
-            <div class="col-md-2"><b>@Html.DisplayNameFor(model => model.PlanPago.Monto):</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => model.PlanPago.Monto)</b></div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"><b>Cuota:</b></div>
-            <div class="col-md-2"><b>@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</b></div>
-        </div>
-        <h5>Productos</h5>
-        @foreach (var item in Model.Items)
-        {
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Cod</th>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@item.Producto.Id</td>
-                        <td>@item.Producto.Nombre</td>
-                        <td>@item.Cantidad</td>
-                    </tr>
-                </tbody>
-            </table>
-        }
-    </div>
-}
+    }
+</div>

@@ -127,7 +127,7 @@
     <value>Codigo de barra</value>
   </data>
   <data name="Cuil" xml:space="preserve">
-    <value>CUIL/CUIT</value>
+    <value>CUIT</value>
   </data>
   <data name="Descripcion" xml:space="preserve">
     <value>Descripción</value>

@@ -39,8 +39,7 @@ namespace ME.Libros.Web.Controllers
             {
                 iva.AddRange(IvaService.Listar()
                     .ToList()
-                    .Select(r => new IvaViewModel(r))
-                    );
+                    .Select(r => new IvaViewModel(r)));
             }
 
             return View(iva);
@@ -66,7 +65,7 @@ namespace ME.Libros.Web.Controllers
                         {
                             FechaAlta = DateTime.Now,
                             Nombre = ivaViewModel.Nombre,
-                            Codigo = IvaService.ListarAsQueryable().Max(iva => iva.Codigo) + 1,
+                            Codigo = IvaService.GetCodigoCorrelativo(),
                             Alicuota = ivaViewModel.Alicuota,
                             HabilitarEliminar = true,
                         };
@@ -169,7 +168,7 @@ namespace ME.Libros.Web.Controllers
                     var ivaDominio = IvaService.GetPorId(ivaViewModel.Id);
                     ivaDominio.Nombre = ivaViewModel.Nombre;
                     ivaDominio.Alicuota = ivaViewModel.Alicuota;
-                
+
                     resultado = IvaService.Guardar(ivaDominio);
                     if (resultado <= 0)
                     {

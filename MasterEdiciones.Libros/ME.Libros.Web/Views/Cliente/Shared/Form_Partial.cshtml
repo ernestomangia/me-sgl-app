@@ -100,7 +100,7 @@
         <div class="form-group">
             @Html.LabelFor(c => c.Comentario, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control text-uppercase", rows = "3", placeholder = "Detalles de la dirección, horarios disponibles, etc." })
+                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control text-uppercase", rows = "3", maxlength = 250, placeholder = "Detalles de la dirección, horarios disponibles, etc." })
             </div>
         </div>
     </div>

@@ -15,6 +15,7 @@ namespace ME.Libros.Web.Models
         public IvaViewModel(IvaDominio iva)
         {
             Id = iva.Id;
+            Codigo = iva.Codigo;
             Nombre = iva.Nombre;
             Alicuota = iva.Alicuota;
             HabilitarEliminar = iva.HabilitarEliminar;
@@ -26,6 +27,8 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Codigo", ResourceType = typeof(Messages))]
         public long Id { get; set; }
+
+        public int Codigo { get; set; }
 
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]

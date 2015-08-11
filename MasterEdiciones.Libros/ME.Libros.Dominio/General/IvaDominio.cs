@@ -4,8 +4,10 @@
     {
         #region Properties
 
+        public virtual int Codigo { get; set; }
         public virtual string Nombre { get; set; }
         public virtual decimal Alicuota { get; set; }
+        public virtual bool HabilitarEliminar { get; set; }
 
         #endregion
     }

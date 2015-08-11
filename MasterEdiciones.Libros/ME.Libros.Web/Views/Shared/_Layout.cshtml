@@ -30,6 +30,7 @@
     <script src="~/Scripts/toastr.custom.js"></script>
     <script src="~/Scripts/bootstrap-switch.js"></script>
     <script src="~/Scripts/bootstrap-switch-custom.js"></script>
+    <script src="~/Scripts/jasny-bootstrap.js"></script>
 
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
@@ -88,7 +89,7 @@
                             @Html.ActionLink("Compras", "Index", "Compra", new { estado = EstadoCompra.Pagada },null)
                         </li>
                         <li>
-                            @Html.ActionLink("Tesoseria", "Index", "Cobro")
+                            @Html.ActionLink("Tesoseria", "Index", "Rendicion")
                         </li>
                         <li><a href="#">Reportes</a></li>
                         <li>
@@ -140,15 +141,16 @@
         {
             @RenderBody()
         }
-        <div class="navbar navbar-fixed-bottom navbar-default">
-            <div class="container">
-                <p></p>
-                <div class="pull-left">
-                    <p class="text-muted">Sistema Gestion de Libros</p>
-                </div>
-                <div class="pull-right">
-                    <p class="text-muted">&copy; @DateTime.Now.Year, Todos los derechos reservados.</p>
-                </div>
+        
+    </div>
+    <div class="navbar navbar-fixed-bottom navbar-default">
+        <div class="container">
+            <p></p>
+            <div class="pull-left">
+                <p class="text-muted">Sistema Gestion de Libros</p>
+            </div>
+            <div class="pull-right">
+                <p class="text-muted">&copy; @DateTime.Now.Year, Todos los derechos reservados.</p>
             </div>
         </div>
     </div>

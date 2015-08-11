@@ -5,14 +5,14 @@ using System.Linq;
 using System.Web.Mvc;
 
 using ME.Libros.Dominio.General;
-using ME.Libros.DTO;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
-using LinqKit;
+using Rotativa;
+using Rotativa.Options;
 
 namespace ME.Libros.Web.Controllers
 {
@@ -175,6 +175,7 @@ namespace ME.Libros.Web.Controllers
                 Cuotas = new List<CuotaDominio>()
             };
 
+            var i = 1;
             foreach (var ventaItemViewModel in ventaViewModel.Items)
             {
                 var producto = ProductoService.GetPorId(ventaItemViewModel.ProductoId);
@@ -182,6 +183,7 @@ namespace ME.Libros.Web.Controllers
                 {
                     FechaAlta = DateTime.Now,
                     Cantidad = ventaItemViewModel.Cantidad,
+                    Orden = i++,
                     Producto = producto,
                     PrecioVentaVendido = ventaItemViewModel.PrecioVentaVendido,
                     MontoVendido = ventaItemViewModel.MontoItemVendido
@@ -295,6 +297,25 @@ namespace ME.Libros.Web.Controllers
             return PartialView(cuotaViewModels);
         }
 
+        public ActionResult GenerarChequera(int id)
+        {
+            //var headers = new Dictionary<string, string> { { "Content-Disposition", "attachment; filename=ChequeraVentaNro" + id + ".pdf" } };
+            return new ActionAsPdf("ChequeraPDF", new { id })
+            {
+                //FileName = "ChequeraVentaNro" + id + ".pdf",
+                PageOrientation = Orientation.Portrait,
+                PageSize = Size.A4,
+                //CustomHeaders = headers,
+            };
+        }
+
+        public ActionResult ChequeraPDF(int id)
+        {
+            var venta = new VentaViewModel(VentaService.GetPorId(id));
+            //Response.AddHeader("Content-Disposition", "attachment; filename=ChequeraVentaNro" + id + ".pdf");
+            return View(venta);
+        }
+
         #region Private Methods
 
         private void PrepareModel(VentaViewModel ventaViewModel)
@@ -314,6 +335,16 @@ namespace ME.Libros.Web.Controllers
             ventaViewModel.PlanesPago = new SelectList(PlanPagoService.Listar()
                 .ToList()
                 .Select(p => new PlanPagoViewModel(p)), "Id", "Nombre");
+
+            if (ventaViewModel.Estado == EstadoVenta.None)
+            {
+                var i = 1;
+                foreach (var item in ventaViewModel.Items)
+                {
+                    item.Producto = new ProductoViewModel(ProductoService.GetPorId(item.ProductoId));
+                    item.Orden = i++;
+                }
+            }
         }
 
         private void SetMenuVigente()

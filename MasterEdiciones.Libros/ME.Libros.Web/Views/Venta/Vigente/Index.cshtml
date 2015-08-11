@@ -5,11 +5,6 @@
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
     Nuevo
 </a>
-<a class="btn btn-info" href="#" role="button">
-    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-    Filtrar
-</a>
-
 <table class="dataTableCustom">
     <thead>
         <tr>
@@ -38,6 +33,9 @@
                 <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminar" onclick="javascript:setearId(@item.Id);" title="Anular venta vigente">
                     <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                 </button>
+                <a class="btn btn-info btn-sm" type="button" href="@Url.Action("GenerarChequera", new { id = item.Id})" target="_blank" title="Generar chequera">
+                    <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                </a>
             </td>
         </tr>
     }

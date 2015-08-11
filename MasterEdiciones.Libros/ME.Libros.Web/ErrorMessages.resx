@@ -139,10 +139,13 @@
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>El formato del email no es correcto</value>
+    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
   </data>
- <data name="InvalidTel" xml:space="preserve">
-    <value>El formato del teléfono no es correcto</value>
+  <data name="InvalidTel" xml:space="preserve">
+    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
+  </data>
+  <data name="InvalidCuil" xml:space="preserve">
+    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
   </data>
   <data name="RangeLenght" xml:space="preserve">
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener entre {1} y {2} caracteres</value>
@@ -168,8 +171,8 @@
   <data name="Invalido" xml:space="preserve">
     <value>El &lt;b&gt;{0}&lt;/b&gt; es inválido</value>
   </data>
-  <data name="Numeric" xml:space="preserve">
-    <value>El &lt;b&gt;{0}&lt;/b&gt; debe ser numerico</value>
+  <data name="Entero" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe ser un número entero</value>
   </data>
   <data name="OnlyLetters" xml:space="preserve">
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener solo letras</value>
@@ -193,7 +196,7 @@
     <value>Error al anular.</value>
   </data>
   <data name="DniRepetido" xml:space="preserve">
-    <value>El &lt;b&gt;DNI&lt;/b&gt; {0} se encuentra asociado a un {1} existente</value>
+    <value>El &lt;b&gt;DNI {0} &lt;/b&gt; se encuentra asociado a un {1} existente</value>
   </data>
   <data name="Stock" xml:space="preserve">
     <value>El stock disponible de &lt;b&gt;{0}&lt;/b&gt; es de {1} unidades.</value>
@@ -203,5 +206,8 @@
   </data>
   <data name="RepetirPasswordRequerido" xml:space="preserve">
     <value>El campo &lt;b&gt;{0}&lt;/b&gt; es requerido</value>
+  </data>
+  <data name="RangeValue" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; esta fuera de rango. Rango permitido: [{1} ; {2}]</value>
   </data>
 </root>

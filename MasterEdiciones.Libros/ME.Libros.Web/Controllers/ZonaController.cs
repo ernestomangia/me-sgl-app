@@ -187,17 +187,5 @@ namespace ME.Libros.Web.Controllers
                     ? (ActionResult)RedirectToAction("Index")
                     : View(zonaViewModel);
         }
-
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            ZonaViewModel zonaViewModel;
-            using (ZonaService)
-            {
-                zonaViewModel = new ZonaViewModel(ZonaService.GetPorId(id));
-            }
-
-            return View(zonaViewModel);
-        }
     }
 }

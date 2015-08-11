@@ -8,7 +8,7 @@
 <table class="dataTableCustom">
     <thead>
         <tr>
-            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Id)</th>
+            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Codigo)</th>
             <th>@Html.DisplayNameFor(model => model.Nombre)</th>
             <th>@Html.DisplayNameFor(model => model.Apellido)</th>
             <th>@Html.DisplayNameFor(model => model.Cuil)</th>
@@ -20,7 +20,7 @@
         @foreach (var item in Model)
         {
             <tr id=@("tr_" + item.Id)>
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
                 <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
                 <td>@Html.DisplayFor(modelItem => item.Cuil)</td>

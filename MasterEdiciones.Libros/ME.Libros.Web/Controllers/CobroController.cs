@@ -27,7 +27,7 @@ namespace ME.Libros.Web.Controllers
             CobroService = new CobroService(new EntidadRepository<CobroDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
-            ViewBag.MenuId = 25;
+            ViewBag.MenuId = 110;
             ViewBag.Title = "Cobros";
             Service = new CobroService(new EntidadRepository<CobroDominio>(modelContainer));
         }
@@ -83,8 +83,7 @@ namespace ME.Libros.Web.Controllers
                             FechaCobro = cobroViewModel.FechaCobro,
                             Venta = venta,
                             Cobrador = venta.Cobrador, 
-                            Comision = 0,
-                            EstadoCobro = EstadoCobro.Vigente,
+                            Estado = EstadoCobro.Cobrado,
                         };
 
                      
@@ -133,7 +132,7 @@ namespace ME.Libros.Web.Controllers
                 using (CobroService)
                 {
                     cobroDominio = CobroService.GetPorId(id);
-                    cobroDominio.EstadoCobro = EstadoCobro.Anulado;
+                    cobroDominio.Estado = EstadoCobro.Anulado;
                     CobroService.Guardar(cobroDominio);
                     VentaService.Guardar(cobroDominio.Venta);
                 }
@@ -144,7 +143,7 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(),Estado=cobroDominio.EstadoCobro },
+                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(),Estado=cobroDominio.Estado },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
 
             };

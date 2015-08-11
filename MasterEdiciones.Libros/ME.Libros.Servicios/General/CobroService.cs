@@ -16,7 +16,7 @@ namespace ME.Libros.Servicios.General
 
         public override long Guardar(CobroDominio cobroDominio)
         {
-            if (cobroDominio.EstadoCobro == EstadoCobro.Vigente)
+            if (cobroDominio.Estado == EstadoCobro.Cobrado)
             {
                 cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo - cobroDominio.Monto;
             }

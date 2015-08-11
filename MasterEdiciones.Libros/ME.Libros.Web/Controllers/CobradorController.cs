@@ -121,7 +121,7 @@ namespace ME.Libros.Web.Controllers
                     if (sqlException != null && sqlException.Number == 2601)
                     {
                         ModelState.AddModelError("Error",
-                            string.Format(ErrorMessages.DniRepetido, cobradorViewModel.Dni, "cobrador"));
+                            string.Format(ErrorMessages.DniRepetido, cobradorViewModel.Dni, Messages.Cobrador ));
                     }
                     else
                     {
@@ -251,8 +251,7 @@ namespace ME.Libros.Web.Controllers
                 var sqlException = ex.GetBaseException() as SqlException;
                 if (sqlException != null && sqlException.Number == 2601)
                 {
-                    ModelState.AddModelError("Error",
-                        string.Format(ErrorMessages.DniRepetido, cobradorViewModel.Dni));
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.DniRepetido, cobradorViewModel.Dni, Messages.Cobrador));
                 }
                 else
                 {

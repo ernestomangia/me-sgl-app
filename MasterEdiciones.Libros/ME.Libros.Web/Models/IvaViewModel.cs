@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 using ME.Libros.Dominio.General;
 
@@ -13,17 +12,14 @@ namespace ME.Libros.Web.Models
         {
         }
 
-          public IvaViewModel(IvaDominio iva)
+        public IvaViewModel(IvaDominio iva)
         {
             Id = iva.Id;
             Nombre = iva.Nombre;
-              Alicuota = iva.Alicuota;
-
-              //  Id = ivaDominio.Id;
-              // Nombre = ivaDominio.Nombre;
-              // Alicuota = ivaDominio.Alicuota;
+            Alicuota = iva.Alicuota;
+            HabilitarEliminar = iva.HabilitarEliminar;
         }
-        
+
         #endregion
 
         #region Properties
@@ -38,6 +34,8 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Alicuota", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:#.##} %")]
         public decimal Alicuota { get; set; }
+
+        public bool HabilitarEliminar { get; set; }
 
         #endregion
     }

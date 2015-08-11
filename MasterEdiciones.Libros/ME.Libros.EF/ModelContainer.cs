@@ -110,12 +110,70 @@ namespace ME.Libros.EF
                     l.Zona = zonaSinDefinir;
                 });
 
+                var cf = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Consumidor Final",
+                    Codigo = 1,
+                    Alicuota = 0,
+                    HabilitarEliminar = false
+                };
+
+                var monotributo = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Monotributo",
+                    Codigo = 2,
+                    Alicuota = 0,
+                    HabilitarEliminar = false
+                };
+
+                var ri = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Responsable Inscripto",
+                    Codigo = 3,
+                    Alicuota = 21,
+                    HabilitarEliminar = false
+                };
+
+                var exento = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Exento",
+                    Codigo = 4,
+                    Alicuota = 0,
+                    HabilitarEliminar = false
+                };
+
+                var noInscripto = new IvaDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "No Inscripto",
+                    Codigo = 5,
+                    Alicuota = 0,
+                    HabilitarEliminar = false
+                };
+
+                var cliente = new ClienteDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Codigo = 1,
+                    Nombre = "Gonzalo",
+                    Apellido = "Sanchez Bolaños",
+                    Dni = 111111,
+                    Cuil = "00-00000000-0",
+                    Localidad = localidades[0],
+                    Direccion = "San Juan 500",
+                    Iva = cf
+                };
+
                 var cobrador = new CobradorDominio
                 {
                     FechaAlta = DateTime.Now,
-                    Nombre = "Juan",
-                    Apellido = "Perez",
-                    Dni = "35625222",
+                    Nombre = "Jose",
+                    Apellido = "Lopez",
+                    Dni = 35625222,
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
                     {
@@ -129,7 +187,7 @@ namespace ME.Libros.EF
                     FechaAlta = DateTime.Now,
                     Nombre = "Juan",
                     Apellido = "Lopez",
-                    Dni = "35625222",
+                    Dni = 35625222,
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
                     {
@@ -175,19 +233,38 @@ namespace ME.Libros.EF
                     FechaAlta = DateTime.Now,
                     Nombre = "Enciclopedia",
                     Descripcion = "Enciclopedia",
+                    PrecioCosto = 80.25m,
                     PrecioVenta = 132.50m,
+                    Rubro = rubroSinDefinir,
+                    Editorial = editorialSinDefinir
+                };
+
+                var diccionario = new ProductoDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Diccionario",
+                    Descripcion = "Diccionario",
+                    PrecioCosto = 20.25m,
+                    PrecioVenta = 42.50m,
                     Rubro = rubroSinDefinir,
                     Editorial = editorialSinDefinir
                 };
 
                 context.Set<PlanPagoDominio>().Add(planPagoContado);
                 context.Set<GastoDominio>().Add(gastoSinDefinir);
+                context.Set<ClienteDominio>().Add(cliente);
                 context.Set<CobradorDominio>().Add(cobrador);
                 context.Set<VendedorDominio>().Add(vendedor);
                 context.Set<ZonaDominio>().Add(zonaSinDefinir);
                 context.Set<EditorialDominio>().Add(editorialSinDefinir);
                 context.Set<RubroDominio>().Add(rubroSinDefinir);
                 context.Set<ProductoDominio>().Add(enciclopedia);
+                context.Set<ProductoDominio>().Add(diccionario);
+                context.Set<IvaDominio>().Add(cf);
+                context.Set<IvaDominio>().Add(monotributo);
+                context.Set<IvaDominio>().Add(ri);
+                context.Set<IvaDominio>().Add(exento);
+                context.Set<IvaDominio>().Add(noInscripto);
                 context.SaveChanges();
             }
         }

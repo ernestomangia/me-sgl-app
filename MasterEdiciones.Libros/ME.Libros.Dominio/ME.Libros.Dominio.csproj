@@ -47,6 +47,7 @@
     <Compile Include="General\EditorialDominio.cs" />
     <Compile Include="General\IvaDominio.cs" />
     <Compile Include="General\LoginDominio.cs" />
+    <Compile Include="General\RendicionDominio.cs" />
     <Compile Include="General\UsuarioDominio.cs" />
     <Compile Include="General\GastoVendedorDominio.cs" />
     <Compile Include="General\GastoCobradorDominio.cs" />

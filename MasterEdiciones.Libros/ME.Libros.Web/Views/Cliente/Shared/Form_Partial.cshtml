@@ -1,25 +1,24 @@
 ﻿@using System.Web.Mvc.Html
+@using ME.Libros.Web.Extensions
 @model ME.Libros.Web.Models.ClienteViewModel
-@if (Model.Id > 0)
-{
-    <div class="row">
-        <div class="col-md-10">
-            <div class="form-group form-group-sm">
-                @Html.LabelFor(c => c.Id, new { @class = "col-md-2 control-label" })
-                <div class="col-md-4">
-                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
-                </div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Codigo, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxDisabledFor(c => c.Codigo, new { @class = "form-control", maxlength = 10, disabled = Model.Id > 0 })
             </div>
         </div>
     </div>
-}
+</div>
 
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Nombre, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control", placeholder = "Nombre", style = "text-transform: capitalize" })
+                @Html.TextBoxFor(c => c.Nombre, new { @class = "form-control text-capitalize", placeholder = "Nombre" })
             </div>
         </div>
     </div>
@@ -27,7 +26,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Apellido, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control", placeholder = "Apellido", style= "text-transform: capitalize" })
+                @Html.TextBoxFor(c => c.Apellido, new { @class = "form-control text-capitalize", placeholder = "Apellido" })
             </div>
         </div>
     </div>
@@ -45,21 +44,21 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Cuil, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", placeholder = Messages.Cuil })
+                @Html.TextBoxFor(c => c.Cuil, new { @class = "form-control", data_mask = "99-99999999-9", placeholder = Messages.Cuil })
             </div>
         </div>
     </div>
 </div>
 @*<div class="row">
-    <div class="col-md-10">
-        <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
-            <div class="col-md-4">
-                @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(c => c.FechaNacimiento, "Nacimiento", new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(c => c.FechaNacimiento, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker" })
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -83,7 +82,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.Direccion, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control", placeholder = Messages.Direccion, style = "text-transform: capitalize" })
+                @Html.TextBoxFor(c => c.Direccion, new { @class = "form-control text-capitalize", placeholder = Messages.Direccion })
             </div>
         </div>
     </div>
@@ -101,7 +100,7 @@
         <div class="form-group">
             @Html.LabelFor(c => c.Comentario, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control", rows = "3", placeholder = "Detalles de la dirección, horarios disponibles, etc.", style = "text-transform: uppercase" })
+                @Html.TextAreaFor(c => c.Comentario, new { @class = "form-control text-uppercase", rows = "3", placeholder = "Detalles de la dirección, horarios disponibles, etc." })
             </div>
         </div>
     </div>
@@ -112,6 +111,7 @@
             @Html.LabelFor(c => c.TelefonoFijo, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(c => c.TelefonoFijo, new { @class = "form-control", type = "tel", placeholder = Messages.TelefonoFijo })
+                Ej. (343-6111222)
             </div>
         </div>
     </div>
@@ -120,6 +120,17 @@
             @Html.LabelFor(c => c.Celular, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBoxFor(c => c.Celular, new { @class = "form-control", type = "tel", placeholder = "Celular" })
+                Ej. (343-6111222)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5 col-md-offset-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.Celular2, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(c => c.Celular2, new { @class = "form-control", type = "tel", placeholder = "Celular Alternativo" })
                 Ej. (343-6111222)
             </div>
         </div>

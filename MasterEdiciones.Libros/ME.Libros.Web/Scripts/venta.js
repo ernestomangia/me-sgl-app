@@ -285,7 +285,7 @@ function modificarVentaItem(form) {
                 var ventaItem = data.VentaItem;
                 actualizarVentaItemRow(ventaItem);
                 $('#modalVentaItem').modal('toggle');
-                mensajeSuccess("Se modifico el " + ventaItem.Producto.Nombre + " exitosamente [Mock]");
+                mensajeSuccess("Se modifico el " + ventaItem.Producto.Nombre + " exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {

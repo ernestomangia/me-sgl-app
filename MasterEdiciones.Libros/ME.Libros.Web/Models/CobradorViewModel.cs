@@ -63,9 +63,9 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Dni", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        [StringLength(8, MinimumLength = 8, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
-        public string Dni { get; set; }
+        [Range(1000000, 100000000, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "RangeValue")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public long Dni { get; set; }
 
         [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]

@@ -2,7 +2,7 @@
 
 namespace ME.Libros.Dominio.General
 {
-    public class GastoCobradorDominio
+    public class GastoCobradorDominio : BaseDominio
     {
         public virtual DateTime FechaGasto { get; set; }
         public virtual decimal Monto { get; set; }

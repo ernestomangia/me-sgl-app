@@ -7,7 +7,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(u => u.Nombre, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(u => u.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                @Html.TextBoxFor(u => u.Nombre, new { @class = "form-control text-capitalize", placeholder = "Nombre" })
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(u => u.Apellido, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(u => u.Apellido, new { @class = "form-control", placeholder = "Apellido" })
+                @Html.TextBoxFor(u => u.Apellido, new { @class = "form-control text-capitalize", placeholder = "Apellido" })
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(u => u.Email, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(u => u.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control text-lowercase", type = "email", placeholder = "Email" })
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
                         <div class="form-group form-group-sm">
                             @Html.LabelFor(r => r.UserName, new { @class = "col-md-4 control-label" })
                             <div class="col-md-8">
-                                @Html.TextBoxFor(r => r.UserName, new { @class = "form-control", placeholder = Messages.UserName })
+                                @Html.TextBoxFor(r => r.UserName, new { @class = "form-control text-lowercase", placeholder = Messages.UserName })
                             </div>
                         </div>
                     </div>

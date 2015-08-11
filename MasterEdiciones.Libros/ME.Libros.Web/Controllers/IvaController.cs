@@ -66,7 +66,9 @@ namespace ME.Libros.Web.Controllers
                         {
                             FechaAlta = DateTime.Now,
                             Nombre = ivaViewModel.Nombre,
+                            Codigo = IvaService.ListarAsQueryable().Max(iva => iva.Codigo) + 1,
                             Alicuota = ivaViewModel.Alicuota,
+                            HabilitarEliminar = true,
                         };
 
                         ivaViewModel.Id = IvaService.Guardar(ivaDominio);
@@ -167,7 +169,7 @@ namespace ME.Libros.Web.Controllers
                     var ivaDominio = IvaService.GetPorId(ivaViewModel.Id);
                     ivaDominio.Nombre = ivaViewModel.Nombre;
                     ivaDominio.Alicuota = ivaViewModel.Alicuota;
-
+                
                     resultado = IvaService.Guardar(ivaDominio);
                     if (resultado <= 0)
                     {
@@ -184,22 +186,9 @@ namespace ME.Libros.Web.Controllers
                 }
             }
 
-
-            return ivaViewModel.Id > 0
+            return resultado > 0
                     ? (ActionResult)RedirectToAction("Index")
                     : View(ivaViewModel);
-        }
-
-        [HttpGet]
-        public ActionResult Detalle(int id)
-        {
-            IvaViewModel ivaViewModel;
-            using (IvaService)
-            {
-                ivaViewModel = new IvaViewModel(IvaService.GetPorId(id));
-            }
-
-            return View(ivaViewModel);
         }
     }
 }

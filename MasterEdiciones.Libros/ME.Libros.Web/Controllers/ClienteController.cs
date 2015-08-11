@@ -60,6 +60,7 @@ namespace ME.Libros.Web.Controllers
         {
             var clienteViewModel = new ClienteViewModel();
             PrepareModel(clienteViewModel);
+            clienteViewModel.Codigo =  ClienteService.GetCodigoCorrelativo();
 
             return View(clienteViewModel);
         }
@@ -69,7 +70,7 @@ namespace ME.Libros.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                this.PrepareModel(clienteViewModel);
+                PrepareModel(clienteViewModel);
                 return View(clienteViewModel);
             }
 
@@ -81,6 +82,7 @@ namespace ME.Libros.Web.Controllers
                     var clienteDominio = new ClienteDominio
                                              {
                                                  FechaAlta = DateTime.Now,
+                                                 Codigo = clienteViewModel.Codigo,
                                                  Nombre = clienteViewModel.Nombre,
                                                  Apellido = clienteViewModel.Apellido,
                                                  Cuil = clienteViewModel.Cuil,
@@ -90,6 +92,7 @@ namespace ME.Libros.Web.Controllers
                                                  Email = clienteViewModel.Email,
                                                  TelefonoFijo = clienteViewModel.TelefonoFijo,
                                                  Celular = clienteViewModel.Celular,
+                                                 Celular2 = clienteViewModel.Celular2,
                                                  Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
                                                  Iva = IvaService.GetPorId(clienteViewModel.IvaId)
                                              };
@@ -103,8 +106,8 @@ namespace ME.Libros.Web.Controllers
                     }
                     else
                     {
-                        TempData["Id"] = clienteDominio.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Id);
+                        TempData["Id"] = clienteDominio.Codigo;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.ElCliente, clienteDominio.Codigo);
                     }
                 }
             }
@@ -210,6 +213,7 @@ namespace ME.Libros.Web.Controllers
                     clienteDominio.Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId);
                     clienteDominio.TelefonoFijo = clienteViewModel.TelefonoFijo;
                     clienteDominio.Celular = clienteViewModel.Celular;
+                    clienteDominio.Celular2 = clienteViewModel.Celular2;
                     clienteDominio.Email = clienteViewModel.Email;
                     clienteDominio.Iva = IvaService.GetPorId(clienteViewModel.IvaId);
 
@@ -223,9 +227,8 @@ namespace ME.Libros.Web.Controllers
                     }
                     else
                     {
-                        TempData["Id"] = clienteViewModel.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente,
-                            clienteViewModel.Id);
+                        TempData["Id"] = clienteDominio.Codigo;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElCliente, clienteDominio.Codigo);
                     }
                 }
             }
@@ -288,13 +291,9 @@ namespace ME.Libros.Web.Controllers
             }
             clienteViewModel.Localidades = new SelectList(localidades, "Id", "Nombre");
 
-
             clienteViewModel.Ivas = new SelectList(IvaService.Listar()
                 .Select(p => new IvaViewModel(p))
-                .ToList(), "Id", "Nombre", "Alicuota");
-
-            var ivas = new List<IvaViewModel>();
-
+                .ToList(), "Id", "Nombre");
         }
 
         #endregion

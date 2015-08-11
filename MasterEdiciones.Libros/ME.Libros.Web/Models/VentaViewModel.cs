@@ -43,12 +43,7 @@ namespace ME.Libros.Web.Models
             PlanPagoId = ventaDominio.PlanPago.Id;
             // Items
             Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
-            var i = 0;
-            Items.ForEach(vi =>
-            {
-                vi.Venta = this;
-                vi.Orden = ++i;
-            });
+            Items.ForEach(c => c.Venta = this);
             // Cuotas
             Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
             Cuotas.ForEach(c => c.Venta = this);

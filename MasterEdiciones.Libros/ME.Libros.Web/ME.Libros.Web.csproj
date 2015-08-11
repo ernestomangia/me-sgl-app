@@ -59,6 +59,9 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -178,6 +181,7 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-datepicker.min.js" />
     <Content Include="Content\jasny-bootstrap.css.map" />
@@ -598,6 +602,7 @@
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -691,6 +696,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\IvaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RendicionController.cs" />
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -709,10 +715,10 @@
     <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Controllers\RubroController.cs" />
     <Compile Include="Controllers\ZonaController.cs" />
-    <Compile Include="ErrorMessages.Designer.cs">
+    <Compile Include="ErrorMessages.designer.cs">
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
     </Compile>
     <Compile Include="Extensions\DtoHelper.cs" />
     <Compile Include="Extensions\LogHelper.cs" />
@@ -731,6 +737,7 @@
     </Compile>
     <Compile Include="Models\IvaViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RendicionViewModel.cs" />
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />
@@ -754,6 +761,7 @@
     <Compile Include="Models\VentaViewModel.cs" />
     <Compile Include="Models\ZonaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\CuilAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -778,25 +786,20 @@
     <Content Include="Views\Rubro\Crear.cshtml" />
     <Content Include="Views\Rubro\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Rubro\Modificar.cshtml" />
-    <Content Include="Views\Rubro\Detalle.cshtml" />
     <Content Include="Views\Editorial\Index.cshtml" />
     <Content Include="Views\Editorial\Crear.cshtml" />
     <Content Include="Views\Editorial\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Editorial\Modificar.cshtml" />
-    <Content Include="Views\Editorial\Detalle.cshtml" />
     <Content Include="Views\Producto\Index.cshtml" />
     <Content Include="Views\Producto\Crear.cshtml" />
     <Content Include="Views\Producto\Shared\Form_Partial.cshtml" />
     <Content Include="Scripts\jquery.validate.globalize.min.js.map" />
     <Content Include="Views\Producto\Modificar.cshtml" />
-    <Content Include="Views\Producto\Detalle.cshtml" />
     <Content Include="Views\Venta\Vigente\Index.cshtml" />
     <Content Include="Views\Venta\Crear.cshtml" />
     <Content Include="Views\Venta\Modificar.cshtml" />
     <Content Include="Views\Localidad\Modificar.cshtml" />
-    <Content Include="Views\Localidad\Detalle.cshtml" />
     <Content Include="Views\Zona\Crear.cshtml" />
-    <Content Include="Views\Zona\Detalle.cshtml" />
     <Content Include="Views\Zona\Index.cshtml" />
     <Content Include="Views\Zona\Modificar.cshtml" />
     <Content Include="Views\Zona\Shared\Form_Partial.cshtml" />
@@ -814,7 +817,6 @@
     <Content Include="Views\Cobrador\Eliminar.cshtml" />
     <Content Include="Views\Gasto\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Gasto\Crear.cshtml" />
-    <Content Include="Views\Gasto\Detalle.cshtml" />
     <Content Include="Views\Gasto\Eliminar.cshtml" />
     <Content Include="Views\Gasto\Index.cshtml" />
     <Content Include="Views\Gasto\Modificar.cshtml" />
@@ -872,6 +874,8 @@
     <Content Include="Views\CompraItem\Eliminar.cshtml" />
     <Content Include="Views\Compra\Modificar.cshtml" />
     <Content Include="Views\Compra\Eliminar.cshtml" />
+    <Content Include="Views\Rendicion\Index.cshtml" />
+    <Content Include="Views\Venta\ChequeraPDF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

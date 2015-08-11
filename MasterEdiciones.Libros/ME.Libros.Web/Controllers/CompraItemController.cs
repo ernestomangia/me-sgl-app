@@ -106,9 +106,7 @@ namespace ME.Libros.Web.Controllers
             var compraItemViewModel = compraItemViewModels.First(vi => vi.ProductoId == productoId);
             compraItemViewModel.Productos = new SelectList(productos, "Id", "Nombre");
             compraItemViewModel.Producto = productos.First(p => p.Id == productoId);
-            compraItemViewModel.PrecioCompraComprado = compraItemViewModel.Producto.PrecioVenta;
-            compraItemViewModel.MontoItemCalculado = compraItemViewModel.PrecioCompraCalculado*
-                                                     compraItemViewModel.Cantidad;
+            compraItemViewModel.PrecioCompraCalculado = compraItemViewModel.Producto.PrecioCosto;
 
             return View("Modificar", compraItemViewModel);
         }

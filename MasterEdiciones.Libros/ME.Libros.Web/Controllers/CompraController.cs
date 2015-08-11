@@ -51,9 +51,11 @@ namespace ME.Libros.Web.Controllers
                     ViewBag.Title = "Todas";
                     ViewBag.MenuId = 26;
                     view = "~/Views/Compra/Index.cshtml";
+                    Session.Add("MenuTodas", true);
                 }
                 else
                 {
+                    Session.Remove("MenuTodas");
                     compras.AddRange(CompraService.ListarAsQueryable()
                     .Where(c => c.Estado == estado)
                     .OrderByDescending(c => c.FechaCompra)
@@ -76,6 +78,7 @@ namespace ME.Libros.Web.Controllers
 
                     }
                 }
+
             }
 
             return View(view, compras);
@@ -95,7 +98,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
-              // SetMenuVigente();
+                // SetMenuVigente();
                 return View(compraViewModel);
             }
 
@@ -163,7 +166,7 @@ namespace ME.Libros.Web.Controllers
             }
 
             PrepareModel(compraViewModel);
-       //     SetMenuVigente();
+            //     SetMenuVigente();
             return View(compraViewModel);
         }
 

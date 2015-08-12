@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Views/Reporte/_Layout.cshtml";
+}
+<h2>Reportes</h2>
+<p>
+    Ver como agrupamos los reportes (clientes, vendedores, proveedores, cobradores)
+    <br />
+    Alternativa 1: Podrian ser 3 menues en el menu lateral.
+    1. Administracion
+    2. Facturacion
+    3. Tesoreria
+    <br />
+    Alternativa 2:
+    Armar directamente una pantalla sin Menu lateral pero hay que ver como organizarlos.
+    Se necesitan FILTROS para cualquiera de los casos
+</p>
+<a class="btn btn-info btn-sm" type="button" href="@Url.Action("Clientes")" target="_blank" title="Exportar Clientes">
+    <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+    Exportar Clientes
+</a>
+ 

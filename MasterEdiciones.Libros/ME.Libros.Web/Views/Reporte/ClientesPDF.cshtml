@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ME.Libros.Web.Models.ClienteViewModel>
+
+<h3>Clientes</h3>
+<table class="dataTableCustom">
+    <thead>
+        <tr>
+            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Codigo)</th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.Apellido)</th>
+            <th>@Html.DisplayNameFor(model => model.Cuil)</th>
+            <th>@Html.DisplayNameFor(model => model.Localidad)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id=@("tr_" + item.Id)>
+                <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                <td>@Html.DisplayFor(modelItem => item.Apellido)</td>
+                <td>@Html.DisplayFor(modelItem => item.Cuil)</td>
+                <td>@Html.DisplayFor(modelItem => item.Localidad.Nombre), @Html.DisplayFor(modelItem => item.Localidad.Provincia.Nombre)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
-
+using System.Web.Mvc.Filters;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -300,12 +300,18 @@ namespace ME.Libros.Web.Controllers
         public ActionResult GenerarChequera(int id)
         {
             //var headers = new Dictionary<string, string> { { "Content-Disposition", "attachment; filename=ChequeraVentaNro" + id + ".pdf" } };
+            var footer = "--footer-right \"[date] [time]\" --footer-center \"[page] de [toPage]\" " +
+                         "--footer-line --footer-font-size \"8\" " +
+                         "--footer-spacing 15 --footer-font-name \"calibri light\"";
             return new ActionAsPdf("ChequeraPDF", new { id })
             {
                 //FileName = "ChequeraVentaNro" + id + ".pdf",
                 PageOrientation = Orientation.Portrait,
                 PageSize = Size.A4,
-                //CustomHeaders = headers,
+                PageMargins = new Margins(10, 10, 10, 10),
+                //CustomSwitches = "--print-media-type --default-header --custom-header \" -- \" \\"
+                CustomSwitches = footer,
+                //UserName = User.Identity.Name
             };
         }
 

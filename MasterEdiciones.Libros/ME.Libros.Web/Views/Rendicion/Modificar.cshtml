@@ -1,0 +1,26 @@
+﻿@model ME.Libros.Web.Models.RendicionViewModel
+
+<h3>Modificar rendición</h3>
+<h5>
+    Solo podrá visualizar la rendición. Si los datos cargados son incorrectos, deberá anularla y volverla a crear correctamente.
+</h5>
+<hr>
+@using (Html.BeginForm("Modificar", "Rendicion", FormMethod.Post, new { id = "formRendicion", @class = "form-horizontal formEntidad" }))
+{
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right">
+                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                    Cancelar
+                </a>
+                @*<button id="btnCrearVenta" name="btnCrearVenta" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Modificar
+                </button>*@
+            </div>
+        </div>
+    </div>
+}

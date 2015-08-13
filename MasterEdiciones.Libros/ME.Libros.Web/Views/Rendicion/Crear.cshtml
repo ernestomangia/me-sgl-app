@@ -1,0 +1,27 @@
+﻿@model ME.Libros.Web.Models.RendicionViewModel
+
+<h3>Nueva rendición</h3>
+<h5>
+    Para cargar una nueva rendición primero deberás ingresar Periodo, Cobrador y Localidad. Luego, el sistema cargará
+    el listado de ventas para que puedas cargar los cobros correspondientes.
+</h5>
+<hr>
+@using (Html.BeginForm("Crear", "Rendicion", FormMethod.Post, new { id = "formRendicion", @class = "form-horizontal formEntidad" }))
+{
+    @Html.Partial("Shared/Form_Partial", Model)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-right">
+                <a id="btnCancelar" class="btn btn-default" href="@Url.Action("Index")">
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                    Cancelar
+                </a>
+                <button id="btnCrearVenta" name="btnCrearVenta" type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Crear
+                </button>
+            </div>
+        </div>
+    </div>
+}

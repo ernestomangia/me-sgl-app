@@ -1,0 +1,117 @@
+﻿@model ME.Libros.Web.Models.RendicionViewModel
+
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group form-group-sm">
+                @Html.LabelFor(r => r.Id, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(r => r.Id, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Periodo, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.TextBoxFor(r => r.Periodo, new { @class = "form-control", placeholder = "Periodo" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.CobradorId, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(r => r.CobradorId, Model.Cobradores, "Seleccione", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.LocalidadId, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(r => r.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        listar ventas
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.MontoFacturado, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    @Html.TextBoxFor(r => r.MontoFacturado, new { @class = "form-control", placeholder = Messages.MontoFacturado })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.Comision, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <div class="input-group">
+                    @Html.TextBoxFor(r => r.Comision, new { @class = "form-control", placeholder = Messages.PorcentajeComision })
+                    <div class="input-group-addon">%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.MontoComision, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    @Html.TextBoxFor(r => r.MontoComision, new { @class = "form-control", placeholder = Messages.MontoComision })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        
+    </div>
+    <div class="col-md-5">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(r => r.MontoNeto, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    @Html.TextBoxFor(r => r.MontoNeto, new { @class = "form-control", placeholder = Messages.MontoNeto })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            <b>Mensajes:</b>
+            @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+        </div>
+    </div>
+</div>

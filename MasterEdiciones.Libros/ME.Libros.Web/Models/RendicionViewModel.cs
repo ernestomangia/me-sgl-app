@@ -12,6 +12,7 @@ namespace ME.Libros.Web.Models
 
         public RendicionViewModel()
         {
+            Cobros = new List<CobroViewModel>();
         }
 
         public RendicionViewModel(RendicionDominio rendicionDominio)
@@ -21,8 +22,12 @@ namespace ME.Libros.Web.Models
             Periodo = rendicionDominio.Periodo;
             Cobrador = new CobradorViewModel(rendicionDominio.Cobrador);
             CobradorId = rendicionDominio.Cobrador.Id;
-            Zona = new ZonaViewModel(rendicionDominio.Zona);
-            ZonaId = rendicionDominio.Zona.Id;
+            Localidad = new LocalidadViewModel(rendicionDominio.Localidad);
+            LocalidadId = rendicionDominio.Localidad.Id;
+            MontoFacturado = rendicionDominio.MontoFacturado;
+            MontoNeto = rendicionDominio.MontoNeto;
+            Comision = rendicionDominio.Comision;
+            MontoComision = rendicionDominio.MontoComision;
         }
 
         #endregion
@@ -35,15 +40,17 @@ namespace ME.Libros.Web.Models
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [DisplayFormat(DataFormatString = "{0:MMM-yyyy}")]
         public DateTime Periodo { get; set; }
 
         [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long CobradorId { get; set; }
 
-        [Display(Name = "Zona", ResourceType = typeof(Messages))]
+        [Display(Name = "Localidad", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
-        public long ZonaId { get; set; }
+        public long LocalidadId { get; set; }
 
         [Display(Name = "MontoFacturado", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
@@ -58,7 +65,7 @@ namespace ME.Libros.Web.Models
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [DisplayFormat(DataFormatString = "{0:C}")]
-        public decimal PorcentajeComision { get; set; }
+        public decimal Comision { get; set; }
 
         [Display(Name = "MontoComision", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
@@ -68,9 +75,9 @@ namespace ME.Libros.Web.Models
         public List<CobroViewModel> Cobros { get; set; } 
 
         public CobradorViewModel Cobrador { get; set; }
-        public ZonaViewModel Zona { get; set; }
+        public LocalidadViewModel Localidad { get; set; }
         public SelectList Cobradores { get; set; }
-        public SelectList Zonas { get; set; }
+        public SelectList Localidades { get; set; }
 
         #endregion
     }

@@ -19,6 +19,7 @@ namespace ME.Libros.Web.Models
         {
             Id = localidad.Id;
             Nombre = localidad.Nombre;
+            CodigoPostal = localidad.CodigoPostal;
             Provincia = new ProvinciaViewModel(localidad.Provincia);
             ProvinciaId = localidad.Provincia.Id;
             Zona = new ZonaViewModel(localidad.Zona);
@@ -34,6 +35,10 @@ namespace ME.Libros.Web.Models
 
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public string Nombre { get; set; }
+
+        [Display(Name = "CodigoPostal", ResourceType = typeof(Messages))]
+        [StringLength(5, MinimumLength = 5, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        public string CodigoPostal { get; set; }
 
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]

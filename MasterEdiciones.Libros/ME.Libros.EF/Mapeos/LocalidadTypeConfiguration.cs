@@ -16,6 +16,7 @@ namespace ME.Libros.EF.Mapeos
             Property(l => l.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(l => l.FechaAlta).IsRequired();
             Property(l => l.Nombre).HasMaxLength(100).IsRequired();
+            Property(l => l.CodigoPostal).HasMaxLength(5).IsOptional();
 
             HasRequired(l => l.Provincia);
             HasRequired(l => l.Zona);

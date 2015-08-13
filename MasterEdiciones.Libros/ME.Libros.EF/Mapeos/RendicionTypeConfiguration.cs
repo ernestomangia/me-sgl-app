@@ -19,10 +19,10 @@ namespace ME.Libros.EF.Mapeos
             Property(r => r.MontoFacturado).IsRequired();
             Property(r => r.MontoNeto).IsRequired();
             Property(r => r.MontoComision).IsRequired();
-            Property(r => r.PorcentajeComision).IsRequired();
+            Property(r => r.Comision).IsRequired();
 
             // FK
-            HasRequired(r => r.Zona);
+            HasRequired(r => r.Localidad);
             HasRequired(r => r.Cobrador);
 
             ToTable("Rendicion");

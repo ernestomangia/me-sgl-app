@@ -37,6 +37,16 @@
 <div class="row">
     <div class="col-md-10">
         <div class="form-group form-group-sm">
+            @Html.LabelFor(l => l.CodigoPostal, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(l => l.CodigoPostal, new { @class = "form-control", data_mask = "a9999", placeholder = Messages.CodigoPostal })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group form-group-sm">
             @Html.LabelFor(l => l.ZonaId, new { @class = "col-sm-2 control-label" })
             <div class="col-md-4">
                 @Html.DropDownListFor(l => l.ZonaId, Model.Zonas, new { @class = "form-control" })

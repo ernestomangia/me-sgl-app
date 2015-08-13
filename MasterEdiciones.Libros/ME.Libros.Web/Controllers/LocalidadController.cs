@@ -76,6 +76,7 @@ namespace ME.Libros.Web.Controllers
                                              {
                                                  FechaAlta = DateTime.Now,
                                                  Nombre = localidadViewModel.Nombre,
+                                                 CodigoPostal = localidadViewModel.CodigoPostal,
                                                  Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId),
                                                  Zona = ZonaService.GetPorId(localidadViewModel.ZonaId)
                                              };
@@ -174,6 +175,7 @@ namespace ME.Libros.Web.Controllers
                 {
                     var localidadDominio = LocalidadService.GetPorId(localidadViewModel.Id);
                     localidadDominio.Nombre = localidadViewModel.Nombre;
+                    localidadDominio.CodigoPostal = localidadViewModel.CodigoPostal;
                     localidadDominio.Provincia = ProvinciaService.GetPorId(localidadViewModel.ProvinciaId);
                     localidadDominio.Zona = ZonaService.GetPorId(localidadViewModel.ZonaId);
 

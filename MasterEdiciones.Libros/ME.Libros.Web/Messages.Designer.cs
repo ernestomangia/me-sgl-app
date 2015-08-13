@@ -124,6 +124,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CP.
+        /// </summary>
+        public static string CodigoPostal {
+            get {
+                return ResourceManager.GetString("CodigoPostal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Repetir contraseña.
         /// </summary>
         public static string ConfirmarPassword {
@@ -444,6 +453,15 @@ namespace ME.Libros.Web {
         public static string LaLocalidad {
             get {
                 return ResourceManager.GetString("LaLocalidad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La rendición.
+        /// </summary>
+        public static string LaRendicion {
+            get {
+                return ResourceManager.GetString("LaRendicion", resourceCulture);
             }
         }
         

@@ -390,4 +390,10 @@
   <data name="MontoNeto" xml:space="preserve">
     <value>Monto neto</value>
   </data>
+  <data name="CodigoPostal" xml:space="preserve">
+    <value>CP</value>
+  </data>
+  <data name="LaRendicion" xml:space="preserve">
+    <value>La rendición</value>
+  </data>
 </root>

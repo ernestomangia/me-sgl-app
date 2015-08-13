@@ -888,6 +888,9 @@
     <Content Include="Views\Reporte\Index.cshtml" />
     <Content Include="Views\Reporte\_Layout.cshtml" />
     <Content Include="Views\Reporte\ClientesPDF.cshtml" />
+    <Content Include="Views\Rendicion\Crear.cshtml" />
+    <Content Include="Views\Rendicion\Shared\Form_Partial.cshtml" />
+    <Content Include="Views\Rendicion\Modificar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

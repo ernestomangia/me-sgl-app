@@ -1,4 +1,6 @@
-﻿using ME.Libros.Api.Repositorios;
+﻿using System;
+using System.Linq;
+using ME.Libros.Api.Repositorios;
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Servicios.General
@@ -30,6 +32,11 @@ namespace ME.Libros.Servicios.General
         public void SumarStock(ProductoDominio producto, int cantidad)
         {
             producto.Stock += cantidad;
+        }
+
+        public ProductoDominio GetByCodigoBarra(string codigoBarra)
+        {
+            return ListarAsQueryable().SingleOrDefault(p => p.CodigoBarra == codigoBarra);
         }
     }
 }

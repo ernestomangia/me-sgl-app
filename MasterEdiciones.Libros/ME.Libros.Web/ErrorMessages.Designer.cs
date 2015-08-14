@@ -61,6 +61,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;Codigo de Barra {0}&lt;/b&gt; ya se encuentra asociado a un producto existente.
+        /// </summary>
+        public static string CodigoBarraRepetido {
+            get {
+                return ResourceManager.GetString("CodigoBarraRepetido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;CUIL {0}&lt;/b&gt; se encuentra asociado a un cliente existente.
         /// </summary>
         public static string CuilRepetido {

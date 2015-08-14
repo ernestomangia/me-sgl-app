@@ -101,6 +101,18 @@ namespace ME.Libros.Web.Controllers
                     }
                 }
             }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 2601)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.CodigoBarraRepetido, productoViewModel.CodigoBarra));
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                }
+            }
             catch (Exception ex)
             {
                 ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
@@ -180,6 +192,7 @@ namespace ME.Libros.Web.Controllers
                     var productoDominio = ProductoService.GetPorId(productoViewModel.Id);
                     productoDominio.Nombre = productoViewModel.Nombre;
                     productoDominio.Descripcion = productoViewModel.Descripcion;
+                    productoDominio.CodigoBarra = productoViewModel.CodigoBarra;
                     productoDominio.Stock = productoViewModel.Stock;
                     productoDominio.PrecioCosto = productoViewModel.PrecioCosto;
                     productoDominio.PrecioVenta = productoViewModel.PrecioVenta;
@@ -199,6 +212,18 @@ namespace ME.Libros.Web.Controllers
                         TempData["Id"] = productoDominio.Id;
                         TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.ElProducto, productoDominio.Id);
                     }
+                }
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+                if (sqlException != null && sqlException.Number == 2601)
+                {
+                    ModelState.AddModelError("Error", string.Format(ErrorMessages.CodigoBarraRepetido, productoViewModel.CodigoBarra));
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
             catch (Exception ex)
@@ -221,6 +246,23 @@ namespace ME.Libros.Web.Controllers
         {
             var productoViewModel = new ProductoViewModel(ProductoService.GetPorId(id));
             
+            return new JsonResult
+            {
+                Data = productoViewModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
+        public JsonResult GetByCodigoBarra(string codigoBarra)
+        {
+            var productoViewModel = new ProductoViewModel();
+            var productoDominio = ProductoService.GetByCodigoBarra(codigoBarra);
+            if (productoDominio != null)
+            {
+                productoViewModel = new ProductoViewModel(productoDominio);
+            }
+
             return new JsonResult
             {
                 Data = productoViewModel,

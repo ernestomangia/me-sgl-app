@@ -195,6 +195,7 @@ function getProducto() {
                 mensajeError("Error: " + error + " - Status: " + status);
             },
             success: function (data) {
+                $("#CodigoBarra").val(data.CodigoBarra);
                 var precioVenta = parseFloat(data.PrecioVenta);
                 calcularMontosItem(precioVenta);
                 $("#precioSugerido").text(formatFloat(precioVenta));

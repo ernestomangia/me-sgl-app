@@ -29,6 +29,7 @@ namespace ME.Libros.Web.Models
             PrecioCosto = ventaItemDominio.PrecioCosto;
             Producto = new ProductoViewModel(ventaItemDominio.Producto);
             ProductoId = ventaItemDominio.Producto.Id;
+            CodigoBarra = ventaItemDominio.Producto.CodigoBarra;
         }
 
         #endregion
@@ -74,6 +75,11 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Producto", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ProductoId { get; set; }
+
+        [Display(Name = "CodigoBarra", ResourceType = typeof(Messages))]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
+        public string CodigoBarra { get; set; }
 
         public ProductoViewModel Producto { get; set; }
 

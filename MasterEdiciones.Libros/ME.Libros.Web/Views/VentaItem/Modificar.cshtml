@@ -47,8 +47,7 @@
     $(document).ready(function () {
         calcularDiferencia();
         if ($("#IdVentaItem").length == 1) {
-            $("#ProductoId, #Cantidad, #PrecioVentaVendido, #MontoItemVendido").attr("disabled", "disabled");
-            $("#ProductoId").attr("disabled", "disabled");
+            $("#ProductoId, #Cantidad, #PrecioVentaVendido, #MontoItemVendido, #CodigoBarra").attr("disabled", "disabled");
         }
     });
 
@@ -60,7 +59,11 @@
         }
     });
 
-    $('#modalAgregarItem').on('hidden.bs.modal', function () {
+    $('#modalVentaItem').on('hidden.bs.modal', function () {
         $("#contenedorVentaItem").empty();
+    });
+
+    $('#modalVentaItem').on('shown.bs.modal', function () {
+        $("#CodigoBarra").focus().select();
     });
 </script>

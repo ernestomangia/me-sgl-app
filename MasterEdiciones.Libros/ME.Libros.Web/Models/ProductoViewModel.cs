@@ -51,7 +51,7 @@ namespace ME.Libros.Web.Models
         public long Stock { get; set; }
 
         [Display(Name = "CodigoBarra", ResourceType = typeof(Messages))]
-        [StringLength(30, MinimumLength = 30, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
         public string CodigoBarra { get; set; }
 

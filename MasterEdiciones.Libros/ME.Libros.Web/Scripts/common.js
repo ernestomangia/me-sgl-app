@@ -194,3 +194,35 @@ function formatCurrency(value) {
 function formatToShortDate(value) {
     return Globalize.format(value, "d");
 }
+
+function getProductoByCodigoBarra(codigoBarra) {
+    if (codigoBarra.length == 13) {
+        $.ajax({
+            method: "GET",
+            url: '/Producto/GetByCodigoBarra' + "?codigoBarra=" + codigoBarra,
+            dataType: "json",
+            error: function (jqXHR, status, error) {
+                mensajeError("Error: " + error + " - Status: " + status);
+            },
+            success: function (data) {
+                if (data.Id > 0) {
+                    $("#ProductoId").val(data.Id);
+                    $("#ProductoId").trigger("change");
+                    $("#Cantidad").focus();
+                } else {
+                    mensajeError("Código de barra inexistente.");
+                    $("#CodigoBarra").focus().select();
+                }
+                //var precioVenta = parseFloat(data.PrecioVenta);
+                //calcularMontosItem(precioVenta);
+                //$("#precioSugerido").text(formatFloat(precioVenta));
+                //$("#PrecioVentaVendido").val(formatFloat(precioVenta));
+            },
+            timeout: 10000,
+            cache: false
+        });
+    } else {
+        $("#PrecioVentaVendido, #MontoItemVendido").val("");
+        $("#precioSugerido").text("-");
+    }
+}

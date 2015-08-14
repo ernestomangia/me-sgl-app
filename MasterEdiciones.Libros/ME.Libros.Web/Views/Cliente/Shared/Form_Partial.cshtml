@@ -62,7 +62,7 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.ProvinciaId, Messages.Provincia, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.ProvinciaId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.DropDownListFor(c => c.ProvinciaId, Model.Provincias, "Seleccione", new { @class = "form-control provincia", autocomplete = "off" })
             </div>
@@ -70,7 +70,7 @@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.LocalidadId, Messages.Localidad, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.LocalidadId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.DropDownListFor(c => c.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", autocomplete = "off" })
             </div>

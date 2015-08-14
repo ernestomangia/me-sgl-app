@@ -1,6 +1,12 @@
 ﻿@model ME.Libros.Web.Models.VentaItemViewModel
 
 <div class="form-group form-group-sm">
+    @Html.LabelFor(c => c.CodigoBarra, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(vi => vi.CodigoBarra, new { @class = "form-control", placeholder = Messages.CodigoBarra, autocomplete = "off", onfocus = "this.select();" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
     @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
         @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
@@ -104,4 +110,26 @@
             calcularDiferencia();
         }
     });
+
+    $('#CodigoBarra').on('change', function (e) {
+        getProductoByCodigoBarra($(this).val());
+    });
+
+    $('#CodigoBarra').on('keypress', function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            getProductoByCodigoBarra($(this).val());
+        }
+    });
+
+    //$('#CodigoBarra').on('keyup', function (e) {
+    //    if (e.keyCode == 13) {
+    //        e.preventDefault();
+    //        alert("Enter");
+    //        getProductoByCodigoBarra($(this).val());
+    //        if (e.keyCode == 13) {
+    //            return false;
+    //        }
+    //    }
+    //});
 </script>

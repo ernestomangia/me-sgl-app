@@ -51,7 +51,11 @@
         }
     });
 
-    $('#modalAgregarItem').on('hidden.bs.modal', function () {
+    $('#modalVentaItem').on('hidden.bs.modal', function () {
         $("#contenedorVentaItem").empty();
+    });
+
+    $('#modalVentaItem').on('shown.bs.modal', function () {
+        $("#CodigoBarra").focus();
     });
 </script>

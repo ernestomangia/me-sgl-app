@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ using ME.Libros.Dominio.General;
 
 namespace ME.Libros.EF.Mapeos
 {
-    public class ProductoTypeConfiguration: EntityTypeConfiguration<ProductoDominio>
+    public class ProductoTypeConfiguration : EntityTypeConfiguration<ProductoDominio>
     {
         public ProductoTypeConfiguration()
         {
@@ -24,7 +25,9 @@ namespace ME.Libros.EF.Mapeos
             Property(p => p.Nombre).HasMaxLength(100).IsRequired();
             Property(p => p.Descripcion).HasMaxLength(250).IsOptional();
             Property(p => p.Stock).IsOptional();
-            Property(p => p.CodigoBarra).HasMaxLength(30);
+            Property(p => p.CodigoBarra).HasMaxLength(13)
+                .IsOptional();
+                //.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
             Property(p => p.PrecioCosto).IsRequired();
             Property(p => p.PrecioVenta).IsRequired();
 

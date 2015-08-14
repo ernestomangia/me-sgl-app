@@ -99,6 +99,7 @@ namespace ME.Libros.Web.Controllers
             var ventaItemViewModel = ventaItemViewModels.First(vi => vi.ProductoId == productoId);
             ventaItemViewModel.Productos = new SelectList(productos, "Id", "Nombre");
             ventaItemViewModel.Producto = productos.First(p => p.Id == productoId);
+            ventaItemViewModel.CodigoBarra = ventaItemViewModel.Producto.CodigoBarra;
             ventaItemViewModel.PrecioVentaCalculado = ventaItemViewModel.Producto.PrecioVenta;
             ventaItemViewModel.MontoItemCalculado = ventaItemViewModel.PrecioVentaCalculado * ventaItemViewModel.Cantidad;
 

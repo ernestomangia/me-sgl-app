@@ -11,8 +11,6 @@ namespace ME.Libros.Web.Models
 
         public ProductoViewModel()
         {
-            Editorial = new EditorialViewModel();
-            Rubro = new RubroViewModel();
         }
 
         public ProductoViewModel(ProductoDominio producto)

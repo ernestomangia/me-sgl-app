@@ -26,6 +26,10 @@ function mensajeError(text) {
     toastr.error(text);
 }
 
+function mensajeWarn(text) {
+    toastr.warning(text);
+}
+
 function cargarPestaña(url) {
     cargarVistaParcial(url, "tabContenedor", false);
     //window.location.href = "http://localhost:24086/" + url;

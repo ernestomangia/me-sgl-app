@@ -23,7 +23,7 @@
         {
             <tr id=@("tr_" + item.Id)>
                 <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
+                <td class="text-capitalize">@Html.DisplayFor(modelItem => item.Periodo)</td>
                 <td>@Html.DisplayFor(modelItem => item.Cobrador.Apellido), @Html.DisplayFor(modelItem => item.Cobrador.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.Localidad.Nombre), @Html.DisplayFor(modelItem => item.Localidad.Provincia.Nombre)</td>
                 <td>@Html.DisplayFor(modelItem => item.MontoFacturado)</td>

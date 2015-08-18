@@ -4,7 +4,7 @@
     "progressBar": false,
     "positionClass": "toast-top-right",
     "onclick": null,
-    "showDuration": "500",
+    "showDuration": "1000",
     "hideDuration": "1000",
     "timeOut": "5000",
     "extendedTimeOut": "1000",

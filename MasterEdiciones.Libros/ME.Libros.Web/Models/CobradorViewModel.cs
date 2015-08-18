@@ -14,7 +14,6 @@ namespace ME.Libros.Web.Models
 
         public CobradorViewModel()
         {
-            Localidad = new LocalidadViewModel();
             LocalidadesAsignadas = new List<LocalidadViewModel>();
             LocalidadesNoAsignadas = new List<LocalidadViewModel>();
         }

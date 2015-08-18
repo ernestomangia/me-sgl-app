@@ -228,6 +228,16 @@ namespace ME.Libros.EF
                     Tipo = TipoPlanPago.Contado
                 };
 
+                var planPago10 = new PlanPagoDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "10 x 100",
+                    Descripcion = "10 cuotas de $100 c/una",
+                    Monto = 100,
+                    CantidadCuotas = 10,
+                    Tipo = TipoPlanPago.Financiado
+                };
+
                 var enciclopedia = new ProductoDominio
                 {
                     FechaAlta = DateTime.Now,
@@ -251,6 +261,7 @@ namespace ME.Libros.EF
                 };
 
                 context.Set<PlanPagoDominio>().Add(planPagoContado);
+                context.Set<PlanPagoDominio>().Add(planPago10);
                 context.Set<GastoDominio>().Add(gastoSinDefinir);
                 context.Set<ClienteDominio>().Add(cliente);
                 context.Set<CobradorDominio>().Add(cobrador);

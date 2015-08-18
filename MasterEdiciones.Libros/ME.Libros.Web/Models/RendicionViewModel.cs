@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 
@@ -28,6 +29,7 @@ namespace ME.Libros.Web.Models
             MontoNeto = rendicionDominio.MontoNeto;
             Comision = rendicionDominio.Comision;
             MontoComision = rendicionDominio.MontoComision;
+            Cobros = new List<CobroViewModel>(rendicionDominio.Cobros.Select(c => new CobroViewModel(c)));
         }
 
         #endregion
@@ -40,8 +42,8 @@ namespace ME.Libros.Web.Models
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
-        [DisplayFormat(DataFormatString = "{0:MMM-yyyy}")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [DisplayFormat(DataFormatString = "{0:y}")]
         public DateTime Periodo { get; set; }
 
         [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
@@ -72,7 +74,7 @@ namespace ME.Libros.Web.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoComision { get; set; }
 
-        public List<CobroViewModel> Cobros { get; set; } 
+        public List<CobroViewModel> Cobros { get; set; }
 
         public CobradorViewModel Cobrador { get; set; }
         public LocalidadViewModel Localidad { get; set; }

@@ -20,8 +20,6 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.Estado).IsRequired();
 
             // FK
-            HasRequired(c => c.Venta);
-            HasRequired(c => c.Cobrador);
 
             ToTable("Cobro");
         }

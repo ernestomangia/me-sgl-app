@@ -14,7 +14,6 @@ namespace ME.Libros.Web.Models
 
         public VendedorViewModel()
         {
-            Localidad = new LocalidadViewModel();
             LocalidadesAsignadas = new List<LocalidadViewModel>();
             LocalidadesNoAsignadas = new List<LocalidadViewModel>();
         }

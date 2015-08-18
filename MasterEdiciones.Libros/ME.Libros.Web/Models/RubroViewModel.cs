@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using ME.Libros.Dominio.General;
-
-
 
 namespace ME.Libros.Web.Models
 {
@@ -15,7 +9,6 @@ namespace ME.Libros.Web.Models
 
         public RubroViewModel()
         {
-            
         }
 
         public RubroViewModel(RubroDominio rubro)
@@ -24,7 +17,6 @@ namespace ME.Libros.Web.Models
             Nombre = rubro.Nombre;
             Descripcion = rubro.Descripcion;
         }
-
         
         #endregion
 

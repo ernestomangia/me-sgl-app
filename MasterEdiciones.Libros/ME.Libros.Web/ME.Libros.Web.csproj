@@ -891,6 +891,7 @@
     <Content Include="Views\Rendicion\Crear.cshtml" />
     <Content Include="Views\Rendicion\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Rendicion\Modificar.cshtml" />
+    <Content Include="Views\Rendicion\ListarCobros.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

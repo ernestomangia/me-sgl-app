@@ -94,3 +94,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('#CodigoBarra').on('keypress', function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            //return false;
+        }
+    });
+</script>

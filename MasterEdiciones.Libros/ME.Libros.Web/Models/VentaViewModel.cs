@@ -15,10 +15,6 @@ namespace ME.Libros.Web.Models
 
         public VentaViewModel()
         {
-            Cliente = new ClienteViewModel();
-            Cobrador = new CobradorViewModel();
-            Vendedor = new VendedorViewModel();
-            Cliente = new ClienteViewModel();
             Items = new List<VentaItemViewModel>();
             Cuotas = new List<CuotaViewModel>();
         }

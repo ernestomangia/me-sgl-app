@@ -17,9 +17,10 @@
 <div class="row">
     <div class="col-md-5">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(r => r.Periodo, new { @class = "col-md-4 control-label" })
+            @Html.Label("PeriodoFake", "Periodo", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(r => r.Periodo, new { @class = "form-control", placeholder = "Periodo" })
+                @Html.TextBox("PeriodoFake", "", new { id = "PeriodoFake", @class = "form-control", placeholder = "Periodo" })
+                @Html.HiddenFor(r => r.Periodo, new { @class = "datepicker" })
             </div>
         </div>
     </div>
@@ -46,13 +47,31 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-10">
-        listar ventas
+    <fieldset class="col-md-10">
+        <legend>Cobros</legend>
+    </fieldset>
+</div>
+<div class="row">
+    <div id="rowCobros" class="col-md-10">
+        <table class="dataTableCustom">
+            <thead>
+                <tr>
+                    <th class="columnaCodigo noSort">Venta Nº</th>
+                    <th>Cliente</th>
+                    <th>Saldo</th>
+                    <th>Cuota Nº</th>
+                    <th>Estado venta</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
+                    <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
+                </tr>
+            </thead>
+            <tbody id="resultado"></tbody>
+        </table>
     </div>
 </div>
 <div class="row">
     <div class="col-md-5">
-
+        @*Columna Vacia*@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -92,7 +111,7 @@
 </div>
 <div class="row">
     <div class="col-md-5">
-        
+        @*Columna Vacia*@
     </div>
     <div class="col-md-5">
         <div class="form-group form-group-sm">
@@ -106,8 +125,16 @@
         </div>
     </div>
 </div>
+<div id="MsjSinVentasVigentes" class="row" style="display: none;">
+    <div class="col-md-10">
+        <div class="alert alert-warning" role="alert">
+            <a class="close" data-hide="alert" aria-hidden="true">×</a>
+            No se encontraron ventas vigentes para el el cobrador y la localidad seleccionada.
+        </div>
+    </div>
+</div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-10">
         <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
             <a class="close" data-hide="alert" aria-hidden="true">×</a>
             <b>Mensajes:</b>
@@ -115,3 +142,78 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Periodo, #PeriodoFake").datepicker("setDate", new Date());
+        $("#PeriodoFake").rules("add", {
+            required: true,
+            messages: {
+                required: "El <b>Periodo</b> es requerido"
+            }
+        });
+        //$('#formRendicion').validate().settings.ignore = false;
+    });
+
+    $('#PeriodoFake').datepicker({
+        language: 'es',
+        todayBtn: 'linked',
+        todayHighlight: true,
+        orientation: "left top",
+        format: "MM yyyy"
+    });
+
+    $("#PeriodoFake").on("changeDate clearDate", function () {
+        var periodoFake = $(this).datepicker('getDate');
+        $('#Periodo').datepicker('setDate', periodoFake);
+    });
+
+    $('#LocalidadId, #CobradorId').on('change', function (e) {
+        cargarCobros();
+    });
+
+    function cargarCobros() {
+        var localidadId = $("#LocalidadId :selected").val();
+        var cobradorId = $("#CobradorId :selected").val();
+        if (cobradorId > 0 && localidadId > 0) {
+            $.ajax({
+                method: "GET",
+                url: '/Rendicion/ListarCobros',
+                data: { cobradorId: cobradorId, localidadId: localidadId },
+                dataType: "html",
+                error: function (jqXHR, status, error) {
+                    mensajeError("Error: " + error + " - Status: " + status);
+                },
+                success: function (data) {
+                    var existenVentasVigentes = $(data).filter('input[name="ExistenVentasVigentes"]');
+
+                    if (existenVentasVigentes.val() == "True") {
+                        $("#MsjSinVentasVigentes").hide();
+                        //$(".dataTableCustom").remove();
+                        $("#rowCobros").html(data);
+                        //$("#resultado").html(data);
+                        loadDataTable2();
+                        $(".datepickerCobros").datepicker("clearDates");
+                        var form = $("#formRendicion")
+                            .removeData("validator") /* added by the raw jquery.validate plugin */
+                            .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin */
+                        jQuery.validator.unobtrusive.parse(form);
+                        $('#formRendicion').validate().settings.ignore = false;
+                        //$("#tablaResultado").DataTable();
+                        //table.draw();
+                    } else {
+                        mensajeWarn("No se encontraron ventas vigentes para el el cobrador y la localidad seleccionada.");
+                        $("#MsjSinVentasVigentes").show();
+                        var table = $("#tablaResultado").dataTable();
+                        table.fnClearTable();
+                    }
+                },
+                timeout: 10000,
+                cache: false
+            });
+        } else {
+            var table = $("#tablaResultado").dataTable();
+            table.fnClearTable();
+        }
+    }
+</script>

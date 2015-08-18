@@ -6,6 +6,7 @@ using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
+using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -15,6 +16,7 @@ namespace ME.Libros.Web.Controllers
         private RendicionService RendicionService { get; set; }
         private CobradorService CobradorService { get; set; }
         private LocalidadService LocalidadService { get; set; }
+        private VentaService VentaService { get; set; }
 
         public RendicionController()
         {
@@ -22,6 +24,8 @@ namespace ME.Libros.Web.Controllers
             RendicionService = new RendicionService(new EntidadRepository<RendicionDominio>(modelContainer));
             CobradorService = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
+            VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
+
             ViewBag.MenuId = 100;
             ViewBag.Title = "Rendiciones";
         }
@@ -123,6 +127,23 @@ namespace ME.Libros.Web.Controllers
 
             PrepareModel(rendicionViewModel);
             return View(rendicionViewModel);
+        }
+
+        [HttpGet]
+        public PartialViewResult ListarCobros(int cobradorId, int localidadId)
+        {
+            var rendicion = new RendicionViewModel();
+            using (VentaService)
+            {
+                rendicion.Cobros.AddRange(VentaService.ListarAsQueryable()
+                    .Where(v => v.Estado == EstadoVenta.Vigente
+                        && v.Cobrador.Id == cobradorId 
+                        && v.Cliente.Localidad.Id == localidadId)
+                    .ToList()
+                    .Select(v => new CobroViewModel { Venta = new VentaViewModel(v) }));
+            }
+
+            return PartialView(rendicion);
         }
 
         #region Private Methods

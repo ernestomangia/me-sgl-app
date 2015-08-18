@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
     public class EditorialViewModel
     {
-
         #region Constructor(s)
+
         public EditorialViewModel()
         {
-
         }
 
         public EditorialViewModel(EditorialDominio editorial)
@@ -21,7 +16,6 @@ namespace ME.Libros.Web.Models
             Id = editorial.Id;
             Nombre = editorial.Nombre;
             Descripcion = editorial.Descripcion;
-
         }
 
         #endregion
@@ -39,6 +33,5 @@ namespace ME.Libros.Web.Models
         public string Descripcion { get; set; }
 
         #endregion
-
     }
 }

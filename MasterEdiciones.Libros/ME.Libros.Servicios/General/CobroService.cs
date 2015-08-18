@@ -18,11 +18,11 @@ namespace ME.Libros.Servicios.General
         {
             if (cobroDominio.Estado == EstadoCobro.Cobrado)
             {
-                cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo - cobroDominio.Monto;
+                //cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo - cobroDominio.Monto;
             }
             else
             {
-                cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo + cobroDominio.Monto;
+                //cobroDominio.Venta.Saldo = cobroDominio.Venta.Saldo + cobroDominio.Monto;
             }
             
             return base.Guardar(cobroDominio);

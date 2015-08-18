@@ -48,7 +48,7 @@ function crearVentaItem(form) {
                 var ventaItem = data.VentaItem;
                 agregarVentaItem(ventaItem);
                 $('#modalVentaItem').modal('toggle');
-                mensajeSuccess("Se agrego el " + ventaItem.Producto.Nombre + " al detalle de la venta");
+                mensajeSuccess("Se agrego el producto " + ventaItem.Producto.Nombre + " al detalle de la venta");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -178,7 +178,7 @@ function calcularTotales(dt, row, data, start, end, display) {
     }
 
     // Update footer
-    $(api.column(4).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ' total)');
+    $(api.column(4).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ')');
     if ($("#Id").length == 0) {
         $("#MontoVendido, #MontoCalculado").val(formatFloat(total));
     }

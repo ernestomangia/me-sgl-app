@@ -10,7 +10,6 @@ namespace ME.Libros.Web.Models
 
         public PlanPagoViewModel()
         {
-
         }
 
         public PlanPagoViewModel(PlanPagoDominio planPago)

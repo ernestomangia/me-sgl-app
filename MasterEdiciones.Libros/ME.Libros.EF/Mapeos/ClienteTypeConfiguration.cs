@@ -23,8 +23,8 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.Apellido).HasMaxLength(100).IsRequired();
             Property(c => c.FechaNacimiento).IsOptional();
             Property(c => c.Dni)
-                .IsOptional()
-                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
+                .IsOptional();
+                //.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
             Property(c => c.Cuil).HasMaxLength(13)
                 .IsOptional()
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));

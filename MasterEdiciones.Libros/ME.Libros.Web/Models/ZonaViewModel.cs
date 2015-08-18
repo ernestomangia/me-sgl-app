@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 using ME.Libros.Dominio.General;
 
 namespace ME.Libros.Web.Models
 {
     public class ZonaViewModel
     {
-             #region Constructor(s)
+        #region Constructor(s)
 
         public ZonaViewModel()
         {
-            
         }
 
         public ZonaViewModel(ZonaDominio zona)
@@ -38,7 +33,5 @@ namespace ME.Libros.Web.Models
         public string Descripcion { get; set; }
 
         #endregion
-
-
     }
 }

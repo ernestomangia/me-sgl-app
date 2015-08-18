@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-using ME.Libros.Utils.Enums;
 using ME.Libros.Dominio.General;
 using ME.Libros.Web.Validators;
 
@@ -14,7 +13,6 @@ namespace ME.Libros.Web.Models
 
         public ProveedorViewModel()
         {
-            Localidad = new LocalidadViewModel();
         }
 
         public ProveedorViewModel(ProveedorDominio proveedor)
@@ -38,7 +36,7 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Codigo", ResourceType = typeof(Messages))]
         public long Id { get; set; }
-        
+
         [Display(Name = "FechaAlta", ResourceType = typeof(Messages))]
         public DateTime FechaAlta { get; set; }
 
@@ -46,7 +44,7 @@ namespace ME.Libros.Web.Models
         [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [RegularExpression(@"^([a-zA-Z]+\s)*[a-zA-Z]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyLetters")]
         public string RazonSocial { get; set; }
-        
+
         [Display(Name = "Cuil", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
@@ -57,7 +55,7 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Direccion", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public string Direccion { get; set; }
- 
+
         [Display(Name = "TelefonoFijo", ResourceType = typeof(Messages))]
         [StringLength(11, MinimumLength = 11, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
         public string TelefonoFijo { get; set; }
@@ -66,11 +64,11 @@ namespace ME.Libros.Web.Models
         public string Celular { get; set; }
 
         public string Email { get; set; }
-        
+
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long LocalidadId { get; set; }
-        
+
         [Display(Name = "Provincia", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public long ProvinciaId { get; set; }

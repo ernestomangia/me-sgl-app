@@ -78,7 +78,39 @@ namespace ME.Libros.Web.Controllers
                 MontoNeto = rendicionViewModel.MontoNeto,
                 Comision = rendicionViewModel.Comision,
                 MontoComision = rendicionViewModel.MontoComision,
+                Cobros = new List<CobroDominio>()
             };
+
+            foreach (var cobro in rendicionViewModel.Cobros)
+            {
+                var venta = VentaService.GetPorId(cobro.VentaId);
+                var montoCobro = cobro.Monto;
+                while (montoCobro > 0)
+                {
+                    var cuota = venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada);
+                    if (montoCobro > cuota.Monto)
+                    {
+                        cuota.MontoCobro = cuota.Monto;
+                        cuota.Estado = EstadoCuota.Pagada;
+                    }
+                    else
+                    {
+                        cuota.MontoCobro += cobro.Monto;
+                        cuota.Estado = EstadoCuota.Parcial;
+                    }
+                    cuota.Saldo = cuota.Monto - cuota.MontoCobro;
+                    montoCobro -= cuota.Monto;
+                }
+
+                rendicionDominio.Cobros.Add(new CobroDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    FechaCobro = cobro.FechaCobro,
+                    Estado = EstadoCobro.Cobrado,
+                    Monto = cobro.Monto
+                });
+                //VentaService.Guardar(venta.Cuotas);
+            }
 
             long resultado = 0;
             try
@@ -137,10 +169,10 @@ namespace ME.Libros.Web.Controllers
             {
                 rendicion.Cobros.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == EstadoVenta.Vigente
-                        && v.Cobrador.Id == cobradorId 
+                        && v.Cobrador.Id == cobradorId
                         && v.Cliente.Localidad.Id == localidadId)
                     .ToList()
-                    .Select(v => new CobroViewModel { Venta = new VentaViewModel(v) }));
+                    .Select(v => new CobroViewModel { Venta = new VentaViewModel(v), VentaId = v.Id }));
             }
 
             return PartialView(rendicion);

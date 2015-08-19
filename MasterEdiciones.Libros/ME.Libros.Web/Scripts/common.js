@@ -214,7 +214,7 @@ function getProductoByCodigoBarra(codigoBarra) {
                     $("#ProductoId").trigger("change");
                     $("#Cantidad").focus();
                 } else {
-                    mensajeError("Código de barra inexistente.");
+                    mensajeWarn("Código de barra inexistente.");
                     $("#CodigoBarra").focus().select();
                 }
                 //var precioVenta = parseFloat(data.PrecioVenta);

@@ -49,6 +49,8 @@ namespace ME.Libros.Web.Models
 
         public List<CuotaViewModel> Cuotas { get; set; }
 
+        public long VentaId { get; set; }
+
         public VentaViewModel Venta { get; set; }
 
         #endregion

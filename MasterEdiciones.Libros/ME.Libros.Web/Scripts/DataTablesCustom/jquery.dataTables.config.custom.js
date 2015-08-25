@@ -40,40 +40,53 @@ function getFloatVal(i) {
 }
 
 function loadDataTable() {
-    $(".dataTableCustom").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+    $(".dataTableCustom").addClass("table table-striped table-hover table-bordered order-column");
     $(".dataTableCustom .columnaAcciones").attr("data-orderable", "false");
 
-    var table = $('.dataTableCustom').dataTable();
+    var table = $('.dataTableCustom').DataTable({
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        keys: {
+            className: ''
+        }
+    });
+
+    table.buttons()
+        .container()
+        .insertBefore('#DataTables_Table_0_filter');
 
     if ($(".dataTables_empty").length == 0) {
-        $('.dataTableCustom tbody').on('click', 'tr', function() {
-            if (!$(this).hasClass('active')) {
-                $('.dataTableCustom tbody tr').removeClass('active');
-                $(this).addClass('active');
+        $('.dataTableCustom tbody').on('click', 'tr', function () {
+            if (!$(this).hasClass('rowActive')) {
+                $('.dataTableCustom tbody tr').removeClass('rowActive');
+                $(this).addClass('rowActive');
             }
         });
 
-        $('.dataTableCustom tbody').on('dblclick', 'tr', function() {
+        $('.dataTableCustom tbody').on('dblclick', 'tr', function () {
             window.location = $(this).find(".btnModificar").attr("href");
         });
 
-        var keys = new $.fn.dataTable.KeyTable(table);
-
-        /* Action */
-        keys.event.action(null, null, function(node) {
-            window.location = $(node).parent("tr").find(".btnModificar").attr("href");
+        table.on('key', function (e, datatable, key, cell, originalEvent) {
+            if (key === 13) {
+                // Enter sobre un registro
+                window.location = $(cell.node()).parent("tr").find(".btnModificar").attr("href");
+            }
         });
 
-        keys.event.focus(null, null, function(node) {
-            $('.dataTableCustom tbody tr').removeClass('active');
-            $(node).parent("tr").addClass('active');
+        table.on('key-focus', function (e, datatable, cell) {
+            // Focus sobre una celda
+            $('.dataTableCustom tbody tr').removeClass('rowActive');
+            $(cell.node()).parent("tr").addClass('rowActive');
         });
 
-        $(document).bind("keydown", function(event) {
+        $(document).bind("keydown", function (event) {
             if (event.keyCode == 46) {
-                var rowSelected = $(".dataTableCustom").find("tr.active");
+                // Delete sobre un registro
+                var rowSelected = $(".dataTableCustom").find("tr.rowActive");
                 if (rowSelected.length == 1) {
-                    $(".dataTableCustom").find("tr.active").find(".btnEliminar").click();
+                    $(".dataTableCustom").find("tr.rowActive").find(".btnEliminar").click();
                 }
             }
         });

@@ -7,8 +7,17 @@ div.dataTables_wrapper {
     margin-top: 15px;
 }
 
-table.KeyTable th.focus,
+/*table.KeyTable th.focus,
 table.KeyTable td.focus {
 	outline: 0;
 	outline-offset: -3px;
+}*/
+
+.rowActive {
+    background-color: #337ab7 !important;
+}
+
+.dt-buttons {
+    float: right;
+    padding-left: 10px; 
 }

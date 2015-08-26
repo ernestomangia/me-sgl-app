@@ -1,17 +1,26 @@
-﻿@using ME.Libros.Web.Extensions
+﻿@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Extensions
 @model IEnumerable<ME.Libros.Web.Models.CuotaViewModel>
-
+@{
+    var estado = new Dictionary<EstadoCuota, string>
+    {
+        { EstadoCuota.NoVencida, "default" },
+        { EstadoCuota.Parcial, "warning" },
+        { EstadoCuota.Atrasada, "danger" },
+        { EstadoCuota.Pagada, "success" }
+    };
+}
 <table id="ventaCuotaTable" @*class="dataTableCustom2"*@>
     <thead>
         <tr>
             <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Numero)</th>
-            <th>@Html.DisplayNameFor(model => model.Estado)</th>
-            <th>@Html.DisplayNameFor(model => model.FechaVencimiento)</th>
-            <th>@Html.DisplayNameFor(model => model.FechaCobro)</th>
-            <th class="numero">@Html.DisplayNameFor(model => model.Atraso)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Monto)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaVencimiento)</th>
+            <th>@Html.DisplayNameFor(model => model.Estado)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Interes)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.MontoCobro)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaCobro)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.Atraso)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Saldo)</th>
         </tr>
     </thead>
@@ -26,24 +35,16 @@
     </tfoot>
     @foreach (var item in Model)
     {
-        <tr>
+        <tr class="">
             <td>@Html.DisplayFor(c => item.Numero)</td>
-            <td class="text-center">
-                @item.Estado.GetDisplayName()
-            </td>
-            <td class="text-center">@item.FechaVencimiento.ToString("dd/MM/yyyy")</td>
-            <td class="text-center">
-                @(item.FechaCobro.HasValue
-                      ? item.FechaCobro.Value.ToString("dd/MM/yyyy")
-                      : "-")
-            </td>
-            <td class="text-center">
-                @(item.FechaCobro.HasValue
-                      ? Html.DisplayFor(c => item.Atraso) + (item.Atraso == 1 ? " día" : " días")
-                      : "-")
-            </td>
             <td class="text-right">
                 @Html.DisplayFor(c => item.Monto).ToHtmlString()
+            </td>
+            <td class="text-center">@item.FechaVencimiento.ToString("dd/MM/yyyy")</td>
+            <td class="text-center @(estado[item.Estado])">
+                <span class="text-@(estado[item.Estado])">
+                    @item.Estado.GetDisplayName()
+                </span>
             </td>
             <td class="text-right">
                 @(item.Interes > 0
@@ -53,6 +54,16 @@
             <td class="text-right">
                 @(item.MontoCobro > 0m
                       ? Html.DisplayFor(c => item.MontoCobro).ToHtmlString()
+                      : "-")
+            </td>
+            <td class="text-center">
+                @(item.FechaCobro.HasValue
+                      ? item.FechaCobro.Value.ToString("dd/MM/yyyy")
+                      : "-")
+            </td>
+            <td class="text-center">
+                @(item.FechaCobro.HasValue
+                      ? Html.DisplayFor(c => item.Atraso) + (item.Atraso == 1 ? " día" : " días")
                       : "-")
             </td>
             <td class="text-right">@Html.DisplayFor(c => item.Saldo)</td>

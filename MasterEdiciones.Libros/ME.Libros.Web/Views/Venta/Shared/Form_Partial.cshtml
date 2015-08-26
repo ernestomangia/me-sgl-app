@@ -1,6 +1,5 @@
 ﻿@using ME.Libros.Utils.Enums
 @using ME.Libros.Web.Extensions
-@using Mono.CSharp
 @model ME.Libros.Web.Models.VentaViewModel
 @{
     var estado = new Dictionary<EstadoVenta, string>
@@ -159,6 +158,28 @@
                         </div>
                     </div>
                 </div>
+                @if (Model.Id > 0)
+                {
+                    var relacionSaldoMonto = Model.MontoVendido == 0
+                        ? 0
+                        : Model.Saldo / Model.MontoVendido;
+                    var progresoCobro = Math.Round((1 - relacionSaldoMonto) * 100);
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-md-offset-4 col-md-8">
+
+                                <div class="progress" style="margin-bottom: 5px;">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="@progresoCobro" aria-valuemin="0" aria-valuemax="100" style="width: @progresoCobro%;min-width: 2em;">
+                                        <span class="sr-only">@progresoCobro%</span>
+                                        @progresoCobro%
+                                    </div>
+                                </div>
+                                <span class="text-primary">Progreso de cobro</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                }
                 @if (Model.Cuotas.Any())
                 {
                     <div class="row">

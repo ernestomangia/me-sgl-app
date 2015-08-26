@@ -7,6 +7,7 @@ using ME.Libros.EF;
 using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
+using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
@@ -21,10 +22,10 @@ namespace ME.Libros.Web.Controllers
         public RendicionController()
         {
             var modelContainer = new ModelContainer();
-            RendicionService = new RendicionService(new EntidadRepository<RendicionDominio>(modelContainer));
             CobradorService = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
+            RendicionService = new RendicionService(new EntidadRepository<RendicionDominio>(modelContainer), VentaService);
 
             ViewBag.MenuId = 100;
             ViewBag.Title = "Rendiciones";
@@ -81,36 +82,7 @@ namespace ME.Libros.Web.Controllers
                 Cobros = new List<CobroDominio>()
             };
 
-            foreach (var cobro in rendicionViewModel.Cobros)
-            {
-                var venta = VentaService.GetPorId(cobro.VentaId);
-                var montoCobro = cobro.Monto;
-                while (montoCobro > 0)
-                {
-                    var cuota = venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada);
-                    if (montoCobro > cuota.Monto)
-                    {
-                        cuota.MontoCobro = cuota.Monto;
-                        cuota.Estado = EstadoCuota.Pagada;
-                    }
-                    else
-                    {
-                        cuota.MontoCobro += cobro.Monto;
-                        cuota.Estado = EstadoCuota.Parcial;
-                    }
-                    cuota.Saldo = cuota.Monto - cuota.MontoCobro;
-                    montoCobro -= cuota.Monto;
-                }
-
-                rendicionDominio.Cobros.Add(new CobroDominio
-                {
-                    FechaAlta = DateTime.Now,
-                    FechaCobro = cobro.FechaCobro,
-                    Estado = EstadoCobro.Cobrado,
-                    Monto = cobro.Monto
-                });
-                //VentaService.Guardar(venta.Cuotas);
-            }
+            RendicionService.ContabilizarCobros(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto));
 
             long resultado = 0;
             try

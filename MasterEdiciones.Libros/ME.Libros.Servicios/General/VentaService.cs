@@ -53,6 +53,8 @@ namespace ME.Libros.Servicios.General
                     // N cuotas
                     // Plan de pago a partir de montos fijos
                     GenerarCuotas(ventaDominio);
+                    CalcularSaldo(ventaDominio);
+                    CalcularMontoVendido(ventaDominio);
 
                     // TODO: Generar plan de pago a partir de un interes
                     ventaDominio.Estado = EstadoVenta.Vigente;
@@ -61,7 +63,7 @@ namespace ME.Libros.Servicios.General
                 {
                     // Contado
                     // TODO: Generar cobro porque es contado
-
+                    ventaDominio.Saldo = 0;
                     ventaDominio.Estado = EstadoVenta.Pagada;
                 }
                 CalcularTotalVenta(ventaDominio);
@@ -134,6 +136,16 @@ namespace ME.Libros.Servicios.General
                 .OrderByDescending(v => v.FechaVenta)
                 .ThenByDescending(v => v.Id)
                 .ToList();
+        }
+
+        public void CalcularSaldo(VentaDominio ventaDominio)
+        {
+            ventaDominio.Saldo = ventaDominio.Cuotas.Sum(c => c.Saldo);
+        }
+
+        public void CalcularMontoVendido(VentaDominio ventaDominio)
+        {
+            ventaDominio.MontoVendido = ventaDominio.Cuotas.Sum(c => c.Monto);
         }
 
         #region Private Methods

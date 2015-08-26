@@ -17,5 +17,15 @@ namespace ME.Libros.Web.Extensions
                 Hasta = ventaTodasViewModel.Hasta
             };
         }
+
+        public static CobroDto ConvertToDto(CobroViewModel cobroViewModel)
+        {
+            return new CobroDto
+            {
+                VentaId = cobroViewModel.VentaId,
+                FechaCobro = cobroViewModel.FechaCobro,
+                Monto = cobroViewModel.Monto
+            };
+        }
     }
 }

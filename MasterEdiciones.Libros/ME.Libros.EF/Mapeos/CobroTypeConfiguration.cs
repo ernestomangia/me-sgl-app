@@ -19,8 +19,9 @@ namespace ME.Libros.EF.Mapeos
             Property(c => c.FechaCobro).IsRequired();
             Property(c => c.Estado).IsRequired();
 
+            HasMany(c => c.Cuotas).WithMany();
+            
             // FK
-
             ToTable("Cobro");
         }
     }

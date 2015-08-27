@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -162,7 +163,7 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado > 0)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new{estado=EstadoCompra.Pagada});
             }
 
             PrepareModel(compraViewModel);
@@ -223,6 +224,65 @@ namespace ME.Libros.Web.Controllers
                 Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        [HttpPost]
+        public ActionResult Modificar(CompraViewModel compraViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(compraViewModel);
+                return View(compraViewModel);
+            }
+
+            long resultado = 0;
+            try
+            {
+                using (CompraService)
+                {
+                    var compraDominio = CompraService.GetPorId(compraViewModel.Id);
+
+                    compraDominio.Proveedor = ProveedorService.GetPorId(compraViewModel.ProveedorId);
+                    compraDominio.MontoComprado = compraViewModel.MontoComprado;
+                    compraDominio.MontoCalculado = compraViewModel.MontoCalculado;
+                    compraDominio.NroFactura = compraViewModel.NroFactura;
+                    compraDominio.NroRemito = compraViewModel.NroRemito;
+                    
+                    resultado = CompraService.Guardar(compraDominio);
+                    if (resultado <= 0)
+                    {
+                        foreach (var error in CompraService.ModelError)
+                        {
+                            ModelState.AddModelError(error.Key, error.Value);
+                        }
+                    }
+                    else
+                    {
+                        TempData["Id"] = compraDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaCompra, compraDominio.Id);
+                    }
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            if (resultado > 0)
+            {
+                return RedirectToAction("Index", new {estado=EstadoCompra.Pagada});
+            }
+
+            PrepareModel(compraViewModel);
+            //     SetMenuVigente();
+            return View(compraViewModel);
         }
 
         #region Private Methods

@@ -26,8 +26,8 @@ namespace ME.Libros.Web
             logguer = new Logger();
             logguer.Log("App Starts", SeveridadLog.Info);
         }
-        
-        /*protected void Application_Error()
+
+        protected void Application_Error()
         {
             var exception = Server.GetLastError();
             //Logging goes here
@@ -65,32 +65,32 @@ namespace ME.Libros.Web
             // Execute the error controller
             IController c = new ErrorController();
             c.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
-        }*/
-
-        protected void Application_EndRequest()
-        {
-            if (Context.Response.StatusCode != 404)
-            {
-                return;
-            }
-
-            var exception = Server.GetLastError();
-
-            //Logging goes here
-            logguer = new Logger();
-            logguer.Log(exception.Message, SeveridadLog.Error);
-
-            Response.Clear();
-
-            var routeData = new RouteData();
-            routeData.Values["controller"] = "Error";
-            routeData.Values["action"] = "NotFound";
-
-            // Avoid IIS7 getting involved
-            Response.TrySkipIisCustomErrors = true;
-
-            IController errorController = new ErrorController();
-            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }
+
+        //protected void Application_EndRequest()
+        //{
+        //    if (Context.Response.StatusCode != 404)
+        //    {
+        //        return;
+        //    }
+
+        //    var exception = Server.GetLastError();
+
+        //    //Logging goes here
+        //    logguer = new Logger();
+        //    logguer.Log(exception.Message, SeveridadLog.Error);
+
+        //    Response.Clear();
+
+        //    var routeData = new RouteData();
+        //    routeData.Values["controller"] = "Error";
+        //    routeData.Values["action"] = "NotFound";
+
+        //    // Avoid IIS7 getting involved
+        //    Response.TrySkipIisCustomErrors = true;
+
+        //    IController errorController = new ErrorController();
+        //    errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
+        //}
     }
 }

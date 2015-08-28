@@ -1,55 +1,56 @@
 ﻿@using ME.Libros.Utils.Enums
 @model ME.Libros.Web.Models.RendicionViewModel
 
-    <table id="tablaResultado" class="dataTableCustom">
-        <thead>
-            <tr>
-                <th class="columnaCodigo noSort">Venta Nº</th>
-                <th>Cliente</th>
-                <th>Saldo</th>
-                <th>Cuota Nº</th>
-                <th>Estado venta</th>
-                <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
-                <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
-            </tr>
-        </thead>
-        @for (var i = 0; i < Model.Cobros.Count; i++)
-        {
-            var cobro = Model.Cobros[i];
-            <tr>
-                <td>@Html.DisplayFor(model => cobro.Venta.Id)</td>
-                <td>@Html.DisplayFor(model => cobro.Venta.Cliente.Apellido), @Html.DisplayFor(modelItem => cobro.Venta.Cliente.Nombre)</td>
-                <td>@Html.DisplayFor(model => cobro.Venta.Saldo)</td>
-                <td>@Html.DisplayFor(model => cobro.Venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)/@Html.DisplayFor(model => cobro.Venta.PlanPago.CantidadCuotas)</td>
-                <td>@Html.DisplayFor(model => cobro.Venta.Estado)</td>
-                <td>
-                    <div class="form-group form-group-sm" style="margin-left: 0;">
-                        @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, new { @class = "form-control datepickerCobros" })
+<table id="tablaResultado" class="dataTableCustom">
+    <thead>
+        <tr>
+            <th class="columnaCodigo noSort">Venta Nº</th>
+            <th>Cliente</th>
+            <th>Saldo</th>
+            <th>Cuota Nº</th>
+            <th>Estado venta</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
+        </tr>
+    </thead>
+    @for (var i = 0; i < Model.Cobros.Count; i++)
+    {
+        var cobro = Model.Cobros[i];
+        <tr>
+            <td>@Html.DisplayFor(model => cobro.Venta.Id)</td>
+            <td>@Html.DisplayFor(model => cobro.Venta.Cliente.Apellido), @Html.DisplayFor(modelItem => cobro.Venta.Cliente.Nombre)</td>
+            <td>@Html.DisplayFor(model => cobro.Venta.Saldo)</td>
+            <td>@Html.DisplayFor(model => cobro.Venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)/@Html.DisplayFor(model => cobro.Venta.PlanPago.CantidadCuotas)</td>
+            <td>@Html.DisplayFor(model => cobro.Venta.Estado)</td>
+            <td>
+                <div class="form-group form-group-sm" style="margin-left: 0;">
+                    @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, new { @class = "form-control datepickerCobros" })
+                </div>
+            <td>
+                <div class="form-group form-group-sm" style="margin-left: 0;">
+                    <div class="input-group">
+                        <div class="input-group-addon">$</div>
+                        @Html.TextBoxFor(model => Model.Cobros[i].Monto, new { @class = "form-control cobroMonto", maxlength = "8" })
                     </div>
-                <td>
-                    <div class="form-group form-group-sm" style="margin-left: 0;">
-                        <div class="input-group">
-                            <div class="input-group-addon">$</div>
-                            @Html.TextBoxFor(model => Model.Cobros[i].Monto, new { @class = "form-control" })
-                        </div>
-                    </div>
-                </td>
-                @Html.HiddenFor(model => Model.Cobros[i].VentaId)
-            </tr>
-        }
-    </table>
-    @Html.Hidden("ExistenVentasVigentes", Model.Cobros.Any(), new { id = "ExistenVentasVigentes" })
+                </div>
+            </td>
+            @Html.HiddenFor(model => Model.Cobros[i].VentaId)
+        </tr>
+    }
+</table>
+@Html.Hidden("ExistenVentasVigentes", Model.Cobros.Any(), new { id = "ExistenVentasVigentes" })
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            jQuery.validator.unobtrusive.parse("#formRendicion");
 
-        });
+<script type="text/javascript">
+    $(document).ready(function () {
+        jQuery.validator.unobtrusive.parse("#formRendicion");
+        $("#Comision").val('@Model.Cobrador.PorcentajeComision');
+    });
 
-        $('.datepickerCobros').datepicker({
-            language: 'es',
-            todayBtn: 'linked',
-            todayHighlight: true,
-            orientation: "left top"
-        });
-    </script>
+    $('.datepickerCobros').datepicker({
+        language: 'es',
+        todayBtn: 'linked',
+        todayHighlight: true,
+        orientation: "left top"
+    });
+</script>

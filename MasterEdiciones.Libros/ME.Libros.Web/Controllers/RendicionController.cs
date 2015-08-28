@@ -141,10 +141,19 @@ namespace ME.Libros.Web.Controllers
             {
                 rendicion.Cobros.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == EstadoVenta.Vigente
-                        && v.Cobrador.Id == cobradorId
-                        && v.Cliente.Localidad.Id == localidadId)
+                                && v.Cobrador.Id == cobradorId
+                                && v.Cliente.Localidad.Id == localidadId)
                     .ToList()
-                    .Select(v => new CobroViewModel { Venta = new VentaViewModel(v), VentaId = v.Id }));
+                    .Select(v => new CobroViewModel
+                    {
+                        Venta = new VentaViewModel(v),
+                        VentaId = v.Id
+                    }));
+            }
+
+            using (CobradorService)
+            {
+                rendicion.Cobrador = new CobradorViewModel(CobradorService.GetPorId(cobradorId));
             }
 
             return PartialView(rendicion);

@@ -27,16 +27,14 @@ namespace ME.Libros.Web
             logguer.Log("App Starts", SeveridadLog.Info);
         }
         
-        /*protected void Application_Error()
+        protected void Application_Error()
         {
             var exception = Server.GetLastError();
             //Logging goes here
             logguer = new Logger();
             logguer.Log(exception.Message, SeveridadLog.Error);
             
-            Response.Clear();
             var httpException = exception as HttpException;
-
             var routeData = new RouteData();
             routeData.Values["controller"] = "Error";
             routeData.Values["action"] = "Error";
@@ -58,6 +56,8 @@ namespace ME.Libros.Web
             }
 
             Server.ClearError();
+            Response.Clear();
+            Response.ContentType = "text/html";
 
             // Avoid IIS7 getting involved
             Response.TrySkipIisCustomErrors = true;
@@ -65,32 +65,6 @@ namespace ME.Libros.Web
             // Execute the error controller
             IController c = new ErrorController();
             c.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
-        }*/
-
-        protected void Application_EndRequest()
-        {
-            if (Context.Response.StatusCode != 404)
-            {
-                return;
-            }
-
-            var exception = Server.GetLastError();
-
-            //Logging goes here
-            logguer = new Logger();
-            logguer.Log(exception.Message, SeveridadLog.Error);
-
-            Response.Clear();
-
-            var routeData = new RouteData();
-            routeData.Values["controller"] = "Error";
-            routeData.Values["action"] = "NotFound";
-
-            // Avoid IIS7 getting involved
-            Response.TrySkipIisCustomErrors = true;
-
-            IController errorController = new ErrorController();
-            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }
     }
 }

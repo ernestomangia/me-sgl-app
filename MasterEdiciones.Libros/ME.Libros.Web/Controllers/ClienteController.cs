@@ -21,7 +21,6 @@ namespace ME.Libros.Web.Controllers
         public LocalidadService LocalidadService { get; set; }
         public IvaService IvaService { get; set; }
 
-
         public ClienteController()
         {
             var modelContainer = new ModelContainer();

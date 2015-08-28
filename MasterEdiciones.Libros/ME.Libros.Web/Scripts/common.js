@@ -217,10 +217,6 @@ function getProductoByCodigoBarra(codigoBarra) {
                     mensajeWarn("Código de barra inexistente.");
                     $("#CodigoBarra").focus().select();
                 }
-                //var precioVenta = parseFloat(data.PrecioVenta);
-                //calcularMontosItem(precioVenta);
-                //$("#precioSugerido").text(formatFloat(precioVenta));
-                //$("#PrecioVentaVendido").val(formatFloat(precioVenta));
             },
             timeout: 10000,
             cache: false

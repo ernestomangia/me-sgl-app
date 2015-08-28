@@ -79,7 +79,7 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <div class="input-group-addon">$</div>
-                    @Html.TextBoxFor(r => r.MontoFacturado, new { @class = "form-control", placeholder = Messages.MontoFacturado })
+                    @Html.TextBoxFor(r => r.MontoFacturado, new { @class = "form-control", placeholder = Messages.MontoFacturado, disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -119,7 +119,7 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <div class="input-group-addon">$</div>
-                    @Html.TextBoxFor(r => r.MontoNeto, new { @class = "form-control", placeholder = Messages.MontoNeto })
+                    @Html.TextBoxFor(r => r.MontoNeto, new { @class = "form-control", placeholder = Messages.MontoNeto, disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -171,6 +171,44 @@
     $('#LocalidadId, #CobradorId').on('change', function (e) {
         cargarCobros();
     });
+
+    $('#Comision').on('keyup change', function (e) {
+        var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
+        var comision = Globalize.parseFloat($(this).val());
+        var montoComision = montoFacturado * comision / 100;
+        var montoNeto = montoFacturado - montoComision;
+        $("#MontoComision").val(formatFloat(montoComision));
+        $("#MontoNeto").val(formatFloat(montoNeto));
+    });
+
+    $(document).on("keyup change", ".cobroMonto", function () {
+        var montoFacturado = 0;
+        $(".cobroMonto").each(function () {
+            montoFacturado += Globalize.parseFloat($(this).val());
+        });
+
+        var comision = Globalize.parseFloat($("#Comision").val());
+        var montoComision = montoFacturado * comision / 100;
+        var montoNeto = montoFacturado - montoComision;
+        $("#MontoFacturado").val(formatFloat(montoFacturado));
+        $("#MontoComision").val(formatFloat(montoComision));
+        $("#MontoNeto").val(formatFloat(montoNeto));
+    });
+
+    /*$('.cobroMonto').on('', function (e) {
+        var montoFacturado = 0;
+        $(".cobroMonto").each(function () {
+            montoFacturado += Globalize.parseFloat($(this).val());
+            console.log(montoFacturado);
+        });
+
+        var comision = Globalize.parseFloat($("#Comision").val());
+        var montoComision = montoFacturado * comision / 100;
+        var montoNeto = montoFacturado - montoComision;
+        $("#MontoFacturado").val(formatFloat(montoFacturado));
+        $("#MontoComision").val(formatFloat(montoComision));
+        $("#MontoNeto").val(formatFloat(montoNeto));
+    });*/
 
     function cargarCobros() {
         var localidadId = $("#LocalidadId :selected").val();

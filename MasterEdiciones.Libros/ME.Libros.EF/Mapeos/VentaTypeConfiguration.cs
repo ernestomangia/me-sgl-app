@@ -19,6 +19,7 @@ namespace ME.Libros.EF.Mapeos
             Property(v => v.FechaCobro).IsRequired();
             Property(v => v.MontoCalculado).IsRequired();
             Property(v => v.MontoVendido).IsRequired();
+            Property(v => v.MontoCobrado).IsRequired();
             Property(v => v.Saldo).IsRequired();
             
             // FK

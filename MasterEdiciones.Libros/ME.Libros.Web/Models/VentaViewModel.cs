@@ -28,6 +28,7 @@ namespace ME.Libros.Web.Models
             Estado = ventaDominio.Estado;
             MontoVendido = ventaDominio.MontoVendido;
             MontoCalculado = ventaDominio.MontoCalculado;
+            MontoCobrado = ventaDominio.MontoCobrado;
             Saldo = ventaDominio.Saldo;
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
@@ -69,6 +70,10 @@ namespace ME.Libros.Web.Models
         [Display(Name = "MontoVendido", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoVendido { get; set; }
+
+        [Display(Name = "MontoCobrado", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoCobrado { get; set; }
 
         [Display(Name = "Saldo", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]

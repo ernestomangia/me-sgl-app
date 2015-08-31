@@ -529,6 +529,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cobrado.
+        /// </summary>
+        public static string MontoCobrado {
+            get {
+                return ResourceManager.GetString("MontoCobrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monto.
         /// </summary>
         public static string MontoCobro {
@@ -637,7 +646,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to #.
+        ///   Looks up a localized string similar to Nº Cuota.
         /// </summary>
         public static string NroCuota {
             get {

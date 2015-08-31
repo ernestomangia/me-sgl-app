@@ -71,6 +71,7 @@
 
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.config.custom.js"></script>
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.custom.js"></script>
+    <script src="~/Scripts/bootbox.js"></script>
 
     <script src="~/Scripts/common.js"></script>
 </head>
@@ -171,6 +172,7 @@
 
 <script type="text/javascript">
     Globalize.culture("es-AR");
+    bootbox.setLocale("es");
 
     $(document).ready(function () {
         if ('@ViewBag.Id' != "") {

@@ -55,6 +55,7 @@ namespace ME.Libros.Servicios.General
                     GenerarCuotas(ventaDominio);
                     CalcularSaldo(ventaDominio);
                     CalcularMontoVendido(ventaDominio);
+                    ventaDominio.MontoCobrado = 0;
 
                     // TODO: Generar plan de pago a partir de un interes
                     ventaDominio.Estado = EstadoVenta.Vigente;
@@ -64,6 +65,7 @@ namespace ME.Libros.Servicios.General
                     // Contado
                     // TODO: Generar cobro porque es contado
                     ventaDominio.Saldo = 0;
+                    ventaDominio.MontoCobrado = ventaDominio.MontoVendido;
                     ventaDominio.Estado = EstadoVenta.Pagada;
                 }
                 CalcularTotalVenta(ventaDominio);

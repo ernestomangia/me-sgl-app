@@ -13,6 +13,7 @@
             <th>Cliente</th>
             <th>@Html.DisplayNameFor(model => model.Cliente.Cuil)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.MontoVendido)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.MontoCobrado)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Saldo)</th>
             <th class="columnaAcciones">Acciones</th>
         </tr>
@@ -25,6 +26,7 @@
             <td>@Html.DisplayFor(modelItem => item.Cliente.Apellido), @Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
             <td>@Html.DisplayFor(modelItem => item.Cliente.Cuil)</td>
             <td class="text-right">@Html.DisplayFor(modelItem => item.MontoVendido)</td>
+            <td class="text-right">@Html.DisplayFor(modelItem => item.MontoCobrado)</td>
             <td class="text-right">@Html.DisplayFor(modelItem => item.Saldo)</td>
             <td>
                 <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})" title="Modificar venta vigente">

@@ -1,14 +1,26 @@
 ﻿@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Extensions
 @model ME.Libros.Web.Models.RendicionViewModel
+@{
+    var estado = new Dictionary<EstadoCuota, string>
+    {
+        { EstadoCuota.NoVencida, "default" },
+        { EstadoCuota.Parcial, "warning" },
+        { EstadoCuota.Atrasada, "danger" },
+        { EstadoCuota.Pagada, "success" }
+    };
+}
 
 <table id="tablaResultado" class="dataTableCustom">
     <thead>
         <tr>
-            <th class="columnaCodigo noSort">Venta Nº</th>
-            <th>Cliente</th>
-            <th>Saldo</th>
-            <th>Cuota Nº</th>
-            <th>Estado venta</th>
+            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.ClienteId)</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoVendido)</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoCobrado)</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Saldo)</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Numero)</th>
+            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Estado) cuota</th>
             <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
         </tr>
@@ -16,21 +28,28 @@
     @for (var i = 0; i < Model.Cobros.Count; i++)
     {
         var cobro = Model.Cobros[i];
+        var cuota = cobro.Venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada);
         <tr>
             <td>@Html.DisplayFor(model => cobro.Venta.Id)</td>
             <td>@Html.DisplayFor(model => cobro.Venta.Cliente.Apellido), @Html.DisplayFor(modelItem => cobro.Venta.Cliente.Nombre)</td>
+            <td>@Html.DisplayFor(model => cobro.Venta.MontoVendido)</td>
+            <td>@Html.DisplayFor(model => cobro.Venta.MontoCobrado)</td>
             <td>@Html.DisplayFor(model => cobro.Venta.Saldo)</td>
-            <td>@Html.DisplayFor(model => cobro.Venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)/@Html.DisplayFor(model => cobro.Venta.PlanPago.CantidadCuotas)</td>
-            <td>@Html.DisplayFor(model => cobro.Venta.Estado)</td>
+            <td>@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => cobro.Venta.PlanPago.CantidadCuotas)</td>
+            <td class="text-center @(estado[cuota.Estado])">
+                <span class="text-@(estado[cuota.Estado])">
+                    @cuota.Estado.GetDisplayName()
+                </span>
+            </td>
             <td>
                 <div class="form-group form-group-sm" style="margin-left: 0;">
-                    @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, new { @class = "form-control datepickerCobros" })
+                    @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, new { @class = "form-control datepickerCobros fechaCobro" })
                 </div>
             <td>
                 <div class="form-group form-group-sm" style="margin-left: 0;">
                     <div class="input-group">
                         <div class="input-group-addon">$</div>
-                        @Html.TextBoxFor(model => Model.Cobros[i].Monto, new { @class = "form-control cobroMonto", maxlength = "8" })
+                        @Html.TextBoxFor(model => Model.Cobros[i].Monto, new { @class = "form-control montoCobro", maxlength = "8" })
                     </div>
                 </div>
             </td>

@@ -47,7 +47,7 @@ namespace ME.Libros.Web.Models
         public DateTime Periodo { get; set; }
 
         [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long CobradorId { get; set; }
 
         [Display(Name = "Localidad", ResourceType = typeof(Messages))]

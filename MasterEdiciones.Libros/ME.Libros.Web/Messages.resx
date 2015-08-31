@@ -325,7 +325,7 @@
     <value>Usuario</value>
   </data>
   <data name="NroCuota" xml:space="preserve">
-    <value>#</value>
+    <value>Nº Cuota</value>
   </data>
   <data name="FechaCobrada" xml:space="preserve">
     <value>Cobrada</value>
@@ -395,5 +395,8 @@
   </data>
   <data name="LaRendicion" xml:space="preserve">
     <value>La rendición</value>
+  </data>
+  <data name="MontoCobrado" xml:space="preserve">
+    <value>Cobrado</value>
   </data>
 </root>

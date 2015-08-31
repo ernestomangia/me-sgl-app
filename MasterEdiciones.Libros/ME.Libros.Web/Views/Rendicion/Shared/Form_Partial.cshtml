@@ -3,7 +3,7 @@
 @if (Model.Id > 0)
 {
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="form-group form-group-sm">
                 @Html.LabelFor(r => r.Id, new { @class = "col-md-2 control-label" })
                 <div class="col-md-4">
@@ -15,7 +15,7 @@
 }
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.Label("PeriodoFake", "Periodo", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -24,12 +24,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
 
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(r => r.CobradorId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(r => r.LocalidadId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -47,20 +47,26 @@
     </div>
 </div>
 <div class="row">
-    <fieldset class="col-md-10">
-        <legend>Cobros</legend>
-    </fieldset>
+    <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#TabCobros" aria-controls="TabCobros" role="tab" data-toggle="tab">Cobros</a>
+            </li>
+        </ul>
+    </div>
 </div>
 <div class="row">
-    <div id="rowCobros" class="col-md-10">
+    <div id="rowCobros" class="col-md-12">
         <table class="dataTableCustom">
             <thead>
                 <tr>
-                    <th class="columnaCodigo noSort">Venta Nº</th>
-                    <th>Cliente</th>
-                    <th>Saldo</th>
-                    <th>Cuota Nº</th>
-                    <th>Estado venta</th>
+                    <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Id)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.ClienteId)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoVendido)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoCobrado)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Saldo)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Numero)</th>
+                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Estado) cuota</th>
                     <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
                     <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
                 </tr>
@@ -70,10 +76,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         @*Columna Vacia*@
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(r => r.MontoFacturado, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -86,7 +92,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(r => r.Comision, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -97,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(r => r.MontoComision, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -110,10 +116,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         @*Columna Vacia*@
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(r => r.MontoNeto, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -126,15 +132,14 @@
     </div>
 </div>
 <div id="MsjSinVentasVigentes" class="row" style="display: none;">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="alert alert-warning" role="alert">
-            <a class="close" data-hide="alert" aria-hidden="true">×</a>
-            No se encontraron ventas vigentes para el el cobrador y la localidad seleccionada.
+            No existen ventas vigentes para el cobrador y la localidad seleccionada.
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
             <a class="close" data-hide="alert" aria-hidden="true">×</a>
             <b>Mensajes:</b>
@@ -142,6 +147,8 @@
         </div>
     </div>
 </div>
+
+@Html.Hidden("DatosIngresados", "false")
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -152,7 +159,7 @@
                 required: "El <b>Periodo</b> es requerido"
             }
         });
-        //$('#formRendicion').validate().settings.ignore = false;
+        
     });
 
     $('#PeriodoFake').datepicker({
@@ -169,7 +176,24 @@
     });
 
     $('#LocalidadId, #CobradorId').on('change', function (e) {
-        cargarCobros();
+        var datosIngresados = $("#DatosIngresados").val();
+        if (datosIngresados == "true") {
+            bootbox.confirm({
+                title: "Advertencia",
+                message: "Si usted modifica el Cobrador o la Localidad se perderán los cobros cargados. <br/>¿Esta seguro que desea continuar?",
+                callback: function (result) {
+                    if (result) {
+                        cargarCobros();
+                    } else {
+                        // No cambiar el cobrador o localidad
+                        
+                    }
+                }
+            });
+        }
+        else {
+            cargarCobros();
+        }
     });
 
     $('#Comision').on('keyup change', function (e) {
@@ -181,9 +205,14 @@
         $("#MontoNeto").val(formatFloat(montoNeto));
     });
 
-    $(document).on("keyup change", ".cobroMonto", function () {
+    /*$(document).on("keyup", ".fechaCobro", function () {
+        $("#DatosIngresados").val("true");
+    });*/
+
+    $(document).on("keyup change", ".montoCobro", function () {
+        $("#DatosIngresados").val("true");
         var montoFacturado = 0;
-        $(".cobroMonto").each(function () {
+        $(".montoCobro").each(function () {
             montoFacturado += Globalize.parseFloat($(this).val());
         });
 
@@ -195,22 +224,8 @@
         $("#MontoNeto").val(formatFloat(montoNeto));
     });
 
-    /*$('.cobroMonto').on('', function (e) {
-        var montoFacturado = 0;
-        $(".cobroMonto").each(function () {
-            montoFacturado += Globalize.parseFloat($(this).val());
-            console.log(montoFacturado);
-        });
-
-        var comision = Globalize.parseFloat($("#Comision").val());
-        var montoComision = montoFacturado * comision / 100;
-        var montoNeto = montoFacturado - montoComision;
-        $("#MontoFacturado").val(formatFloat(montoFacturado));
-        $("#MontoComision").val(formatFloat(montoComision));
-        $("#MontoNeto").val(formatFloat(montoNeto));
-    });*/
-
     function cargarCobros() {
+        $("#DatosIngresados").val("false");
         var localidadId = $("#LocalidadId :selected").val();
         var cobradorId = $("#CobradorId :selected").val();
         if (cobradorId > 0 && localidadId > 0) {
@@ -224,12 +239,9 @@
                 },
                 success: function (data) {
                     var existenVentasVigentes = $(data).filter('input[name="ExistenVentasVigentes"]');
-
                     if (existenVentasVigentes.val() == "True") {
                         $("#MsjSinVentasVigentes").hide();
-                        //$(".dataTableCustom").remove();
                         $("#rowCobros").html(data);
-                        //$("#resultado").html(data);
                         loadDataTable2();
                         $(".datepickerCobros").datepicker("clearDates");
                         var form = $("#formRendicion")
@@ -237,21 +249,22 @@
                             .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin */
                         jQuery.validator.unobtrusive.parse(form);
                         $('#formRendicion').validate().settings.ignore = false;
-                        //$("#tablaResultado").DataTable();
-                        //table.draw();
                     } else {
-                        mensajeWarn("No se encontraron ventas vigentes para el el cobrador y la localidad seleccionada.");
                         $("#MsjSinVentasVigentes").show();
-                        var table = $("#tablaResultado").dataTable();
-                        table.fnClearTable();
+                        clearTable();
                     }
                 },
                 timeout: 10000,
                 cache: false
             });
         } else {
-            var table = $("#tablaResultado").dataTable();
-            table.fnClearTable();
+            $("#MsjSinVentasVigentes").hide();
+            clearTable();
         }
+    }
+
+    function clearTable() {
+        var table = $("#tablaResultado").dataTable();
+        table.fnClearTable();
     }
 </script>

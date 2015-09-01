@@ -2,13 +2,13 @@
 
 <h3>Modificar rendición</h3>
 <h5>
-    Solo podrá visualizar la rendición. Si los datos cargados son incorrectos, deberá anularla y volverla a crear correctamente.
+    No podrá modificar ni el Cobrador ni la Localidad. Si dichos datos son incorrectos, deberá anularla y volverla a crear correctamente.
 </h5>
 <hr>
 @using (Html.BeginForm("Modificar", "Rendicion", FormMethod.Post, new { id = "formRendicion", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
-
+    @Html.HiddenFor(model => model.Id)
     <div class="row">
         <div class="col-md-12">
             <div class="text-right">
@@ -17,10 +17,16 @@
                     Cancelar
                 </a>
                 @*<button id="btnCrearVenta" name="btnCrearVenta" type="submit" class="btn btn-success">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    Modificar
-                </button>*@
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        Modificar
+                    </button>*@
             </div>
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#CobradorId, #LocalidadId").attr("disabled", "disabled");
+    });
+</script>

@@ -25,6 +25,7 @@ namespace ME.Libros.Web.Models
             Monto = cobroDominio.Monto;
             Estado = cobroDominio.Estado;
             Cuotas = new List<CuotaViewModel>(cobroDominio.Cuotas.Select(c => new CuotaViewModel(c)));
+            VentaId = cobroDominio.Cuotas.First().Venta.Id;
         }
 
         #endregion

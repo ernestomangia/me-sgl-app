@@ -13,6 +13,7 @@ namespace ME.Libros.Web.Models
 
         public RendicionViewModel()
         {
+            Cobrador = new CobradorViewModel();
             Cobros = new List<CobroViewModel>();
         }
 

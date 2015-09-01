@@ -75,8 +75,6 @@ namespace ME.Libros.Web.Controllers
                 Periodo = rendicionViewModel.Periodo,
                 Cobrador = CobradorService.GetPorId(rendicionViewModel.CobradorId),
                 Localidad = LocalidadService.GetPorId(rendicionViewModel.LocalidadId),
-                MontoFacturado = rendicionViewModel.MontoFacturado,
-                MontoNeto = rendicionViewModel.MontoNeto,
                 Comision = rendicionViewModel.Comision,
                 MontoComision = rendicionViewModel.MontoComision,
                 Cobros = new List<CobroDominio>()
@@ -137,6 +135,11 @@ namespace ME.Libros.Web.Controllers
         public PartialViewResult ListarCobros(int cobradorId, int localidadId)
         {
             var rendicion = new RendicionViewModel();
+            if (cobradorId <= 0 || localidadId <= 0)
+            {
+                return PartialView(rendicion);
+            }
+
             using (VentaService)
             {
                 rendicion.Cobros.AddRange(VentaService.ListarAsQueryable()
@@ -172,6 +175,11 @@ namespace ME.Libros.Web.Controllers
                 .Select(l => new LocalidadViewModel(l)),
                 "Id",
                 "Nombre");
+
+            foreach (var cobroViewModel in rendicionViewModel.Cobros)
+            {
+                cobroViewModel.Venta = new VentaViewModel(VentaService.GetPorId(cobroViewModel.VentaId));
+            }
         }
 
         #endregion

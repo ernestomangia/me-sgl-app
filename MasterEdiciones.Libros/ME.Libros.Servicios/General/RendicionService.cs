@@ -48,7 +48,12 @@ namespace ME.Libros.Servicios.General
                     while (montoCobro > 0)
                     {
                         // Buscar 1ra cuota no pagada
-                        var cuota = venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada);
+                        var cuota = venta.Cuotas.FirstOrDefault(c => c.Estado != EstadoCuota.Pagada);
+                        if (cuota == null)
+                        {
+                            break;
+                        }
+
                         if (montoCobro >= cuota.Saldo)
                         {
                             // Cuota PAGADA
@@ -71,6 +76,7 @@ namespace ME.Libros.Servicios.General
 
                     venta.Saldo -= cobro.Monto;
                     rendicionDominio.Cobros.Add(cobroDominio);
+                    rendicionDominio.MontoFacturado += cobroDominio.Monto;
                 }
 
                 foreach (var cuotaDominio in venta.Cuotas.Where(c => c.Estado != EstadoCuota.Pagada))
@@ -81,6 +87,8 @@ namespace ME.Libros.Servicios.General
                     }
                 }
             }
+
+            rendicionDominio.MontoNeto = rendicionDominio.MontoFacturado - rendicionDominio.MontoComision;
         }
     }
 }

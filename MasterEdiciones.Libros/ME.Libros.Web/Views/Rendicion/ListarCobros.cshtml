@@ -43,7 +43,7 @@
             </td>
             <td>
                 <div class="form-group form-group-sm" style="margin-left: 0;">
-                    @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, new { @class = "form-control datepickerCobros fechaCobro" })
+                    @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepickerCobros fechaCobro" })
                 </div>
             <td>
                 <div class="form-group form-group-sm" style="margin-left: 0;">
@@ -59,11 +59,13 @@
 </table>
 @Html.Hidden("ExistenVentasVigentes", Model.Cobros.Any(), new { id = "ExistenVentasVigentes" })
 
-
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         jQuery.validator.unobtrusive.parse("#formRendicion");
-        $("#Comision").val('@Model.Cobrador.PorcentajeComision');
+        @if (Model.Id == 0)
+        {
+            @:$("#Comision").val('@Model.Cobrador.PorcentajeComision');
+        }
     });
 
     $('.datepickerCobros').datepicker({
@@ -72,4 +74,11 @@
         todayHighlight: true,
         orientation: "left top"
     });
+
+    /*jQuery.validator.addClassRules("montoCobro", {
+        min: 0,
+        messages: {
+            min: "El <b>Monto del cobro</b> debe ser mayor o igual a $ 0,00</b>"
+        }
+    });*/
 </script>

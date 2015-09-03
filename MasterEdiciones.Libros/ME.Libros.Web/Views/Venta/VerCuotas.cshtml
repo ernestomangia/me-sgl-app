@@ -13,6 +13,7 @@
 <table id="ventaCuotaTable" @*class="dataTableCustom2"*@>
     <thead>
         <tr>
+            <th></th>
             <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Numero)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Monto)</th>
             <th>@Html.DisplayNameFor(model => model.FechaVencimiento)</th>
@@ -26,47 +27,54 @@
     </thead>
     <tfoot>
         <tr>
-            <th colspan="5" style="text-align:right">Total:</th>
+            <th colspan="2" class="text-right">Total:</th>
             <th class="text-right">$ @Model.Sum(vi => vi.Monto)</th>
+            <th colspan="2"></th>
             <th class="text-right">$ @Model.Sum(vi => vi.Interes)</th>
             <th class="text-right">$ @Model.Sum(vi => vi.MontoCobro)</th>
-            <th class="text-right">$ @Model.Sum(vi => vi.Monto + vi.Interes - vi.MontoCobro)</th>
+            <th colspan="2"></th>
+            <th class="text-right">$ @Model.Sum(vi => vi.Saldo)</th>
         </tr>
     </tfoot>
-    @foreach (var item in Model)
-    {
-        <tr class="">
-            <td>@Html.DisplayFor(c => item.Numero)</td>
-            <td class="text-right">
-                @Html.DisplayFor(c => item.Monto).ToHtmlString()
-            </td>
-            <td class="text-center">@item.FechaVencimiento.ToString("dd/MM/yyyy")</td>
-            <td class="text-center @(estado[item.Estado])">
-                <span class="text-@(estado[item.Estado])">
-                    @item.Estado.GetDisplayName()
-                </span>
-            </td>
-            <td class="text-right">
-                @(item.Interes > 0
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <span class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
+                </td>
+                <td>@Html.DisplayFor(c => item.Numero)</td>
+                <td class="text-right">
+                    @Html.DisplayFor(c => item.Monto).ToHtmlString()
+                </td>
+                <td class="text-center">@item.FechaVencimiento.ToString("dd/MM/yyyy")</td>
+                <td class="text-center @(estado[item.Estado])">
+                    <span class="text-@(estado[item.Estado])">
+                        @item.Estado.GetDisplayName()
+                    </span>
+                </td>
+                <td class="text-right">
+                    @(item.Interes > 0
                       ? Html.DisplayFor(c => item.Interes).ToHtmlString()
                       : "-")
-            </td>
-            <td class="text-right">
-                @(item.MontoCobro > 0m
+                </td>
+                <td class="text-right">
+                    @(item.MontoCobro > 0m
                       ? Html.DisplayFor(c => item.MontoCobro).ToHtmlString()
                       : "-")
-            </td>
-            <td class="text-center">
-                @(item.FechaCobro.HasValue
+                </td>
+                <td class="text-center">
+                    @(item.FechaCobro.HasValue
                       ? item.FechaCobro.Value.ToString("dd/MM/yyyy")
                       : "-")
-            </td>
-            <td class="text-center">
-                @(item.FechaCobro.HasValue
+                </td>
+                <td class="text-center">
+                    @(item.FechaCobro.HasValue
                       ? Html.DisplayFor(c => item.Atraso) + (item.Atraso == 1 ? " día" : " días")
                       : "-")
-            </td>
-            <td class="text-right">@Html.DisplayFor(c => item.Saldo)</td>
-        </tr>
-    }
+                </td>
+                <td class="text-right">@Html.DisplayFor(c => item.Saldo)</td>
+            </tr>
+        }
+    </tbody>
 </table>

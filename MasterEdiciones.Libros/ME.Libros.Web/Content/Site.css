@@ -99,3 +99,11 @@ footer {
 .nav-tabs {
     margin-bottom: 20px;
 }
+
+td.details-control {
+    cursor: pointer;
+}
+
+tr.details td.details-control {
+    cursor: pointer;
+}

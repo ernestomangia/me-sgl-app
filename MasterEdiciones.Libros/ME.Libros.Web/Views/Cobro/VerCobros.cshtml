@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ME.Libros.Web.Models.CobroViewModel>
+<div class="slider">
+    <table class="table table-striped table-hover hover table-bordered tablaCobros">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Id)</th>
+                <th>@Html.DisplayNameFor(model => model.Cobrador)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaCobro)</th>
+                <th>@Html.DisplayNameFor(model => model.Monto)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cobro in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(c => cobro.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => cobro.Cobrador.Apellido), @Html.DisplayFor(modelItem => cobro.Cobrador.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => cobro.FechaCobro)</td>
+                    <td>@Html.DisplayFor(modelItem => cobro.Monto)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

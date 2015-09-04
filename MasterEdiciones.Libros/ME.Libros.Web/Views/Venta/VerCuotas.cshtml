@@ -14,6 +14,7 @@
     <thead>
         <tr>
             <th></th>
+            <th></th>
             <th class="columnaCodigo">@Html.DisplayNameFor(model => model.Numero)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Monto)</th>
             <th>@Html.DisplayNameFor(model => model.FechaVencimiento)</th>
@@ -27,7 +28,7 @@
     </thead>
     <tfoot>
         <tr>
-            <th colspan="2" class="text-right">Total:</th>
+            <th colspan="3" class="text-right">Total:</th>
             <th class="text-right">$ @Model.Sum(vi => vi.Monto)</th>
             <th colspan="2"></th>
             <th class="text-right">$ @Model.Sum(vi => vi.Interes)</th>
@@ -40,8 +41,11 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>@Html.DisplayFor(c => item.Id)</td>
                 <td>
-                    <span class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
+                    <button class="btn btn-default btn-sm details-control" type="button" title="Ver cobros" @(item.TieneCobros ? string.Empty : "disabled")>
+                        <span class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
+                    </button>
                 </td>
                 <td>@Html.DisplayFor(c => item.Numero)</td>
                 <td class="text-right">
@@ -55,23 +59,23 @@
                 </td>
                 <td class="text-right">
                     @(item.Interes > 0
-                      ? Html.DisplayFor(c => item.Interes).ToHtmlString()
-                      : "-")
+                          ? Html.DisplayFor(c => item.Interes).ToHtmlString()
+                          : "-")
                 </td>
                 <td class="text-right">
                     @(item.MontoCobro > 0m
-                      ? Html.DisplayFor(c => item.MontoCobro).ToHtmlString()
-                      : "-")
+                          ? Html.DisplayFor(c => item.MontoCobro).ToHtmlString()
+                          : "-")
                 </td>
                 <td class="text-center">
                     @(item.FechaCobro.HasValue
-                      ? item.FechaCobro.Value.ToString("dd/MM/yyyy")
-                      : "-")
+                          ? item.FechaCobro.Value.ToString("dd/MM/yyyy")
+                          : "-")
                 </td>
                 <td class="text-center">
                     @(item.FechaCobro.HasValue
-                      ? Html.DisplayFor(c => item.Atraso) + (item.Atraso == 1 ? " día" : " días")
-                      : "-")
+                          ? Html.DisplayFor(c => item.Atraso) + (item.Atraso == 1 ? " día" : " días")
+                          : "-")
                 </td>
                 <td class="text-right">@Html.DisplayFor(c => item.Saldo)</td>
             </tr>

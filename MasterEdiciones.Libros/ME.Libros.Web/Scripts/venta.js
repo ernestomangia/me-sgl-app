@@ -327,3 +327,49 @@ function actualizarVentaItemRow(ventaItem) {
     // Redibujar para recalcular footer
     table.draw();
 }
+
+$(document).on('click', '#ventaCuotaTable tbody tr td button.details-control', function () {
+    var dt = $('#ventaCuotaTable').DataTable();
+    var tr = $(this).closest('tr');
+    var row = dt.row(tr);
+    var detailsControl = $(this);
+    var icon = detailsControl.find("span");
+
+    if (row.child.isShown()) {
+        // This row is already open - close it
+        $('div.slider', row.child()).slideUp(function () {
+            row.child.hide();
+            tr.removeClass('shown');
+            $(detailsControl).trigger("focusout");
+        });
+
+        detailsControl.toggleClass("btn-info").toggleClass("btn-default");
+        icon.toggleClass("glyphicon-collapse-up").toggleClass("glyphicon-collapse-down");
+    }
+    else {
+        // Open this row
+        var promise = GetCobrosByCuota(row.data());
+        promise.done(function (data) {
+            detailsControl.toggleClass("btn-default").toggleClass("btn-info");
+            icon.toggleClass("glyphicon-collapse-down").toggleClass("glyphicon-collapse-up");
+            row.child(data, 'no-padding').show();
+            tr.addClass('shown');
+            $('div.slider', row.child()).slideDown();
+        });
+    }
+});
+
+function GetCobrosByCuota(cuota, tr) {
+    return $.ajax({
+        method: "POST",
+        url: "/Cobro/VerCobros",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({ cuotaId: cuota.cuotaId }),
+        dataType: "html",
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
+        },
+        timeout: 10000,
+        cache: false
+    });
+}

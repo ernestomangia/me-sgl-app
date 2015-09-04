@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
@@ -12,7 +9,6 @@ using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
-using ME.Libros.Servicios.General;
 namespace ME.Libros.Web.Controllers
 {
     public class CobroController : BaseController<CobroDominio>
@@ -31,9 +27,9 @@ namespace ME.Libros.Web.Controllers
             ViewBag.Title = "Cobros";
             Service = new CobroService(new EntidadRepository<CobroDominio>(modelContainer));
         }
+
         //
         // GET: /Cobrador/
-
         [HttpGet]
         public ActionResult Index()
         {
@@ -74,8 +70,6 @@ namespace ME.Libros.Web.Controllers
                 {
                     using (CobroService)
                     {
-                        //var venta = VentaService.GetPorId(cobroViewModel.VentaId);
-
                         var cobroDominio = new CobroDominio
                         {
                             FechaAlta = DateTime.Now,
@@ -83,8 +77,6 @@ namespace ME.Libros.Web.Controllers
                             FechaCobro = cobroViewModel.FechaCobro,
                             Estado = EstadoCobro.Cobrado,
                         };
-
-                     
 
                         resultado = CobroService.Guardar(cobroDominio);
                         if (resultado <= 0)
@@ -121,27 +113,27 @@ namespace ME.Libros.Web.Controllers
         [HttpGet]
         public JsonResult Eliminar(int id)
         {
-
             var cobroDominio = new CobroDominio();
 
             if (ModelState.IsValid)
             {
-                
+
                 using (CobroService)
                 {
                     cobroDominio = CobroService.GetPorId(id);
                     cobroDominio.Estado = EstadoCobro.Anulado;
                     CobroService.Guardar(cobroDominio);
-                    //VentaService.Guardar(cobroDominio.Venta);
                 }
-
-
-
             }
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors(),Estado=cobroDominio.Estado },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    cobroDominio.Estado
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
 
             };
@@ -160,6 +152,22 @@ namespace ME.Libros.Web.Controllers
             return View(cobroViewModel);
         }
 
+        public PartialViewResult VerCobros(long cuotaId)
+        {
+            var cobros = new List<CobroViewModel>();
+            using (CobroService)
+            {
+                cobros.AddRange(CobroService.ListarAsQueryable()
+                    .Where(c => c.Cuotas.Any(cuota => cuota.Id == cuotaId))
+                    .ToList()
+                    .Select(cobro => new CobroViewModel(cobro)
+                    {
+                        Cobrador = new CobradorViewModel(cobro.Rendicion.Cobrador)
+                    }));
+            }
+
+            return PartialView(cobros);
+        }
 
         #region Private Methods
 
@@ -177,8 +185,8 @@ namespace ME.Libros.Web.Controllers
             //                                                        .ToList()
             //                                                        .Select(c => new VentaViewModel(c))
             //                                                        .Select(c=> new {Id=c.Id, Text=c.Id + " - " + c.FechaVenta.ToString("dd/MM/yyyy")})
-                                                                    
-                                                                   
+
+
             //                                                        );
             //}
             //cobroViewModel.Ventas = new SelectList(ventas, "Id","Text");

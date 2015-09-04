@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
 
@@ -14,6 +13,7 @@ namespace ME.Libros.Web.Models
 
         public CobroViewModel()
         {
+            Cobrador = new CobradorViewModel();
             Cuotas = new List<CuotaViewModel>();
         }
 
@@ -53,6 +53,8 @@ namespace ME.Libros.Web.Models
         public long VentaId { get; set; }
 
         public VentaViewModel Venta { get; set; }
+
+        public CobradorViewModel Cobrador { get; set; }
 
         #endregion
     }

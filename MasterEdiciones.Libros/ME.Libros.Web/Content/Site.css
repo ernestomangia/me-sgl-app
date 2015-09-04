@@ -100,10 +100,16 @@ footer {
     margin-bottom: 20px;
 }
 
-td.details-control {
-    cursor: pointer;
+div.slider {
+    display: none;
 }
 
-tr.details td.details-control {
-    cursor: pointer;
+table.dataTable tbody td.no-padding {
+    padding: 0;
+}
+
+.tablaCobros {
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 20px;
 }

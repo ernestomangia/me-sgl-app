@@ -44,14 +44,17 @@
             lengthMenu: [5, 10],
         });
 
-        $("#ventaCuotaTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+        $("#ventaCuotaTable").addClass("table table-striped table-hover table-bordered order-column KeyTable");
         $('#ventaCuotaTable').dataTable({
             "columns": [
                 {
-                    "class": "details-control",
+                    "data": "cuotaId",
+                    "visible": false,
+                    "searchable": false
+
+                },
+                {
                     "orderable": false
-                    //"data": null,
-                    //"defaultContent": ""
                 },
                 { "data": "nro" },
                 { "data": "monto" },
@@ -74,54 +77,4 @@
         $("#PlanPagoId").attr("disabled", "disabled");
         $("#MontoVendido").attr("disabled", "disabled");
     });
-
-    function format(d) {
-        return '<div class="slider">' +
-                    '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                        '<tr>' +
-                            '<td>Full name:</td>' +
-                            '<td>' + d.name + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                            '<td>Extension number:</td>' +
-                            '<td>' + d.extn + '</td>' +
-                        '</tr>' +
-                        '<tr>' +
-                            '<td>Extra info:</td>' +
-                            '<td>And any further details here (images etc)...</td>' +
-                        '</tr>' +
-                    '</table>' +
-                '</div>';
-    }
-
-    $('#ventaCuotaTable tbody').on('click', 'tr td.details-control', function () {
-        var dt = $('#ventaCuotaTable').DataTable();
-        var tr = $(this).closest('tr');
-        var row = dt.row(tr);
-
-        if (row.child.isShown()) {
-            // This row is already open - close it
-            $('div.slider', row.child()).slideUp(function () {
-                row.child.hide();
-                tr.removeClass('shown');
-            });
-        }
-        else {
-            // Open this row
-            row.child(format(row.data()), 'no-padding').show();
-            tr.addClass('shown');
-
-            $('div.slider', row.child()).slideDown();
-        }
-    });
 </script>
-
-<style>
-    div.slider {
-        display: none;
-    }
-
-    table.dataTable tbody td.no-padding {
-        padding: 0;
-    }
-</style>

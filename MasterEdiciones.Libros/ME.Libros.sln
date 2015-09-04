@@ -42,6 +42,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ME.Libros.Database", "ME.Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.DTO", "ME.Libros.DTO\ME.Libros.DTO.csproj", "{0E5874D6-F308-4659-A057-7DDBA4003B22}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{5AC3FB15-1535-4401-A282-1D7B5F200840}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

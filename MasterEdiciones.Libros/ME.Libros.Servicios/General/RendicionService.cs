@@ -90,5 +90,18 @@ namespace ME.Libros.Servicios.General
 
             rendicionDominio.MontoNeto = rendicionDominio.MontoFacturado - rendicionDominio.MontoComision;
         }
+
+        public void RecalcularCobrosCuotas(RendicionDominio rendicionDominio, IEnumerable<CobroDto> cobroDtos)
+        {
+            var cobros = cobroDtos.ToList();
+            foreach (var cobro in rendicionDominio.Cobros)
+            {
+                if (cobro.Monto != cobros.Single(c => c.Id == cobro.Id).Monto)
+                {
+                    // El monto se modfico
+
+                }
+            }
+        }
     }
 }

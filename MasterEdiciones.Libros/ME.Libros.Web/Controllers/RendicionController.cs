@@ -131,6 +131,55 @@ namespace ME.Libros.Web.Controllers
             return View(rendicionViewModel);
         }
 
+        [HttpPost]
+        public ActionResult Modificar(RendicionViewModel rendicionViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(rendicionViewModel);
+                return View(rendicionViewModel);
+            }
+
+            long resultado = 0;
+
+            try
+            {
+                using (RendicionService)
+                {
+                    var rendicionDominio = RendicionService.GetPorId(rendicionViewModel.Id);
+                    RendicionService.RecalcularCobrosCuotas(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto));
+                    
+                    resultado = RendicionService.Guardar(rendicionDominio);
+                }
+
+                if (resultado <= 0)
+                {
+                    foreach (var error in RendicionService.ModelError)
+                    {
+                        ModelState.AddModelError(error.Key, error.Value);
+                    }
+                }
+                else
+                {
+                    TempData["Id"] = rendicionViewModel.Id;
+                    TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.LaRendicion, rendicionViewModel.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            if (resultado == 0)
+            {
+                PrepareModel(rendicionViewModel);
+            }
+
+            return resultado > 0
+                ? (ActionResult)RedirectToAction("Index")
+                : View(rendicionViewModel);
+        }
+
         [HttpGet]
         public PartialViewResult ListarCobros(int cobradorId, int localidadId)
         {

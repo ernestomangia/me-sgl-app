@@ -22,6 +22,7 @@ namespace ME.Libros.Web.Extensions
         {
             return new CobroDto
             {
+                Id = cobroViewModel.Id,
                 VentaId = cobroViewModel.VentaId,
                 FechaCobro = cobroViewModel.FechaCobro,
                 Monto = cobroViewModel.Monto

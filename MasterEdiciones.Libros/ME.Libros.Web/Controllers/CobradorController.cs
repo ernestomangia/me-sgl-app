@@ -160,20 +160,20 @@ namespace ME.Libros.Web.Controllers
         [HttpPost]
         public ActionResult Modificar(CobradorViewModel cobradorViewModel)
         {
-            if (!ModelState.IsValid)
-            {
-                PrepareModel(cobradorViewModel);
-                return View(cobradorViewModel);
-            }
-
             var localidadIds = new List<string>();
             if (!string.IsNullOrEmpty(Request.Form["localidadesAsignadas_dualList"]))
             {
                 localidadIds = Request.Form["localidadesAsignadas_dualList"].Split(',').ToList();
             }
+
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(cobradorViewModel, localidadIds);
+                return View(cobradorViewModel);
+            }
+
             var nombreLocalidades = string.Empty;
             long resultado = 0;
-
             try
             {
                 var cobradorDominio = CobradorService.GetPorId(cobradorViewModel.Id);

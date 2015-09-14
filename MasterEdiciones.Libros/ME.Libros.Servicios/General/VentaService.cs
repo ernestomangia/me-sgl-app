@@ -56,6 +56,8 @@ namespace ME.Libros.Servicios.General
                     CalcularSaldo(ventaDominio);
                     CalcularMontoVendido(ventaDominio);
                     ventaDominio.MontoCobrado = 0;
+                    ventaDominio.CantidadCuotas = ventaDominio.PlanPago.CantidadCuotas;
+                    ventaDominio.MontoCuota = ventaDominio.PlanPago.Monto;
 
                     // TODO: Generar plan de pago a partir de un interes
                     ventaDominio.Estado = EstadoVenta.Vigente;
@@ -131,7 +133,7 @@ namespace ME.Libros.Servicios.General
             {
                 predicateBuilder = predicateBuilder.And(v => v.FechaVenta <= ventaSearchDto.Hasta);
             }
-             
+
             return ListarAsQueryable()
                 .AsExpandable()
                 .Where(predicateBuilder)
@@ -148,6 +150,31 @@ namespace ME.Libros.Servicios.General
         public void CalcularMontoVendido(VentaDominio ventaDominio)
         {
             ventaDominio.MontoVendido = ventaDominio.Cuotas.Sum(c => c.Monto);
+        }
+
+        public void ContabilizarCobro(VentaDominio ventaDominio, decimal montoCobro)
+        {
+            ventaDominio.MontoCobrado += montoCobro;
+            ventaDominio.Saldo -= montoCobro;
+        }
+
+        public void ActualizarEstadoCuotas(VentaDominio ventaDominio)
+        {
+            // Actualizar estado de cuotas segun la fecha de vencimiento
+            foreach (var cuotaDominio in ventaDominio.Cuotas.Where(c => c.Estado != EstadoCuota.Pagada))
+            {
+                if (cuotaDominio.FechaVencimiento.Date < DateTime.Now.Date)
+                {
+                    cuotaDominio.Estado = EstadoCuota.Atrasada;
+                }
+            }
+        }
+
+        public void ActualizarEstadoVenta(VentaDominio ventaDominio)
+        {
+            ventaDominio.Estado = ventaDominio.Saldo > 0
+                ? EstadoVenta.Vigente
+                : EstadoVenta.Pagada;
         }
 
         #region Private Methods

@@ -147,7 +147,9 @@ namespace ME.Libros.Web.Controllers
                 using (RendicionService)
                 {
                     var rendicionDominio = RendicionService.GetPorId(rendicionViewModel.Id);
-                    RendicionService.RecalcularCobrosCuotas(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto));
+                    rendicionDominio.Comision = rendicionViewModel.Comision;
+                    rendicionDominio.MontoComision = rendicionViewModel.MontoComision;
+                    RendicionService.ModificarRendicion(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto).ToList());
                     
                     resultado = RendicionService.Guardar(rendicionDominio);
                 }

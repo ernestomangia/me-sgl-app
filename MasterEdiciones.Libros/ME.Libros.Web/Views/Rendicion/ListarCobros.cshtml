@@ -9,6 +9,8 @@
         { EstadoCuota.Atrasada, "danger" },
         { EstadoCuota.Pagada, "success" }
     };
+
+    var crearRendicion = Model.Id == 0;
 }
 
 <table id="tablaResultado" class="dataTableCustom">
@@ -19,8 +21,15 @@
             <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoVendido)</th>
             <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoCobrado)</th>
             <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Saldo)</th>
-            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Numero)</th>
-            <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Estado) cuota</th>
+            @if (crearRendicion)
+            {
+                <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Numero)</th>
+                <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Estado) cuota</th>
+            }
+            else
+            {
+                <th>Cuotas Canceladas</th>
+            }
             <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
         </tr>
@@ -28,19 +37,33 @@
     @for (var i = 0; i < Model.Cobros.Count; i++)
     {
         var cobro = Model.Cobros[i];
-        var cuota = cobro.Venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada);
         <tr>
             <td>@Html.DisplayFor(model => cobro.Venta.Id)</td>
             <td>@Html.DisplayFor(model => cobro.Venta.Cliente.Apellido), @Html.DisplayFor(modelItem => cobro.Venta.Cliente.Nombre)</td>
             <td>@Html.DisplayFor(model => cobro.Venta.MontoVendido)</td>
             <td>@Html.DisplayFor(model => cobro.Venta.MontoCobrado)</td>
             <td>@Html.DisplayFor(model => cobro.Venta.Saldo)</td>
-            <td>@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => cobro.Venta.PlanPago.CantidadCuotas)</td>
-            <td class="text-center @(estado[cuota.Estado])">
-                <span class="text-@(estado[cuota.Estado])">
-                    @cuota.Estado.GetDisplayName()
-                </span>
-            </td>
+            @if (crearRendicion)
+            {
+                var cuota = cobro.Venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada);
+
+                <td>@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => cobro.Venta.PlanPago.CantidadCuotas)</td>
+                <td class="text-center @(estado[cuota.Estado])">
+                    <span class="text-@(estado[cuota.Estado])">
+                        @cuota.Estado.GetDisplayName()
+                    </span>
+                </td>
+            }
+            else
+            {
+                var primerCuotaCancelada = cobro.Cuotas.First().Numero;
+                var ultimaCuotaCancelada = cobro.Cuotas.Last().Numero;
+                var intervalo = cobro.Cuotas.Count > 1
+                    ? string.Format("{0} - {1}", primerCuotaCancelada, ultimaCuotaCancelada) 
+                    : primerCuotaCancelada.ToString();
+                
+                <td>@intervalo / @cobro.Venta.CantidadCuotas</td>
+            }
             <td>
                 <div class="form-group form-group-sm" style="margin-left: 0;">
                     @Html.TextBoxFor(model => Model.Cobros[i].FechaCobro, "{0:dd/MM/yyyy}", new { @class = "form-control datepickerCobros fechaCobro" })
@@ -54,18 +77,19 @@
                 </div>
             </td>
             @Html.HiddenFor(model => Model.Cobros[i].VentaId)
+            @Html.HiddenFor(model => Model.Cobros[i].Id)
         </tr>
     }
 </table>
 @Html.Hidden("ExistenVentasVigentes", Model.Cobros.Any(), new { id = "ExistenVentasVigentes" })
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         jQuery.validator.unobtrusive.parse("#formRendicion");
-        @if (Model.Id == 0)
+        @if (crearRendicion)
         {
             @:$("#Comision").val('@Model.Cobrador.PorcentajeComision');
-        }
+                        }
     });
 
     $('.datepickerCobros').datepicker({

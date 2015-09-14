@@ -38,6 +38,8 @@ namespace ME.Libros.Web.Models
             VendedorId = ventaDominio.Vendedor.Id;
             PlanPago = new PlanPagoViewModel(ventaDominio.PlanPago);
             PlanPagoId = ventaDominio.PlanPago.Id;
+            CantidadCuotas = ventaDominio.CantidadCuotas;
+            MontoCuota = ventaDominio.MontoCuota;
             // Items
             Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
             Items.ForEach(c => c.Venta = this);
@@ -80,6 +82,10 @@ namespace ME.Libros.Web.Models
         public decimal Saldo { get; set; }
 
         public EstadoVenta Estado { get; set; }
+
+        public int CantidadCuotas { get; set; }
+        
+        public decimal MontoCuota { get; set; }
 
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]

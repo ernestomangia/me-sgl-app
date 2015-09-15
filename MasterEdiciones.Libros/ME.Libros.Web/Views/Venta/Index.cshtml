@@ -113,6 +113,7 @@
             <th>Cobrador</th>
             <th>Vendedor</th>
             <th class="numero">@Html.DisplayNameFor(model => model.VentaViewModels[0].MontoVendido)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.VentaViewModels[0].MontoCobrado)</th>
             <th class="numero">@Html.DisplayNameFor(model => model.VentaViewModels[0].Saldo)</th>
             <th class="columnaAcciones">Acciones</th>
         </tr>
@@ -121,6 +122,7 @@
         <tr>
             <th colspan="7" style="text-align:right">Total hoja actual (Total)</th>
             <th class="text-right"></th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>
@@ -137,6 +139,7 @@
             <td>@Html.DisplayFor(venta => item.Cobrador.Nombre)</td>
             <td>@Html.DisplayFor(venta => item.Vendedor.Nombre)</td>
             <td class="text-right">@Html.DisplayFor(venta => item.MontoVendido)</td>
+            <td class="text-right">@Html.DisplayFor(venta => item.MontoCobrado)</td>
             <td class="text-right">@Html.DisplayFor(venta => item.Saldo)</td>
             <td>
                 <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})" title="Modificar venta">
@@ -165,7 +168,7 @@
         $('#dataTableVentas').dataTable({
             "order": [],
             "footerCallback": function (row, data, start, end, display) {
-                calcularTotalColumna(this, [7, 8]);
+                calcularTotalColumna(this, [7, 8, 9]);
             },
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                 $('td:eq(7),td:eq(8)', nRow).addClass("text-right");
@@ -199,6 +202,7 @@
         array.push(result.Cobrador.Nombre);
         array.push(result.Vendedor.Nombre);
         array.push(formatCurrency(result.MontoVendido));
+        array.push(formatCurrency(result.MontoCobrado));
         array.push(formatCurrency(result.Saldo));
         var botones = getHtmlBotonModificar(result) +
         (result.Estado != 3

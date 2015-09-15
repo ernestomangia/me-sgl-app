@@ -34,8 +34,6 @@ namespace ME.Libros.EF
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-            //modelBuilder.Entity<CobradorDominio>().HasMany(c=>c.Localidades).WithRequired(l=>l.localidades).WillCascadeOnDelete(false);
-
             base.OnModelCreating(modelBuilder);
         }
 

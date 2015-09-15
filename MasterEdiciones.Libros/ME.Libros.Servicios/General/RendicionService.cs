@@ -92,17 +92,19 @@ namespace ME.Libros.Servicios.General
                 var cobroDto = cobroDtos.Single(c => c.Id == cobro.Id);
                 if (cobro.Monto != cobroDto.Monto)
                 {
-                    var venta = cobro.Cuotas.First().Venta;
+                    var primerCuotaCobro = cobro.Cuotas.OrderBy(c => c.Numero).First();
+                    var venta = primerCuotaCobro.Venta;
                     var cobrosVenta = venta.Cuotas.SelectMany(c => c.Cobros).Distinct().ToList();
 
-                    // Saldo de la 1er cuota del cobro a modificar
-                    var saldoCuota = cobrosVenta.Where(cob => cob.Id < cobro.Id).Sum(cob => cob.Monto) -
-                                     venta.Cuotas.Where(cuota => cuota.Numero <= cobro.Cuotas.First().Numero).Sum(cuota => cuota.Monto);
+                    // Lo cobrado para la 1er cuota del cobro modificado
+                    var cobradoPrimerCuotaCobro = cobrosVenta.Where(cob => cob.Id < cobro.Id).Sum(cob => cob.Monto) -
+                                     venta.Cuotas.Where(cuota => cuota.Numero < primerCuotaCobro.Numero).Sum(cuota => cuota.Monto);
 
                     // Actualizar saldo de la venta con la diferencia entre el nuevo monto cobrado y el monto modificado
                     VentaService.ContabilizarCobro(venta, cobroDto.Monto - cobro.Monto);
 
                     // El monto se modfico
+
                     if (cobroDto.Monto == 0)
                     {
                         // Eliminar cobro
@@ -111,28 +113,31 @@ namespace ME.Libros.Servicios.General
                     else
                     {
                         cobro.Monto = cobroDto.Monto;
+                        cobro.FechaCobro = cobroDto.FechaCobro;
                     }
-                    
+
                     // Recalcular saldo cuotas y relaciones
-                    RecalcularCuotas(venta, cobrosVenta, cobro, saldoCuota);
+                    RecalcularCuotas(venta, cobrosVenta, cobro, primerCuotaCobro, cobradoPrimerCuotaCobro);
                 }
             }
 
             CalcularMontos(rendicionDominio);
         }
 
-        public void RecalcularCuotas(VentaDominio venta, List<CobroDominio> cobrosVenta, CobroDominio cobroModificado, decimal saldoCuota)
+        public void RecalcularCuotas(VentaDominio venta, List<CobroDominio> cobrosVenta, CobroDominio cobroModificado, CuotaDominio primerCuotaCobro, decimal cobradoPrimerCuotaCobro)
         {
-            var cuotas = venta.Cuotas.Where(cuota => cuota.Id >= cobroModificado.Cuotas.First().Id).ToList();
+            var cuotas = venta.Cuotas.Where(cuota => cuota.Numero >= primerCuotaCobro.Numero).OrderBy(c => c.Numero).ToList();
             foreach (var cuota in cuotas)
             {
                 cuota.Saldo = cuota.Monto;
                 cuota.MontoCobro = 0;
-                //ver fecha cobro
+                cuota.Estado = EstadoCuota.NoVencida;
+                cuota.FechaCobro = null;
             }
 
-            // Modificar saldo para la 1er cuota
-            cobroModificado.Cuotas.First().Saldo = saldoCuota;
+            // Modificar saldo para la 1er cuota del cobro modificado
+            primerCuotaCobro.Saldo -= cobradoPrimerCuotaCobro;
+            primerCuotaCobro.MontoCobro = cobradoPrimerCuotaCobro;
 
             foreach (var cobro in cobrosVenta.Where(c => c.Id >= cobroModificado.Id))
             {

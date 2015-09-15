@@ -20,7 +20,8 @@
             @Html.Label("PeriodoFake", "Periodo", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBox("PeriodoFake", "", new { id = "PeriodoFake", @class = "form-control", placeholder = "Periodo" })
-                @Html.HiddenFor(r => r.Periodo, new { @class = "datepicker" })
+                @*@Html.HiddenFor(r => r.Periodo, new { @class = "datepicker" })*@
+                @Html.Hidden("Periodo", Model.Periodo.ToString("dd/MM/yyyy"), new { id = "Periodo", @class = "datepicker" })
             </div>
         </div>
     </div>
@@ -137,7 +138,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#Periodo, #PeriodoFake").datepicker("setDate", new Date());
         $("#PeriodoFake").rules("add", {
             required: true,
             messages: {
@@ -151,33 +151,13 @@
         todayBtn: 'linked',
         todayHighlight: true,
         orientation: "left top",
-        format: "MM yyyy"
+        format: "MM yyyy",
+        minViewMode: 1
     });
 
     $("#PeriodoFake").on("changeDate clearDate", function () {
         var periodoFake = $(this).datepicker('getDate');
         $('#Periodo').datepicker('setDate', periodoFake);
-    });
-
-    $('#LocalidadId, #CobradorId').on('change', function (e) {
-        var datosIngresados = $("#DatosIngresados").val();
-        if (datosIngresados == "true") {
-            bootbox.confirm({
-                title: "Advertencia",
-                message: "Si usted modifica el Cobrador o la Localidad se perderán los cobros cargados. <br/>¿Esta seguro que desea continuar?",
-                callback: function (result) {
-                    if (result) {
-                        cargarCobros();
-                    } else {
-                        // No cambiar el cobrador o localidad
-
-                    }
-                }
-            });
-        }
-        else {
-            cargarCobros();
-        }
     });
 
     $('#Comision').on('keyup change', function (e) {
@@ -211,10 +191,6 @@
             }
         }
     });
-
-    /*$(document).on("keyup", ".fechaCobro", function () {
-        $("#DatosIngresados").val("true");
-    });*/
 
     $(document).on("keyup change", ".montoCobro", function (e) {
         if (isValidKey(e.keyCode)) {
@@ -259,50 +235,6 @@
         });
 
         return montoFacturado;
-    }
-
-    function cargarCobros() {
-        $("#DatosIngresados").val("false");
-        var localidadId = $("#LocalidadId :selected").val();
-        var cobradorId = $("#CobradorId :selected").val();
-        if (cobradorId > 0 && localidadId > 0) {
-            $.ajax({
-                method: "GET",
-                url: '/Rendicion/ListarCobros',
-                data: { cobradorId: cobradorId, localidadId: localidadId },
-                dataType: "html",
-                error: function (jqXHR, status, error) {
-                    mensajeError("Error: " + error + " - Status: " + status);
-                },
-                success: function (data) {
-                    var existenVentasVigentes = $(data).filter('input[name="ExistenVentasVigentes"]');
-                    if (existenVentasVigentes.val() == "True") {
-                        $("#MsjSinVentasVigentes").hide();
-                        $("#rowCobros").html(data);
-                        loadDataTable2();
-                        $(".datepickerCobros").datepicker("clearDates");
-                        var form = $("#formRendicion")
-                            .removeData("validator") /* added by the raw jquery.validate plugin */
-                            .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin */
-                        jQuery.validator.unobtrusive.parse(form);
-                        $('#formRendicion').validate().settings.ignore = false;
-                    } else {
-                        $("#MsjSinVentasVigentes").show();
-                        clearTable();
-                    }
-                },
-                timeout: 10000,
-                cache: false
-            });
-        } else {
-            $("#MsjSinVentasVigentes").hide();
-            clearTable();
-        }
-    }
-
-    function clearTable() {
-        var table = $("#tablaResultado").dataTable();
-        table.fnClearTable();
     }
 
     function isValidKey(keyCode) {

@@ -51,13 +51,14 @@ namespace ME.Libros.Servicios.General
                 if (ventaDominio.PlanPago.Tipo == TipoPlanPago.Financiado)
                 {
                     // N cuotas
+                    ventaDominio.CantidadCuotas = ventaDominio.PlanPago.CantidadCuotas;
+                    ventaDominio.MontoCuota = ventaDominio.PlanPago.Monto;
+                    ventaDominio.MontoCobrado = 0;
+
                     // Plan de pago a partir de montos fijos
                     GenerarCuotas(ventaDominio);
                     CalcularSaldo(ventaDominio);
                     CalcularMontoVendido(ventaDominio);
-                    ventaDominio.MontoCobrado = 0;
-                    ventaDominio.CantidadCuotas = ventaDominio.PlanPago.CantidadCuotas;
-                    ventaDominio.MontoCuota = ventaDominio.PlanPago.Monto;
 
                     // TODO: Generar plan de pago a partir de un interes
                     ventaDominio.Estado = EstadoVenta.Vigente;
@@ -191,8 +192,7 @@ namespace ME.Libros.Servicios.General
 
         private void GenerarCuotas(VentaDominio ventaDominio)
         {
-            var monto = ventaDominio.PlanPago.Monto;
-            for (var i = 0; i < ventaDominio.PlanPago.CantidadCuotas; i++)
+            for (var i = 0; i < ventaDominio.CantidadCuotas; i++)
             {
                 var fechaVencimiento = ventaDominio.FechaCobro.AddMonths(i).Date;
                 var cuota = new CuotaDominio
@@ -204,8 +204,8 @@ namespace ME.Libros.Servicios.General
                         ? EstadoCuota.NoVencida
                         : EstadoCuota.Atrasada,
                     // DiasAtraso = (DateTime.Now.Date - fechaVencimiento).Days,
-                    Monto = monto,
-                    Saldo = monto
+                    Monto = ventaDominio.MontoCuota,
+                    Saldo = ventaDominio.MontoCuota
                 };
 
                 ventaDominio.Cuotas.Add(cuota);

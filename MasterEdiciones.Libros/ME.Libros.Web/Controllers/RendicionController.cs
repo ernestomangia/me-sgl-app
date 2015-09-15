@@ -41,7 +41,7 @@ namespace ME.Libros.Web.Controllers
             using (RendicionService)
             {
                 rendiciones.AddRange(RendicionService.Listar()
-                    .OrderBy(r => r.Periodo)
+                    .OrderByDescending(r => r.Periodo)
                     .ThenBy(r => r.Cobrador.Apellido)
                     .ThenBy(r => r.Cobrador.Nombre)
                     .ThenBy(r => r.Localidad.Nombre)
@@ -147,6 +147,7 @@ namespace ME.Libros.Web.Controllers
                 using (RendicionService)
                 {
                     var rendicionDominio = RendicionService.GetPorId(rendicionViewModel.Id);
+                    rendicionDominio.Periodo = rendicionViewModel.Periodo;
                     rendicionDominio.Comision = rendicionViewModel.Comision;
                     rendicionDominio.MontoComision = rendicionViewModel.MontoComision;
                     RendicionService.ModificarRendicion(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto).ToList());

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
@@ -34,13 +33,7 @@ namespace ME.Libros.Web.Models
 
             // Items
             Items = new List<CompraItemViewModel>(compraDominio.CompraItems.Select(ci => new CompraItemViewModel(ci)));
-            var i = 0;
-            Items.ForEach(ci =>
-            {
-                ci.Compra = this;
-                ci.Orden = ++i;
-            });
-         
+            Items.ForEach(c => c.Compra = this);
         }
 
         #endregion
@@ -73,11 +66,13 @@ namespace ME.Libros.Web.Models
         public decimal MontoCalculado { get; set; }
 
         [Display(Name = "MontoComprado", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoComprado { get; set; }
 
         public EstadoCompra Estado { get; set; }
-        
+
+        [Display(Name = "Proveedor", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ProveedorId { get; set; }
 
@@ -88,6 +83,6 @@ namespace ME.Libros.Web.Models
         public SelectList Proveedores { get; set; }
 
         #endregion
-    
+
     }
 }

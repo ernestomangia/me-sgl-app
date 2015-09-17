@@ -70,6 +70,7 @@ namespace ME.Libros.Web.Models
         public decimal MontoCalculado { get; set; }
 
         [Display(Name = "MontoVendido", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoVendido { get; set; }
 

@@ -15,7 +15,10 @@
 <div class="form-group form-group-sm">
     @Html.LabelFor(ci => ci.PrecioCompraComprado, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(ci => ci.PrecioCompraComprado, new { @class = "form-control", placeholder = Messages.PrecioCompraComprado, maxlength = "8", autocomplete = "off" })
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            @Html.TextBoxFor(ci => ci.PrecioCompraComprado, new { @class = "form-control", placeholder = Messages.PrecioCompraComprado, maxlength = "8", autocomplete = "off" })
+        </div>
         <span class="label label-primary">
             Precio Anterior: $
             <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(ci => ci.PrecioCompraCalculado).ToHtmlString() : "-")</span>
@@ -25,7 +28,10 @@
 <div class="form-group form-group-sm">
     @Html.LabelFor(ci => ci.MontoItemComprado, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(ci => ci.MontoItemComprado, new { @class = "form-control", placeholder = Messages.MontoItemComprado, maxlength = "8", autocomplete = "off" })
+        <div class="input-group">
+            <div class="input-group-addon">$</div>
+            @Html.TextBoxFor(ci => ci.MontoItemComprado, new { @class = "form-control", placeholder = Messages.MontoItemComprado, maxlength = "8", autocomplete = "off" })
+        </div>
     </div>
 </div>
 
@@ -61,7 +67,7 @@
     });
 
     $('#Cantidad').on('keyup change', function (e) {
-        if (isValidKey(e.keyCode)) {
+        if (isValidKeyForCalc(e.keyCode)) {
             var precioCompraComprado = Globalize.parseFloat($("#PrecioCompraComprado").val());
             var precioCompraCalculado = Globalize.parseFloat($("#precioSugerido").text());
             calcularMontosItem(precioCompraCalculado, precioCompraComprado);
@@ -69,7 +75,7 @@
     });
 
     $('#PrecioCompraComprado').on('keyup change', function (e) {
-        if (isValidKey(e.keyCode)) {
+        if (isValidKeyForCalc(e.keyCode)) {
             var precioCompraComprado = Globalize.parseFloat($("#PrecioCompraComprado").val());
             calcularMontoItemComprado(precioCompraComprado);
         }

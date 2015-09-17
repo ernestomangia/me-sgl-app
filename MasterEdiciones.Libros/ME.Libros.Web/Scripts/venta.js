@@ -261,14 +261,6 @@ function calcularDiferencia() {
     }
 }
 
-function isValidKey(keyCode) {
-    return keyCode == undefined || // caso change event
-        (keyCode >= 48 && keyCode <= 57) || // 0-9
-        (keyCode >= 96 && keyCode <= 105) || // 0-9 numpad
-        keyCode == 188 || // Tab
-        keyCode == 8; // Back space
-}
-
 function modificarVentaItem(form) {
     $(".modalVentaItem .validationSummary").addClass("hide");
     $(".modalVentaItem .validationSummary ul").remove();
@@ -286,7 +278,7 @@ function modificarVentaItem(form) {
                 var ventaItem = data.VentaItem;
                 actualizarVentaItemRow(ventaItem);
                 $('#modalVentaItem').modal('toggle');
-                mensajeSuccess("Se modifico el " + ventaItem.Producto.Nombre + " exitosamente");
+                mensajeSuccess("Se modifico el producto " + ventaItem.Producto.Nombre + " exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {

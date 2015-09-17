@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<ME.Libros.Web.Models.VentaItemViewModel>
 
-@*Si no existen items o si existen y la venta es None, mostrar el boton*@
+@*Si no existen items o si existen el 1ro con ID = 0, mostrar el boton*@
 @if (!Model.Any() || Model.First().Id == 0)
 {
     <a id="btnNuevoVentaItem" class="btn btn-sm btn-success btnNuevo" data-toggle="modal" data-target="#" role="button">

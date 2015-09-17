@@ -7,14 +7,13 @@
 @using (Html.BeginForm("Modificar", "Compra", FormMethod.Post, new { id = "formCompra", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("CompraPagada/Shared/Form_Partial", Model)
-  
-     @Html.HiddenFor(model=>model.MontoCalculado)
-     @Html.HiddenFor(model=>model.MontoComprado)
-     @Html.HiddenFor(model=>model.ProveedorId)
-    
+
+    @Html.HiddenFor(model => model.MontoCalculado)
+    @Html.HiddenFor(model => model.MontoComprado)
+    @Html.HiddenFor(model => model.ProveedorId)
 
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="text-right">
                 @if (Model.Estado == EstadoCompra.Pagada)
                 {
@@ -35,7 +34,6 @@
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>
-
             </div>
         </div>
     </div>

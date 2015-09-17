@@ -48,7 +48,7 @@ function crearCompraItem(form) {
                 var compraItem = data.CompraItem;
                 agregarCompraItem(compraItem);
                 $('#modalCompraItem').modal('toggle');
-                mensajeSuccess("Se agrego el " + compraItem.Producto.Nombre + " al detalle de la compra");
+                mensajeSuccess("Se agrego el producto " + compraItem.Producto.Nombre + " al detalle de la compra");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -130,7 +130,7 @@ function modificarCompraItem(form) {
                 var compraItem = data.CompraItem;
                 actualizarCompraItemRow(compraItem);
                 $('#modalCompraItem').modal('toggle');
-                mensajeSuccess("Se modifico el " + compraItem.Producto.Nombre + " exitosamente");
+                mensajeSuccess("Se modifico el producto " + compraItem.Producto.Nombre + " exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -293,14 +293,6 @@ function calcularDiferencia() {
         $("#diferencia").text("-");
         $("#diferencia").parent().switchClass("label-success label-danger", "label-default");
     }
-}
-
-function isValidKey(keyCode) {
-    return keyCode == undefined || // caso change event
-        (keyCode >= 48 && keyCode <= 57) || // 0-9
-        (keyCode >= 96 && keyCode <= 105) || // 0-9 numpad
-        keyCode == 188 || // Tab
-        keyCode == 8; // Back space
 }
 
 function actualizarCompraItemRow(compraItem) {

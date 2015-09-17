@@ -21,6 +21,7 @@ namespace ME.Libros.Web.Models
         {
             Id = compraItemDominio.Id;
             FechaAlta = compraItemDominio.FechaAlta;
+            Orden = compraItemDominio.Orden;
             Cantidad = compraItemDominio.Cantidad;
             MontoItemComprado = compraItemDominio.MontoComprado;
             PrecioCosto = compraItemDominio.PrecioCosto;

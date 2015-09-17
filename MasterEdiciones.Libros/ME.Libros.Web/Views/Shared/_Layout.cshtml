@@ -134,10 +134,10 @@
         <div class="row">
             @if (ViewBag.MenuId != null)
             {
-                <div id="sidebar" class="col-sm-12 col-md-2 sidebar" role="navigation">
+                <div id="sidebar" class="col-sm-12 col-md-2 col-lg-1 sidebar" role="navigation">
                     @Html.Action("Index", "MenuLateral", new { id = ViewBag.MenuId })
                 </div>
-                <div class="col-sm-12 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="col-sm-12 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-11 col-lg-offset-1 main">
                     <img id="loading-indicator" src="~/Content/img/ajax-loader.gif" style="display:none" />
                     <div class="tab-content">
                         <div id="tabContenedor" role="tabpanel" class="tab-pane fade in active">

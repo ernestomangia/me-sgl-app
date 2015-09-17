@@ -191,7 +191,6 @@ function formatFloat(value) {
 }
 
 function formatCurrency(value) {
-    //return "$ " + Globalize.format(value, "n2");
     return Globalize.format(value, "C");
 }
 
@@ -238,3 +237,27 @@ $(function () {
         $('html,body').scrollTop(scrollmem);
     });
 });
+
+function isValidKeyForCalc(keyCode) {
+    return isChangeEvent(keyCode) ||
+        isNumberKey(keyCode) ||
+        isTabKey(keyCode) ||
+        isBackSpaceKey(keyCode);
+}
+
+function isChangeEvent(keyCode) {
+    return keyCode == undefined;
+}
+
+function isTabKey(keyCode) {
+    return keyCode == 188;
+}
+
+function isBackSpaceKey(keyCode) {
+    return keyCode == 8;
+}
+
+function isNumberKey(keyCode) {
+    return (keyCode >= 48 && keyCode <= 57) ||
+        (keyCode >= 96 && keyCode <= 105); // Numpad
+}

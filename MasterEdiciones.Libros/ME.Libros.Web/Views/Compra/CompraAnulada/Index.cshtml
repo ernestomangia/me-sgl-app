@@ -1,49 +1,40 @@
 ﻿@using ME.Libros.Utils.Enums
 @model IEnumerable<ME.Libros.Web.Models.CompraViewModel>
 
-    <h3>Compras Anuladas</h3>
-    @*<a class="btn btn-success btnNuevo" href="@Url.Action("Crear")" role="button">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            Nuevo
-        </a>*@
-    @*<a class="btn btn-info" href="#" role="button">
-            <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
-            Filtrar
-        </a>*@
-
-    <table class="dataTableCustom">
-        <thead>
-            <tr>
-                <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Id)</th>
-                <th>@Html.DisplayNameFor(model => model.FechaCompra)</th>
-                <th>Proveedor</th>
-                <th>@Html.DisplayNameFor(model => model.Proveedor.Cuil)</th>
-                <th class="numero">@Html.DisplayNameFor(model => model.MontoComprado)</th>
-                <th>@Html.DisplayNameFor(model => model.NroRemito)</th>
-                <th class="columnaAcciones">Acciones</th>
-            </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
-            var mostrarAnular = item.Estado == EstadoCompra.Pagada;
-            <tr id=@("tr_"+ item.Id) class="fila">
-                <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
-                <td>@Html.DisplayFor(modelItem => item.Proveedor.RazonSocial)</td>
-                <td>@Html.DisplayFor(modelItem => item.Proveedor.Cuil)</td>
-                <td class="text-right">@Html.DisplayFor(modelItem => item.MontoComprado)</td>
-                <td class="text-right">@Html.DisplayFor(modelItem => item.NroRemito)</td>
-                <td>
-                    <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </a>
-                    @if (mostrarAnular)
-                    {
-                        <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminar" onclick="javascript:setearId(@item.Id);" title="Anular">
-                            <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-                        </button>
-                    }
-                </td>
-            </tr>
-        }
-    </table>
+<h3>Compras Anuladas</h3>
+<table class="dataTableCustom">
+    <thead>
+        <tr>
+            <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaCompra)</th>
+            <th>@Html.DisplayNameFor(model => model.ProveedorId)</th>
+            <th>@Html.DisplayNameFor(model => model.Proveedor.Cuil)</th>
+            <th class="numero">@Html.DisplayNameFor(model => model.MontoComprado)</th>
+            <th>@Html.DisplayNameFor(model => model.NroRemito)</th>
+            <th class="columnaAcciones">Acciones</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        var mostrarAnular = item.Estado == EstadoCompra.Pagada;
+        <tr id=@("tr_"+ item.Id) class="fila">
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.FechaCompra)</td>
+            <td>@Html.DisplayFor(modelItem => item.Proveedor.RazonSocial)</td>
+            <td>@Html.DisplayFor(modelItem => item.Proveedor.Cuil)</td>
+            <td class="text-right">@Html.DisplayFor(modelItem => item.MontoComprado)</td>
+            <td class="text-right">@Html.DisplayFor(modelItem => item.NroRemito)</td>
+            <td>
+                <a class="btn btn-warning btn-sm btnModificar" type="button" href="@Url.Action("Modificar", new { id = item.Id})">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                </a>
+                @if (mostrarAnular)
+                {
+                    <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminar" onclick="javascript:setearId(@item.Id);" title="Anular">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    </button>
+                }
+            </td>
+        </tr>
+    }
+</table>

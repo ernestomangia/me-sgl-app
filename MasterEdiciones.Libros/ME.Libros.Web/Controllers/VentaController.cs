@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Mvc.Filters;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -197,20 +196,6 @@ namespace ME.Libros.Web.Controllers
                 {
                     resultado = VentaService.Guardar(ventaDominio);
                 }
-
-                if (resultado <= 0)
-                {
-                    foreach (var error in VentaService.ModelError)
-                    {
-                        ModelState.AddModelError(error.Key, error.Value);
-                    }
-                }
-                else
-                {
-                    TempData["Id"] = ventaDominio.Id;
-                    TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaVenta, ventaDominio.Id);
-                }
-
             }
             catch (DbEntityValidationException ex)
             {
@@ -222,6 +207,19 @@ namespace ME.Libros.Web.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            if (resultado <= 0)
+            {
+                foreach (var error in VentaService.ModelError)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
+            else
+            {
+                TempData["Id"] = ventaDominio.Id;
+                TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaVenta, ventaDominio.Id);
             }
 
             if (resultado > 0)

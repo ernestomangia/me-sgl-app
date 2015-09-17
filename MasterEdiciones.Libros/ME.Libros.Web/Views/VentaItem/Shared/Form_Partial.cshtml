@@ -86,7 +86,7 @@
     });
 
     $('#Cantidad').on('keyup change', function (e) {
-        if (isValidKey(e.keyCode)) {
+        if (isValidKeyForCalc(e.keyCode)) {
             var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
             var precioVentaCalculado = Globalize.parseFloat($("#precioSugerido").text());
             calcularMontosItem(precioVentaCalculado, precioVentaVendido);
@@ -94,7 +94,7 @@
     });
 
     $('#PrecioVentaVendido').on('keyup change', function (e) {
-        if (isValidKey(e.keyCode)) {
+        if (isValidKeyForCalc(e.keyCode)) {
             var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
             calcularMontoItemVendido(precioVentaVendido);
             calcularDiferencia();

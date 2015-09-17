@@ -176,7 +176,7 @@
     });
 
     $('#MontoComision').on('keyup change', function (e) {
-        if (isValidKey(e.keyCode)) {
+        if (isValidKeyForCalc(e.keyCode)) {
             var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
             var montoComision = Globalize.parseFloat($(this).val());
             if (montoFacturado > 0 && montoComision > 0) {
@@ -193,7 +193,7 @@
     });
 
     $(document).on("keyup change", ".montoCobro", function (e) {
-        if (isValidKey(e.keyCode)) {
+        if (isValidKeyForCalc(e.keyCode)) {
             $("#DatosIngresados").val("true");
             var montoFacturado = calcularMontoFacturado();
             var comision = Globalize.parseFloat($("#Comision").val());
@@ -235,13 +235,5 @@
         });
 
         return montoFacturado;
-    }
-
-    function isValidKey(keyCode) {
-        return keyCode == undefined || // caso change event
-            (keyCode >= 48 && keyCode <= 57) || // 0-9
-            (keyCode >= 96 && keyCode <= 105) || // 0-9 numpad
-            keyCode == 188 || // Tab
-            keyCode == 8; // Back space
     }
 </script>

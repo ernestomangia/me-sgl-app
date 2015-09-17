@@ -87,7 +87,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-center">
-                        <button type="reset" class="btn btn-default" title="Borrar filtros">
+                        <button id="btnLimpiar" type="reset" class="btn btn-default" title="Borrar filtros">
                             <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                             Limpiar
                         </button>
@@ -171,7 +171,7 @@
                 calcularTotalColumna(this, [7, 8, 9]);
             },
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(7),td:eq(8)', nRow).addClass("text-right");
+                $('td:eq(7), td:eq(8), td:eq(9)', nRow).addClass("text-right");
             },
             lengthMenu: [5, 10, 25, 50]
         });
@@ -229,5 +229,11 @@
         var desde = $(this).datepicker('getDate');
         //TODO: Deshabilitar "Hoy" cuando la fecha desde es mayor a la actual
         $('#Hasta').datepicker('setStartDate', desde);
+    });
+
+    $("#btnLimpiar").click(function (e) {
+        e.preventDefault();
+        $(this).closest("form")[0].reset();
+        $("#formVenta").submit();
     });
 </script>

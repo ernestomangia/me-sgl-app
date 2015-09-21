@@ -19,7 +19,7 @@
                         Anular
                     </button>
                 }
-                <a class="btn btn-default" href="@Url.Action("Index", new { estado = ViewBag.MenuId == 23
+                <a class="btn btn-default btnCancelar" href="@Url.Action("Index", new { estado = ViewBag.MenuId == 23
                                                      ? (EstadoVenta?) null
                                                      : Model.Estado})" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>

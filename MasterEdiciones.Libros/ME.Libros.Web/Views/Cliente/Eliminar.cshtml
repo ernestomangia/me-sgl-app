@@ -28,7 +28,12 @@
 <script type="text/javascript">
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
-        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElCliente').replace("{1}", id);
+        var codigo = $("#Codigo").val();
+        if (codigo == undefined) {
+            var table = $("#dataTableClientes").DataTable();
+            codigo = table.cell($("#tr_" + id), $(".columnaCodigo")).data();
+        }
+        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElCliente').replace("{1}", codigo);
         eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
     });
 </script>

@@ -795,7 +795,6 @@
     <Compile Include="Controllers\VendedorController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Controllers\CompraPagadaController.cs" />
     <Compile Include="Controllers\PlanPagoController.cs" />
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\CobradorController.cs" />

@@ -269,13 +269,22 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+
             try
             {
                 using (VentaService)
                 {
                     VentaService.AnularVenta(id);
+
+                    if (isRedirect)
+                    {
+                        var ventaDominio = VentaService.GetPorId(id);
+                        TempData["Id"] = ventaDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadAnulada, Messages.LaVenta, ventaDominio.Id);
+                    }
                 }
             }
             catch (Exception ex)
@@ -285,7 +294,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid, 
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

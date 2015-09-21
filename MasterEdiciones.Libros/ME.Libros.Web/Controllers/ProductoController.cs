@@ -128,13 +128,22 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+
             try
             {
                 using (ProductoService)
                 {
-                    ProductoService.Eliminar(ProductoService.GetPorId(id));
+                    var productoDominio = ProductoService.GetPorId(id);
+                    ProductoService.Eliminar(productoDominio);
+
+                    if (isRedirect)
+                    {
+                        TempData["Id"] = productoDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadEliminada, Messages.ElProducto, productoDominio.Id);
+                    }
                 }
             }
             catch (DbUpdateException ex)
@@ -157,7 +166,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

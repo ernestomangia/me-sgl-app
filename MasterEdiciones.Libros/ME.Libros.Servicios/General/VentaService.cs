@@ -98,10 +98,7 @@ namespace ME.Libros.Servicios.General
                     ProductoService.SumarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
                 }
 
-                foreach (var cuotaDominio in ventaDominio.Cuotas)
-                {
-                    //TODO: las cuotas se anulan?
-                }
+                //TODO: las cuotas se anulan? montos/saldo?
             }
 
             return Guardar(ventaDominio);

@@ -97,39 +97,51 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    using (GastoService)
-                    {
-                        GastoService.Eliminar(GastoService.GetPorId(id));
-                    }
-                }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
 
-                    if (sqlException != null && sqlException.Number == 547)
+            try
+            {
+                using (GastoService)
+                {
+                    var gastoDominio = GastoService.GetPorId(id);
+                    GastoService.Eliminar(gastoDominio);
+
+                    if (isRedirect)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                        TempData["Id"] = gastoDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadEliminada, Messages.ElGasto, gastoDominio.Id);
                     }
                 }
-                catch (Exception ex)
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+
+                if (sqlException != null && sqlException.Number == 547)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
+                }
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

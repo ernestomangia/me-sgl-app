@@ -75,8 +75,6 @@ namespace ME.Libros.Web.Models
         public long? Dni { get; set; }
 
         [Display(Name = "FechaNacimiento", ResourceType = typeof(Messages))]
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        //[DataType(DataType.Date, ErrorMessage = "Fecha incorrecta mvc5")]
         public DateTime? FechaNacimiento { get; set; }
 
         [Display(Name = "Iva", ResourceType = typeof(Messages))]

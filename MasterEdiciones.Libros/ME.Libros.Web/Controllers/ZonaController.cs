@@ -56,7 +56,7 @@ namespace ME.Libros.Web.Controllers
         public ActionResult Crear(ZonaViewModel zonaViewModel)
         {
             if (!ModelState.IsValid)
-            { 
+            {
                 return View(zonaViewModel);
             }
 
@@ -99,13 +99,21 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
             try
             {
                 using (ZonaService)
                 {
-                    ZonaService.Eliminar(ZonaService.GetPorId(id));
+                    var zonaDominio = ZonaService.GetPorId(id);
+                    ZonaService.Eliminar(zonaDominio);
+
+                    if (isRedirect)
+                    {
+                        TempData["Id"] = zonaDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadEliminada, Messages.LaZona, zonaDominio.Id);
+                    }
                 }
             }
             catch (DbUpdateException ex)
@@ -128,7 +136,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

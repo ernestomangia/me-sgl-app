@@ -274,8 +274,10 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+
             try
             {
                 using (CobradorService)
@@ -283,6 +285,12 @@ namespace ME.Libros.Web.Controllers
                     var cobradorDominio = CobradorService.GetPorId(id);
                     cobradorDominio.Localidades.Clear();
                     CobradorService.Eliminar(cobradorDominio);
+
+                    if (isRedirect)
+                    {
+                        TempData["Id"] = cobradorDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadEliminada, Messages.ElCobrador, cobradorDominio.Id);
+                    }
                 }
             }
             catch (DbUpdateException ex)
@@ -305,7 +313,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

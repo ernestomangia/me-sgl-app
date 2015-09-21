@@ -830,6 +830,7 @@
     </Compile>
     <Compile Include="Models\IvaViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\PlanillaCobradorViewModel.cs" />
     <Compile Include="Models\RendicionViewModel.cs" />
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
@@ -976,6 +977,8 @@
     <Content Include="Views\Rendicion\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Rendicion\Modificar.cshtml" />
     <Content Include="Views\Rendicion\ListarCobros.cshtml" />
+    <Content Include="Views\Reporte\PlanillaCobradoresPDF.cshtml" />
+    <Content Include="Views\Reporte\PlanillaCobradorPDF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

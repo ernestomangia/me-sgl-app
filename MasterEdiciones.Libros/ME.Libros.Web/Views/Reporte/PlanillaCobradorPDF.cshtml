@@ -1,0 +1,78 @@
+﻿@using ME.Libros.Utils.Enums
+@model IEnumerable<ME.Libros.Web.Models.PlanillaCobradorViewModel>
+
+    @{
+        ViewBag.Title = "PlanillaCobradorPDF";
+    }
+    <style type="text/css">
+        .page-breaker {
+            display: block;
+            clear: both;
+            page-break-after: always;
+            mso-page-numbers-start: 1;
+        }
+    </style>
+
+    <h2>Planilla de cobradores</h2>
+
+    @if (Model.Any())
+    {
+        foreach (var planilla in Model)
+        {
+            <div class="page-breaker">
+                <div class="row">
+                    <div class="col-xs-3"><b>Cobrador:</b></div>
+                    <div class="col-xs-3">@string.Format("{0}, {1}", planilla.Cobrador.Apellido, planilla.Cobrador.Nombre)</div>
+                    <div class="col-xs-3"><b>Localidad:</b></div>
+                    <div class="col-xs-3">@string.Format("{0}, {1}", planilla.Localidad.Nombre, planilla.Localidad.Provincia.Nombre)</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3"><b>Ventas:</b></div>
+                    <div class="col-xs-3">@planilla.Ventas.Count</div>
+                    <div class="col-xs-3">[webpage]</div>
+                    <div class="col-xs-3"></div>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="3" style="text-align:center"> Cliente</th>
+                            <th colspan="4" style="text-align:center">Venta </th>
+                            <th colspan="2" style="text-align:center">Pago </th>
+                            <th rowspan="2" style="vertical-align: middle; text-align:center">Comentario</th>
+                        </tr>
+                        <tr>
+                            <th class="columnaCodigo noSort">N°</th>
+                            <th id="denom">Denominación</th>
+                            <th>Dirección</th>
+                            <th>N°</th>
+                            <th>Cuota</th>
+                            <th>Vencimiento</th>
+                            <th>Monto</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    @foreach (var venta in planilla.Ventas)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => venta.Cliente.Codigo)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cliente.Nombre), @Html.DisplayFor(modelItem => venta.Cliente.Apellido)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cliente.Direccion)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).FechaVencimiento)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Monto)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).FechaCobro)</td>
+                            <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).MontoCobro)</td>
+                            <td> </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <h4>No existen ventas vigentes para generar las planillas de cobradores</h4>
+    }

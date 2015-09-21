@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.UsuarioViewModel
 
-<h3>Nuevo usuario</h3>
+<h3 class="page-header">Nuevo usuario</h3>
 @using (Html.BeginForm("Crear", "Usuario", FormMethod.Post, new { id = "formUsuario", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

@@ -1,22 +1,18 @@
 ﻿@model ME.Libros.Web.Models.GastoViewModel
 
-<h3>Modificar gasto</h3>
+<h3 class="page-header">Modificar gasto</h3>
 @using (Html.BeginForm("Modificar", "Gasto", FormMethod.Post, new { id = "formGasto", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
     @Html.HiddenFor(model => model.Id)
 
     <div class="row">
-        <div class="col-md-5">
-            <div class="col-md-8 col-md-offset-4">
+        <div class="col-md-10">
+            <div class="text-right">
                 <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarGasto" title="Eliminar gasto">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     Eliminar
                 </button>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="text-right">
                 <a class="btn btn-default btnCancelar" href="@Url.Action("Index")" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar

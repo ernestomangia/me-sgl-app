@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.IvaViewModel
 
-<h3>Modificar Iva</h3>
+<h3 class="page-header">Modificar IVA</h3>
 @using (Html.BeginForm("Modificar", "Iva", FormMethod.Post, new { id = "formIva", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
@@ -8,19 +8,15 @@
     @Html.HiddenFor(model => model.Codigo)
 
     <div class="row">
-        <div class="col-md-3">
-            @if(Model.HabilitarEliminar)
-            { 
-                <div class="col-md-8 col-md-offset-4">
+        <div class="col-md-5">
+            <div class="text-right">
+                @if (Model.HabilitarEliminar)
+                {
                     <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarIva" title="Eliminar Iva">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         Eliminar
                     </button>
-                </div>
-            }
-        </div>
-        <div class="col-md-2">
-            <div class="text-right">
+                }
                 <a class="btn btn-default btnCancelar" href="@Url.Action("Index")" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar

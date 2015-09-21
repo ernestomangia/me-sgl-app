@@ -3,7 +3,7 @@
 
 <script src="~/Scripts/venta.js"></script>
 
-<h2>Modificar venta</h2>
+<h3 class="page-header">Modificar venta</h3>
 @using (Html.BeginForm("Modificar", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

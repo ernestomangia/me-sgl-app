@@ -1,4 +1,5 @@
-﻿<!-- Modal -->
+﻿@using ME.Libros.Web.Models
+<!-- Modal -->
 <div class="modal fade modalEliminar" id="modalEliminarCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -7,7 +8,7 @@
                 <h4 class="modal-title" id="myModalLabel">Eliminar cliente</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar el Cliente?
+                ¿Esta seguro que desea eliminar el cliente @(Model is ClienteViewModel ? "actual" : "seleccionado")?
             </div>
             <div class="modal-footer">
                 <div class="row text-left">
@@ -29,7 +30,7 @@
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
         var codigo = $("#Codigo").val();
-        if (codigo == undefined) {
+        if (typeof (codigo) == "undefined") {
             var table = $("#dataTableClientes").DataTable();
             codigo = table.cell($("#tr_" + id), $(".columnaCodigo")).data();
         }

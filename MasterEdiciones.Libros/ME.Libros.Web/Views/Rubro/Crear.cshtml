@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.RubroViewModel
 
-<h3>Nuevo rubro</h3>
+<h3 class="page-header">Nuevo rubro</h3>
 @using (Html.BeginForm("Crear", "Rubro", FormMethod.Post, new { id = "formRubro", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

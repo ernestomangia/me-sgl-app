@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.ProductoViewModel
 
-<h3>Nuevo producto</h3>
+<h3 class="page-header">Nuevo producto</h3>
 @using (Html.BeginForm("Crear", "Producto", FormMethod.Post, new { id = "formProducto", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

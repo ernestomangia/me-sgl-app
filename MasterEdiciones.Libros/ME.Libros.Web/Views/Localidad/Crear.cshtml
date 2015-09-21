@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.LocalidadViewModel
 
-<h3>Nueva localidad</h3>
+<h3 class="page-header">Nueva localidad</h3>
 @using (Html.BeginForm("Crear", "Localidad", FormMethod.Post, new { id = "formLocalidad", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

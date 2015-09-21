@@ -29,7 +29,7 @@
     $("#btnAceptar").on("click", function () {
         var id = $("#idEntidad").val();
         var codigo = $("#Codigo").val();
-        if (codigo == undefined) {
+        if (typeof (codigo) == "undefined") {
             var table = $("#dataTableIva").DataTable();
             codigo = table.cell($("#tr_" + id), $(".columnaCodigo")).data();
         }

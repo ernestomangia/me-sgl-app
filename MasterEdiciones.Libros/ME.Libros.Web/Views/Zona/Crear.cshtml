@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.ZonaViewModel
 
-<h3>Nueva zona</h3>
+<h3 class="page-header">Nueva zona</h3>
 @using (Html.BeginForm("Crear", "Zona", FormMethod.Post, new { id = "formZona", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

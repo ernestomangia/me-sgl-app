@@ -68,6 +68,27 @@
     <Build Include="Tables\__MigrationHistory.sql" />
     <Build Include="Tables\Iva.sql" />
     <Build Include="Tables\Usuario.sql" />
+    <Build Include="Tables\Zona.sql" />
+    <Build Include="Tables\VentaItem.sql" />
+    <Build Include="Tables\Venta.sql" />
+    <Build Include="Tables\VendedorLocalidades.sql" />
+    <Build Include="Tables\Vendedor.sql" />
+    <Build Include="Tables\Rubro.sql" />
+    <Build Include="Tables\Rendicion.sql" />
+    <Build Include="Tables\Proveedor.sql" />
+    <Build Include="Tables\Producto.sql" />
+    <Build Include="Tables\PlanPago.sql" />
+    <Build Include="Tables\Login.sql" />
+    <Build Include="Tables\GastoCobradorDominios.sql" />
+    <Build Include="Tables\Gasto.sql" />
+    <Build Include="Tables\Editorial.sql" />
+    <Build Include="Tables\Cuota.sql" />
+    <Build Include="Tables\CompraItem.sql" />
+    <Build Include="Tables\Compra.sql" />
+    <Build Include="Tables\CobroDominioCuotaDominios.sql" />
+    <Build Include="Tables\Cobro.sql" />
+    <Build Include="Tables\CobradorLocalidades.sql" />
+    <Build Include="Tables\Cobrador.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ME.Libros.Database.refactorlog" />

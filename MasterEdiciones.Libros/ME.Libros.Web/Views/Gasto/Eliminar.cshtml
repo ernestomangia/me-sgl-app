@@ -1,13 +1,14 @@
-﻿<!-- Modal -->
+﻿@using ME.Libros.Web.Models
+<!-- Modal -->
 <div class="modal fade modalEliminar" id="modalEliminarGasto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Eliminar Gasto</h4>
+                <h4 class="modal-title" id="myModalLabel">Eliminar gasto</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar el gasto?
+                ¿Esta seguro que desea eliminar @(Model is GastoViewModel ? "este gasto" : "el gasto seleccionado")?
             </div>
             <div class="modal-footer">
                 <div class="row text-left">

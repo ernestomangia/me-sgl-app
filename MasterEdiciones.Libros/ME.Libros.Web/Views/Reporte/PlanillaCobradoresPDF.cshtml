@@ -1,0 +1,178 @@
+﻿@using ME.Libros.DTO
+@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Controllers
+@using ME.Libros.Web.Models
+
+@model IEnumerable<ME.Libros.Web.Models.VentaViewModel>
+    
+                      <style type="text/css">
+                          .page-breaker {
+                              display: block;
+                              clear: both;
+                              page-break-inside: avoid;
+                          }
+                      </style>
+
+<h3>Planilla para Cobradores</h3>
+
+@{
+
+        var cobradorIdAnterior = Model.Any()
+            ? Model.First().CobradorId
+            : 0;
+
+       
+    }
+                                    
+                          @*<table id="dataTableCustomPlanillaCobradores">
+    <thead>
+        <tr>
+            <th colspan="3" style="text-align:center"> Cliente</th>
+            <th colspan="4" style="text-align:center">Venta </th>
+            <th colspan="2" style="text-align:center">Pago </th>
+            <th rowspan="2" style="vertical-align: middle; text-align:center">Comentario</th>
+        </tr>
+        <tr>
+            <th class="columnaCodigo noSort">N°</th>
+            <th id="denom">Denominación</th>
+            <th>@Html.DisplayNameFor(model => model.Cliente.Direccion)</th>
+            <th>N°</th>
+            <th>Cuota</th>
+            <th>Vencimiento</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>*@
+                          
+@{
+    
+    if (Model.Any())
+    {
+        var localidadIdAnterior = Model.Any()
+         ? Model.First().Cliente.LocalidadId
+         : 0;
+        
+        var venta = Model.First();
+        <h4>Cobrador: @venta.Cobrador.Nombre, @venta.Cobrador.Apellido, @venta.CobradorId</h4>
+        
+        <h5>Localidad: @venta.Cliente.LocalidadId, @venta.Cliente.Localidad.Nombre</h5>
+         
+
+
+        @*<thead>
+            
+            <tr>
+                <th>ID VENTA</th>
+            </tr>
+            
+        </thead>*@
+
+        var ventas = Model.ToList();
+
+        for (var i=0;i<ventas.Count(); i++)
+        {
+           
+      
+        if (ventas[i].CobradorId != cobradorIdAnterior)
+        {
+            
+            <h4>Cobrador: @ventas[i].Cobrador.Nombre, @ventas[i].Cobrador.Apellido, @ventas[i].CobradorId</h4>
+
+            if (ventas[i].Cliente.LocalidadId != localidadIdAnterior)
+            {
+                <h5>Localidad: @ventas[i].Cliente.LocalidadId, @ventas[i].Cliente.Localidad.Nombre</h5>
+            }
+
+            @:<table>
+
+                 <thead>
+                <tr>
+                    <th>ID VENTA</th>
+                </tr>
+
+            </thead>
+          
+           
+                <tr>
+                    <td> @ventas[i].Id</td>
+                </tr>
+           @:</table>
+        }
+
+
+        else
+        {
+                
+            <table>
+            <thead>
+                <tr>
+                    <th>ID VENTA</th>
+                </tr>
+                
+                <tr>
+                    <td> @ventas[i].Id</td>
+                </tr>
+
+            </thead>
+        </table>
+
+        }
+
+        cobradorIdAnterior = ventas[i].CobradorId;
+
+        localidadIdAnterior = ventas[i].Cliente.LocalidadId;
+
+
+
+
+        }
+
+     @*
+        foreach (var item in Model)
+        {
+            var cobradorAnterior = item.CobradorId;
+
+
+
+                                         <tr id=@("tr_" + item.Id)>
+                                              <td>@Html.DisplayFor(modelItem => item.Cliente.Codigo)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre), @Html.DisplayFor(modelItem => item.Cliente.Apellido)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cliente.Direccion)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).FechaVencimiento)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Monto)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).FechaCobro)</td>
+                                              <td>@Html.DisplayFor(modelItem => item.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).MontoCobro)</td>
+                                              <td> </td>
+                                          </tr>*@
+                                      
+                                    @*    </tbody>
+    </table>*@
+
+    
+    
+   
+}
+                        
+}
+                     
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $("#dataTableCustomPlanillaCobradores").DataTable({
+            paging: false,
+            searching: false,
+            ordering: false,
+            columnDefs: [
+     { "width": "60%", "targets": 1 }
+
+            ]
+    }   );
+        $("#dataTableCustomPlanillaCobradores").addClass("table table-striped table-bordered");
+        
+    });
+
+</script>

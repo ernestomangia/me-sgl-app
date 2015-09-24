@@ -8,8 +8,6 @@
 <hr>
 @using (Html.BeginForm("Crear", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
 {
-    @Html.AntiForgeryToken()
-
     @Html.Partial("Shared/Form_Partial", Model)
 
     <div class="row">
@@ -26,7 +24,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="cantidadItems" name="cantidadItems" value="@Model.Items.Count" />
+    @Html.Hidden("cantidadItems", Model.Items.Count, new { id = "cantidadItems" })
 }
 
 <div id="contenedorVentaItem"></div>
@@ -41,48 +39,6 @@
             abrirModalVentaItem('@Url.Action("CrearItem", "VentaItem")');
         });
 
-        //var columnas = [6];
-        //var i = 0;
-        //$('#ventaDetalleTable thead th').each(function () {
-        //    var ordenable = !$(this).hasClass("noSort");
-        //    var width = "";
-        //    if ($(this).hasClass("numero")) {
-        //        width = "150px";
-        //    }
-        //    if ($(this).hasClass("columnaCodigo")) {
-        //        width = "50px";
-        //    }
-        //    if ($(this).hasClass("columnaAcciones")) {
-        //        width = "50px";
-        //        ordenable = false;
-        //    }
-        //    columnas[i].targets = i;
-        //    columnas[i].ordenable = ordenable;
-        //    columnas[i].width = width;
-        //    i++;
-        //});
-        //console.log(columnas);
-        var columna = [
-            {
-                "targets": 0,
-                "orderable": false,
-                "searchable": false
-            }
-        ];
-
-        $("#ventaDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
-        $('#ventaDetalleTable').dataTable({
-            "order": [],
-            //"columnDefs": columna,
-            "footerCallback": function (row, data, start, end, display) {
-                calcularTotales(this, row, data, start, end, display);
-            },
-            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-                $('td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("text-right");
-            },
-            lengthMenu: [5, 10]
-        });
-
         $('#formVenta').validate().settings.ignore = false;
         $("#cantidadItems").rules("add", {
             min: 1,
@@ -91,15 +47,4 @@
             }
         });
     });
-
-    function dataTablesColumns() {
-        var array = [];
-        array[0] = [];
-        array[1] = [];
-        array[2] = [];
-        array[3] = [];
-        array[4] = [];
-        array[5] = [];
-        return array;
-    }
 </script>

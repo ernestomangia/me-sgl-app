@@ -18,7 +18,7 @@
                 @if (Model.Estado == EstadoCompra.Pagada)
                 {
 
-                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminar" title="Anular compra">
+                    <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarCompra" title="Anular compra">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                         Anular
                     </button>
@@ -40,19 +40,11 @@
 }
 
 <div id="contenedorCompraItem"></div>
+@Html.Hidden("idEntidad", Model.Id, new { id = "idEntidad" })
+@Html.Partial("Eliminar")
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#compraDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
-        $('#compraDetalleTable').dataTable({
-            "order": [],
-            //"columnDefs": columna,
-            "footerCallback": function (row, data, start, end, display) {
-                calcularTotales(this, row, data, start, end, display);
-            },
-            lengthMenu: [5, 10],
-        });
-
         $("#FechaCompra").attr("disabled", "disabled");
         $("#ProveedorId").attr("disabled", "disabled");
         $("#MontoComprado").attr("disabled", "disabled");

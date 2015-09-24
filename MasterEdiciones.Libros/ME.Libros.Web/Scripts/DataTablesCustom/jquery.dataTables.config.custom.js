@@ -6,7 +6,7 @@
 
 function calcularTotalColumna(dt, columnArray) {
     var api = dt.api();
-
+    var totals = [];
     for (var i = 0; i < columnArray.length; i++) {
         var column = columnArray[i];
 
@@ -20,15 +20,21 @@ function calcularTotalColumna(dt, columnArray) {
 
         // Total over this page
         var pageTotal = api
-        .column(column, { page: 'current' })
-        .data()
-        .reduce(function (a, b) {
-            return getFloatVal(a) + getFloatVal(b);
-        }, 0);
+            .column(column, { page: 'current' })
+            .data()
+            .reduce(function (a, b) {
+                return getFloatVal(a) + getFloatVal(b);
+            }, 0);
 
         // Update footer
         $(api.column(column).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ')');
+
+        totals.push({
+            pageTotal: pageTotal,
+            total: total
+        });
     }
+    return totals;
 }
 
 function getFloatVal(i) {

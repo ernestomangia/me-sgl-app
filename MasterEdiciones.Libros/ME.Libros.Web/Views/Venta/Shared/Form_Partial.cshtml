@@ -181,7 +181,7 @@
                 }
                 @if (Model.Cuotas.Any())
                 {
-                    <div class="row">
+                    <div>
                         <h4>Cuotas</h4>
                         @{ Html.RenderAction("VerCuotas", "Venta", new { cuotaViewModels = Model.Cuotas }); }
                     </div>
@@ -202,3 +202,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadVentaDetalleDataTable();
+    });
+</script>

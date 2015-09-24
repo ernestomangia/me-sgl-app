@@ -6,8 +6,6 @@
 <h3 class="page-header">Nueva compra</h3>
 @using (Html.BeginForm("Crear", "Compra", FormMethod.Post, new { id = "formCompra", @class = "form-horizontal formEntidad" }))
 {
-    @*@Html.AntiForgeryToken()*@
-
     @Html.Partial("CompraPagada/Shared/Form_Partial", Model)
 
     <div class="row">
@@ -24,14 +22,14 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="cantidadItems" name="cantidadItems" value="@Model.Items.Count" />
+    @Html.Hidden("cantidadItems", Model.Items.Count, new { id = "cantidadItems" })
 }
 
 <div id="contenedorCompraItem"></div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".datepicker").each(function() {
+    $(document).ready(function () {
+        $(".datepicker").each(function () {
             $(this).datepicker("setDate", new Date());
         });
 
@@ -39,33 +37,12 @@
             abrirModalCompraItem('@Url.Action("CrearItem", "CompraItem")');
         });
 
-    var columna = [
-          {
-              "targets": 0,
-              "orderable": false,
-              "searchable": false
-          }
-    ];
-
-    $("#compraDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
-    $('#compraDetalleTable').dataTable({
-        "order": [],
-        //"columnDefs": columna,
-        "footerCallback": function (row, data, start, end, display) {
-            calcularTotales(this, row, data, start, end, display);
-        },
-        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
-            $('td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("text-right");
-        },
-        lengthMenu: [5, 10]
-    });
-
-    $('#formCompra').validate().settings.ignore = false;
-    $("#cantidadItems").rules("add", {
-        min: 1,
-        messages: {
-            min: "Debe agregar al menos un <b>Item</b> al Detalle de la compra"
-        }
-    });
+        $('#formCompra').validate().settings.ignore = false;
+        $("#cantidadItems").rules("add", {
+            min: 1,
+            messages: {
+                min: "Debe agregar al menos un <b>Item</b> al Detalle de la compra"
+            }
+        });
     });
 </script>

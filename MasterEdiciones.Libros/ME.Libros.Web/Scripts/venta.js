@@ -96,7 +96,7 @@ function getHtmlBotonModificar(productoId) {
 }
 
 function getHtmlBotonEliminar(indexItem) {
-    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='javascript:setearId(" + indexItem + ");' title='Eliminar item'>" +
+    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminarVentaItem' onclick='javascript:setearIdVentaItem(" + indexItem + ");' title='Eliminar item'>" +
         "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
         "</button>";
 }
@@ -109,7 +109,7 @@ function eliminarVentaItem(indexItem) {
     var table = $("#ventaDetalleTable").DataTable();
     table.row(indexItem).remove().draw();
     actualizarHiddens();
-    $('#modalEliminar').modal('toggle');
+    $('#modalEliminarVentaItem').modal('toggle');
     mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
 }
 
@@ -137,51 +137,8 @@ function actualizarHiddens() {
 
     indexItem = 0;
     $(".btnEliminar").each(function () {
-        $(this).attr("onclick", "setearId(" + indexItem + ")");
+        $(this).attr("onclick", "setearIdVentaItem(" + indexItem + ")");
     });
-}
-
-function calcularTotales(dt, row, data, start, end, display) {
-    var api = dt.api();
-
-    if (api.column(4).data().length == 0) {
-        return;
-    }
-    // Remove the formatting to get float data for summation
-    var floatVal = function (i) {
-        return typeof i === 'string'
-            ? Globalize.parseFloat(i)
-            : typeof i === 'number'
-                ? i
-                : 0;
-    };
-
-    // Total over all pages
-    var total = api
-        .column(4)
-        .data()
-        .reduce(function (a, b) {
-            return floatVal(a) + floatVal(b);
-        });
-
-    // Total over this page
-    var pageTotal = api
-        .column(4, { page: 'current' })
-        .data()
-        .reduce(function (a, b) {
-            return floatVal(a) + floatVal(b);
-        });
-
-    if (api.column(4).data().length == 1) {
-        total = floatVal(total);
-        pageTotal = floatVal(pageTotal);
-    }
-
-    // Update footer
-    $(api.column(4).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ')');
-    if ($("#Id").length == 0) {
-        $("#MontoVendido, #MontoCalculado").val(formatFloat(total));
-    }
 }
 
 function getProducto() {
@@ -363,5 +320,47 @@ function GetCobrosByCuota(cuota, tr) {
         },
         timeout: 10000,
         cache: false
+    });
+}
+
+function loadVentaDetalleDataTable() {
+    $("#ventaDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+    $('#ventaDetalleTable').dataTable({
+        "order": [],
+        "footerCallback": function (row, data, start, end, display) {
+            var totales = calcularTotalColumna(this, [4]);
+            if ($("#Id").length == 0) {
+                $("#MontoVendido, #MontoCalculado").val(formatFloat(totales[0].total));
+            }
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            $('td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("text-right");
+        },
+        lengthMenu: [5, 10]
+    });
+}
+
+function loadCuotasDataTable() {
+    $("#ventaCuotaTable").addClass("table table-striped table-hover table-bordered order-column KeyTable");
+    $('#ventaCuotaTable').dataTable({
+        "columns": [
+            {
+                "data": "cuotaId",
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "orderable": false
+            },
+            { "data": "nro" },
+            { "data": "monto" },
+            { "data": "vencim" },
+            { "data": "estado" },
+            { "data": "interes" },
+            { "data": "cobrado" },
+            { "data": "fechaCobro" },
+            { "data": "atraso" },
+            { "data": "saldo" }
+        ]
     });
 }

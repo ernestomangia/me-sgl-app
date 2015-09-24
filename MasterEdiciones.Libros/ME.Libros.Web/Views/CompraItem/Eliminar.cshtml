@@ -1,5 +1,5 @@
 ﻿<!-- Modal -->
-<div class="modal fade modalEliminar" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modalEliminarCompraItem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,15 +19,15 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-default btnCancelarEliminar" data-dismiss="modal">Cancelar</button>
-                <button id="btnAceptar" type="button" class="btn btn-primary">Aceptar</button>
+                <button id="btnAceptarCompraItem" type="button" class="btn btn-primary">Aceptar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $("#btnAceptar").on("click", function () {
-        var id = $("#idEntidad").val();
+    $("#btnAceptarCompraItem").on("click", function () {
+        var id = $("#idEntidadCompraItem").val();
         eliminarCompraItem(id);
     });
 </script>

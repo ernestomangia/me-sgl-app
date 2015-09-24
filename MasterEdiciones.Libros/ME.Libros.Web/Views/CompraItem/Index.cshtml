@@ -46,7 +46,7 @@
                     
                     @if (item.Id == 0)
                     {
-                        <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminar" onclick="javascript:setearId(@(item.Orden - 1));" title="Eliminar item">
+                        <button class="btn btn-danger btn-sm btnEliminar" type="button" data-toggle="modal" data-target="#modalEliminarCompraItem" onclick="javascript:setearIdCompraItem(@(item.Orden - 1));" title="Eliminar item">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button>
                     }
@@ -55,14 +55,10 @@
         }
     </tbody>
 </table>
-<input type="hidden" id="idEntidad" />
+<input type="hidden" id="idEntidadCompraItem" />
 @Html.Partial("Eliminar")
 
-
 <script type="text/javascript">
-    $(document).ready(function () {
-    });
-
     function verCompraItem(url) {
         $.ajax({
             method: "GET",
@@ -79,5 +75,9 @@
             timeout: 10000,
             cache: false
         });
+    }
+
+    function setearIdCompraItem(id) {
+        $("#idEntidadCompraItem").val(id);
     }
 </script>

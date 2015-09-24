@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Dominio.General
 {
-    public class CompraDominio: BaseDominio
+    public class CompraDominio : BaseDominio
     {
         #region Properties
 

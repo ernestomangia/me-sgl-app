@@ -799,6 +799,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proveedor.
+        /// </summary>
+        public static string Proveedor {
+            get {
+                return ResourceManager.GetString("Proveedor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provincia.
         /// </summary>
         public static string Provincia {

@@ -96,7 +96,7 @@ function getHtmlBotonModificar(productoId) {
 }
 
 function getHtmlBotonEliminar(indexItem) {
-    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='javascript:setearId(" + indexItem + ");' title='Eliminar item'>" +
+    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminarVentaItem' onclick='javascript:setearIdVentaItem(" + indexItem + ");' title='Eliminar item'>" +
         "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
         "</button>";
 }
@@ -109,7 +109,7 @@ function eliminarVentaItem(indexItem) {
     var table = $("#ventaDetalleTable").DataTable();
     table.row(indexItem).remove().draw();
     actualizarHiddens();
-    $('#modalEliminar').modal('toggle');
+    $('#modalEliminarVentaItem').modal('toggle');
     mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
 }
 
@@ -137,51 +137,8 @@ function actualizarHiddens() {
 
     indexItem = 0;
     $(".btnEliminar").each(function () {
-        $(this).attr("onclick", "setearId(" + indexItem + ")");
+        $(this).attr("onclick", "setearIdVentaItem(" + indexItem + ")");
     });
-}
-
-function calcularTotales(dt, row, data, start, end, display) {
-    var api = dt.api();
-
-    if (api.column(4).data().length == 0) {
-        return;
-    }
-    // Remove the formatting to get float data for summation
-    var floatVal = function (i) {
-        return typeof i === 'string'
-            ? Globalize.parseFloat(i)
-            : typeof i === 'number'
-                ? i
-                : 0;
-    };
-
-    // Total over all pages
-    var total = api
-        .column(4)
-        .data()
-        .reduce(function (a, b) {
-            return floatVal(a) + floatVal(b);
-        });
-
-    // Total over this page
-    var pageTotal = api
-        .column(4, { page: 'current' })
-        .data()
-        .reduce(function (a, b) {
-            return floatVal(a) + floatVal(b);
-        });
-
-    if (api.column(4).data().length == 1) {
-        total = floatVal(total);
-        pageTotal = floatVal(pageTotal);
-    }
-
-    // Update footer
-    $(api.column(4).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ')');
-    if ($("#Id").length == 0) {
-        $("#MontoVendido, #MontoCalculado").val(formatFloat(total));
-    }
 }
 
 function getProducto() {
@@ -261,14 +218,6 @@ function calcularDiferencia() {
     }
 }
 
-function isValidKey(keyCode) {
-    return keyCode == undefined || // caso change event
-        (keyCode >= 48 && keyCode <= 57) || // 0-9
-        (keyCode >= 96 && keyCode <= 105) || // 0-9 numpad
-        keyCode == 188 || // Tab
-        keyCode == 8; // Back space
-}
-
 function modificarVentaItem(form) {
     $(".modalVentaItem .validationSummary").addClass("hide");
     $(".modalVentaItem .validationSummary ul").remove();
@@ -286,7 +235,7 @@ function modificarVentaItem(form) {
                 var ventaItem = data.VentaItem;
                 actualizarVentaItemRow(ventaItem);
                 $('#modalVentaItem').modal('toggle');
-                mensajeSuccess("Se modifico el " + ventaItem.Producto.Nombre + " exitosamente");
+                mensajeSuccess("Se modifico el producto " + ventaItem.Producto.Nombre + " exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -326,4 +275,92 @@ function actualizarVentaItemRow(ventaItem) {
 
     // Redibujar para recalcular footer
     table.draw();
+}
+
+$(document).on('click', '#ventaCuotaTable tbody tr td button.details-control', function () {
+    var dt = $('#ventaCuotaTable').DataTable();
+    var tr = $(this).closest('tr');
+    var row = dt.row(tr);
+    var detailsControl = $(this);
+    var icon = detailsControl.find("span");
+
+    if (row.child.isShown()) {
+        // This row is already open - close it
+        $('div.slider', row.child()).slideUp(function () {
+            row.child.hide();
+            tr.removeClass('shown');
+            $(detailsControl).trigger("focusout");
+        });
+
+        detailsControl.toggleClass("btn-info").toggleClass("btn-default");
+        icon.toggleClass("glyphicon-collapse-up").toggleClass("glyphicon-collapse-down");
+    }
+    else {
+        // Open this row
+        var promise = GetCobrosByCuota(row.data());
+        promise.done(function (data) {
+            detailsControl.toggleClass("btn-default").toggleClass("btn-info");
+            icon.toggleClass("glyphicon-collapse-down").toggleClass("glyphicon-collapse-up");
+            row.child(data, 'no-padding').show();
+            tr.addClass('shown');
+            $('div.slider', row.child()).slideDown();
+        });
+    }
+});
+
+function GetCobrosByCuota(cuota, tr) {
+    return $.ajax({
+        method: "POST",
+        url: "/Cobro/VerCobros",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({ cuotaId: cuota.cuotaId }),
+        dataType: "html",
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
+        },
+        timeout: 10000,
+        cache: false
+    });
+}
+
+function loadVentaDetalleDataTable() {
+    $("#ventaDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+    $('#ventaDetalleTable').dataTable({
+        "order": [],
+        "footerCallback": function (row, data, start, end, display) {
+            var totales = calcularTotalColumna(this, [4]);
+            if ($("#Id").length == 0) {
+                $("#MontoVendido, #MontoCalculado").val(formatFloat(totales[0].total));
+            }
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            $('td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("text-right");
+        },
+        lengthMenu: [5, 10]
+    });
+}
+
+function loadCuotasDataTable() {
+    $("#ventaCuotaTable").addClass("table table-striped table-hover table-bordered order-column KeyTable");
+    $('#ventaCuotaTable').dataTable({
+        "columns": [
+            {
+                "data": "cuotaId",
+                "visible": false,
+                "searchable": false
+            },
+            {
+                "orderable": false
+            },
+            { "data": "nro" },
+            { "data": "monto" },
+            { "data": "vencim" },
+            { "data": "estado" },
+            { "data": "interes" },
+            { "data": "cobrado" },
+            { "data": "fechaCobro" },
+            { "data": "atraso" },
+            { "data": "saldo" }
+        ]
+    });
 }

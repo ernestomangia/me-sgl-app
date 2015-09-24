@@ -1,13 +1,14 @@
-﻿<!-- Modal -->
+﻿@using ME.Libros.Web.Models
+<!-- Modal -->
 <div class="modal fade modalEliminar" id="modalEliminarPlanPago" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Eliminar Plan de Pago</h4>
+                <h4 class="modal-title" id="myModalLabel">Eliminar plan de pago</h4>
             </div>
             <div class="modal-body">
-                ¿Esta seguro que desea eliminar el plan de pago?
+                ¿Esta seguro que desea eliminar @(Model is PlanPagoViewModel ? "este plan de pago" : "el plan de pago seleccionado")?
             </div>
             <div class="modal-footer">
                 <div class="row text-left">
@@ -27,11 +28,9 @@
 
 
 <script type="text/javascript">
-
-        $("#btnAceptar").on("click", function () {
-            var id = $("#idEntidad").val();
-            var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElPlanPago').replace("{1}", id);
-            eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
-        });
-
+    $("#btnAceptar").on("click", function () {
+        var id = $("#idEntidad").val();
+        var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElPlanPago').replace("{1}", id);
+        eliminarEntidad("@Url.Action("Eliminar")", success, '@ErrorMessages.ErrorEliminar');
+    });
 </script>

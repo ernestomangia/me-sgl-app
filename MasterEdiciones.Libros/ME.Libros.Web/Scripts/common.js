@@ -62,24 +62,28 @@ function setearId(id) {
 
 function eliminarEntidad(url, msjSuccess, msjError) {
     var id = $("#idEntidad").val();
+    var redirectUrl = $(".btnCancelar").attr("href");
+
     $(".modalEliminar .validationSummary").addClass("hide");
     $(".modalEliminar .validationSummary ul").remove();
-
     $.ajax({
         method: "GET",
-        url: url + "?id=" + id,
+        url: url,
+        data: { "id": id, "redirectUrl": redirectUrl },
         dataType: "json",
         error: function (jqXhr, status, error) {
-            mensajeError("Ha ocurrido un error");
+            mensajeError(msjError);
         },
         success: function (data) {
             if (data.Success) {
-                var dataTable = $(".dataTableCustom").DataTable();
-                $('.modalEliminar').modal('toggle');
-                mensajeSuccess(msjSuccess);
-                dataTable.row($("#tr_" + id)).remove().draw();
-
-                $(".btnCancelarEliminar").click();
+                if (data.isRedirect) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    var dataTable = $(".dataTableCustom").DataTable();
+                    $('.modalEliminar').modal('toggle');
+                    mensajeSuccess(msjSuccess);
+                    dataTable.row($("#tr_" + id)).remove().draw();
+                }
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -137,10 +141,6 @@ function AnularEntidad(url, msjSuccess, msjError) {
 
 function ConvertJsonDateToDate(value) {
     return new Date(parseInt(value.substr(6)));
-    var pattern = /Date\(([^)]+)\)/;
-    var results = pattern.exec(value);
-    var dt = new Date(parseFloat(results[1]));
-    return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
 }
 
 function validationSummaryVisibility(form) {
@@ -191,7 +191,6 @@ function formatFloat(value) {
 }
 
 function formatCurrency(value) {
-    //return "$ " + Globalize.format(value, "n2");
     return Globalize.format(value, "C");
 }
 
@@ -225,4 +224,40 @@ function getProductoByCodigoBarra(codigoBarra) {
         $("#PrecioVentaVendido, #MontoItemVendido").val("");
         $("#precioSugerido").text("-");
     }
+}
+
+$(function () {
+    var hash = window.location.hash;
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+    $('.nav-tabs a').click(function (e) {
+        $(this).tab('show');
+        var scrollmem = $('body').scrollTop();
+        window.location.hash = this.hash;
+        $('html,body').scrollTop(scrollmem);
+    });
+});
+
+function isValidKeyForCalc(keyCode) {
+    return isChangeEvent(keyCode) ||
+        isNumberKey(keyCode) ||
+        isTabKey(keyCode) ||
+        isBackSpaceKey(keyCode);
+}
+
+function isChangeEvent(keyCode) {
+    return keyCode == undefined;
+}
+
+function isTabKey(keyCode) {
+    return keyCode == 188;
+}
+
+function isBackSpaceKey(keyCode) {
+    return keyCode == 8;
+}
+
+function isNumberKey(keyCode) {
+    return (keyCode >= 48 && keyCode <= 57) ||
+        (keyCode >= 96 && keyCode <= 105); // Numpad
 }

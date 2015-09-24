@@ -117,7 +117,7 @@ namespace ME.Libros.Web.Models
                     MenuViewModels.Add(new MenuViewModel
                     {
                         Id = 12,
-                        Nombre = "Iva",
+                        Nombre = "IVA",
                         Link = helper.Action("Index", "Iva"),
                         Posicion = 110
                     });

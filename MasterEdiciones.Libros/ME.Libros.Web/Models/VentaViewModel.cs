@@ -36,14 +36,19 @@ namespace ME.Libros.Web.Models
             CobradorId = ventaDominio.Cobrador.Id;
             Vendedor = new VendedorViewModel(ventaDominio.Vendedor);
             VendedorId = ventaDominio.Vendedor.Id;
+            Comision = ventaDominio.Comision;
+            MontoComision = ventaDominio.MontoComision;
             PlanPago = new PlanPagoViewModel(ventaDominio.PlanPago);
             PlanPagoId = ventaDominio.PlanPago.Id;
+            CantidadCuotas = ventaDominio.CantidadCuotas;
+            MontoCuota = ventaDominio.MontoCuota;
             // Items
             Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
             Items.ForEach(c => c.Venta = this);
             // Cuotas
             Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
             Cuotas.ForEach(c => c.Venta = this);
+            EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
         }
 
         #endregion
@@ -68,6 +73,7 @@ namespace ME.Libros.Web.Models
         public decimal MontoCalculado { get; set; }
 
         [Display(Name = "MontoVendido", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoVendido { get; set; }
 
@@ -80,6 +86,22 @@ namespace ME.Libros.Web.Models
         public decimal Saldo { get; set; }
 
         public EstadoVenta Estado { get; set; }
+
+        public int CantidadCuotas { get; set; }
+        
+        public decimal MontoCuota { get; set; }
+
+        [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Comision { get; set; }
+
+        [Display(Name = "MontoComision", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoComision { get; set; }
+
+        public bool EsVigente { get; set; }
 
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]

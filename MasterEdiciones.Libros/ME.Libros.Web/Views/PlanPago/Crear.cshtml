@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.PlanPagoViewModel
 
-<h3>Nuevo plan de pago</h3>
+<h3 class="page-header">Nuevo plan de pago</h3>
 @using (Html.BeginForm("Crear", "PlanPago", FormMethod.Post, new { id = "formPlanPago", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

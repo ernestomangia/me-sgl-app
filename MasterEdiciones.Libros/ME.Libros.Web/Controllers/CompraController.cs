@@ -97,8 +97,35 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
-                // SetMenuVigente();
                 return View(compraViewModel);
+            }
+
+            var compraDominio = new CompraDominio
+            {
+                FechaAlta = DateTime.Now,
+                FechaCompra = compraViewModel.FechaCompra,
+                Proveedor = ProveedorService.GetPorId(compraViewModel.ProveedorId),
+                Estado = EstadoCompra.Pagada,
+                MontoComprado = compraViewModel.MontoComprado,
+                MontoCalculado = compraViewModel.MontoCalculado,
+                NroFactura = compraViewModel.NroFactura,
+                NroRemito = compraViewModel.NroRemito,
+                CompraItems = new List<CompraItemDominio>(),
+            };
+            
+            var i = 1;
+            foreach (var compraItemViewModel in compraViewModel.Items)
+            {
+                var producto = ProductoService.GetPorId(compraItemViewModel.ProductoId);
+                compraDominio.CompraItems.Add(new CompraItemDominio()
+                {
+                    FechaAlta = DateTime.Now,
+                    Orden = i++,
+                    Cantidad = compraItemViewModel.Cantidad,
+                    Producto = producto,
+                    PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado,
+                    MontoComprado = compraItemViewModel.MontoItemComprado
+                });
             }
 
             long resultado = 0;
@@ -106,45 +133,7 @@ namespace ME.Libros.Web.Controllers
             {
                 using (CompraService)
                 {
-                    var compraDominio = new CompraDominio
-                    {
-                        FechaAlta = DateTime.Now,
-                        FechaCompra = compraViewModel.FechaCompra,
-                        Proveedor = ProveedorService.GetPorId(compraViewModel.ProveedorId),
-                        Estado = EstadoCompra.Pagada,
-                        MontoComprado = compraViewModel.MontoComprado,
-                        MontoCalculado = compraViewModel.MontoCalculado,
-                        NroFactura = compraViewModel.NroFactura,
-                        NroRemito = compraViewModel.NroRemito,
-                        CompraItems = new List<CompraItemDominio>(),
-                    };
-
-                    foreach (var compraItemViewModel in compraViewModel.Items)
-                    {
-                        var producto = ProductoService.GetPorId(compraItemViewModel.ProductoId);
-                        compraDominio.CompraItems.Add(new CompraItemDominio()
-                        {
-                            FechaAlta = DateTime.Now,
-                            Cantidad = compraItemViewModel.Cantidad,
-                            Producto = producto,
-                            PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado,
-                            MontoComprado = compraItemViewModel.MontoItemComprado
-                        });
-                    }
-
                     resultado = CompraService.Guardar(compraDominio);
-                    if (resultado <= 0)
-                    {
-                        foreach (var error in CompraService.ModelError)
-                        {
-                            ModelState.AddModelError(error.Key, error.Value);
-                        }
-                    }
-                    else
-                    {
-                        TempData["Id"] = compraDominio.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaCompra, compraDominio.Id);
-                    }
                 }
             }
             catch (DbEntityValidationException ex)
@@ -159,13 +148,25 @@ namespace ME.Libros.Web.Controllers
                 ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
             }
 
+            if (resultado <= 0)
+            {
+                foreach (var error in CompraService.ModelError)
+                {
+                    ModelState.AddModelError(error.Key, error.Value);
+                }
+            }
+            else
+            {
+                TempData["Id"] = compraDominio.Id;
+                TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaCompra, compraDominio.Id);
+            }
+
             if (resultado > 0)
             {
-                return RedirectToAction("Index", new{estado=EstadoCompra.Pagada});
+                return RedirectToAction("Index", new { estado = EstadoCompra.Pagada });
             }
 
             PrepareModel(compraViewModel);
-            //     SetMenuVigente();
             return View(compraViewModel);
         }
 
@@ -203,13 +204,22 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+
             try
             {
                 using (CompraService)
                 {
                     CompraService.AnularCompra(id);
+                    
+                    if (isRedirect)
+                    {
+                        var compraDominio = CompraService.GetPorId(id);
+                        TempData["Id"] = compraDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadAnulada, Messages.LaCompra, compraDominio.Id);
+                    }
                 }
             }
             catch (Exception ex)
@@ -219,7 +229,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -245,7 +261,7 @@ namespace ME.Libros.Web.Controllers
                     compraDominio.MontoCalculado = compraViewModel.MontoCalculado;
                     compraDominio.NroFactura = compraViewModel.NroFactura;
                     compraDominio.NroRemito = compraViewModel.NroRemito;
-                    
+
                     resultado = CompraService.Guardar(compraDominio);
                     if (resultado <= 0)
                     {
@@ -275,11 +291,10 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado > 0)
             {
-                return RedirectToAction("Index", new {estado=EstadoCompra.Pagada});
+                return RedirectToAction("Index", new { estado = EstadoCompra.Pagada });
             }
 
             PrepareModel(compraViewModel);
-            //     SetMenuVigente();
             return View(compraViewModel);
         }
 
@@ -290,9 +305,18 @@ namespace ME.Libros.Web.Controllers
             compraViewModel.Proveedores = new SelectList(ProveedorService.Listar()
                 .ToList()
                 .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Cuil }), "Id", "Text");
+
+            if (compraViewModel.Estado == EstadoCompra.None)
+            {
+                var i = 1;
+                foreach (var item in compraViewModel.Items)
+                {
+                    item.Producto = new ProductoViewModel(ProductoService.GetPorId(item.ProductoId));
+                    item.Orden = i++;
+                }
+            }
         }
 
         #endregion
-
     }
 }

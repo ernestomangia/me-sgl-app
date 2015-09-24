@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
 
@@ -29,6 +29,7 @@ namespace ME.Libros.Web.Models
             Monto = cuotaDominio.Monto;
             MontoCobro = cuotaDominio.MontoCobro;
             Saldo = cuotaDominio.Saldo;
+            TieneCobros = cuotaDominio.Cobros.Any();
         }
 
         #endregion
@@ -68,6 +69,8 @@ namespace ME.Libros.Web.Models
 
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Interes { get; set; }
+
+        public bool TieneCobros { get; set; }
 
         public VentaViewModel Venta { get; set; }
 

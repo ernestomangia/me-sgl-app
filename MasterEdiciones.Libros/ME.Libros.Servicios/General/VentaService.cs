@@ -51,11 +51,14 @@ namespace ME.Libros.Servicios.General
                 if (ventaDominio.PlanPago.Tipo == TipoPlanPago.Financiado)
                 {
                     // N cuotas
+                    ventaDominio.CantidadCuotas = ventaDominio.PlanPago.CantidadCuotas;
+                    ventaDominio.MontoCuota = ventaDominio.PlanPago.Monto;
+                    ventaDominio.MontoCobrado = 0;
+
                     // Plan de pago a partir de montos fijos
                     GenerarCuotas(ventaDominio);
                     CalcularSaldo(ventaDominio);
                     CalcularMontoVendido(ventaDominio);
-                    ventaDominio.MontoCobrado = 0;
 
                     // TODO: Generar plan de pago a partir de un interes
                     ventaDominio.Estado = EstadoVenta.Vigente;
@@ -95,10 +98,7 @@ namespace ME.Libros.Servicios.General
                     ProductoService.SumarStock(ventaItemDominio.Producto, ventaItemDominio.Cantidad);
                 }
 
-                foreach (var cuotaDominio in ventaDominio.Cuotas)
-                {
-                    //TODO: las cuotas se anulan?
-                }
+                //TODO: las cuotas se anulan? montos/saldo?
             }
 
             return Guardar(ventaDominio);
@@ -131,7 +131,7 @@ namespace ME.Libros.Servicios.General
             {
                 predicateBuilder = predicateBuilder.And(v => v.FechaVenta <= ventaSearchDto.Hasta);
             }
-             
+
             return ListarAsQueryable()
                 .AsExpandable()
                 .Where(predicateBuilder)
@@ -150,6 +150,31 @@ namespace ME.Libros.Servicios.General
             ventaDominio.MontoVendido = ventaDominio.Cuotas.Sum(c => c.Monto);
         }
 
+        public void ContabilizarCobro(VentaDominio ventaDominio, decimal montoCobro)
+        {
+            ventaDominio.MontoCobrado += montoCobro;
+            ventaDominio.Saldo -= montoCobro;
+        }
+
+        public void ActualizarEstadoCuotas(VentaDominio ventaDominio)
+        {
+            // Actualizar estado de cuotas segun la fecha de vencimiento
+            foreach (var cuotaDominio in ventaDominio.Cuotas.Where(c => c.Estado != EstadoCuota.Pagada))
+            {
+                if (cuotaDominio.FechaVencimiento.Date < DateTime.Now.Date)
+                {
+                    cuotaDominio.Estado = EstadoCuota.Atrasada;
+                }
+            }
+        }
+
+        public void ActualizarEstadoVenta(VentaDominio ventaDominio)
+        {
+            ventaDominio.Estado = ventaDominio.Saldo > 0
+                ? EstadoVenta.Vigente
+                : EstadoVenta.Pagada;
+        }
+
         #region Private Methods
 
         private void CalcularTotalItem(VentaItemDominio ventaItemDominio)
@@ -164,8 +189,7 @@ namespace ME.Libros.Servicios.General
 
         private void GenerarCuotas(VentaDominio ventaDominio)
         {
-            var monto = ventaDominio.PlanPago.Monto;
-            for (var i = 0; i < ventaDominio.PlanPago.CantidadCuotas; i++)
+            for (var i = 0; i < ventaDominio.CantidadCuotas; i++)
             {
                 var fechaVencimiento = ventaDominio.FechaCobro.AddMonths(i).Date;
                 var cuota = new CuotaDominio
@@ -177,8 +201,8 @@ namespace ME.Libros.Servicios.General
                         ? EstadoCuota.NoVencida
                         : EstadoCuota.Atrasada,
                     // DiasAtraso = (DateTime.Now.Date - fechaVencimiento).Days,
-                    Monto = monto,
-                    Saldo = monto
+                    Monto = ventaDominio.MontoCuota,
+                    Saldo = ventaDominio.MontoCuota
                 };
 
                 ventaDominio.Cuotas.Add(cuota);

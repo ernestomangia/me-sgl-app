@@ -1,23 +1,19 @@
 ﻿@model ME.Libros.Web.Models.UsuarioViewModel
 
-<h3>Modificar usuario</h3>
+<h3 class="page-header">Modificar usuario</h3>
 @using (Html.BeginForm("Modificar", "Usuario", FormMethod.Post, new { id = "formUsuario", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
     @Html.HiddenFor(model => model.Id)
 
     <div class="row">
-        <div class="col-md-3">
-            <div class="col-md-6 col-md-offset-4">
+        <div class="col-md-10">
+            <div class="text-right">
                 <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarUsuario" title="Eliminar usuario">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     Eliminar
                 </button>
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="text-right">
-                <a class="btn btn-default" href="@Url.Action("Index")" title="Cancelar">
+                <a class="btn btn-default btnCancelar" href="@Url.Action("Index")" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>

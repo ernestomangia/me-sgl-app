@@ -160,7 +160,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al anular..
+        ///   Looks up a localized string similar to Error al anular.
         /// </summary>
         public static string ErrorAnular {
             get {
@@ -169,7 +169,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al eliminar..
+        ///   Looks up a localized string similar to Error al eliminar.
         /// </summary>
         public static string ErrorEliminar {
             get {

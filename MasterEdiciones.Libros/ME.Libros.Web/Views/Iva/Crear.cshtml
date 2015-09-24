@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.IvaViewModel
 
-<h3>Nuevo iva</h3>
+<h3 class="page-header">Nuevo IVA</h3>
 @using (Html.BeginForm("Crear", "Iva", FormMethod.Post, new { id = "formIva", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

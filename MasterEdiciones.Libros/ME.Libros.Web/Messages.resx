@@ -399,4 +399,7 @@
   <data name="MontoCobrado" xml:space="preserve">
     <value>Cobrado</value>
   </data>
+  <data name="Proveedor" xml:space="preserve">
+    <value>Proveedor</value>
+  </data>
 </root>

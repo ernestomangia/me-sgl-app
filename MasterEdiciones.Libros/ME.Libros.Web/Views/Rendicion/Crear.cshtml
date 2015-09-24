@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.RendicionViewModel
 
-<h3>Nueva rendición</h3>
+<h3 class="page-header">Nueva rendición</h3>
 <h5>
     Para cargar una nueva rendición primero deberás ingresar Periodo, Cobrador y Localidad. Luego, el sistema cargará
     el listado de ventas para que puedas cargar los cobros correspondientes.
@@ -25,3 +25,74 @@
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Periodo, #PeriodoFake").datepicker("setDate", new Date());
+    });
+
+    $('#LocalidadId, #CobradorId').on('change', function (e) {
+        var datosIngresados = $("#DatosIngresados").val();
+        if (datosIngresados == "true") {
+            bootbox.confirm({
+                title: "Advertencia",
+                message: "Si usted modifica el Cobrador o la Localidad se perderán los cobros cargados. <br/>¿Esta seguro que desea continuar?",
+                callback: function (result) {
+                    if (result) {
+                        cargarCobros();
+                    } else {
+                        // No cambiar el cobrador o localidad
+
+                    }
+                }
+            });
+        }
+        else {
+            cargarCobros();
+        }
+    });
+
+    function cargarCobros() {
+        $("#DatosIngresados").val("false");
+        var localidadId = $("#LocalidadId :selected").val();
+        var cobradorId = $("#CobradorId :selected").val();
+        if (cobradorId > 0 && localidadId > 0) {
+            $.ajax({
+                method: "GET",
+                url: '/Rendicion/ListarCobros',
+                data: { cobradorId: cobradorId, localidadId: localidadId },
+                dataType: "html",
+                error: function (jqXHR, status, error) {
+                    mensajeError("Error: " + error + " - Status: " + status);
+                },
+                success: function (data) {
+                    var existenVentasVigentes = $(data).filter('input[name="ExistenVentasVigentes"]');
+                    if (existenVentasVigentes.val() == "True") {
+                        $("#MsjSinVentasVigentes").hide();
+                        $("#rowCobros").html(data);
+                        loadDataTable2();
+                        $(".datepickerCobros").datepicker("clearDates");
+                        var form = $("#formRendicion")
+                            .removeData("validator") /* added by the raw jquery.validate plugin */
+                            .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin */
+                        jQuery.validator.unobtrusive.parse(form);
+                        $('#formRendicion').validate().settings.ignore = false;
+                    } else {
+                        $("#MsjSinVentasVigentes").show();
+                        clearTable();
+                    }
+                },
+                timeout: 10000,
+                cache: false
+            });
+        } else {
+            $("#MsjSinVentasVigentes").hide();
+            clearTable();
+        }
+    }
+
+    function clearTable() {
+        var table = $("#tablaResultado").dataTable();
+        table.fnClearTable();
+    }
+</script>

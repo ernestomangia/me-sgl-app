@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.CobroViewModel
 
-<h3>Modificar cobro</h3>
+<h3 class="page-header">Modificar cobro</h3>
 
 @using (Html.BeginForm("Modificar", "Cobro", FormMethod.Post, new { id = "formCobro", @class = "form-horizontal formEntidad" }))
 {
@@ -29,9 +29,9 @@
         </div>
         <div class="col-md-5">
             <div class="text-right">
-                <a class="btn btn-default" href="@Url.Action("Index")" title="Volver">
+                <a class="btn btn-default btnCancelar" href="@Url.Action("Index")" title="Volver">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
-                    Volver
+                    Cancelar
                 </a>
             </div>
         </div>

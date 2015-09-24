@@ -12,7 +12,7 @@
 @if (Model.Id > 0)
 {
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="form-group form-group-sm">
                 @Html.LabelFor(c => c.Id, new { @class = "col-md-4 control-label" })
                 <div class="col-md-8">
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="form-group form-group-sm">
                 <div class="col-md-offset-4 col-md-8">
                     <h2 style="margin:0;">
@@ -33,7 +33,7 @@
 }
 
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.FechaCompra, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.NroFactura, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -51,15 +51,15 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(c => c.Proveedor, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(c => c.ProveedorId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.DropDownListFor(c => c.ProveedorId, Model.Proveedores, "Seleccione", new { @class = "form-control" })
             </div>
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.NroRemito, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
@@ -69,51 +69,60 @@
     </div>
 </div>
 <div class="row">
-    <fieldset class="col-md-10">
+    <fieldset class="col-md-12">
         <legend>Detalle</legend>
     </fieldset>
-    </div>
-    <div class="tab-content">
-<div id="TabCompraDetalle" role="tabpanel" class="tab-pane fade in active">
-    @{ Html.RenderAction("Index", "CompraItem", new { compraItemViewModels = Model.Items }); }
-    @*@foreach (var item in Model.Items)
-                {
-                    <input class='hiddenProductoId' id="@("Items[" + (item.Orden - 1) + "].ProductoId")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].ProductoId")" value="@item.ProductoId" />
-                    <input class='hiddenCantidad' id="@("Items[" + (item.Orden - 1) + "].Cantidad")" type='hidden' name="@("Items[" + (item.Orden - 1) + "].Cantidad")" value="@item.Cantidad" />
-                }*@
-
-   
 </div>
-        </div>
-        <div class="row">
-            <fieldset class="col-md-10"></fieldset>
-            <div class="col-md-5">
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="form-group form-group-sm">
-                    @Html.LabelFor(c => c.MontoCalculado, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(c => c.MontoCalculado, new { @class = "form-control", placeholder = Messages.MontoCalculado, disabled = "disabled" })
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="form-group form-group-sm">
-                    @Html.LabelFor(c => c.MontoComprado, new { @class = "col-md-4 control-label" })
-                    <div class="col-md-8">
-                        @Html.TextBoxFor(c => c.MontoComprado, new { @class = "form-control", placeholder = Messages.MontoComprado })
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10">
-                <hr />
-            </div>
-        </div>
+<div class="tab-content">
+    <div id="TabCompraDetalle" role="tabpanel" class="tab-pane fade in active">
+        @{ Html.RenderAction("Index", "CompraItem", new { compraItemViewModels = Model.Items }); }
+        @if (Model.Estado == EstadoCompra.None)
+        {
+            for (var i = 0; i < Model.Items.Count; i++)
+            {
+                @Html.HiddenFor(vi => Model.Items[i].ProductoId, new { id = "Items[" + i + "].ProductoId", @class = "hiddenProductoId" })
+                @Html.HiddenFor(vi => Model.Items[i].Cantidad, new { id = "Items[" + i + "].Cantidad", @class = "hiddenCantidad" })
+                @Html.HiddenFor(vi => Model.Items[i].PrecioCompraComprado, new { id = "Items[" + i + "].PrecioCompraComprado", @class = "hiddenPrecioCompraComprado" })
+                @Html.HiddenFor(vi => Model.Items[i].MontoItemComprado, new { id = "Items[" + i + "].MontoItemComprado", @class = "hiddenPrecioCompraComprado" })
+            }
+        }
+    </div>
+</div>
 <div class="row">
-    <div class="col-md-10">
+    <fieldset class="col-md-12"></fieldset>
+    <div class="col-md-5">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.MontoCalculado, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    @Html.TextBoxFor(c => c.MontoCalculado, new { @class = "form-control", placeholder = Messages.MontoCalculado, disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group form-group-sm">
+            @Html.LabelFor(c => c.MontoComprado, new { @class = "col-md-4 control-label" })
+            <div class="col-md-8">
+                <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    @Html.TextBoxFor(c => c.MontoComprado, new { @class = "form-control", placeholder = Messages.MontoComprado })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <hr />
+</div>
+<div class="row">
+    <div class="col-md-12">
         <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
             <a class="close" data-hide="alert" aria-hidden="true">×</a>
             <b>Mensajes:</b>
@@ -121,3 +130,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        loadCompraDetalleDataTable();
+    });
+</script>

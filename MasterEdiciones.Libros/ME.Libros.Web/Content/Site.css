@@ -32,19 +32,6 @@ footer {
     text-align: right;
 }
 
-.menuLateral {
-    float: left;
-    width: 10%;
-    margin-top: 25px;
-}
-
-.contenedor {
-    float: left;
-    width: 85%;
-    margin-left: 20px;
-    margin-top: 25px;
-}
-
 .btn-default {
     background-color: #F5F5F5;
 }
@@ -52,12 +39,8 @@ footer {
 #loading-indicator {
     position: absolute;
     left: 50%;
-    top: 75px;
+    top: 15px;
 }
-
-/*.errorCustom {
-    display: none;
-}*/
 
 .toast-top-right {
     top: 60px;
@@ -98,4 +81,18 @@ footer {
 
 .nav-tabs {
     margin-bottom: 20px;
+}
+
+div.slider {
+    display: none;
+}
+
+table.dataTable tbody td.no-padding {
+    padding: 0;
+}
+
+.tablaCobros {
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 20px;
 }

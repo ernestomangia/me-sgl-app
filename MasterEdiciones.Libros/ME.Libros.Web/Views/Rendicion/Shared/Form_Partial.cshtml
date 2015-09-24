@@ -20,7 +20,8 @@
             @Html.Label("PeriodoFake", "Periodo", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBox("PeriodoFake", "", new { id = "PeriodoFake", @class = "form-control", placeholder = "Periodo" })
-                @Html.HiddenFor(r => r.Periodo, new { @class = "datepicker" })
+                @*@Html.HiddenFor(r => r.Periodo, new { @class = "datepicker" })*@
+                @Html.Hidden("Periodo", Model.Periodo.ToString("dd/MM/yyyy"), new { id = "Periodo", @class = "datepicker" })
             </div>
         </div>
     </div>
@@ -57,22 +58,7 @@
 </div>
 <div class="row">
     <div id="rowCobros" class="col-md-12">
-        <table class="dataTableCustom">
-            <thead>
-                <tr>
-                    <th class="columnaCodigo noSort">@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Id)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.ClienteId)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoVendido)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.MontoCobrado)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Venta.Saldo)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Numero)</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].Cuotas[0].Estado) cuota</th>
-                    <th>@Html.DisplayNameFor(model => model.Cobros[0].FechaCobro)</th>
-                    <th class="numero">@Html.DisplayNameFor(model => model.Cobros[0].Monto)</th>
-                </tr>
-            </thead>
-            <tbody id="resultado"></tbody>
-        </table>
+        @Html.Partial("ListarCobros", Model)
     </div>
 </div>
 <div class="row">
@@ -152,14 +138,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#Periodo, #PeriodoFake").datepicker("setDate", new Date());
         $("#PeriodoFake").rules("add", {
             required: true,
             messages: {
                 required: "El <b>Periodo</b> es requerido"
             }
         });
-        
     });
 
     $('#PeriodoFake').datepicker({
@@ -167,7 +151,8 @@
         todayBtn: 'linked',
         todayHighlight: true,
         orientation: "left top",
-        format: "MM yyyy"
+        format: "MM yyyy",
+        minViewMode: 1
     });
 
     $("#PeriodoFake").on("changeDate clearDate", function () {
@@ -175,96 +160,80 @@
         $('#Periodo').datepicker('setDate', periodoFake);
     });
 
-    $('#LocalidadId, #CobradorId').on('change', function (e) {
-        var datosIngresados = $("#DatosIngresados").val();
-        if (datosIngresados == "true") {
-            bootbox.confirm({
-                title: "Advertencia",
-                message: "Si usted modifica el Cobrador o la Localidad se perderán los cobros cargados. <br/>¿Esta seguro que desea continuar?",
-                callback: function (result) {
-                    if (result) {
-                        cargarCobros();
-                    } else {
-                        // No cambiar el cobrador o localidad
-                        
-                    }
-                }
-            });
-        }
-        else {
-            cargarCobros();
-        }
-    });
-
     $('#Comision').on('keyup change', function (e) {
         var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
         var comision = Globalize.parseFloat($(this).val());
-        var montoComision = montoFacturado * comision / 100;
-        var montoNeto = montoFacturado - montoComision;
-        $("#MontoComision").val(formatFloat(montoComision));
-        $("#MontoNeto").val(formatFloat(montoNeto));
+        if (montoFacturado >= 0 && comision >= 0) {
+            var montoComision = calcularMontoComision(montoFacturado, comision);
+            var montoNeto = montoFacturado - montoComision;
+            $("#MontoComision").val(formatFloat(montoComision));
+            $("#MontoNeto").val(formatFloat(montoNeto));
+        }
+        else {
+            $("#MontoComision").val("");
+            $("#MontoNeto").val("");
+        }
     });
 
-    /*$(document).on("keyup", ".fechaCobro", function () {
-        $("#DatosIngresados").val("true");
-    });*/
+    $('#MontoComision').on('keyup change', function (e) {
+        if (isValidKeyForCalc(e.keyCode)) {
+            var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
+            var montoComision = Globalize.parseFloat($(this).val());
+            if (montoFacturado > 0 && montoComision > 0) {
+                var comision = calcularComision(montoFacturado, montoComision);
+                var montoNeto = montoFacturado - montoComision;
+                $("#Comision").val(formatFloat(comision));
+                $("#MontoNeto").val(formatFloat(montoNeto));
+            }
+            else {
+                $("#Comision").val("");
+                $("#MontoNeto").val("");
+            }
+        }
+    });
 
-    $(document).on("keyup change", ".montoCobro", function () {
-        $("#DatosIngresados").val("true");
+    $(document).on("keyup change", ".montoCobro", function (e) {
+        if (isValidKeyForCalc(e.keyCode)) {
+            $("#DatosIngresados").val("true");
+            var montoFacturado = calcularMontoFacturado();
+            var comision = Globalize.parseFloat($("#Comision").val());
+            if (montoFacturado >= 0) {
+                $("#MontoFacturado").val(formatFloat(montoFacturado));
+                if (comision >= 0) {
+                    var montoComision = calcularMontoComision(montoFacturado, comision);
+                    var montoNeto = montoFacturado - montoComision;
+                    $("#MontoComision").val(formatFloat(montoComision));
+                    $("#MontoNeto").val(formatFloat(montoNeto));
+                }
+                else {
+                    $("#MontoComision").val("");
+                    $("#MontoNeto").val("");
+                }
+            } else {
+                $("#MontoFacturado").val("");
+                $("#MontoComision").val("");
+                $("#MontoNeto").val("");
+            }
+        }
+    });
+
+    function calcularMontoComision(montoFacturado, comision) {
+        return montoFacturado * comision / 100;
+    }
+
+    function calcularComision(montoFacturado, montoComision) {
+        return montoComision / montoFacturado * 100;
+    }
+
+    function calcularMontoFacturado() {
         var montoFacturado = 0;
         $(".montoCobro").each(function () {
             montoFacturado += Globalize.parseFloat($(this).val());
+            if (isNaN(montoFacturado)) {
+                return false;
+            }
         });
 
-        var comision = Globalize.parseFloat($("#Comision").val());
-        var montoComision = montoFacturado * comision / 100;
-        var montoNeto = montoFacturado - montoComision;
-        $("#MontoFacturado").val(formatFloat(montoFacturado));
-        $("#MontoComision").val(formatFloat(montoComision));
-        $("#MontoNeto").val(formatFloat(montoNeto));
-    });
-
-    function cargarCobros() {
-        $("#DatosIngresados").val("false");
-        var localidadId = $("#LocalidadId :selected").val();
-        var cobradorId = $("#CobradorId :selected").val();
-        if (cobradorId > 0 && localidadId > 0) {
-            $.ajax({
-                method: "GET",
-                url: '/Rendicion/ListarCobros',
-                data: { cobradorId: cobradorId, localidadId: localidadId },
-                dataType: "html",
-                error: function (jqXHR, status, error) {
-                    mensajeError("Error: " + error + " - Status: " + status);
-                },
-                success: function (data) {
-                    var existenVentasVigentes = $(data).filter('input[name="ExistenVentasVigentes"]');
-                    if (existenVentasVigentes.val() == "True") {
-                        $("#MsjSinVentasVigentes").hide();
-                        $("#rowCobros").html(data);
-                        loadDataTable2();
-                        $(".datepickerCobros").datepicker("clearDates");
-                        var form = $("#formRendicion")
-                            .removeData("validator") /* added by the raw jquery.validate plugin */
-                            .removeData("unobtrusiveValidation");  /* added by the jquery unobtrusive plugin */
-                        jQuery.validator.unobtrusive.parse(form);
-                        $('#formRendicion').validate().settings.ignore = false;
-                    } else {
-                        $("#MsjSinVentasVigentes").show();
-                        clearTable();
-                    }
-                },
-                timeout: 10000,
-                cache: false
-            });
-        } else {
-            $("#MsjSinVentasVigentes").hide();
-            clearTable();
-        }
-    }
-
-    function clearTable() {
-        var table = $("#tablaResultado").dataTable();
-        table.fnClearTable();
+        return montoFacturado;
     }
 </script>

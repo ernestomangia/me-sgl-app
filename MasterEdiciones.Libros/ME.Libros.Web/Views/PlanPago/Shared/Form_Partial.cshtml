@@ -49,6 +49,16 @@
         </div>
     </div>
 </div>
+@if (Model.Id > 0)
+{
+    <div class="row">
+        <div class="col-md-10">
+            <div id="mensajediv" class="alert alert-info" role="alert" style="display:none">
+                Este plan de pagos se utiliza en alguna venta, solo es posible modificar el nombre y/o descripción
+            </div>
+        </div>
+    </div>
+}
 <div class="row">
     <div class="col-md-10">
         <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">

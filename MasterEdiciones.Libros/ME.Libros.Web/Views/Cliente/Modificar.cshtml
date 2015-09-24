@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.ClienteViewModel
 
-<h3>Modificar cliente</h3>
+<h3 class="page-header">Modificar cliente</h3>
 @using (Html.BeginForm("Modificar", "Cliente", FormMethod.Post, new { id = "formCliente", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
@@ -8,17 +8,13 @@
     @Html.HiddenFor(model => model.Codigo)
 
     <div class="row">
-        <div class="col-md-5">
-            <div class="col-md-8 col-md-offset-4">
+        <div class="col-md-10">
+            <div class="text-right">
                 <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarCliente" title="Eliminar cliente">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     Eliminar
                 </button>
-            </div>
-        </div>
-        <div class="col-md-5">
-            <div class="text-right">
-                <a class="btn btn-default" href="@Url.Action("Index")" title="Cancelar">
+                <a class="btn btn-default btnCancelar" href="@Url.Action("Index")" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>
@@ -31,5 +27,5 @@
     </div>
 }
 
-<input type="hidden" id="idEntidad" value="@Model.Id" />
+@Html.Hidden("idEntidad", Model.Id, new { id = "idEntidad" })
 @Html.Partial("Eliminar")

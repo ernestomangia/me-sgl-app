@@ -73,28 +73,29 @@ namespace ME.Libros.Web.Controllers
                 return View(clienteViewModel);
             }
 
+            var clienteDominio = new ClienteDominio
+            {
+                FechaAlta = DateTime.Now,
+                Codigo = clienteViewModel.Codigo,
+                Nombre = clienteViewModel.Nombre,
+                Apellido = clienteViewModel.Apellido,
+                Cuil = clienteViewModel.Cuil,
+                FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
+                Direccion = clienteViewModel.Direccion,
+                Comentario = clienteViewModel.Comentario,
+                Email = clienteViewModel.Email,
+                TelefonoFijo = clienteViewModel.TelefonoFijo,
+                Celular = clienteViewModel.Celular,
+                Celular2 = clienteViewModel.Celular2,
+                Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
+                Iva = IvaService.GetPorId(clienteViewModel.IvaId)
+            };
+
             long resultado = 0;
             try
             {
                 using (ClienteService)
                 {
-                    var clienteDominio = new ClienteDominio
-                                             {
-                                                 FechaAlta = DateTime.Now,
-                                                 Codigo = clienteViewModel.Codigo,
-                                                 Nombre = clienteViewModel.Nombre,
-                                                 Apellido = clienteViewModel.Apellido,
-                                                 Cuil = clienteViewModel.Cuil,
-                                                 FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
-                                                 Direccion = clienteViewModel.Direccion,
-                                                 Comentario = clienteViewModel.Comentario,
-                                                 Email = clienteViewModel.Email,
-                                                 TelefonoFijo = clienteViewModel.TelefonoFijo,
-                                                 Celular = clienteViewModel.Celular,
-                                                 Celular2 = clienteViewModel.Celular2,
-                                                 Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
-                                                 Iva = IvaService.GetPorId(clienteViewModel.IvaId)
-                                             };
                     resultado = ClienteService.Guardar(clienteDominio);
                     if (resultado <= 0)
                     {
@@ -138,13 +139,22 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+
             try
             {
                 using (ClienteService)
                 {
-                    ClienteService.Eliminar(ClienteService.GetPorId(id));
+                    var clienteDominio = ClienteService.GetPorId(id);
+                    ClienteService.Eliminar(clienteDominio);
+
+                    if (isRedirect)
+                    {
+                        TempData["Id"] = clienteDominio.Codigo;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadEliminada, Messages.ElCliente, clienteDominio.Codigo);
+                    }
                 }
             }
             catch (DbUpdateException ex)
@@ -167,7 +177,13 @@ namespace ME.Libros.Web.Controllers
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid, 
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

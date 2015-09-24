@@ -48,7 +48,7 @@ function crearCompraItem(form) {
                 var compraItem = data.CompraItem;
                 agregarCompraItem(compraItem);
                 $('#modalCompraItem').modal('toggle');
-                mensajeSuccess("Se agrego el " + compraItem.Producto.Nombre + " al detalle de la compra");
+                mensajeSuccess("Se agrego el producto " + compraItem.Producto.Nombre + " al detalle de la compra");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -96,7 +96,7 @@ function getHtmlBotonModificar(productoId) {
 }
 
 function getHtmlBotonEliminar(indexItem) {
-    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminar' onclick='javascript:setearId(" + indexItem + ");' title='Eliminar item'>" +
+    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminarCompraItem' onclick='javascript:setearIdCompraItem(" + indexItem + ");' title='Eliminar item'>" +
         "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
         "</button>";
 }
@@ -109,7 +109,7 @@ function eliminarCompraItem(indexItem) {
     var table = $("#compraDetalleTable").DataTable();
     table.row(indexItem).remove().draw();
     actualizarHiddens();
-    $('#modalEliminar').modal('toggle');
+    $('#modalEliminarCompraItem').modal('toggle');
     mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
 }
 
@@ -130,7 +130,7 @@ function modificarCompraItem(form) {
                 var compraItem = data.CompraItem;
                 actualizarCompraItemRow(compraItem);
                 $('#modalCompraItem').modal('toggle');
-                mensajeSuccess("Se modifico el " + compraItem.Producto.Nombre + " exitosamente");
+                mensajeSuccess("Se modifico el producto " + compraItem.Producto.Nombre + " exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -172,51 +172,8 @@ function actualizarHiddens() {
 
     indexItem = 0;
     $(".btnEliminar").each(function () {
-        $(this).attr("onclick", "setearId(" + indexItem + ")");
+        $(this).attr("onclick", "setearIdCompraItem(" +indexItem + ")");
     });
-}
-
-function calcularTotales(dt, row, data, start, end, display) {
-    var api = dt.api();
-
-    if (api.column(4).data().length == 0) {
-        return;
-    }
-    // Remove the formatting to get float data for summation
-    var floatVal = function (i) {
-        return typeof i === 'string'
-            ? Globalize.parseFloat(i)
-            : typeof i === 'number'
-                ? i
-                : 0;
-    };
-
-    // Total over all pages
-    var total = api
-        .column(4)
-        .data()
-        .reduce(function (a, b) {
-            return floatVal(a) + floatVal(b);
-        });
-
-    // Total over this page
-    var pageTotal = api
-        .column(4, { page: 'current' })
-        .data()
-        .reduce(function (a, b) {
-            return floatVal(a) + floatVal(b);
-        });
-
-    if (api.column(4).data().length == 1) {
-        total = floatVal(total);
-        pageTotal = floatVal(pageTotal);
-    }
-
-    // Update footer
-    $(api.column(4).footer()).html(formatCurrency(pageTotal) + ' (' + formatCurrency(total) + ' total)');
-    if ($("#Id").length == 0) {
-        $("#MontoComprado, #MontoCalculado").val(formatFloat(total));
-    }
 }
 
 function getProducto() {
@@ -295,14 +252,6 @@ function calcularDiferencia() {
     }
 }
 
-function isValidKey(keyCode) {
-    return keyCode == undefined || // caso change event
-        (keyCode >= 48 && keyCode <= 57) || // 0-9
-        (keyCode >= 96 && keyCode <= 105) || // 0-9 numpad
-        keyCode == 188 || // Tab
-        keyCode == 8; // Back space
-}
-
 function actualizarCompraItemRow(compraItem) {
     var hiddenProductoId = $(".hiddenProductoId[value=" + compraItem.ProductoId + "]");
     var subtringStart = hiddenProductoId.attr("id").indexOf("[") + 1;
@@ -325,4 +274,21 @@ function actualizarCompraItemRow(compraItem) {
 
     // Redibujar para recalcular footer
     table.draw();
+}
+
+function loadCompraDetalleDataTable() {
+    $("#compraDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
+    $('#compraDetalleTable').dataTable({
+        "order": [],
+        "footerCallback": function (row, data, start, end, display) {
+            var totales = calcularTotalColumna(this, [4]);
+            if ($("#Id").length == 0) {
+                $("#MontoComprado, #MontoCalculado").val(formatFloat(totales[0].total));
+            }
+        },
+        "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+            $('td:eq(2),td:eq(3),td:eq(4)', nRow).addClass("text-right");
+        },
+        lengthMenu: [5, 10]
+    });
 }

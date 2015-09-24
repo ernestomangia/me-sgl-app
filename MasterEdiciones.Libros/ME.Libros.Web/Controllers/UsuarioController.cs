@@ -58,23 +58,23 @@ namespace ME.Libros.Web.Controllers
             long resultado = 0;
             if (ModelState.IsValid)
             {
+                var usuarioDominio = new UsuarioDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = usuarioViewModel.Nombre,
+                    Apellido = usuarioViewModel.Apellido,
+                    UserName = usuarioViewModel.UserName,
+                    Password = usuarioViewModel.Password,
+                    Email = usuarioViewModel.Email,
+                    EmailConfirmado = false,
+                    CantidadIntentosFallidos = 0,
+                    Habilitado = usuarioViewModel.Habilitado
+                };
+
                 try
                 {
                     using (UsuarioService)
                     {
-                        var usuarioDominio = new UsuarioDominio
-                        {
-                            FechaAlta = DateTime.Now,
-                            Nombre = usuarioViewModel.Nombre,
-                            Apellido = usuarioViewModel.Apellido,
-                            UserName = usuarioViewModel.UserName,
-                            Password = usuarioViewModel.Password,
-                            Email = usuarioViewModel.Email,
-                            EmailConfirmado = false,
-                            CantidadIntentosFallidos = 0,
-                            Habilitado = usuarioViewModel.Habilitado
-                        };
-
                         resultado = UsuarioService.Guardar(usuarioDominio);
                         if (resultado <= 0)
                         {
@@ -103,39 +103,50 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult Eliminar(int id)
+        public JsonResult Eliminar(int id, string redirectUrl)
         {
-            if (ModelState.IsValid)
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+            try
             {
-                try
+                using (UsuarioService)
                 {
-                    using (UsuarioService)
-                    {
-                        UsuarioService.Eliminar(UsuarioService.GetPorId(id));
-                    }
-                }
-                catch (DbUpdateException ex)
-                {
-                    var sqlException = ex.GetBaseException() as SqlException;
+                    var usuarioDominio = UsuarioService.GetPorId(id);
+                    UsuarioService.Eliminar(usuarioDominio);
 
-                    if (sqlException != null && sqlException.Number == 547)
+                    if (isRedirect)
                     {
-                        ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+                        TempData["Id"] = usuarioDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadEliminada, Messages.ElUsuario, usuarioDominio.Id);
                     }
                 }
-                catch (Exception ex)
+            }
+            catch (DbUpdateException ex)
+            {
+                var sqlException = ex.GetBaseException() as SqlException;
+
+                if (sqlException != null && sqlException.Number == 547)
+                {
+                    ModelState.AddModelError("Error", ErrorMessages.DatosAsociados);
+                }
+                else
                 {
                     ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
                 }
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
 
             return new JsonResult
             {
-                Data = new { Success = ModelState.IsValid, Errors = ModelState.GetErrors() },
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

@@ -41,7 +41,7 @@ namespace ME.Libros.Web.Controllers
             using (RendicionService)
             {
                 rendiciones.AddRange(RendicionService.Listar()
-                    .OrderBy(r => r.Periodo)
+                    .OrderByDescending(r => r.Periodo)
                     .ThenBy(r => r.Cobrador.Apellido)
                     .ThenBy(r => r.Cobrador.Nombre)
                     .ThenBy(r => r.Localidad.Nombre)
@@ -75,8 +75,6 @@ namespace ME.Libros.Web.Controllers
                 Periodo = rendicionViewModel.Periodo,
                 Cobrador = CobradorService.GetPorId(rendicionViewModel.CobradorId),
                 Localidad = LocalidadService.GetPorId(rendicionViewModel.LocalidadId),
-                MontoFacturado = rendicionViewModel.MontoFacturado,
-                MontoNeto = rendicionViewModel.MontoNeto,
                 Comision = rendicionViewModel.Comision,
                 MontoComision = rendicionViewModel.MontoComision,
                 Cobros = new List<CobroDominio>()
@@ -133,10 +131,67 @@ namespace ME.Libros.Web.Controllers
             return View(rendicionViewModel);
         }
 
+        [HttpPost]
+        public ActionResult Modificar(RendicionViewModel rendicionViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(rendicionViewModel);
+                return View(rendicionViewModel);
+            }
+
+            long resultado = 0;
+
+            try
+            {
+                using (RendicionService)
+                {
+                    var rendicionDominio = RendicionService.GetPorId(rendicionViewModel.Id);
+                    rendicionDominio.Periodo = rendicionViewModel.Periodo;
+                    rendicionDominio.Comision = rendicionViewModel.Comision;
+                    rendicionDominio.MontoComision = rendicionViewModel.MontoComision;
+                    RendicionService.ModificarRendicion(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto).ToList());
+                    
+                    resultado = RendicionService.Guardar(rendicionDominio);
+                }
+
+                if (resultado <= 0)
+                {
+                    foreach (var error in RendicionService.ModelError)
+                    {
+                        ModelState.AddModelError(error.Key, error.Value);
+                    }
+                }
+                else
+                {
+                    TempData["Id"] = rendicionViewModel.Id;
+                    TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.LaRendicion, rendicionViewModel.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            if (resultado == 0)
+            {
+                PrepareModel(rendicionViewModel);
+            }
+
+            return resultado > 0
+                ? (ActionResult)RedirectToAction("Index")
+                : View(rendicionViewModel);
+        }
+
         [HttpGet]
         public PartialViewResult ListarCobros(int cobradorId, int localidadId)
         {
             var rendicion = new RendicionViewModel();
+            if (cobradorId <= 0 || localidadId <= 0)
+            {
+                return PartialView(rendicion);
+            }
+
             using (VentaService)
             {
                 rendicion.Cobros.AddRange(VentaService.ListarAsQueryable()
@@ -172,6 +227,11 @@ namespace ME.Libros.Web.Controllers
                 .Select(l => new LocalidadViewModel(l)),
                 "Id",
                 "Nombre");
+
+            foreach (var cobroViewModel in rendicionViewModel.Cobros)
+            {
+                cobroViewModel.Venta = new VentaViewModel(VentaService.GetPorId(cobroViewModel.VentaId));
+            }
         }
 
         #endregion

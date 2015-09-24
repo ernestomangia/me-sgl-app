@@ -1,6 +1,6 @@
 ﻿@model ME.Libros.Web.Models.EditorialViewModel
 
-<h3>Nueva editorial</h3>
+<h3 class="page-header">Nueva editorial</h3>
 @using (Html.BeginForm("Crear", "Editorial", FormMethod.Post, new { id = "formEditorial", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)

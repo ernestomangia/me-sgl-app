@@ -36,6 +36,8 @@ namespace ME.Libros.Web.Models
             CobradorId = ventaDominio.Cobrador.Id;
             Vendedor = new VendedorViewModel(ventaDominio.Vendedor);
             VendedorId = ventaDominio.Vendedor.Id;
+            Comision = ventaDominio.Comision;
+            MontoComision = ventaDominio.MontoComision;
             PlanPago = new PlanPagoViewModel(ventaDominio.PlanPago);
             PlanPagoId = ventaDominio.PlanPago.Id;
             CantidadCuotas = ventaDominio.CantidadCuotas;
@@ -46,6 +48,7 @@ namespace ME.Libros.Web.Models
             // Cuotas
             Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
             Cuotas.ForEach(c => c.Venta = this);
+            EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
         }
 
         #endregion
@@ -87,6 +90,18 @@ namespace ME.Libros.Web.Models
         public int CantidadCuotas { get; set; }
         
         public decimal MontoCuota { get; set; }
+
+        [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal Comision { get; set; }
+
+        [Display(Name = "MontoComision", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoComision { get; set; }
+
+        public bool EsVigente { get; set; }
 
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]

@@ -11,7 +11,6 @@ using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Extensions;
 using ME.Libros.Web.Models;
 using Rotativa;
-using Rotativa.Options;
 
 namespace ME.Libros.Web.Controllers
 {
@@ -167,6 +166,8 @@ namespace ME.Libros.Web.Controllers
                 Cliente = ClienteService.GetPorId(ventaViewModel.ClienteId),
                 Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId),
                 Vendedor = VendedorService.GetPorId(ventaViewModel.VendedorId),
+                Comision = ventaViewModel.Comision,
+                MontoComision = ventaViewModel.MontoComision,
                 MontoVendido = ventaViewModel.MontoVendido,
                 Saldo = ventaViewModel.MontoVendido,
                 PlanPago = PlanPagoService.GetPorId(ventaViewModel.PlanPagoId),
@@ -268,6 +269,60 @@ namespace ME.Libros.Web.Controllers
             return View(ventaViewModel);
         }
 
+        [HttpPost]
+        public ActionResult Modificar(VentaViewModel ventaViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                PrepareModel(ventaViewModel);
+                return View(ventaViewModel);
+            }
+
+            var resultado = 0L;
+
+            try
+            {
+                using (VentaService)
+                {
+                    var ventaDominio = VentaService.GetPorId(ventaViewModel.Id);
+                    ventaDominio.Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId);
+
+                    resultado = VentaService.Guardar(ventaDominio);
+                    if (resultado <= 0)
+                    {
+                        foreach (var error in VentaService.ModelError)
+                        {
+                            ModelState.AddModelError(error.Key, error.Value);
+                        }
+                    }
+                    else
+                    {
+                        TempData["Id"] = ventaDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.LaVenta, ventaDominio.Id);
+                    }
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                foreach (var error in ex.EntityValidationErrors.SelectMany(validationError => validationError.ValidationErrors))
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            if (resultado > 0)
+            {
+                return RedirectToAction("Index", new { estado = EstadoVenta.Vigente });
+            }
+
+            PrepareModel(ventaViewModel);
+            return View(ventaViewModel);
+        }
+
         [HttpGet]
         public JsonResult Eliminar(int id, string redirectUrl)
         {
@@ -296,7 +351,7 @@ namespace ME.Libros.Web.Controllers
             {
                 Data = new
                 {
-                    Success = ModelState.IsValid, 
+                    Success = ModelState.IsValid,
                     Errors = ModelState.GetErrors(),
                     isRedirect,
                     redirectUrl
@@ -312,19 +367,15 @@ namespace ME.Libros.Web.Controllers
 
         public ActionResult GenerarChequera(int id)
         {
-            //var headers = new Dictionary<string, string> { { "Content-Disposition", "attachment; filename=ChequeraVentaNro" + id + ".pdf" } };
-            var footer = "--footer-right \"[date] [time]\" --footer-center \"[page] de [toPage]\" " +
-                         "--footer-line --footer-font-size \"8\" " +
-                         "--footer-spacing 15 --footer-font-name \"calibri light\"";
+            var reporte = new ChequeraPdfViewModel();
+            reporte.SetReportConfigurations();
+
             return new ActionAsPdf("ChequeraPDF", new { id })
             {
-                //FileName = "ChequeraVentaNro" + id + ".pdf",
-                PageOrientation = Orientation.Portrait,
-                PageSize = Size.A4,
-                PageMargins = new Margins(10, 10, 10, 10),
-                //CustomSwitches = "--print-media-type --default-header --custom-header \" -- \" \\"
-                CustomSwitches = footer,
-                //UserName = User.Identity.Name
+                PageOrientation = reporte.PageOrientation,
+                PageSize = reporte.PageSize,
+                PageMargins = reporte.PageMargins,
+                CustomSwitches = reporte.CustomSwitches,
             };
         }
 

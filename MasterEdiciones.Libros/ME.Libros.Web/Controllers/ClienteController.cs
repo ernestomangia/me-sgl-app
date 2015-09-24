@@ -73,28 +73,29 @@ namespace ME.Libros.Web.Controllers
                 return View(clienteViewModel);
             }
 
+            var clienteDominio = new ClienteDominio
+            {
+                FechaAlta = DateTime.Now,
+                Codigo = clienteViewModel.Codigo,
+                Nombre = clienteViewModel.Nombre,
+                Apellido = clienteViewModel.Apellido,
+                Cuil = clienteViewModel.Cuil,
+                FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
+                Direccion = clienteViewModel.Direccion,
+                Comentario = clienteViewModel.Comentario,
+                Email = clienteViewModel.Email,
+                TelefonoFijo = clienteViewModel.TelefonoFijo,
+                Celular = clienteViewModel.Celular,
+                Celular2 = clienteViewModel.Celular2,
+                Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
+                Iva = IvaService.GetPorId(clienteViewModel.IvaId)
+            };
+
             long resultado = 0;
             try
             {
                 using (ClienteService)
                 {
-                    var clienteDominio = new ClienteDominio
-                                             {
-                                                 FechaAlta = DateTime.Now,
-                                                 Codigo = clienteViewModel.Codigo,
-                                                 Nombre = clienteViewModel.Nombre,
-                                                 Apellido = clienteViewModel.Apellido,
-                                                 Cuil = clienteViewModel.Cuil,
-                                                 FechaNacimiento = clienteViewModel.FechaNacimiento.HasValue ? clienteViewModel.FechaNacimiento.Value : (DateTime?)null,
-                                                 Direccion = clienteViewModel.Direccion,
-                                                 Comentario = clienteViewModel.Comentario,
-                                                 Email = clienteViewModel.Email,
-                                                 TelefonoFijo = clienteViewModel.TelefonoFijo,
-                                                 Celular = clienteViewModel.Celular,
-                                                 Celular2 = clienteViewModel.Celular2,
-                                                 Localidad = LocalidadService.GetPorId(clienteViewModel.LocalidadId),
-                                                 Iva = IvaService.GetPorId(clienteViewModel.IvaId)
-                                             };
                     resultado = ClienteService.Guardar(clienteDominio);
                     if (resultado <= 0)
                     {

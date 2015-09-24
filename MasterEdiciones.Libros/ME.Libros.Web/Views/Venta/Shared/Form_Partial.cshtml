@@ -67,9 +67,17 @@
     </div>
     <div class="col-md-6">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(v => v.CobradorId, new { @class = "col-md-4 control-label" })
+            @Html.LabelWithTooltipFor(v => v.CobradorId, new
+                                               {
+                                                   @class = "col-md-4 control-label",
+                                                   data_placement = "bottom",
+                                                   title = "Cobrador actual de la venta."
+                                               })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.CobradorId, Model.Cobradores, "Seleccione", new { @class = "form-control" })
+                @Html.DropDownListFor(c => c.CobradorId, Model.Cobradores, "Seleccione", new
+                {
+                    @class = ("form-control" + (!Model.EsVigente ? " disabled" : ""))
+                })
             </div>
         </div>
     </div>
@@ -129,6 +137,27 @@
                         <div class="form-group form-group-sm">
                             @Html.Label("Interes", new { @class = "col-md-4 control-label" })
                             <div class="col-md-8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(v => v.Comision, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(v => v.Comision, new { @class = "form-control", placeholder = Messages.PorcentajeComision })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(v => v.MontoComision, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    @Html.TextBoxFor(r => r.MontoComision, new { @class = "form-control", placeholder = Messages.MontoComision })
+                                </div>
                             </div>
                         </div>
                     </div>

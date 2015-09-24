@@ -832,6 +832,9 @@
     <Compile Include="Models\IvaViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RendicionViewModel.cs" />
+    <Compile Include="Models\ReporteTemplateViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\VendedorViewModel.cs" />
     <Compile Include="Models\CompraItemViewModel.cs" />
     <Compile Include="Models\CompraViewModel.cs" />

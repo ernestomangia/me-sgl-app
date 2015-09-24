@@ -66,7 +66,7 @@ namespace ME.Libros.Web.Models
         public decimal MontoNeto { get; set; }
 
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Comision { get; set; }
 

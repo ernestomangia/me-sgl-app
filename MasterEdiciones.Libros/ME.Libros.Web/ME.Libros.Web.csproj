@@ -977,7 +977,6 @@
     <Content Include="Views\Rendicion\Shared\Form_Partial.cshtml" />
     <Content Include="Views\Rendicion\Modificar.cshtml" />
     <Content Include="Views\Rendicion\ListarCobros.cshtml" />
-    <Content Include="Views\Reporte\PlanillaCobradoresPDF.cshtml" />
     <Content Include="Views\Reporte\PlanillaCobradorPDF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

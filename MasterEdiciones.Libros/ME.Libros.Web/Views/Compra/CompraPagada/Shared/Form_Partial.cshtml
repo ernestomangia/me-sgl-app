@@ -45,7 +45,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.NroFactura, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.NroFactura, new { @class = "form-control", placeholder = Messages.NroFactura })
+                @Html.TextBoxFor(c => c.NroFactura, new { @class = "form-control" + (!Model.EsPagada ? " disabled" : ""), placeholder = Messages.NroFactura, data_mask = "9999-99999999" })
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.NroRemito, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.NroRemito, new { @class = "form-control", placeholder = Messages.NroRemito })
+                @Html.TextBoxFor(c => c.NroRemito, new { @class = "form-control" + (!Model.EsPagada ? " disabled" : ""), placeholder = Messages.NroRemito, data_mask = "9999-99999999" })
             </div>
         </div>
     </div>

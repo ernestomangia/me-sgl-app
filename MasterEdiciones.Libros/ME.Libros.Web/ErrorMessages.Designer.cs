@@ -196,6 +196,24 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
+        /// </summary>
+        public static string FormatoInvalido {
+            get {
+                return ResourceManager.GetString("FormatoInvalido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El formato de la &lt;b&gt;{0}&lt;/b&gt; no es correcto.
+        /// </summary>
+        public static string FormatoInvalidoF {
+            get {
+                return ResourceManager.GetString("FormatoInvalidoF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; es inválida.
         /// </summary>
         public static string Invalida {
@@ -205,38 +223,11 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
-        /// </summary>
-        public static string InvalidCuil {
-            get {
-                return ResourceManager.GetString("InvalidCuil", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
-        /// </summary>
-        public static string InvalidEmail {
-            get {
-                return ResourceManager.GetString("InvalidEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; es inválido.
         /// </summary>
         public static string Invalido {
             get {
                 return ResourceManager.GetString("Invalido", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto.
-        /// </summary>
-        public static string InvalidTel {
-            get {
-                return ResourceManager.GetString("InvalidTel", resourceCulture);
             }
         }
         
@@ -340,7 +331,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to La contraseña debe tener al menos 8 caracteres.
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; debe contener al menos {1} caracteres.
         /// </summary>
         public static string StringMinLength {
             get {

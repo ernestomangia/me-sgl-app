@@ -34,6 +34,7 @@ namespace ME.Libros.Web.Models
             // Items
             Items = new List<CompraItemViewModel>(compraDominio.CompraItems.Select(ci => new CompraItemViewModel(ci)));
             Items.ForEach(c => c.Compra = this);
+            EsPagada = compraDominio.Estado == EstadoCompra.Pagada;
         }
 
         #endregion
@@ -52,13 +53,13 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "NroRemito", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
-        [StringLength(20, MinimumLength = 14, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"\d{4}[-. ]\d{8}", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "FormatoInvalido")]
         public string NroRemito { get; set; }
 
         [Display(Name = "NroFactura", ResourceType = typeof(Messages))]
-        [StringLength(20, MinimumLength = 14, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
-        [RegularExpression(@"^[0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyNumbers")]
+        [StringLength(13, MinimumLength = 13, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "ExactLenght")]
+        [RegularExpression(@"\d{4}[-. ]\d{8}", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "FormatoInvalido")]
         public string NroFactura { get; set; }
 
         [Display(Name = "MontoCalculado", ResourceType = typeof(Messages))]
@@ -71,6 +72,8 @@ namespace ME.Libros.Web.Models
         public decimal MontoComprado { get; set; }
 
         public EstadoCompra Estado { get; set; }
+
+        public bool EsPagada { get; set; }
 
         [Display(Name = "Proveedor", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]

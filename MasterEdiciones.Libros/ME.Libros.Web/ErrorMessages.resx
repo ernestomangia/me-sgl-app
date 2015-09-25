@@ -138,13 +138,7 @@
   <data name="ExactLenght" xml:space="preserve">
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres</value>
   </data>
-  <data name="InvalidEmail" xml:space="preserve">
-    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
-  </data>
-  <data name="InvalidTel" xml:space="preserve">
-    <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
-  </data>
-  <data name="InvalidCuil" xml:space="preserve">
+  <data name="FormatoInvalido" xml:space="preserve">
     <value>El formato del &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
   </data>
   <data name="RangeLenght" xml:space="preserve">
@@ -154,7 +148,7 @@
     <value>El &lt;b&gt;{0}&lt;/b&gt; debe contener {1} caracteres como máximo</value>
   </data>
   <data name="StringMinLength" xml:space="preserve">
-    <value>La contraseña debe tener al menos 8 caracteres</value>
+    <value>La &lt;b&gt;{0}&lt;/b&gt; debe contener al menos {1} caracteres</value>
   </data>
   <data name="PasswordEquals" xml:space="preserve">
     <value>Las contraseñas no coinciden</value>
@@ -212,5 +206,8 @@
   </data>
   <data name="CodigoBarraRepetido" xml:space="preserve">
     <value>El &lt;b&gt;Codigo de Barra {0}&lt;/b&gt; ya se encuentra asociado a un producto existente</value>
+  </data>
+  <data name="FormatoInvalidoF" xml:space="preserve">
+    <value>El formato de la &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
   </data>
 </root>

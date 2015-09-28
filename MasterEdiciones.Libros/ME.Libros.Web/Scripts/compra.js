@@ -6,7 +6,7 @@
         var item = {
             ProductoId: $(preFix + "ProductoId").val(),
             Cantidad: $(preFix + "Cantidad").val(),
-            PrecioCompraComprado: $(preFix + "PrecioCompraComprado").val(),
+            PrecioCostoComprado: $(preFix + "PrecioCostoComprado").val(),
             MontoItemComprado: $(preFix + "MontoItemComprado").val()
         };
         compraItemViewModels.push(item);
@@ -48,7 +48,7 @@ function crearCompraItem(form) {
                 var compraItem = data.CompraItem;
                 agregarCompraItem(compraItem);
                 $('#modalCompraItem').modal('toggle');
-                mensajeSuccess("Se agrego el producto " + compraItem.Producto.Nombre + " al detalle de la compra");
+                mensajeSuccess("Se agrego el producto \"" + compraItem.Producto.Nombre + "\" al detalle de la compra");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -76,16 +76,16 @@ function agregarCompraItem(compraItem) {
             nroItem,
             compraItem.Producto.Nombre,
             compraItem.Cantidad,
-            formatCurrency(compraItem.PrecioCompraComprado),
+            formatCurrency(compraItem.PrecioCostoComprado),
             formatCurrency(compraItem.MontoItemComprado),
             modificar + " " + eliminar
     ]).draw();
 
     var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + compraItem.ProductoId + "' />";
     var hiddenCantidad = "<input type='hidden'  id='Items[" + indexItems + "].Cantidad' class='hiddenCantidad' name='Items[" + indexItems + "].Cantidad' value='" + compraItem.Cantidad + "' />";
-    var hiddenPrecioCompraComprado = "<input type='hidden' id='Items[" + indexItems + "].PrecioCompraComprado' class='hiddenPrecioCompraComprado' name='Items[" + indexItems + "].PrecioCompraComprado' value='" + formatFloat(compraItem.PrecioCompraComprado) + "' />";
+    var hiddenPrecioCostoComprado = "<input type='hidden' id='Items[" + indexItems + "].PrecioCostoComprado' class='hiddenPrecioCostoComprado' name='Items[" + indexItems + "].PrecioCostoComprado' value='" + formatFloat(compraItem.PrecioCostoComprado) + "' />";
     var hiddenMontoItemComprado = "<input type='hidden' id='Items[" + indexItems + "].MontoItemComprado' class='hiddenMontoItemComprado' name='Items[" + indexItems + "].MontoItemComprado' value='" + formatFloat(compraItem.MontoItemComprado) + "' />";
-    $("#formCompra").append(hiddenProductoId + hiddenCantidad + hiddenPrecioCompraComprado + hiddenMontoItemComprado);
+    $("#formCompra").append(hiddenProductoId + hiddenCantidad + hiddenPrecioCostoComprado + hiddenMontoItemComprado);
     $("#cantidadItems").val(indexItems + 1);
 }
 
@@ -104,7 +104,7 @@ function getHtmlBotonEliminar(indexItem) {
 function eliminarCompraItem(indexItem) {
     $("#Items\\[" + indexItem + "\\]\\.ProductoId").remove();
     $("#Items\\[" + indexItem + "\\]\\.Cantidad").remove();
-    $("#Items\\[" + indexItem + "\\]\\.PrecioCompraComprado").remove();
+    $("#Items\\[" + indexItem + "\\]\\.PrecioCostoComprado").remove();
     $("#Items\\[" + indexItem + "\\]\\.MontoItemComprado").remove();
     var table = $("#compraDetalleTable").DataTable();
     table.row(indexItem).remove().draw();
@@ -130,7 +130,7 @@ function modificarCompraItem(form) {
                 var compraItem = data.CompraItem;
                 actualizarCompraItemRow(compraItem);
                 $('#modalCompraItem').modal('toggle');
-                mensajeSuccess("Se modifico el producto " + compraItem.Producto.Nombre + " exitosamente");
+                mensajeSuccess("Se modifico el producto \"" + compraItem.Producto.Nombre + "\" exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -161,8 +161,8 @@ function actualizarHiddens() {
         $(this).attr("name", preFix + "ProductoId");
         // Cantidad
         $(oldPreFix + "Cantidad").attr("id", preFix + "Cantidad").attr("name", preFix + "Cantidad");
-        // PrecioCompraComprado
-        $(oldPreFix + "PrecioCompraComprado").attr("id", preFix + "PrecioCompraComprado").attr("name", preFix + "PrecioCompraComprado");
+        // PrecioCostoComprado
+        $(oldPreFix + "PrecioCostoComprado").attr("id", preFix + "PrecioCostoComprado").attr("name", preFix + "PrecioCostoComprado");
         // MontoItemComprado 
         $(oldPreFix + "MontoItemComprado").attr("id", preFix + "MontoItemComprado").attr("name", preFix + "MontoItemComprado");
         indexItem++;
@@ -176,79 +176,13 @@ function actualizarHiddens() {
     });
 }
 
-function getProducto() {
-    var idProducto = $("#ProductoId :selected").attr("value");
-    if (idProducto > 0) {
-        $.ajax({
-            method: "GET",
-            url: '/Producto/Get' + "?id=" + idProducto,
-            dataType: "json",
-            error: function (jqXHR, status, error) {
-                mensajeError("Error: " + error + " - Status: " + status);
-            },
-            success: function (data) {
-                var precioCompra = parseFloat(data.PrecioCosto);
-                calcularMontosItem(precioCompra);
-                $("#precioSugerido").text(formatFloat(precioCompra));
-                $("#PrecioCompraComprado").val(formatFloat(precioCompra));
-            },
-            timeout: 10000,
-            cache: false
-        });
-    } else {
-        $("#PrecioCompraComprado, #MontoItemComprado").val("");
-        $("#precioSugerido").text("-");
-    }
-}
-
-function calcularMontosItem(precioCompraCalculado, precioCompraComprado) {
-    if (precioCompraComprado === undefined) {
-        precioCompraComprado = precioCompraCalculado;
-    }
-    calcularMontoItemComprado(precioCompraComprado);
-    calcularMontoItemCalculado(precioCompraCalculado);
-    calcularDiferencia();
-}
-
-function calcularMontoItemComprado(precioCompraComprado) {
+function calcularMontoItemComprado(precioCostoComprado) {
     var cantidad = parseInt($("#Cantidad").val());
-    if (cantidad > 0 && precioCompraComprado >= 0) {
-        var monto = precioCompraComprado * cantidad;
+    if (cantidad > 0 && precioCostoComprado >= 0) {
+        var monto = precioCostoComprado * cantidad;
         $("#MontoItemComprado").val(formatFloat(monto));
     } else {
         $("#MontoItemComprado").val("");
-    }
-}
-
-function calcularMontoItemCalculado(precioCompraCalculado) {
-    var cantidad = parseInt($("#Cantidad").val());
-    if (cantidad > 0 && precioCompraCalculado >= 0) {
-        var monto = precioCompraCalculado * cantidad;
-        $("#subtotalSugerido").text(formatFloat(monto));
-    } else {
-        $("#subtotalSugerido").text("-");
-    }
-}
-
-function calcularDiferencia() {
-    var montoCalculado = Globalize.parseFloat($("#subtotalSugerido").text());
-    var montComprado = Globalize.parseFloat($("#MontoItemComprado").val());
-    var cantidad = parseInt($("#Cantidad").val());
-    if (cantidad > 0 && montoCalculado > 0 && montComprado >= 0) {
-        var difAbsoluta = montComprado - montoCalculado;
-        var difRelativaPorcentual = (difAbsoluta / montoCalculado) * 100;
-        if (difAbsoluta < 0) {
-            $("#diferencia").parent().switchClass("label-success label-default", "label-danger");
-        } else if (difAbsoluta > 0) {
-            $("#diferencia").parent().switchClass("label-danger label-default", "label-success");
-        } else {
-            $("#diferencia").parent().switchClass("label-danger label-success", "label-default");
-        }
-        $("#diferencia").text(formatFloat(difAbsoluta) + " | " + formatFloat(difRelativaPorcentual) + "%");
-    } else {
-        // Si el precio de compra del producto es 0 no calcular diferencia de montos
-        $("#diferencia").text("-");
-        $("#diferencia").parent().switchClass("label-success label-danger", "label-default");
     }
 }
 
@@ -260,7 +194,7 @@ function actualizarCompraItemRow(compraItem) {
 
     // Actualizar hiddens del  item modificado
     $("#Items\\[" + indexItem + "\\]\\.Cantidad").val(compraItem.Cantidad);
-    $("#Items\\[" + indexItem + "\\]\\.PrecioCompraComprado").val(formatFloat(compraItem.PrecioCompraComprado));
+    $("#Items\\[" + indexItem + "\\]\\.PrecioCostoComprado").val(formatFloat(compraItem.PrecioCostoComprado));
     $("#Items\\[" + indexItem + "\\]\\.MontoItemComprado").val(formatFloat(compraItem.MontoItemComprado));
 
     // Actualizar la fila del DataTable correspondiente al item
@@ -268,7 +202,7 @@ function actualizarCompraItemRow(compraItem) {
     table.cell(indexItem, 2)
         .data(compraItem.Cantidad);
     table.cell(indexItem, 3)
-        .data(formatCurrency(compraItem.PrecioCompraComprado));
+        .data(formatCurrency(compraItem.PrecioCostoComprado));
     table.cell(indexItem, 4)
         .data(formatCurrency(compraItem.MontoItemComprado));
 
@@ -291,4 +225,46 @@ function loadCompraDetalleDataTable() {
         },
         lengthMenu: [5, 10]
     });
+}
+
+/* AJAX Calls */
+function getProducto(url) {
+    var idProducto = $("#ProductoId :selected").attr("value");
+    if (idProducto > 0) {
+        var request = getProductoRequest(url, idProducto);
+        request.done(function (data) {
+            $("#CodigoBarra").val(data.CodigoBarra);
+            var precioCosto = parseFloat(data.PrecioCosto);
+            calcularMontoItemComprado(precioCosto);
+            $("#precioCostoAnterior").text(formatFloat(precioCosto));
+            $("#PrecioCostoComprado").val(formatFloat(precioCosto));
+        });
+    } else {
+        $("#PrecioCostoComprado, #MontoItemComprado").val("");
+        $("#precioCostoAnterior").text("-");
+    }
+}
+
+function getProductoByCodigoBarra(url, codigoBarra) {
+    if (isCodigoBarraValid(codigoBarra)) {
+        var getProductoRequest = getProductoByCodigoBarraRequest(url, codigoBarra);
+        getProductoRequest.done(function (data) {
+            if (data.Id > 0) {
+                $("#ProductoId").val(data.Id);
+                if ($("#ProductoId").val() == undefined) {
+                    mensajeWarn("El producto ingresado ya se encuentra en el detalle de la compra");
+                    $("#CodigoBarra").focus().select();
+                } else {
+                    $("#ProductoId").trigger("change");
+                    $("#Cantidad").focus();
+                }
+            } else {
+                mensajeWarn("Código de barra inexistente");
+                $("#CodigoBarra").focus().select();
+            }
+        });
+    } else {
+        $("#PrecioCostoComprado, #MontoItemComprado").val("");
+        $("#precioCostoAnterior").text("-");
+    }
 }

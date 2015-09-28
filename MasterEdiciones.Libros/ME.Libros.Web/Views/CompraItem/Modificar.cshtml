@@ -46,8 +46,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         if ($("#IdCompraItem").length == 1) {
-            $("#ProductoId, #Cantidad, #PrecioCompraComprado, #MontoItemComprado").attr("disabled", "disabled");
-            $("#ProductoId").attr("disabled", "disabled");
+            $("#ProductoId, #Cantidad, #PrecioCostoComprado, #MontoItemComprado, #CodigoBarra").attr("disabled", "disabled");
         }
     });
 
@@ -59,7 +58,11 @@
         }
     });
 
-    $('#modalAgregarItem').on('hidden.bs.modal', function () {
+    $('#modalCompraItem').on('hidden.bs.modal', function () {
         $("#contenedorCompraItem").empty();
+    });
+
+    $('#modalCompraItem').on('shown.bs.modal', function () {
+        $("#CodigoBarra").focus().select();
     });
 </script>

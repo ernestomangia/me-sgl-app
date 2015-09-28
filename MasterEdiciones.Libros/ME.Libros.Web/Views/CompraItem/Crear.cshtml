@@ -39,7 +39,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Cantidad").val("");
-        $("#PrecioCompraComprado").val("");
+        $("#PrecioCostoComprado").val("");
         $("#MontoItemComprado").val("");
     });
 
@@ -51,7 +51,11 @@
         }
     });
 
-    $('#modalAgregarItem').on('hidden.bs.modal', function () {
+    $('#modalCompraItem').on('hidden.bs.modal', function () {
         $("#contenedorCompraItem").empty();
+    });
+
+    $('#modalCompraItem').on('shown.bs.modal', function () {
+        $("#CodigoBarra").focus();
     });
 </script>

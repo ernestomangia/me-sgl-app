@@ -22,8 +22,8 @@ namespace ME.Libros.EF.Mapeos
             Property(vi => vi.Orden).IsRequired();
             Property(ci => ci.Cantidad).IsRequired();
             Property(ci => ci.MontoComprado).IsRequired();
-            Property(ci => ci.PrecioCosto).IsRequired();
-            Property(ci => ci.PrecioCompraComprado).IsRequired();
+            Property(ci => ci.PrecioCostoAnterior).IsRequired();
+            Property(ci => ci.PrecioCostoComprado).IsRequired();
 
             // FK
             HasRequired(vi => vi.Compra);

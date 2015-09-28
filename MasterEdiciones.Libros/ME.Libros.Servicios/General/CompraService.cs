@@ -33,8 +33,10 @@ namespace ME.Libros.Servicios.General
                 {
                     var producto = compraItemDominio.Producto;
                     ProductoService.SumarStock(producto, compraItemDominio.Cantidad);
-                    compraItemDominio.PrecioCosto = producto.PrecioCosto;
-                    compraItemDominio.PrecioCompraCalculado = producto.PrecioVenta;
+                    // Guardar precio costo anterior
+                    compraItemDominio.PrecioCostoAnterior = producto.PrecioCosto;
+                    // Actualizar nuevo precio de costo en el producto
+                    producto.PrecioCosto = compraItemDominio.PrecioCostoComprado;
                     CalcularTotalItem(compraItemDominio);
                 }
 
@@ -63,12 +65,12 @@ namespace ME.Libros.Servicios.General
 
         private void CalcularTotalItem(CompraItemDominio compraItemDominio)
         {
-            compraItemDominio.MontoCalculado = compraItemDominio.Cantidad * compraItemDominio.PrecioCompraCalculado;
+            compraItemDominio.MontoComprado = compraItemDominio.Cantidad * compraItemDominio.PrecioCostoComprado;
         }
 
-        private void CalcularTotalCompra(CompraDominio entidad)
+        private void CalcularTotalCompra(CompraDominio compraDominio)
         {
-            entidad.MontoCalculado = entidad.CompraItems.Sum(vi => vi.MontoComprado);
+            compraDominio.MontoCalculado = compraDominio.CompraItems.Sum(vi => vi.MontoComprado);
         }
 
         #endregion

@@ -360,11 +360,11 @@
   <data name="Iva" xml:space="preserve">
     <value>Iva</value>
   </data>
-  <data name="PrecioCompraComprado" xml:space="preserve">
-    <value>Precio de compra comprado</value>
+  <data name="PrecioCostoComprado" xml:space="preserve">
+    <value>Precio de costo</value>
   </data>
-  <data name="PrecioCompraCalculado" xml:space="preserve">
-    <value>Precio de compra calculado</value>
+  <data name="PrecioCostoAnterior" xml:space="preserve">
+    <value>Precio de costo anterior</value>
   </data>
   <data name="ElLogin" xml:space="preserve">
     <value>El Login</value>

@@ -1,4 +1,5 @@
-﻿$(document).ajaxSend(function () {
+﻿/* Ajax Loader */
+$(document).ajaxSend(function () {
     showAjaxLoader();
 });
 
@@ -18,6 +19,7 @@ function hideAjaxLoader() {
     $('#loading-indicator').hide();
 }
 
+/* Toastr messages */
 function mensajeSuccess(text) {
     toastr.success(text);
 }
@@ -30,9 +32,39 @@ function mensajeWarn(text) {
     toastr.warning(text);
 }
 
+/* Format functions */
+function formatFloat(value) {
+    return Globalize.format(value, "N2");
+}
+
+function formatCurrency(value) {
+    return Globalize.format(value, "C");
+}
+
+function formatToShortDate(value) {
+    return Globalize.format(value, "d");
+}
+
+function ConvertJsonDateToDate(value) {
+    return new Date(parseInt(value.substr(6)));
+}
+
+function validationSummaryVisibility(form) {
+    if ($(form).valid()) {
+        $(form).find(".validationSummary").addClass("hide");
+    } else {
+        $(form).find(".validationSummary").removeClass("hide");
+    }
+}
+
+function setMaxlength() {
+    $("input[data-val-length-max]").each(function () {
+        $(this).attr("maxlength", $(this).data().valLengthMax);
+    });
+}
+
 function cargarPestaña(url) {
     cargarVistaParcial(url, "tabContenedor", false);
-    //window.location.href = "http://localhost:24086/" + url;
 }
 
 function cargarVistaParcial(url, divId, async) {
@@ -60,6 +92,36 @@ function setearId(id) {
     $("#idEntidad").val(id);
 }
 
+/* AJAX Requests */
+function getProductoByCodigoBarraRequest(url, codigoBarra) {
+    return $.ajax({
+        method: "GET",
+        url: url,
+        data: { codigoBarra: codigoBarra },
+        dataType: "json",
+        error: function (jqXhr, status, error) {
+            mensajeError("Error: " + error + " - Status: " + status);
+        },
+        timeout: 10000,
+        cache: false
+    });
+};
+
+function getProductoRequest(url, id) {
+    return $.ajax({
+        method: "GET",
+        url: url,
+        data: { id: id },
+        dataType: "json",
+        error: function (jqXHR, status, error) {
+            mensajeError("Error: " + error + " - Status: " + status);
+        },
+        timeout: 10000,
+        cache: false
+    });
+};
+
+/* */
 function eliminarEntidad(url, msjSuccess, msjError) {
     var id = $("#idEntidad").val();
     var redirectUrl = $(".btnCancelar").attr("href");
@@ -139,24 +201,6 @@ function AnularEntidad(url, msjSuccess, msjError) {
     });
 }
 
-function ConvertJsonDateToDate(value) {
-    return new Date(parseInt(value.substr(6)));
-}
-
-function validationSummaryVisibility(form) {
-    if ($(form).valid()) {
-        $(form).find(".validationSummary").addClass("hide");
-    } else {
-        $(form).find(".validationSummary").removeClass("hide");
-    }
-}
-
-function setMaxlength() {
-    $("input[data-val-length-max]").each(function () {
-        $(this).attr("maxlength", $(this).data().valLengthMax);
-    });
-}
-
 function GetLocalidades() {
     var idProvincia = $(".provincia :selected").attr("value");
     if (idProvincia > 0) {
@@ -186,46 +230,7 @@ function GetLocalidades() {
     }
 }
 
-function formatFloat(value) {
-    return Globalize.format(value, "N2");
-}
-
-function formatCurrency(value) {
-    return Globalize.format(value, "C");
-}
-
-function formatToShortDate(value) {
-    return Globalize.format(value, "d");
-}
-
-function getProductoByCodigoBarra(codigoBarra) {
-    if (codigoBarra.length == 13) {
-        $.ajax({
-            method: "GET",
-            url: '/Producto/GetByCodigoBarra' + "?codigoBarra=" + codigoBarra,
-            dataType: "json",
-            error: function (jqXHR, status, error) {
-                mensajeError("Error: " + error + " - Status: " + status);
-            },
-            success: function (data) {
-                if (data.Id > 0) {
-                    $("#ProductoId").val(data.Id);
-                    $("#ProductoId").trigger("change");
-                    $("#Cantidad").focus();
-                } else {
-                    mensajeWarn("Código de barra inexistente.");
-                    $("#CodigoBarra").focus().select();
-                }
-            },
-            timeout: 10000,
-            cache: false
-        });
-    } else {
-        $("#PrecioVentaVendido, #MontoItemVendido").val("");
-        $("#precioSugerido").text("-");
-    }
-}
-
+// Handle tabs links
 $(function () {
     var hash = window.location.hash;
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
@@ -238,6 +243,8 @@ $(function () {
     });
 });
 
+/* Validation functions */
+// Handle key codes
 function isValidKeyForCalc(keyCode) {
     return isChangeEvent(keyCode) ||
         isNumberKey(keyCode) ||
@@ -260,4 +267,9 @@ function isBackSpaceKey(keyCode) {
 function isNumberKey(keyCode) {
     return (keyCode >= 48 && keyCode <= 57) ||
         (keyCode >= 96 && keyCode <= 105); // Numpad
+}
+
+// Codigo Barra
+function isCodigoBarraValid(value) {
+    return value != undefined && value.length == 13;
 }

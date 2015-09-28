@@ -82,8 +82,8 @@
             {
                 @Html.HiddenFor(vi => Model.Items[i].ProductoId, new { id = "Items[" + i + "].ProductoId", @class = "hiddenProductoId" })
                 @Html.HiddenFor(vi => Model.Items[i].Cantidad, new { id = "Items[" + i + "].Cantidad", @class = "hiddenCantidad" })
-                @Html.HiddenFor(vi => Model.Items[i].PrecioCompraComprado, new { id = "Items[" + i + "].PrecioCompraComprado", @class = "hiddenPrecioCompraComprado" })
-                @Html.HiddenFor(vi => Model.Items[i].MontoItemComprado, new { id = "Items[" + i + "].MontoItemComprado", @class = "hiddenPrecioCompraComprado" })
+                @Html.HiddenFor(vi => Model.Items[i].PrecioCostoComprado, new { id = "Items[" + i + "].PrecioCostoComprado", @class = "hiddenPrecioCostoComprado" })
+                @Html.HiddenFor(vi => Model.Items[i].MontoItemComprado, new { id = "Items[" + i + "].MontoItemComprado", @class = "hiddenMontoItemComprado" })
             }
         }
     </div>

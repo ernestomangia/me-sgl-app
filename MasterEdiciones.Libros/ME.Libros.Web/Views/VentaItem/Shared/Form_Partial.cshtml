@@ -1,13 +1,13 @@
 ﻿@model ME.Libros.Web.Models.VentaItemViewModel
 
 <div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.CodigoBarra, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(vi => vi.CodigoBarra, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
         @Html.TextBoxFor(vi => vi.CodigoBarra, new { @class = "form-control", placeholder = Messages.CodigoBarra, autocomplete = "off", onfocus = "this.select();" })
     </div>
 </div>
 <div class="form-group form-group-sm">
-    @Html.LabelFor(c => c.ProductoId, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(vi => vi.ProductoId, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
         @Html.DropDownListFor(vi => vi.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
     </div>
@@ -25,10 +25,12 @@
             <div class="input-group-addon">$</div>
             @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", autocomplete = "off" })
         </div>
-        <span class="label label-primary">
-            Sugerido: $
-            <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.PrecioVentaCalculado).ToHtmlString() : "-")</span>
-        </span>
+        <h4>
+            <span class="label label-primary">
+                Sugerido: $
+                <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.PrecioVentaCalculado).ToHtmlString() : "-")</span>
+            </span>
+        </h4>
     </div>
 </div>
 <div class="form-group form-group-sm">
@@ -38,10 +40,12 @@
             <div class="input-group-addon">$</div>
             @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "10", autocomplete = "off" })
         </div>
-        <span class="label label-primary">
-            Sugerido: $
-            <span id="subtotalSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.MontoItemCalculado).ToHtmlString() : "-")</span>
-        </span>
+        <h4>
+            <span class="label label-primary">
+                Sugerido: $
+                <span id="subtotalSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(vi => vi.MontoItemCalculado).ToHtmlString() : "-")</span>
+            </span>
+        </h4>
     </div>
 </div>
 <div class="form-group form-group-sm">
@@ -82,7 +86,7 @@
     });
 
     $('#ProductoId').on('change', function () {
-        getProducto();
+        getProducto('@Url.Action("Get", "Producto")');
     });
 
     $('#Cantidad').on('keyup change', function (e) {
@@ -112,13 +116,13 @@
     });
 
     $('#CodigoBarra').on('change', function (e) {
-        getProductoByCodigoBarra($(this).val());
+        getProductoByCodigoBarra('@Url.Action("GetByCodigoBarra", "Producto")', $(this).val());
     });
 
     $('#CodigoBarra').on('keypress', function (e) {
         if (e.keyCode == 13) {
             e.preventDefault();
-            getProductoByCodigoBarra($(this).val());
+            getProductoByCodigoBarra('@Url.Action("GetByCodigoBarra", "Producto")', $(this).val());
         }
     });
 </script>

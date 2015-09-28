@@ -1,6 +1,12 @@
 ﻿@model ME.Libros.Web.Models.CompraItemViewModel
 
 <div class="form-group form-group-sm">
+    @Html.LabelFor(ci => ci.CodigoBarra, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(ci => ci.CodigoBarra, new { @class = "form-control", placeholder = Messages.CodigoBarra, autocomplete = "off", onfocus = "this.select();" })
+    </div>
+</div>
+<div class="form-group form-group-sm">
     @Html.LabelFor(ci => ci.ProductoId, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
         @Html.DropDownListFor(ci => ci.ProductoId, Model.Productos, "Seleccione", new { @class = "form-control" })
@@ -13,16 +19,18 @@
     </div>
 </div>
 <div class="form-group form-group-sm">
-    @Html.LabelFor(ci => ci.PrecioCompraComprado, new { @class = "col-md-2 control-label" })
+    @Html.LabelFor(ci => ci.PrecioCostoComprado, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
         <div class="input-group">
             <div class="input-group-addon">$</div>
-            @Html.TextBoxFor(ci => ci.PrecioCompraComprado, new { @class = "form-control", placeholder = Messages.PrecioCompraComprado, maxlength = "8", autocomplete = "off" })
+            @Html.TextBoxFor(ci => ci.PrecioCostoComprado, new { @class = "form-control", placeholder = Messages.PrecioCostoComprado, maxlength = "8", autocomplete = "off" })
         </div>
-        <span class="label label-primary">
-            Precio Anterior: $
-            <span id="precioSugerido">@(Model.ProductoId > 0 ? Html.DisplayTextFor(ci => ci.PrecioCompraCalculado).ToHtmlString() : "-")</span>
-        </span>
+        <h4>
+            <span class="label label-primary">
+                @Html.DisplayNameFor(model => model.PrecioCostoAnterior): $
+                <span id="precioCostoAnterior">@(Model.ProductoId > 0 ? Html.DisplayTextFor(ci => ci.PrecioCostoAnterior).ToHtmlString() : "-")</span>
+            </span>
+        </h4>
     </div>
 </div>
 <div class="form-group form-group-sm">
@@ -47,7 +55,7 @@
             }
         });
 
-        $("#PrecioCompraComprado").rules("add", {
+        $("#PrecioCostoComprado").rules("add", {
             min: 0,
             messages: {
                 min: "El <b>Precio de compra comprado</b> debe ser mayor o igual a $ 0,00</b>"
@@ -63,21 +71,20 @@
     });
 
     $('#ProductoId').on('change', function () {
-        getProducto();
+        getProducto('@Url.Action("Get", "Producto")');
     });
 
     $('#Cantidad').on('keyup change', function (e) {
         if (isValidKeyForCalc(e.keyCode)) {
-            var precioCompraComprado = Globalize.parseFloat($("#PrecioCompraComprado").val());
-            var precioCompraCalculado = Globalize.parseFloat($("#precioSugerido").text());
-            calcularMontosItem(precioCompraCalculado, precioCompraComprado);
+            var precioCostoComprado = Globalize.parseFloat($("#PrecioCostoComprado").val());
+            calcularMontoItemComprado(precioCostoComprado);
         }
     });
 
-    $('#PrecioCompraComprado').on('keyup change', function (e) {
+    $('#PrecioCostoComprado').on('keyup change', function (e) {
         if (isValidKeyForCalc(e.keyCode)) {
-            var precioCompraComprado = Globalize.parseFloat($("#PrecioCompraComprado").val());
-            calcularMontoItemComprado(precioCompraComprado);
+            var precioCostoComprado = Globalize.parseFloat($("#PrecioCostoComprado").val());
+            calcularMontoItemComprado(precioCostoComprado);
         }
     });
 
@@ -85,8 +92,19 @@
         var montoItemComprado = Globalize.parseFloat($(this).val());
         var cantidad = parseInt($("#Cantidad").val());
         if (cantidad > 0 && montoItemComprado >= 0) {
-            var precioCompraComprado = montoItemComprado / cantidad;
-            $("#PrecioCompraComprado").val(formatFloat(precioCompraComprado));
+            var precioCostoComprado = montoItemComprado / cantidad;
+            $("#PrecioCostoComprado").val(formatFloat(precioCostoComprado));
+        }
+    });
+
+    $('#CodigoBarra').on('change', function (e) {
+        getProductoByCodigoBarra('@Url.Action("GetByCodigoBarra", "Producto")', $(this).val());
+    });
+
+    $('#CodigoBarra').on('keypress', function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            getProductoByCodigoBarra('@Url.Action("GetByCodigoBarra", "Producto")', $(this).val());
         }
     });
 </script>

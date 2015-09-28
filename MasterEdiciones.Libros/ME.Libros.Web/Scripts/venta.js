@@ -141,32 +141,6 @@ function actualizarHiddens() {
     });
 }
 
-function getProducto() {
-    var idProducto = $("#ProductoId :selected").attr("value");
-    if (idProducto > 0) {
-        $.ajax({
-            method: "GET",
-            url: '/Producto/Get' + "?id=" + idProducto,
-            dataType: "json",
-            error: function (jqXHR, status, error) {
-                mensajeError("Error: " + error + " - Status: " + status);
-            },
-            success: function (data) {
-                $("#CodigoBarra").val(data.CodigoBarra);
-                var precioVenta = parseFloat(data.PrecioVenta);
-                calcularMontosItem(precioVenta);
-                $("#precioSugerido").text(formatFloat(precioVenta));
-                $("#PrecioVentaVendido").val(formatFloat(precioVenta));
-            },
-            timeout: 10000,
-            cache: false
-        });
-    } else {
-        $("#PrecioVentaVendido, #MontoItemVendido").val("");
-        $("#precioSugerido").text("-");
-    }
-}
-
 function calcularMontosItem(precioVentaCalculado, precioVentaVendido) {
     if (precioVentaVendido === undefined) {
         precioVentaVendido = precioVentaCalculado;
@@ -297,7 +271,7 @@ $(document).on('click', '#ventaCuotaTable tbody tr td button.details-control', f
     }
     else {
         // Open this row
-        var promise = GetCobrosByCuota(row.data());
+        var promise = getCobrosByCuotaRequest(row.data());
         promise.done(function (data) {
             detailsControl.toggleClass("btn-default").toggleClass("btn-info");
             icon.toggleClass("glyphicon-collapse-down").toggleClass("glyphicon-collapse-up");
@@ -307,21 +281,6 @@ $(document).on('click', '#ventaCuotaTable tbody tr td button.details-control', f
         });
     }
 });
-
-function GetCobrosByCuota(cuota, tr) {
-    return $.ajax({
-        method: "POST",
-        url: "/Cobro/VerCobros",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({ cuotaId: cuota.cuotaId }),
-        dataType: "html",
-        error: function (jqXhr, status, error) {
-            mensajeError("Ha ocurrido un error");
-        },
-        timeout: 10000,
-        cache: false
-    });
-}
 
 function loadVentaDetalleDataTable() {
     $("#ventaDetalleTable").addClass("table table-striped table-hover hover table-bordered order-column KeyTable");
@@ -362,5 +321,62 @@ function loadCuotasDataTable() {
             { "data": "atraso" },
             { "data": "saldo" }
         ]
+    });
+}
+
+/* AJAX Calls */
+function getProducto(url) {
+    var idProducto = $("#ProductoId :selected").attr("value");
+    if (idProducto > 0) {
+        var request = getProductoRequest(url, idProducto);
+        request.done(function (data) {
+            $("#CodigoBarra").val(data.CodigoBarra);
+            var precioVenta = parseFloat(data.PrecioVenta);
+            calcularMontosItem(precioVenta);
+            $("#precioSugerido").text(formatFloat(precioVenta));
+            $("#PrecioVentaVendido").val(formatFloat(precioVenta));
+        });
+    } else {
+        $("#PrecioVentaVendido, #MontoItemVendido").val("");
+        $("#precioSugerido").text("-");
+    }
+}
+
+function getProductoByCodigoBarra(url, codigoBarra) {
+    if (isCodigoBarraValid(codigoBarra)) {
+        var getProductoRequest = getProductoByCodigoBarraRequest(url, codigoBarra);
+        getProductoRequest.done(function (data) {
+            if (data.Id > 0) {
+                $("#ProductoId").val(data.Id);
+                if ($("#ProductoId").val() == undefined) {
+                    mensajeWarn("El producto ingresado ya se encuentra en el detalle de la venta");
+                    $("#CodigoBarra").focus().select();
+                } else {
+                    $("#ProductoId").trigger("change");
+                    $("#Cantidad").focus();
+                }
+            } else {
+                mensajeWarn("Código de barra inexistente");
+                $("#CodigoBarra").focus().select();
+            }
+        });
+    } else {
+        $("#PrecioVentaVendido, #MontoItemVendido").val("");
+        $("#precioSugerido").text("-");
+    }
+}
+
+function getCobrosByCuotaRequest(cuota, tr) {
+    return $.ajax({
+        method: "POST",
+        url: "/Cobro/VerCobros",
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify({ cuotaId: cuota.cuotaId }),
+        dataType: "html",
+        error: function (jqXhr, status, error) {
+            mensajeError("Ha ocurrido un error");
+        },
+        timeout: 10000,
+        cache: false
     });
 }

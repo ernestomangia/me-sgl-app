@@ -74,10 +74,8 @@ namespace ME.Libros.Web.Controllers
                             ViewBag.MenuId = 28;
                             view = "~/Views/Compra/CompraAnulada/Index.cshtml";
                             break;
-
                     }
                 }
-
             }
 
             return View(view, compras);
@@ -112,18 +110,18 @@ namespace ME.Libros.Web.Controllers
                 NroRemito = compraViewModel.NroRemito,
                 CompraItems = new List<CompraItemDominio>(),
             };
-            
+
             var i = 1;
             foreach (var compraItemViewModel in compraViewModel.Items)
             {
                 var producto = ProductoService.GetPorId(compraItemViewModel.ProductoId);
-                compraDominio.CompraItems.Add(new CompraItemDominio()
+                compraDominio.CompraItems.Add(new CompraItemDominio
                 {
                     FechaAlta = DateTime.Now,
                     Orden = i++,
-                    Cantidad = compraItemViewModel.Cantidad,
                     Producto = producto,
-                    PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado,
+                    Cantidad = compraItemViewModel.Cantidad,
+                    PrecioCostoComprado = compraItemViewModel.PrecioCostoComprado,
                     MontoComprado = compraItemViewModel.MontoItemComprado
                 });
             }
@@ -213,7 +211,7 @@ namespace ME.Libros.Web.Controllers
                 using (CompraService)
                 {
                     CompraService.AnularCompra(id);
-                    
+
                     if (isRedirect)
                     {
                         var compraDominio = CompraService.GetPorId(id);
@@ -255,10 +253,6 @@ namespace ME.Libros.Web.Controllers
                 using (CompraService)
                 {
                     var compraDominio = CompraService.GetPorId(compraViewModel.Id);
-
-                    compraDominio.Proveedor = ProveedorService.GetPorId(compraViewModel.ProveedorId);
-                    compraDominio.MontoComprado = compraViewModel.MontoComprado;
-                    compraDominio.MontoCalculado = compraViewModel.MontoCalculado;
                     compraDominio.NroFactura = compraViewModel.NroFactura;
                     compraDominio.NroRemito = compraViewModel.NroRemito;
 

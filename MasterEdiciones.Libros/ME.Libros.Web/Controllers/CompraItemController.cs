@@ -65,10 +65,8 @@ namespace ME.Libros.Web.Controllers
                     {
                         var productoDominio = ProductoService.GetPorId(compraItemViewModel.ProductoId);
                         compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
-                        compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioCosto;
-                        compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
-                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad*
-                                                                 productoDominio.PrecioCosto;
+                        compraItemViewModel.PrecioCostoAnterior = productoDominio.PrecioCosto;
+                        compraItemViewModel.PrecioCostoComprado = compraItemViewModel.PrecioCostoComprado;
                         compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
                     }
                 }
@@ -106,7 +104,8 @@ namespace ME.Libros.Web.Controllers
             var compraItemViewModel = compraItemViewModels.First(vi => vi.ProductoId == productoId);
             compraItemViewModel.Productos = new SelectList(productos, "Id", "Nombre");
             compraItemViewModel.Producto = productos.First(p => p.Id == productoId);
-            compraItemViewModel.PrecioCompraCalculado = compraItemViewModel.Producto.PrecioCosto;
+            compraItemViewModel.CodigoBarra = compraItemViewModel.Producto.CodigoBarra;
+            compraItemViewModel.PrecioCostoAnterior = compraItemViewModel.Producto.PrecioCosto;
 
             return View("Modificar", compraItemViewModel);
         }
@@ -142,10 +141,8 @@ namespace ME.Libros.Web.Controllers
                     {
                         var productoDominio = ProductoService.GetPorId(compraItemViewModel.ProductoId);
                         compraItemViewModel.Producto = new ProductoViewModel(productoDominio);
-                        compraItemViewModel.PrecioCompraCalculado = productoDominio.PrecioCosto;
-                        compraItemViewModel.PrecioCompraComprado = compraItemViewModel.PrecioCompraComprado;
-                        compraItemViewModel.MontoItemCalculado = compraItemViewModel.Cantidad*
-                                                                 productoDominio.PrecioCosto;
+                        compraItemViewModel.PrecioCostoAnterior = productoDominio.PrecioCosto;
+                        compraItemViewModel.PrecioCostoComprado = compraItemViewModel.PrecioCostoComprado;
                         compraItemViewModel.MontoItemComprado = compraItemViewModel.MontoItemComprado;
                     }
                 }

@@ -736,29 +736,29 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Precio de compra calculado.
+        ///   Looks up a localized string similar to Precio de costo.
         /// </summary>
-        public static string PrecioCompraCalculado {
+        public static string PrecioCosto {
             get {
-                return ResourceManager.GetString("PrecioCompraCalculado", resourceCulture);
+                return ResourceManager.GetString("PrecioCosto", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Precio de compra comprado.
+        ///   Looks up a localized string similar to Precio de costo anterior.
         /// </summary>
-        public static string PrecioCompraComprado {
+        public static string PrecioCostoAnterior {
             get {
-                return ResourceManager.GetString("PrecioCompraComprado", resourceCulture);
+                return ResourceManager.GetString("PrecioCostoAnterior", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Precio de costo.
         /// </summary>
-        public static string PrecioCosto {
+        public static string PrecioCostoComprado {
             get {
-                return ResourceManager.GetString("PrecioCosto", resourceCulture);
+                return ResourceManager.GetString("PrecioCostoComprado", resourceCulture);
             }
         }
         

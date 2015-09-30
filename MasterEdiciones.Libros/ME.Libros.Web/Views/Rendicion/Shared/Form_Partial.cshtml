@@ -83,7 +83,7 @@
             @Html.LabelFor(r => r.Comision, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 <div class="input-group">
-                    @Html.TextBoxFor(r => r.Comision, new { @class = "form-control", placeholder = Messages.PorcentajeComision })
+                    @Html.TextBoxFor(r => r.Comision, new { @class = "form-control", placeholder = Messages.PorcentajeComision, data_val_number = string.Format(ErrorMessages.DecimalF, Messages.PorcentajeComision), autocomplete = "off" })
                     <div class="input-group-addon">%</div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <div class="input-group-addon">$</div>
-                    @Html.TextBoxFor(r => r.MontoComision, new { @class = "form-control", placeholder = Messages.MontoComision })
+                    @Html.TextBoxFor(r => r.MontoComision, new { @class = "form-control", placeholder = Messages.MontoComision, data_val_number = string.Format(ErrorMessages.Decimal, Messages.MontoComision), autocomplete = "off" })
                 </div>
             </div>
         </div>
@@ -141,7 +141,14 @@
         $("#PeriodoFake").rules("add", {
             required: true,
             messages: {
-                required: "El <b>Periodo</b> es requerido"
+                required: "@Html.Raw(string.Format(ErrorMessages.Requerido, "Periodo"))"
+            }
+        });
+
+        $("#MontoComision").rules("add", {
+            min: 0,
+            messages: {
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValueF, Messages.MontoComision, "$ 0,00"))"
             }
         });
     });
@@ -161,17 +168,19 @@
     });
 
     $('#Comision').on('keyup change', function (e) {
-        var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
-        var comision = Globalize.parseFloat($(this).val());
-        if (montoFacturado >= 0 && comision >= 0) {
-            var montoComision = calcularMontoComision(montoFacturado, comision);
-            var montoNeto = montoFacturado - montoComision;
-            $("#MontoComision").val(formatFloat(montoComision));
-            $("#MontoNeto").val(formatFloat(montoNeto));
-        }
-        else {
-            $("#MontoComision").val("");
-            $("#MontoNeto").val("");
+        if (isValidKeyForCalc(e.keyCode)) {
+            var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
+            var comision = Globalize.parseFloat($(this).val());
+            if (montoFacturado >= 0 && comision >= 0) {
+                var montoComision = calcularMontoComision(montoFacturado, comision);
+                var montoNeto = montoFacturado - montoComision;
+                $("#MontoComision").val(formatFloat(montoComision));
+                $("#MontoNeto").val(formatFloat(montoNeto));
+            }
+            else {
+                $("#MontoComision").val("");
+                $("#MontoNeto").val("");
+            }
         }
     });
 
@@ -179,7 +188,7 @@
         if (isValidKeyForCalc(e.keyCode)) {
             var montoFacturado = Globalize.parseFloat($("#MontoFacturado").val());
             var montoComision = Globalize.parseFloat($(this).val());
-            if (montoFacturado > 0 && montoComision > 0) {
+            if (montoFacturado > 0 && montoComision >= 0) {
                 var comision = calcularComision(montoFacturado, montoComision);
                 var montoNeto = montoFacturado - montoComision;
                 $("#Comision").val(formatFloat(comision));
@@ -216,14 +225,6 @@
             }
         }
     });
-
-    function calcularMontoComision(montoFacturado, comision) {
-        return montoFacturado * comision / 100;
-    }
-
-    function calcularComision(montoFacturado, montoComision) {
-        return montoComision / montoFacturado * 100;
-    }
 
     function calcularMontoFacturado() {
         var montoFacturado = 0;

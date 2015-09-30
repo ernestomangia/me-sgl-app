@@ -15,7 +15,7 @@
 <div class="form-group form-group-sm">
     @Html.LabelFor(vi => vi.Cantidad, new { @class = "col-md-2 control-label" })
     <div class="col-md-10">
-        @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "4", autocomplete = "off" })
+        @Html.TextBoxFor(vi => vi.Cantidad, new { @class = "form-control", placeholder = "Cantidad", maxlength = "4", data_val_number = string.Format(ErrorMessages.EnteroF, "Cantidad"), autocomplete = "off" })
     </div>
 </div>
 <div class="form-group form-group-sm">
@@ -23,7 +23,7 @@
     <div class="col-md-10">
         <div class="input-group">
             <div class="input-group-addon">$</div>
-            @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", autocomplete = "off" })
+            @Html.TextBoxFor(vi => vi.PrecioVentaVendido, new { @class = "form-control", placeholder = Messages.PrecioVentaVendido, maxlength = "8", data_val_number = string.Format(ErrorMessages.Decimal, Messages.PrecioVentaVendido), autocomplete = "off" })
         </div>
         <h4>
             <span class="label label-primary">
@@ -38,7 +38,7 @@
     <div class="col-md-10">
         <div class="input-group">
             <div class="input-group-addon">$</div>
-            @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "10", autocomplete = "off" })
+            @Html.TextBoxFor(vi => vi.MontoItemVendido, new { @class = "form-control", placeholder = Messages.MontoItemVendido, maxlength = "10", data_val_number = string.Format(ErrorMessages.Decimal, Messages.MontoItemVendido), autocomplete = "off" })
         </div>
         <h4>
             <span class="label label-primary">
@@ -73,14 +73,14 @@
         $("#PrecioVentaVendido").rules("add", {
             min: 0,
             messages: {
-                min: "El <b>Precio de venta vendido</b> debe ser mayor o igual a $ 0,00</b>"
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValue, Messages.PrecioVentaVendido, "$ 0,00"))"
             }
         });
 
         $("#MontoItemVendido").rules("add", {
             min: 0,
             messages: {
-                min: "El <b>Subtotal vendido</b> debe ser mayor o igual a $ 0,00</b>"
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValue, Messages.MontoItemVendido, "$ 0,00"))"
             }
         });
     });

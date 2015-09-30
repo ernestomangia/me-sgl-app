@@ -67,6 +67,7 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [Range(0, 100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "RangeValue")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Comision { get; set; }
 

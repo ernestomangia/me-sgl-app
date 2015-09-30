@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
@@ -37,6 +38,8 @@ namespace ME.Libros.Web.Extensions
             span.Attributes.Add("data-toggle", "tooltip");
             span.Attributes.Add("title", htmlAttributes.GetType().GetProperty("title").GetValue(htmlAttributes).ToString());
             span.Attributes.Add("data-placement", htmlAttributes.GetType().GetProperty("data_placement").GetValue(htmlAttributes).ToString());
+            var htmlValue = htmlAttributes.GetType().GetProperty("data_html");
+            span.Attributes.Add("data-html", htmlValue != null ? htmlValue.GetValue(htmlAttributes).ToString() : "false");
 
             // assign <span> to <label> inner html
             tag.InnerHtml = span.ToString(TagRenderMode.Normal);

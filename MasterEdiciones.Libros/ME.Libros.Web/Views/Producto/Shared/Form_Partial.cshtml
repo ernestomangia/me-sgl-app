@@ -96,6 +96,22 @@
 </div>
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#PrecioCosto").rules("add", {
+            min: 0,
+            messages: {
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValue, Messages.PrecioCosto, "$ 0,00"))"
+            }
+        });
+
+        $("#PrecioVenta").rules("add", {
+            min: 0,
+            messages: {
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValue, Messages.PrecioVenta, "$ 0,00"))"
+            }
+        });
+    });
+
     $('#CodigoBarra').on('keypress', function (e) {
         if (e.keyCode == 13) {
             e.preventDefault();

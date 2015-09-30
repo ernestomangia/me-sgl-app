@@ -170,6 +170,7 @@ namespace ME.Libros.Web.Controllers
                 MontoComision = ventaViewModel.MontoComision,
                 MontoVendido = ventaViewModel.MontoVendido,
                 Saldo = ventaViewModel.MontoVendido,
+                MontoNetoVendido = ventaViewModel.MontoNetoVendido,
                 PlanPago = PlanPagoService.GetPorId(ventaViewModel.PlanPagoId),
                 VentaItems = new List<VentaItemDominio>(),
                 Cuotas = new List<CuotaDominio>()
@@ -286,6 +287,9 @@ namespace ME.Libros.Web.Controllers
                 {
                     var ventaDominio = VentaService.GetPorId(ventaViewModel.Id);
                     ventaDominio.Cobrador = CobradorService.GetPorId(ventaViewModel.CobradorId);
+                    ventaDominio.MontoComision = ventaViewModel.MontoComision;
+                    ventaDominio.Comision = ventaViewModel.Comision;
+                    VentaService.CalcularMontoNetoVendido(ventaDominio);
 
                     resultado = VentaService.Guardar(ventaDominio);
                     if (resultado <= 0)

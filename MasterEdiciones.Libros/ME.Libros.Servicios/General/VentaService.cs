@@ -71,6 +71,8 @@ namespace ME.Libros.Servicios.General
                     ventaDominio.MontoCobrado = ventaDominio.MontoVendido;
                     ventaDominio.Estado = EstadoVenta.Pagada;
                 }
+                
+                CalcularMontoNetoVendido(ventaDominio);
                 CalcularTotalVenta(ventaDominio);
             }
 
@@ -145,11 +147,6 @@ namespace ME.Libros.Servicios.General
             ventaDominio.Saldo = ventaDominio.Cuotas.Sum(c => c.Saldo);
         }
 
-        public void CalcularMontoVendido(VentaDominio ventaDominio)
-        {
-            ventaDominio.MontoVendido = ventaDominio.Cuotas.Sum(c => c.Monto);
-        }
-
         public void ContabilizarCobro(VentaDominio ventaDominio, decimal montoCobro)
         {
             ventaDominio.MontoCobrado += montoCobro;
@@ -173,6 +170,11 @@ namespace ME.Libros.Servicios.General
             ventaDominio.Estado = ventaDominio.Saldo > 0
                 ? EstadoVenta.Vigente
                 : EstadoVenta.Pagada;
+        }
+
+        public void CalcularMontoNetoVendido(VentaDominio ventaDominio)
+        {
+            ventaDominio.MontoNetoVendido = ventaDominio.MontoVendido - ventaDominio.MontoComision;
         }
 
         #region Private Methods
@@ -207,6 +209,11 @@ namespace ME.Libros.Servicios.General
 
                 ventaDominio.Cuotas.Add(cuota);
             }
+        }
+
+        private void CalcularMontoVendido(VentaDominio ventaDominio)
+        {
+            ventaDominio.MontoVendido = ventaDominio.Cuotas.Sum(c => c.Monto);
         }
 
         #endregion

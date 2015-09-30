@@ -89,14 +89,17 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarItem(List<CompraItemViewModel> compraItemViewModels, int productoId)
+        public ActionResult ModificarItem(List<CompraItemViewModel> compraItemViewModels, int itemIndex)
         {
+            // Buscar ProductoId a modificar
+            var productoId = compraItemViewModels.First(vi => vi.Orden - 1 == itemIndex).ProductoId;
+
             // Listar IDs de los items ya agregados, exceptuar el que se esta modificando
-            var productoIds = compraItemViewModels.Where(vi => vi.ProductoId != productoId)
+            var productoIdsAgregados = compraItemViewModels.Where(vi => vi.ProductoId != productoId)
                 .Select(vi => vi.ProductoId)
                 .ToList();
             var productos = ProductoService.ListarAsQueryable()
-                .Where(p => !productoIds.Contains(p.Id))
+                .Where(p => !productoIdsAgregados.Contains(p.Id))
                 .ToList()
                 .Select(p => new ProductoViewModel(p))
                 .ToList();

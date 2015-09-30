@@ -44,5 +44,12 @@
                 min: "Debe agregar al menos un <b>Item</b> al Detalle de la compra"
             }
         });
+
+        $("#MontoComprado").rules("add", {
+            min: 0,
+            messages: {
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValue, Messages.MontoComprado, "$ 0,00"))"
+        }
+        });
     });
 </script>

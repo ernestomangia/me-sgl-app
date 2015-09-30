@@ -106,6 +106,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; debe ser decimal.
+        /// </summary>
+        public static string DecimalF {
+            get {
+                return ResourceManager.GetString("DecimalF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;DNI {0} &lt;/b&gt; se encuentra asociado a un {1} existente.
         /// </summary>
         public static string DniRepetido {
@@ -156,6 +165,15 @@ namespace ME.Libros.Web {
         public static string Entero {
             get {
                 return ResourceManager.GetString("Entero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; debe ser un número entero.
+        /// </summary>
+        public static string EnteroF {
+            get {
+                return ResourceManager.GetString("EnteroF", resourceCulture);
             }
         }
         
@@ -241,6 +259,24 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe ser mayor o igual a {1}.
+        /// </summary>
+        public static string MinValue {
+            get {
+                return ResourceManager.GetString("MinValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La &lt;b&gt;{0}&lt;/b&gt; debe ser mayor o igual a {1}.
+        /// </summary>
+        public static string MinValueF {
+            get {
+                return ResourceManager.GetString("MinValueF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; debe contener solo letras.
         /// </summary>
         public static string OnlyLetters {
@@ -277,7 +313,7 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El &lt;b&gt;{0}&lt;/b&gt; esta fuera de rango. Rango permitido: [{1} ; {2}].
+        ///   Looks up a localized string similar to El campo &lt;b&gt;{0}&lt;/b&gt; esta fuera de rango. Rango permitido: [{1};{2}].
         /// </summary>
         public static string RangeValue {
             get {

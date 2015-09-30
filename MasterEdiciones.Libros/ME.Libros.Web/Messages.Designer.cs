@@ -628,6 +628,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monto neto vendido.
+        /// </summary>
+        public static string MontoNetoVendido {
+            get {
+                return ResourceManager.GetString("MontoNetoVendido", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monto vendido.
         /// </summary>
         public static string MontoVendido {

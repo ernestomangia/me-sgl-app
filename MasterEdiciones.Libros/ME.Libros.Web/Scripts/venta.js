@@ -1,9 +1,10 @@
-﻿function abrirModalVentaItem(url, productoId) {
+﻿function abrirModalVentaItem(url, itemIndex) {
     var ventaItemViewModels = new Array();
     var i = 0;
     $(".hiddenProductoId").each(function () {
         var preFix = "#Items\\[" + i + "\\]\\.";
         var item = {
+            Orden: i + 1,
             ProductoId: $(preFix + "ProductoId").val(),
             Cantidad: $(preFix + "Cantidad").val(),
             PrecioVentaVendido: $(preFix + "PrecioVentaVendido").val(),
@@ -17,7 +18,7 @@
         method: "POST",
         url: url,
         contentType: "application/json;charset=utf-8",
-        data: JSON.stringify({ ventaItemViewModels: ventaItemViewModels, productoId: productoId }),
+        data: JSON.stringify({ ventaItemViewModels: ventaItemViewModels, itemIndex: itemIndex }),
         dataType: "html",
         error: function (jqXhr, status, error) {
             mensajeError("Ha ocurrido un error");
@@ -48,7 +49,7 @@ function crearVentaItem(form) {
                 var ventaItem = data.VentaItem;
                 agregarVentaItem(ventaItem);
                 $('#modalVentaItem').modal('toggle');
-                mensajeSuccess("Se agrego el producto " + ventaItem.Producto.Nombre + " al detalle de la venta");
+                mensajeSuccess("Se agregó el producto \"" + ventaItem.Producto.Nombre + "\" al detalle de la venta");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -67,11 +68,11 @@ function crearVentaItem(form) {
 }
 
 function agregarVentaItem(ventaItem) {
-    var indexItems = parseInt($("#cantidadItems").val());
-    var modificar = getHtmlBotonModificar(ventaItem.ProductoId);
-    var eliminar = getHtmlBotonEliminar(indexItems);
+    var itemIndex = parseInt($("#cantidadItems").val());
+    var modificar = getHtmlBotonModificar(itemIndex);
+    var eliminar = getHtmlBotonEliminar(itemIndex);
     var table = $("#ventaDetalleTable").DataTable();
-    var nroItem = indexItems + 1;
+    var nroItem = itemIndex + 1;
     table.row.add([
             nroItem,
             ventaItem.Producto.Nombre,
@@ -81,46 +82,46 @@ function agregarVentaItem(ventaItem) {
             modificar + " " + eliminar
     ]).draw();
 
-    var hiddenProductoId = "<input type='hidden' id='Items[" + indexItems + "].ProductoId' class='hiddenProductoId' name='Items[" + indexItems + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
-    var hiddenCantidad = "<input type='hidden'  id='Items[" + indexItems + "].Cantidad' class='hiddenCantidad' name='Items[" + indexItems + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
-    var hiddenPrecioVentaVendido = "<input type='hidden' id='Items[" + indexItems + "].PrecioVentaVendido' class='hiddenPrecioVentaVendido' name='Items[" + indexItems + "].PrecioVentaVendido' value='" + formatFloat(ventaItem.PrecioVentaVendido) + "' />";
-    var hiddenMontoItemVendido = "<input type='hidden' id='Items[" + indexItems + "].MontoItemVendido' class='hiddenMontoItemVendido' name='Items[" + indexItems + "].MontoItemVendido' value='" + formatFloat(ventaItem.MontoItemVendido) + "' />";
+    var hiddenProductoId = "<input type='hidden' id='Items[" + itemIndex + "].ProductoId' class='hiddenProductoId' name='Items[" + itemIndex + "].ProductoId' value='" + ventaItem.ProductoId + "' />";
+    var hiddenCantidad = "<input type='hidden'  id='Items[" + itemIndex + "].Cantidad' class='hiddenCantidad' name='Items[" + itemIndex + "].Cantidad' value='" + ventaItem.Cantidad + "' />";
+    var hiddenPrecioVentaVendido = "<input type='hidden' id='Items[" + itemIndex + "].PrecioVentaVendido' class='hiddenPrecioVentaVendido' name='Items[" + itemIndex + "].PrecioVentaVendido' value='" + formatFloat(ventaItem.PrecioVentaVendido) + "' />";
+    var hiddenMontoItemVendido = "<input type='hidden' id='Items[" + itemIndex + "].MontoItemVendido' class='hiddenMontoItemVendido' name='Items[" + itemIndex + "].MontoItemVendido' value='" + formatFloat(ventaItem.MontoItemVendido) + "' />";
     $("#formVenta").append(hiddenProductoId + hiddenCantidad + hiddenPrecioVentaVendido + hiddenMontoItemVendido);
-    $("#cantidadItems").val(indexItems + 1);
+    $("#cantidadItems").val(itemIndex + 1);
 }
 
-function getHtmlBotonModificar(productoId) {
-    return "<button class='btn btn-warning btn-sm btnModificar' type='button' onclick='javascript:abrirModalVentaItem(\"/VentaItem/ModificarItem\", " + productoId + ");' title='Modificar item'>" +
+function getHtmlBotonModificar(itemIndex) {
+    return "<button class='btn btn-warning btn-sm btnModificar' type='button' onclick='javascript:abrirModalVentaItem(\"/VentaItem/ModificarItem\", " + itemIndex + ");' title='Modificar item'>" +
         "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>" +
         "</button>";
 }
 
-function getHtmlBotonEliminar(indexItem) {
-    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminarVentaItem' onclick='javascript:setearIdVentaItem(" + indexItem + ");' title='Eliminar item'>" +
+function getHtmlBotonEliminar(itemIndex) {
+    return "<button class='btn btn-danger btn-sm btnEliminar' type='button' data-toggle='modal' data-target='#modalEliminarVentaItem' onclick='javascript:setearIdVentaItem(" + itemIndex + ");' title='Eliminar item'>" +
         "<span class='glyphicon glyphicon-trash' aria-hidden='true'></span>" +
         "</button>";
 }
 
-function eliminarVentaItem(indexItem) {
-    $("#Items\\[" + indexItem + "\\]\\.ProductoId").remove();
-    $("#Items\\[" + indexItem + "\\]\\.Cantidad").remove();
-    $("#Items\\[" + indexItem + "\\]\\.PrecioVentaVendido").remove();
-    $("#Items\\[" + indexItem + "\\]\\.MontoItemVendido").remove();
+function eliminarVentaItem(itemIndex) {
+    $("#Items\\[" + itemIndex + "\\]\\.ProductoId").remove();
+    $("#Items\\[" + itemIndex + "\\]\\.Cantidad").remove();
+    $("#Items\\[" + itemIndex + "\\]\\.PrecioVentaVendido").remove();
+    $("#Items\\[" + itemIndex + "\\]\\.MontoItemVendido").remove();
     var table = $("#ventaDetalleTable").DataTable();
-    table.row(indexItem).remove().draw();
+    table.row(itemIndex).remove().draw();
     actualizarHiddens();
     $('#modalEliminarVentaItem').modal('toggle');
-    mensajeSuccess("Se elimino el item Nº " + (parseInt(indexItem) + 1) + " exitosamente");
+    mensajeSuccess("Se eliminó el item Nº " + (parseInt(itemIndex) + 1) + " exitosamente");
 }
 
 function actualizarHiddens() {
-    var indexItem = 0;
+    var itemIndex = 0;
     var table = $("#ventaDetalleTable").DataTable();
     $(".hiddenProductoId").each(function () {
-        table.cell(indexItem, 0).data(indexItem + 1).draw();
+        table.cell(itemIndex, 0).data(itemIndex + 1).draw();
         var oldPreFix = "#Items\\[" + $(this).attr("id").substring($(this).attr("id").indexOf("[") + 1, $(this).attr("id").indexOf("]")) + "\\]\\.";
 
-        var preFix = "Items[" + indexItem + "].";
+        var preFix = "Items[" + itemIndex + "].";
         // ProductoId
         $(this).attr("id", preFix + "ProductoId");
         $(this).attr("name", preFix + "ProductoId");
@@ -130,14 +131,19 @@ function actualizarHiddens() {
         $(oldPreFix + "PrecioVentaVendido").attr("id", preFix + "PrecioVentaVendido").attr("name", preFix + "PrecioVentaVendido");
         // MontoItemVendido 
         $(oldPreFix + "MontoItemVendido").attr("id", preFix + "MontoItemVendido").attr("name", preFix + "MontoItemVendido");
-        indexItem++;
+        itemIndex++;
     });
 
-    $("#cantidadItems").val(indexItem);
+    $("#cantidadItems").val(itemIndex);
 
-    indexItem = 0;
+    itemIndex = 0;
     $(".btnEliminar").each(function () {
-        $(this).attr("onclick", "setearIdVentaItem(" + indexItem + ")");
+        $(this).attr("onclick", "setearIdVentaItem(" + itemIndex + ")");
+    });
+
+    itemIndex = 0;
+    $(".btnModificar").each(function () {
+        $(this).attr("onclick", "abrirModalVentaItem(\"/VentaItem/ModificarItem\"," + itemIndex + ")");
     });
 }
 
@@ -209,7 +215,7 @@ function modificarVentaItem(form) {
                 var ventaItem = data.VentaItem;
                 actualizarVentaItemRow(ventaItem);
                 $('#modalVentaItem').modal('toggle');
-                mensajeSuccess("Se modifico el producto " + ventaItem.Producto.Nombre + " exitosamente");
+                mensajeSuccess("Se modificó el item Nº  " + ventaItem.Orden + " exitosamente");
             } else {
                 var errores = "<ul>";
                 $.each(data.Errors, function (key, value) {
@@ -228,23 +234,23 @@ function modificarVentaItem(form) {
 }
 
 function actualizarVentaItemRow(ventaItem) {
-    var hiddenProductoId = $(".hiddenProductoId[value=" + ventaItem.ProductoId + "]");
-    var subtringStart = hiddenProductoId.attr("id").indexOf("[") + 1;
-    var subtringEnd = hiddenProductoId.attr("id").indexOf("]");
-    var indexItem = parseInt(hiddenProductoId.attr("id").substring(subtringStart, subtringEnd));
+    var itemIndex = ventaItem.Orden - 1;
 
     // Actualizar hiddens del  item modificado
-    $("#Items\\[" + indexItem + "\\]\\.Cantidad").val(ventaItem.Cantidad);
-    $("#Items\\[" + indexItem + "\\]\\.PrecioVentaVendido").val(formatFloat(ventaItem.PrecioVentaVendido));
-    $("#Items\\[" + indexItem + "\\]\\.MontoItemVendido").val(formatFloat(ventaItem.MontoItemVendido));
+    $("#Items\\[" + itemIndex + "\\]\\.ProductoId").val(ventaItem.ProductoId);
+    $("#Items\\[" + itemIndex + "\\]\\.Cantidad").val(ventaItem.Cantidad);
+    $("#Items\\[" + itemIndex + "\\]\\.PrecioVentaVendido").val(formatFloat(ventaItem.PrecioVentaVendido));
+    $("#Items\\[" + itemIndex + "\\]\\.MontoItemVendido").val(formatFloat(ventaItem.MontoItemVendido));
 
     // Actualizar la fila del DataTable correspondiente al item
     var table = $("#ventaDetalleTable").DataTable();
-    table.cell(indexItem, 2)
+    table.cell(itemIndex, 1)
+        .data(ventaItem.Producto.Nombre);
+    table.cell(itemIndex, 2)
         .data(ventaItem.Cantidad);
-    table.cell(indexItem, 3)
+    table.cell(itemIndex, 3)
         .data(formatCurrency(ventaItem.PrecioVentaVendido));
-    table.cell(indexItem, 4)
+    table.cell(itemIndex, 4)
         .data(formatCurrency(ventaItem.MontoItemVendido));
 
     // Redibujar para recalcular footer
@@ -290,6 +296,7 @@ function loadVentaDetalleDataTable() {
             var totales = calcularTotalColumna(this, [4]);
             if ($("#Id").length == 0) {
                 $("#MontoVendido, #MontoCalculado").val(formatFloat(totales[0].total));
+                $("#MontoVendido").trigger("change");
             }
         },
         "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
@@ -366,7 +373,7 @@ function getProductoByCodigoBarra(url, codigoBarra) {
     }
 }
 
-function getCobrosByCuotaRequest(cuota, tr) {
+function getCobrosByCuotaRequest(cuota) {
     return $.ajax({
         method: "POST",
         url: "/Cobro/VerCobros",
@@ -379,4 +386,24 @@ function getCobrosByCuotaRequest(cuota, tr) {
         timeout: 10000,
         cache: false
     });
+}
+
+///* Funciones: Forma de pago */
+function calcularMontoComisionVenta() {
+    var montoVendido = Globalize.parseFloat($("#MontoVendido").val());
+    var comision = Globalize.parseFloat($("#Comision").val());
+    if (montoVendido >= 0 && comision >= 0) {
+        var montoComision = calcularMontoComision(montoVendido, comision);
+        $("#MontoComision").val(formatFloat(montoComision));
+        calcularMontoNeto(montoVendido, montoComision);
+    }
+    else {
+        $("#MontoComision").val("");
+        $("#MontoNetoVendido").val("");
+    }
+}
+
+function calcularMontoNeto(montoVendido, montoComision) {
+    var montoNeto = montoVendido - montoComision;
+    $("#MontoNetoVendido").val(formatFloat(montoNeto));
 }

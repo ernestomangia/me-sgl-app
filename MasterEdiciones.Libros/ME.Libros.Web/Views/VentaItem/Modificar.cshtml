@@ -11,6 +11,7 @@
                 </div>
                 <div class="modal-body">
                     @Html.Partial("Shared/Form_Partial", Model)
+                    @Html.HiddenFor(vi => vi.Orden)
                     @if (Model.Id > 0)
                     {
                         @Html.HiddenFor(vi => vi.Id, new { id = "IdVentaItem"})

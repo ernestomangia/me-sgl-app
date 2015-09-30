@@ -44,7 +44,7 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(c => c.PorcentajeComision, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = "Comisión" })
+                @Html.TextBoxFor(c => c.PorcentajeComision, new { @class = "form-control", placeholder = Messages.PorcentajeComision, maxlength = "6", data_val_number = string.Format(ErrorMessages.DecimalF, Messages.PorcentajeComision), autocomplete = "off" })
             </div>
         </div>
     </div>

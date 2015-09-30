@@ -85,7 +85,8 @@ namespace ME.Libros.Web.Models
         public long ProvinciaId { get; set; }
 
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
-        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [Range(0, 100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "RangeValue")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal PorcentajeComision { get; set; }
 

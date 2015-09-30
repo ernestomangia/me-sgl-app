@@ -23,6 +23,7 @@ namespace ME.Libros.EF.Mapeos
             Property(v => v.Saldo).IsRequired();
             Property(v => v.Comision).IsRequired();
             Property(v => v.MontoComision).IsRequired();
+            Property(v => v.MontoNetoVendido).IsRequired();
             
             // FK
             HasRequired(v => v.Cliente);

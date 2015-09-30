@@ -112,7 +112,7 @@
             <div class="col-md-8">
                 <div class="input-group">
                     <div class="input-group-addon">$</div>
-                    @Html.TextBoxFor(c => c.MontoComprado, new { @class = "form-control", placeholder = Messages.MontoComprado })
+                    @Html.TextBoxFor(c => c.MontoComprado, new { @class = "form-control", maxlength = "16", data_val_number = string.Format(ErrorMessages.Decimal, Messages.MontoComprado), placeholder = Messages.MontoComprado, autocomplete = "off" })
                 </div>
             </div>
         </div>

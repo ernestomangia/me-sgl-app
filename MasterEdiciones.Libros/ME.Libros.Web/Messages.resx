@@ -402,4 +402,7 @@
   <data name="Proveedor" xml:space="preserve">
     <value>Proveedor</value>
   </data>
+  <data name="MontoNetoVendido" xml:space="preserve">
+    <value>Monto neto vendido</value>
+  </data>
 </root>

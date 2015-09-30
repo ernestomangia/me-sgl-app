@@ -30,6 +30,7 @@ namespace ME.Libros.Web.Models
             MontoCalculado = ventaDominio.MontoCalculado;
             MontoCobrado = ventaDominio.MontoCobrado;
             Saldo = ventaDominio.Saldo;
+            MontoNetoVendido = ventaDominio.MontoNetoVendido;
             Cliente = new ClienteViewModel(ventaDominio.Cliente);
             ClienteId = ventaDominio.Cliente.Id;
             Cobrador = new CobradorViewModel(ventaDominio.Cobrador);
@@ -93,6 +94,7 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
+        [Range(0, 100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "RangeValue")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Comision { get; set; }
 
@@ -100,6 +102,11 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoComision { get; set; }
+
+        [Display(Name = "MontoNetoVendido", ResourceType = typeof(Messages))]
+        [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoNetoVendido { get; set; }
 
         public bool EsVigente { get; set; }
 

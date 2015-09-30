@@ -84,14 +84,17 @@ namespace ME.Libros.Web.Controllers
 
         // Dibuja el modal para modificar item cuando el usuario esta creando la venta
         [HttpPost]
-        public ActionResult ModificarItem(List<VentaItemViewModel> ventaItemViewModels, int productoId)
+        public ActionResult ModificarItem(List<VentaItemViewModel> ventaItemViewModels, int itemIndex)
         {
+            // Buscar ProductoId a modificar
+            var productoId = ventaItemViewModels.First(vi => vi.Orden - 1 == itemIndex).ProductoId;
+
             // Listar IDs de los items ya agregados, exceptuar el que se esta modificando
-            var productoIds = ventaItemViewModels.Where(vi => vi.ProductoId != productoId)
+            var productoIdsAgregados = ventaItemViewModels.Where(vi => vi.ProductoId != productoId)
                 .Select(vi => vi.ProductoId)
                 .ToList();
             var productos = ProductoService.ListarAsQueryable()
-                .Where(p => !productoIds.Contains(p.Id))
+                .Where(p => !productoIdsAgregados.Contains(p.Id))
                 .ToList()
                 .Select(p => new ProductoViewModel(p))
                 .ToList();

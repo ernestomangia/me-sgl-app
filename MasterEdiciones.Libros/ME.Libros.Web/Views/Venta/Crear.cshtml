@@ -46,5 +46,12 @@
                 min: "Debe agregar al menos un <b>Item</b> al Detalle de la venta"
             }
         });
+
+        $("#MontoVendido").rules("add", {
+            min: 0,
+            messages: {
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValue, Messages.MontoVendido, "$ 0,00"))"
+            }
+        });
     });
 </script>

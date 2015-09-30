@@ -249,7 +249,8 @@ function isValidKeyForCalc(keyCode) {
     return isChangeEvent(keyCode) ||
         isNumberKey(keyCode) ||
         isTabKey(keyCode) ||
-        isBackSpaceKey(keyCode);
+        isBackSpaceKey(keyCode) || 
+        isDeleteKey(keyCode);
 }
 
 function isChangeEvent(keyCode) {
@@ -269,7 +270,19 @@ function isNumberKey(keyCode) {
         (keyCode >= 96 && keyCode <= 105); // Numpad
 }
 
+function isDeleteKey(keyCode) {
+    return keyCode == 46;
+}
+
 // Codigo Barra
 function isCodigoBarraValid(value) {
     return value != undefined && value.length == 13;
+}
+
+function calcularMontoComision(montoFacturado, comision) {
+    return montoFacturado * comision / 100;
+}
+
+function calcularComision(montoFacturado, montoComision) {
+    return montoComision / montoFacturado * 100;
 }

@@ -202,12 +202,24 @@
     <value>El campo &lt;b&gt;{0}&lt;/b&gt; es requerido</value>
   </data>
   <data name="RangeValue" xml:space="preserve">
-    <value>El &lt;b&gt;{0}&lt;/b&gt; esta fuera de rango. Rango permitido: [{1} ; {2}]</value>
+    <value>El campo &lt;b&gt;{0}&lt;/b&gt; esta fuera de rango. Rango permitido: [{1};{2}]</value>
   </data>
   <data name="CodigoBarraRepetido" xml:space="preserve">
     <value>El &lt;b&gt;Codigo de Barra {0}&lt;/b&gt; ya se encuentra asociado a un producto existente</value>
   </data>
   <data name="FormatoInvalidoF" xml:space="preserve">
     <value>El formato de la &lt;b&gt;{0}&lt;/b&gt; no es correcto</value>
+  </data>
+  <data name="MinValue" xml:space="preserve">
+    <value>El &lt;b&gt;{0}&lt;/b&gt; debe ser mayor o igual a {1}</value>
+  </data>
+  <data name="MinValueF" xml:space="preserve">
+    <value>La &lt;b&gt;{0}&lt;/b&gt; debe ser mayor o igual a {1}</value>
+  </data>
+  <data name="EnteroF" xml:space="preserve">
+    <value>La &lt;b&gt;{0}&lt;/b&gt; debe ser un número entero</value>
+  </data>
+  <data name="DecimalF" xml:space="preserve">
+    <value>La &lt;b&gt;{0}&lt;/b&gt; debe ser decimal</value>
   </data>
 </root>

@@ -133,34 +133,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-sm">
-                            @Html.Label("Interes", new { @class = "col-md-4 control-label" })
-                            <div class="col-md-8">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group form-group-sm">
-                            @Html.LabelFor(v => v.Comision, new { @class = "col-md-4 control-label" })
-                            <div class="col-md-8">
-                                @Html.TextBoxFor(v => v.Comision, new { @class = "form-control", placeholder = Messages.PorcentajeComision })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group form-group-sm">
-                            @Html.LabelFor(v => v.MontoComision, new { @class = "col-md-4 control-label" })
-                            <div class="col-md-8">
-                                <div class="input-group">
-                                    <div class="input-group-addon">$</div>
-                                    @Html.TextBoxFor(r => r.MontoComision, new { @class = "form-control", placeholder = Messages.MontoComision })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="col-md-6">                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -180,22 +153,53 @@
                             <div class="col-md-8">
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    @Html.TextBoxFor(v => v.MontoVendido, new { @class = "form-control", placeholder = Messages.MontoVendido })
+                                    @Html.TextBoxFor(v => v.MontoVendido, new { @class = "form-control", maxlength = "16", placeholder = Messages.MontoVendido, data_val_number = string.Format(ErrorMessages.Decimal, Messages.MontoVendido), autocomplete = "off" })
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @if (Model.Id > 0)
-                {
-                    var relacionSaldoMonto = Model.MontoVendido == 0
-                        ? 0
-                        : Model.Saldo / Model.MontoVendido;
-                    var progresoCobro = Math.Round((1 - relacionSaldoMonto) * 100);
-                    <div class="row">
-                        <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelWithTooltipFor(v => v.Comision, new
+                                               {
+                                                   @class = "col-md-4 control-label",
+                                                   data_placement = "bottom",
+                                                   title = "Porcentaje de comisión del vendedor."
+                                               })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(v => v.Comision, new { @class = "form-control", maxlength = "6", placeholder = Messages.PorcentajeComision, data_val_number = string.Format(ErrorMessages.DecimalF, Messages.PorcentajeComision), autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelWithTooltipFor(v => v.MontoComision, new
+                                               {
+                                                   @class = "col-md-4 control-label",
+                                                   data_placement = "bottom",
+                                                   data_html = "true",
+                                                   title = "Monto de comisión para el vendedor. <br/> Se calcula sobre el Monto Vendido: <br/> Comisión =  Comisión (%) * Monto vendido"
+                                               })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    @Html.TextBoxFor(r => r.MontoComision, new { @class = "form-control", maxlength = "16", placeholder = Messages.MontoComision, data_val_number = string.Format(ErrorMessages.DecimalF, Messages.MontoComision), autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @if (Model.Id > 0)
+                        {
+                            var relacionSaldoMonto = Model.MontoVendido == 0
+                            ? 0
+                            : Model.Saldo / Model.MontoVendido;
+                            var progresoCobro = Math.Round((1 - relacionSaldoMonto) * 100);
                             <div class="col-md-offset-4 col-md-8">
-
                                 <div class="progress" style="margin-bottom: 5px;">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@progresoCobro" aria-valuemin="0" aria-valuemax="100" style="width: @progresoCobro%;min-width: 2em;">
                                         <span class="sr-only">@progresoCobro%</span>
@@ -204,10 +208,20 @@
                                 </div>
                                 <span class="text-primary">Progreso de cobro</span>
                             </div>
-                        </div>
-                        <div class="col-md-6"></div>
+                        }
                     </div>
-                }
+                    <div class="col-md-6">
+                        <div class="form-group form-group-sm">
+                            @Html.LabelFor(v => v.MontoNetoVendido, new { @class = "col-md-4 control-label" })
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    @Html.TextBoxFor(v => v.MontoNetoVendido, new { @class = "form-control", placeholder = Messages.MontoNetoVendido, disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @if (Model.Cuotas.Any())
                 {
                     <div>
@@ -235,5 +249,34 @@
 <script type="text/javascript">
     $(document).ready(function () {
         loadVentaDetalleDataTable();
+
+        $("#MontoComision").rules("add", {
+            min: 0,
+            messages: {
+                min: "@Html.Raw(string.Format(ErrorMessages.MinValueF, Messages.MontoComision, "$ 0,00"))"
+            }
+        });
+    });
+
+    $('#Comision, #MontoVendido').on('keyup change', function (e) {
+        if (isValidKeyForCalc(e.keyCode)) {
+            calcularMontoComisionVenta();
+        }
+    });
+
+    $('#MontoComision').on('keyup change', function (e) {
+        if (isValidKeyForCalc(e.keyCode)) {
+            var montoVendido = Globalize.parseFloat($("#MontoVendido").val());
+            var montoComision = Globalize.parseFloat($(this).val());
+            if (montoVendido > 0 && montoComision >= 0) {
+                var comision = calcularComision(montoVendido, montoComision);
+                $("#Comision").val(formatFloat(comision));
+                calcularMontoNeto(montoVendido, montoComision);
+            }
+            else {
+                $("#Comision").val("");
+                $("#MontoNetoVendido").val("");
+            }
+        }
     });
 </script>

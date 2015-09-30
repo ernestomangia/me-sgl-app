@@ -54,4 +54,12 @@
             }
         });
     });
+
+    $("#VendedorId").on("change", function () {
+        getComisionVendedor('@Url.Action("Get", "Vendedor")');
+    });
+
+    $("#PlanPagoId").on("change", function () {
+        getMontoPlanPago('@Url.Action("Get", "PlanPago")');
+    });
 </script>

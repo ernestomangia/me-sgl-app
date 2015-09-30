@@ -52,7 +52,7 @@ namespace ME.Libros.Servicios.General
                 {
                     // N cuotas
                     ventaDominio.CantidadCuotas = ventaDominio.PlanPago.CantidadCuotas;
-                    ventaDominio.MontoCuota = ventaDominio.PlanPago.Monto;
+                    ventaDominio.MontoCuota = ventaDominio.PlanPago.MontoCuota;
                     ventaDominio.MontoCobrado = 0;
 
                     // Plan de pago a partir de montos fijos

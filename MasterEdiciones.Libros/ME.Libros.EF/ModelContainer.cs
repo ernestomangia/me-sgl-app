@@ -172,6 +172,7 @@ namespace ME.Libros.EF
                     Nombre = "Jose",
                     Apellido = "Lopez",
                     Dni = 35625222,
+                    PorcentajeComision = 10,
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
                     {
@@ -186,6 +187,7 @@ namespace ME.Libros.EF
                     Nombre = "Juan",
                     Apellido = "Lopez",
                     Dni = 35625222,
+                    PorcentajeComision = 10,
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
                     {
@@ -221,7 +223,7 @@ namespace ME.Libros.EF
                     FechaAlta = DateTime.Now,
                     Nombre = "Contado",
                     Descripcion = "Contado",
-                    Monto = 0,
+                    MontoCuota = 0,
                     CantidadCuotas = 0,
                     Tipo = TipoPlanPago.Contado
                 };
@@ -231,8 +233,9 @@ namespace ME.Libros.EF
                     FechaAlta = DateTime.Now,
                     Nombre = "10 x 100",
                     Descripcion = "10 cuotas de $100 c/una",
-                    Monto = 100,
+                    MontoCuota = 100,
                     CantidadCuotas = 10,
+                    Monto = 1000,
                     Tipo = TipoPlanPago.Financiado
                 };
 

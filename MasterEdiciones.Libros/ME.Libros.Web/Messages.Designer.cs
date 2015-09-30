@@ -637,6 +637,24 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monto original.
+        /// </summary>
+        public static string MontoOriginalCuota {
+            get {
+                return ResourceManager.GetString("MontoOriginalCuota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monto total.
+        /// </summary>
+        public static string MontoPlanPago {
+            get {
+                return ResourceManager.GetString("MontoPlanPago", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monto vendido.
         /// </summary>
         public static string MontoVendido {

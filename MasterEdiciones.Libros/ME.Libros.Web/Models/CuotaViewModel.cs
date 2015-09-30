@@ -55,7 +55,7 @@ namespace ME.Libros.Web.Models
 
         public int Atraso { get; set; }
 
-        [Display(Name = "MontoCuota", ResourceType = typeof(Messages))]
+        [Display(Name = "MontoOriginalCuota", ResourceType = typeof(Messages))]
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Monto { get; set; }
 

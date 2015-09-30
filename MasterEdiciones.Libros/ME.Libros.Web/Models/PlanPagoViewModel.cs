@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 using ME.Libros.Dominio.General;
+using ME.Libros.Utils.Enums;
 
 namespace ME.Libros.Web.Models
 {
@@ -18,7 +19,9 @@ namespace ME.Libros.Web.Models
             Nombre = planPago.Nombre;
             Descripcion = planPago.Descripcion;
             CantidadCuotas = planPago.CantidadCuotas;
+            MontoCuota = planPago.MontoCuota;
             Monto = planPago.Monto;
+            Tipo = planPago.Tipo;
         }
 
         #endregion
@@ -39,9 +42,16 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerida")]
         public int CantidadCuotas { get; set; }
 
+        [Display(Name = "MontoCuota", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         [DisplayFormat(DataFormatString = "{0:C}")]
+        public decimal MontoCuota { get; set; }
+
+        [Display(Name = "MontoPlanPago", ResourceType = typeof(Messages))]
+        [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal Monto { get; set; }
+
+        public TipoPlanPago Tipo { get; set; }
 
         public bool Modificable { get; set; }
 

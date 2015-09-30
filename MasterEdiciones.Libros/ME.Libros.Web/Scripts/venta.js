@@ -388,6 +388,44 @@ function getCobrosByCuotaRequest(cuota) {
     });
 }
 
+function getComisionVendedor(url) {
+    var idVendedor = $("#VendedorId :selected").attr("value");
+    if (idVendedor > 0) {
+        var request = getVendedorRequest(url, idVendedor);
+        request.done(function (data) {
+            $("#Comision").val(formatFloat(data.PorcentajeComision));
+            $("#Comision").trigger("change");
+        });
+    } else {
+        $("#Comision").val("");
+        $("#Comision").trigger("change");
+    }
+}
+
+function getMontoPlanPago(url) {
+    var idPlanPago = $("#PlanPagoId :selected").attr("value");
+    if (idPlanPago > 0) {
+        var request = getPlanPagoRequest(url, idPlanPago);
+        request.done(function (data) {
+            if (data.Tipo == "1") {
+                // Cuando es Financiado actualizar Monto Vendido
+                $("#MontoVendido").val(formatFloat(data.Monto));
+            } else {
+                resetMontoVendido();
+            }
+            $("#MontoVendido").trigger("change");
+        });
+    } else {
+        resetMontoVendido();
+        $("#MontoVendido").trigger("change");
+    }
+}
+
+function resetMontoVendido() {
+    var montoCalculado = $("#MontoCalculado").val();
+    $("#MontoVendido").val(formatFloat(montoCalculado));
+}
+
 ///* Funciones: Forma de pago */
 function calcularMontoComisionVenta() {
     var montoVendido = Globalize.parseFloat($("#MontoVendido").val());

@@ -121,6 +121,34 @@ function getProductoRequest(url, id) {
     });
 };
 
+function getVendedorRequest(url, id) {
+    return $.ajax({
+        method: "GET",
+        url: url,
+        data: { id: id },
+        dataType: "json",
+        error: function (jqXHR, status, error) {
+            mensajeError("Error: " + error + " - Status: " + status);
+        },
+        timeout: 10000,
+        cache: false
+    });
+};
+
+function getPlanPagoRequest(url, id) {
+    return $.ajax({
+        method: "GET",
+        url: url,
+        data: { id: id },
+        dataType: "json",
+        error: function (jqXHR, status, error) {
+            mensajeError("Error: " + error + " - Status: " + status);
+        },
+        timeout: 10000,
+        cache: false
+    });
+};
+
 /* */
 function eliminarEntidad(url, msjSuccess, msjError) {
     var id = $("#idEntidad").val();

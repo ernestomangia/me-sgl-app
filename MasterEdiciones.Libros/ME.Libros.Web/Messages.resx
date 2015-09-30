@@ -405,4 +405,10 @@
   <data name="MontoNetoVendido" xml:space="preserve">
     <value>Monto neto vendido</value>
   </data>
+  <data name="MontoOriginalCuota" xml:space="preserve">
+    <value>Monto original</value>
+  </data>
+  <data name="MontoPlanPago" xml:space="preserve">
+    <value>Monto total</value>
+  </data>
 </root>

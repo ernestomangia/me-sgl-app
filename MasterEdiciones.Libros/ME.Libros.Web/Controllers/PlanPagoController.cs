@@ -74,7 +74,8 @@ namespace ME.Libros.Web.Controllers
                         Nombre = planPagoViewModel.Nombre,
                         Descripcion = planPagoViewModel.Descripcion,
                         CantidadCuotas = planPagoViewModel.CantidadCuotas,
-                        Monto = planPagoViewModel.Monto,
+                        MontoCuota = planPagoViewModel.MontoCuota,
+                        Monto = planPagoViewModel.CantidadCuotas * planPagoViewModel.MontoCuota,
                         Tipo = TipoPlanPago.Financiado
                     };
 
@@ -190,7 +191,8 @@ namespace ME.Libros.Web.Controllers
                         if (!planPagoViewModel.Modificable)
                         {
                             planPagoDominio.CantidadCuotas = planPagoViewModel.CantidadCuotas;
-                            planPagoDominio.Monto = planPagoViewModel.Monto;
+                            planPagoDominio.MontoCuota = planPagoViewModel.MontoCuota;
+                            planPagoDominio.Monto = planPagoViewModel.CantidadCuotas * planPagoViewModel.MontoCuota;
                         }
 
                         resultado = PlanPagoService.Guardar(planPagoDominio);
@@ -219,5 +221,16 @@ namespace ME.Libros.Web.Controllers
                 : View(planPagoViewModel);
         }
 
+        [HttpGet]
+        public JsonResult Get(int id)
+        {
+            var planPagoViewModel = new PlanPagoViewModel(PlanPagoService.GetPorId(id));
+
+            return new JsonResult
+            {
+                Data = planPagoViewModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
     }
 }

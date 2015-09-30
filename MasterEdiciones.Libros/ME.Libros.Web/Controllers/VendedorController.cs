@@ -274,6 +274,18 @@ namespace ME.Libros.Web.Controllers
         }
 
         [HttpGet]
+        public JsonResult Get(int id)
+        {
+            var vendedorViewModel = new VendedorViewModel(VendedorService.GetPorId(id));
+
+            return new JsonResult
+            {
+                Data = vendedorViewModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [HttpGet]
         public JsonResult Eliminar(int id, string redirectUrl)
         {
             var isRedirect = !string.IsNullOrEmpty(redirectUrl);

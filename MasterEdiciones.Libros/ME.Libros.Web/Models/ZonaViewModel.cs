@@ -25,8 +25,9 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Codigo", ResourceType = typeof(Messages))]
         public long Id { get; set; }
 
-        [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
+        [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        [RegularExpression(@"^([a-zA-ZñÑáéíóúÁÉÍÓÚ´0-9]+\s)*[a-zA-ZñÑáéíóúÁÉÍÓÚ´0-9]+$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "OnlyLettersAndNumbers")]
         public string Nombre { get; set; }
 
         [StringLength(250, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]

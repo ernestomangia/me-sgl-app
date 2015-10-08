@@ -1,9 +1,6 @@
-﻿using System;
-using System.Security.Policy;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using EFlogger.EntityFramework6;
 using ME.Libros.Api.Logging;
 using ME.Libros.Logging;
 using ME.Libros.Web.Controllers;

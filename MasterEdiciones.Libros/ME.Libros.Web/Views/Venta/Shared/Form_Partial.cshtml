@@ -133,7 +133,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-offset-4 col-md-8">
+                            <h3>
+                                <span class="label label-default" style="text-align: left;">
+                                    $ <span id="diferenciaMontosVenta">-</span>
+                                </span>
+                            </h3>
+                            <h6>* Relación entre el Monto vendido y el Monto calculado</h6>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -196,8 +205,8 @@
                         @if (Model.Id > 0)
                         {
                             var relacionSaldoMonto = Model.MontoVendido == 0
-                            ? 0
-                            : Model.Saldo / Model.MontoVendido;
+                                ? 0
+                                : Model.Saldo / Model.MontoVendido;
                             var progresoCobro = Math.Round((1 - relacionSaldoMonto) * 100);
                             <div class="col-md-offset-4 col-md-8">
                                 <div class="progress" style="margin-bottom: 5px;">
@@ -222,6 +231,13 @@
                         </div>
                     </div>
                 </div>
+                @*<div id="MsjMontoVendido" class="row" style="display: block;">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                                El <b>Monto vendido</b> es menor al <b>Monto calculado</b>
+                            </div>
+                        </div>
+                    </div>*@
                 @if (Model.Cuotas.Any())
                 {
                     <div>
@@ -258,7 +274,14 @@
         });
     });
 
-    $('#Comision, #MontoVendido').on('keyup change', function (e) {
+    $('#MontoVendido').on('keyup change', function (e) {
+        if (isValidKeyForCalc(e.keyCode)) {
+            calcularMontoComisionVenta();
+        }
+        calcularDiferenciaVenta();
+    });
+
+    $('#Comision').on('keyup change', function (e) {
         if (isValidKeyForCalc(e.keyCode)) {
             calcularMontoComisionVenta();
         }

@@ -52,9 +52,10 @@
     <div class="col-md-offset-2 col-md-10">
         <h3>
             <span class="label label-default" style="display: block;text-align: left;">
-                Diferencia: $ <span id="diferencia">-</span>
+                $ <span id="diferencia">-</span>
             </span>
         </h3>
+        <h6>* Relación entre el Subtotal vendido y el Sugerido</h6>
     </div>
 </div>
 
@@ -101,7 +102,7 @@
         if (isValidKeyForCalc(e.keyCode)) {
             var precioVentaVendido = Globalize.parseFloat($("#PrecioVentaVendido").val());
             calcularMontoItemVendido(precioVentaVendido);
-            calcularDiferencia();
+            calcularDiferenciaVentaItem();
         }
     });
 
@@ -111,7 +112,7 @@
         if (cantidad > 0 && montoItemVendido >= 0) {
             var precioVentaVendido = montoItemVendido / cantidad;
             $("#PrecioVentaVendido").val(formatFloat(precioVentaVendido));
-            calcularDiferencia();
+            calcularDiferenciaVentaItem();
         }
     });
 

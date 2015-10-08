@@ -153,7 +153,7 @@ function calcularMontosItem(precioVentaCalculado, precioVentaVendido) {
     }
     calcularMontoItemVendido(precioVentaVendido);
     calcularMontoItemCalculado(precioVentaCalculado);
-    calcularDiferencia();
+    calcularDiferenciaVentaItem();
 }
 
 function calcularMontoItemVendido(precioVentaVendido) {
@@ -176,13 +176,19 @@ function calcularMontoItemCalculado(precioVentaCalculado) {
     }
 }
 
-function calcularDiferencia() {
+function calcularDiferenciaVentaItem() {
     var montoCalculado = Globalize.parseFloat($("#subtotalSugerido").text());
     var montoVendido = Globalize.parseFloat($("#MontoItemVendido").val());
     var cantidad = parseInt($("#Cantidad").val());
-    if (cantidad > 0 && montoCalculado > 0 && montoVendido >= 0) {
+    if (cantidad > 0 && montoCalculado >= 0 && montoVendido >= 0) {
         var difAbsoluta = montoVendido - montoCalculado;
-        var difRelativaPorcentual = (difAbsoluta / montoCalculado) * 100;
+        // Si montoCalculado == 0, no calcular diferencia porcentual. Solo mostrar la diferencia absoluta.
+        var mensaje = formatFloat(difAbsoluta);
+        if (montoCalculado > 0) {
+            var difRelativaPorcentual = (difAbsoluta / montoCalculado) * 100;
+            mensaje += " | " + formatFloat(difRelativaPorcentual) + "%";
+        }
+
         if (difAbsoluta < 0) {
             $("#diferencia").parent().switchClass("label-success label-default", "label-danger");
         } else if (difAbsoluta > 0) {
@@ -190,7 +196,8 @@ function calcularDiferencia() {
         } else {
             $("#diferencia").parent().switchClass("label-danger label-success", "label-default");
         }
-        $("#diferencia").text(formatFloat(difAbsoluta) + " | " + formatFloat(difRelativaPorcentual) + "%");
+
+        $("#diferencia").text(mensaje);
     } else {
         // Si el precio de venta del producto es 0 no calcular diferencia de montos
         $("#diferencia").text("-");
@@ -295,7 +302,12 @@ function loadVentaDetalleDataTable() {
         "footerCallback": function (row, data, start, end, display) {
             var totales = calcularTotalColumna(this, [4]);
             if ($("#Id").length == 0) {
-                $("#MontoVendido, #MontoCalculado").val(formatFloat(totales[0].total));
+                var total = formatFloat(totales[0].total);
+                $("#MontoCalculado").val(total);
+                if (!$("#MontoVendido").prop("disabled")) {
+                    // Actualizar MontoVendido solo si esta habilitado
+                    $("#MontoVendido").val(total);
+                }
                 $("#MontoVendido").trigger("change");
             }
         },
@@ -318,15 +330,33 @@ function loadCuotasDataTable() {
             {
                 "orderable": false
             },
-            { "data": "nro" },
-            { "data": "monto" },
-            { "data": "vencim" },
-            { "data": "estado" },
-            { "data": "interes" },
-            { "data": "cobrado" },
-            { "data": "fechaCobro" },
-            { "data": "atraso" },
-            { "data": "saldo" }
+            {
+                "data": "nro"
+            },
+            {
+                "data": "monto"
+            },
+            {
+                "data": "vencim"
+            },
+            {
+                "data": "estado"
+            },
+            {
+                "data": "interes"
+            },
+            {
+                "data": "cobrado"
+            },
+            {
+                "data": "fechaCobro"
+            },
+            {
+                "data": "atraso"
+            },
+            {
+                "data": "saldo"
+            }
         ]
     });
 }
@@ -410,6 +440,7 @@ function getMontoPlanPago(url) {
             if (data.Tipo == "1") {
                 // Cuando es Financiado actualizar Monto Vendido
                 $("#MontoVendido").val(formatFloat(data.Monto));
+                $("#MontoVendido").attr("disabled", "disabled");
             } else {
                 resetMontoVendido();
             }
@@ -424,6 +455,7 @@ function getMontoPlanPago(url) {
 function resetMontoVendido() {
     var montoCalculado = $("#MontoCalculado").val();
     $("#MontoVendido").val(formatFloat(montoCalculado));
+    $("#MontoVendido").removeAttr("disabled");
 }
 
 ///* Funciones: Forma de pago */
@@ -444,4 +476,31 @@ function calcularMontoComisionVenta() {
 function calcularMontoNeto(montoVendido, montoComision) {
     var montoNeto = montoVendido - montoComision;
     $("#MontoNetoVendido").val(formatFloat(montoNeto));
+}
+
+function calcularDiferenciaVenta() {
+    var montoCalculado = Globalize.parseFloat($("#MontoCalculado").val());
+    var montoVendido = Globalize.parseFloat($("#MontoVendido").val());
+    if (montoCalculado >= 0 && montoVendido >= 0) {
+        var difAbsoluta = montoVendido - montoCalculado;
+        // Si montoCalculado == 0, no calcular diferencia porcentual. Solo mostrar la diferencia absoluta.
+        var mensaje = formatFloat(difAbsoluta);
+        if (montoCalculado > 0) {
+            var difRelativaPorcentual = (difAbsoluta / montoCalculado) * 100;
+            mensaje += " | " + formatFloat(difRelativaPorcentual) + "%";
+        }
+
+        if (difAbsoluta < 0) {
+            $("#diferenciaMontosVenta").parent().switchClass("label-success label-default", "label-danger");
+        } else if (difAbsoluta > 0) {
+            $("#diferenciaMontosVenta").parent().switchClass("label-danger label-default", "label-success");
+        } else {
+            $("#diferenciaMontosVenta").parent().switchClass("label-danger label-success", "label-default");
+        }
+
+        $("#diferenciaMontosVenta").text(mensaje);
+    } else {
+        $("#diferenciaMontosVenta").text("-");
+        $("#diferenciaMontosVenta").parent().switchClass("label-success label-danger", "label-default");
+    }
 }

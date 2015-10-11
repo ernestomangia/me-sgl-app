@@ -1,0 +1,19 @@
+2015-08-31 18:23:26,791 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 18:36:03,290 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 19:57:26,401 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 20:00:50,482 [5] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:01:12,119 [9] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:02:28,836 [8] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:07:54,312 [8] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:08:01,769 [16] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:19:13,713 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 20:21:13,918 [7] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:45:38,241 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 20:49:47,400 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 20:50:38,173 [7] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:54:32,352 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 20:55:37,948 [6] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:57:46,024 [11] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:57:46,329 [14] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.
+2015-08-31 20:59:37,667 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-08-31 21:00:25,159 [6] ERROR ME.Libros.Logging.Logger [(null)] - Templates can be used only with field access, property access, single-dimension array index, or single-parameter custom indexer expressions.

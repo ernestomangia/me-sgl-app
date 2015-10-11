@@ -1,0 +1,32 @@
+2015-09-13 21:35:12,224 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-13 21:37:29,291 [9] ERROR ME.Libros.Logging.Logger [(null)] - Error relacionado con la red o específico de la instancia mientras se establecía una conexión con el servidor SQL Server. No se encontró el servidor o éste no estaba accesible. Compruebe que el nombre de la instancia es correcto y que SQL Server está configurado para admitir conexiones remotas. (provider: Named Pipes Provider, error: 40 - No se pudo abrir una conexión con SQL Server)
+2015-09-13 21:43:07,864 [5] ERROR ME.Libros.Logging.Logger [(null)] - c:\Users\D\Source\Repos\me-sgl-app\MasterEdiciones.Libros\ME.Libros.Web\Views\Reporte\PlanillaCobradoresPDF.cshtml(84): error CS1525: El término de la expresión 'else' no es válido
+2015-09-13 21:43:10,334 [11] ERROR ME.Libros.Logging.Logger [(null)] - c:\Users\D\Source\Repos\me-sgl-app\MasterEdiciones.Libros\ME.Libros.Web\Views\Reporte\PlanillaCobradoresPDF.cshtml(84): error CS1525: El término de la expresión 'else' no es válido
+2015-09-13 22:01:28,211 [22] ERROR ME.Libros.Logging.Logger [(null)] - c:\Users\D\Source\Repos\me-sgl-app\MasterEdiciones.Libros\ME.Libros.Web\Views\Reporte\PlanillaCobradoresPDF.cshtml(84): error CS1525: El término de la expresión 'else' no es válido
+2015-09-13 22:09:52,465 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-13 22:53:00,033 [36] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-13 22:53:01,013 [28] ERROR ME.Libros.Logging.Logger [(null)] - The controller for path '/__browserLink/requestData/c3ef99122c4c4e76934b305f8028d8d7' was not found or does not implement IController.
+2015-09-13 23:04:06,748 [27] ERROR ME.Libros.Logging.Logger [(null)] - Expected a "{" but found a "<".  Block statements must be enclosed in "{" and "}".  You cannot use single-statement control-flow statements in CSHTML pages. For example, the following is not allowed:
+
+@if(isLoggedIn)
+    <p>Hello, @user</p>
+
+Instead, wrap the contents of the block in "{}":
+
+@if(isLoggedIn) {
+    <p>Hello, @user</p>
+}
+
+2015-09-13 23:04:23,683 [27] ERROR ME.Libros.Logging.Logger [(null)] - No se pudieron comparar dos elementos en la matriz.
+2015-09-13 23:04:25,429 [28] ERROR ME.Libros.Logging.Logger [(null)] - Expected a "{" but found a "<".  Block statements must be enclosed in "{" and "}".  You cannot use single-statement control-flow statements in CSHTML pages. For example, the following is not allowed:
+
+@if(isLoggedIn)
+    <p>Hello, @user</p>
+
+Instead, wrap the contents of the block in "{}":
+
+@if(isLoggedIn) {
+    <p>Hello, @user</p>
+}
+
+2015-09-13 23:04:27,319 [28] ERROR ME.Libros.Logging.Logger [(null)] - No se pudieron comparar dos elementos en la matriz.

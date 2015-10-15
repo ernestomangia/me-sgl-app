@@ -89,7 +89,7 @@ namespace ME.Libros.Web.Models
         public EstadoVenta Estado { get; set; }
 
         public int CantidadCuotas { get; set; }
-        
+
         public decimal MontoCuota { get; set; }
 
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
@@ -125,6 +125,8 @@ namespace ME.Libros.Web.Models
         [Display(Name = "PlanPago", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long PlanPagoId { get; set; }
+
+        public string AutocompleteCliente { get; set; }
 
         public List<VentaItemViewModel> Items { get; set; }
         public List<CuotaViewModel> Cuotas { get; set; }

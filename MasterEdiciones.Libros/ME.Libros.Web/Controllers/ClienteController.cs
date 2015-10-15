@@ -59,7 +59,7 @@ namespace ME.Libros.Web.Controllers
         {
             var clienteViewModel = new ClienteViewModel();
             PrepareModel(clienteViewModel);
-            clienteViewModel.Codigo =  ClienteService.GetCodigoCorrelativo();
+            clienteViewModel.Codigo = ClienteService.GetCodigoCorrelativo();
 
             return View(clienteViewModel);
         }
@@ -179,7 +179,7 @@ namespace ME.Libros.Web.Controllers
             {
                 Data = new
                 {
-                    Success = ModelState.IsValid, 
+                    Success = ModelState.IsValid,
                     Errors = ModelState.GetErrors(),
                     isRedirect,
                     redirectUrl
@@ -287,6 +287,28 @@ namespace ME.Libros.Web.Controllers
             PrepareModel(clienteViewModel);
 
             return View(clienteViewModel);
+        }
+
+        public ActionResult Get(string query)
+        {
+            var clientes = new List<AutocompleteViewModel>();
+            using (ClienteService)
+            {
+                clientes.AddRange(ClienteService.ListarAsQueryable()
+                    .Where(c => (c.Nombre + " " + c.Apellido).Contains(query))
+                    .OrderBy(c => c.Nombre)
+                    .ThenBy(c => c.Apellido)
+                    .Take(10)
+                    .ToList()
+                    .Select(c => new AutocompleteViewModel
+                    {
+                        Id = c.Id,
+                        Name = string.Format("{0} {1}", c.Nombre, c.Apellido),
+                        Description = string.Format("{0} <br/> {1} - {2}, {3}", c.Iva.Codigo == 3 ? c.Cuil.ToString() : c.Dni.ToString(), c.Direccion, c.Localidad.Nombre, c.Localidad.Provincia.Nombre)
+                    }));
+            }
+
+            return Json(clientes, JsonRequestBehavior.AllowGet);
         }
 
         #region Private Methods

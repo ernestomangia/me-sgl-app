@@ -1,4 +1,5 @@
 ﻿@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Controllers
 @using ME.Libros.Web.Extensions
 @model ME.Libros.Web.Models.VentaViewModel
 @{
@@ -61,7 +62,11 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.ClienteId, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control" })
+                @Html.HiddenFor(v => v.ClienteId)
+                @Html.AutocompleteFor(v => v.AutocompleteCliente, c => c.ClienteId, "Get", "Cliente", false)
+                
+                @*<div class="Typeahead-menu"><div class="tt-dataset tt-dataset-0"></div></div>*@
+                @*@Html.DropDownListFor(c => c.ClienteId, Model.Clientes, "Seleccione", new { @class = "form-control" })*@
             </div>
         </div>
     </div>
@@ -272,6 +277,8 @@
                 min: "@Html.Raw(string.Format(ErrorMessages.MinValueF, Messages.MontoComision, "$ 0,00"))"
             }
         });
+
+
     });
 
     $('#MontoVendido').on('keyup change', function (e) {

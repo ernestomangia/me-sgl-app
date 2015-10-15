@@ -33,37 +33,7 @@ namespace ME.Libros.Web.Controllers
         {
             return View();
         }
-
-        public ActionResult Clientes()
-        {
-            var footer = "--footer-right \"[date] [time]\" --footer-center \"[page] de [toPage]\" " +
-                         "--footer-line --footer-font-size \"8\" " +
-                         "--footer-spacing 15 --footer-font-name \"calibri light\"";
-            return new ActionAsPdf("ClientesPDF")
-            {
-                //FileName = "ChequeraVentaNro" + id + ".pdf",
-                PageOrientation = Orientation.Portrait,
-                PageSize = Size.A4,
-                PageMargins = new Margins(10, 10, 10, 10),
-                //CustomSwitches = "--print-media-type --default-header --custom-header \" -- \" \\"
-                CustomSwitches = "--print-media-type " + footer,
-                UserName = "Emangia" /*User.Identity.Name*/
-            };
-        }
-
-        public ActionResult ClientesPDF()
-        {
-            var clientes = new List<ClienteViewModel>();
-            using (ClienteService)
-            {
-                clientes.AddRange(ClienteService.Listar()
-                    .OrderBy(c => c.Apellido)
-                    .ThenBy(c => c.Nombre)
-                    .ToList()
-                    .Select(c => new ClienteViewModel(c)));
-            }
-            return View(clientes);
-        }
+        
 
             public ActionResult PlanillaCobrador()
             {
@@ -79,6 +49,8 @@ namespace ME.Libros.Web.Controllers
                     CustomSwitches = "--print-media-type " + footer,
                 };
             }
+
+
 
             public ActionResult PlanillaCobradorPDF()
             {
@@ -105,5 +77,49 @@ namespace ME.Libros.Web.Controllers
                 return View(planillas);
             }
 
+            public ActionResult VentasPorCobrar()
+            {
+                var footer = "--footer-right \"[date] [time]\" " +
+                             "--footer-line --footer-font-size \"8\" " +
+                             "--footer-font-name \"calibri light\"" +
+                             "--header-left='[webpage]'";
+                return new ActionAsPdf("VentasPorCobrarPDF")
+                {
+                    PageOrientation = Orientation.Portrait,
+                    PageSize = Size.A4,
+                    PageMargins = new Margins(8,8, 10, 10),
+                    CustomSwitches = "--print-media-type " + footer,
+                };
+            }
+
+
+        public ActionResult VentasPorCobrarPDF()
+        {
+            var ventasPorCobrar = new List<VentasPorCobrarViewModel>();
+            using (VentaService)
+            {
+                ventasPorCobrar.AddRange(VentaService.ListarAsQueryable()
+                    .Where(v=>v.Estado==EstadoVenta.Vigente)
+                    .GroupBy(v =>new {v.FechaVenta.Year,v.FechaVenta.Month},
+                    v=>v,
+
+                    (key, group) => new
+                    {
+                        key.Year,
+                        key.Month,
+                        Ventas=group.OrderBy(v=>v.FechaVenta)
+                    }
+                    
+                    )
+                    .OrderBy(v=>v.Year)
+                    .ThenBy(v=>v.Month)
+                    .ToList()
+                    .Select(v=>new VentasPorCobrarViewModel(v.Year,v.Month,v.Ventas)
+                    ));
+            }
+
+
+            return View(ventasPorCobrar);
+        }
     }
 }

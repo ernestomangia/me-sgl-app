@@ -1,0 +1,7 @@
+2015-10-10 16:43:20,023 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-10-10 18:57:45,126 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-10-10 20:43:28,057 [108] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-10-10 20:51:59,605 [108] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-10-10 21:04:31,856 [108] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-10-10 21:19:51,352 [91] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-10-10 21:46:02,086 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts

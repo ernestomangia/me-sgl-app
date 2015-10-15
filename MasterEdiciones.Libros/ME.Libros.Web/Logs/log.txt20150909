@@ -1,0 +1,6 @@
+2015-09-09 17:54:29,515 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-09 18:17:40,622 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-09 18:31:02,988 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-09 21:00:48,616 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
+2015-09-09 21:03:32,854 [9] ERROR ME.Libros.Logging.Logger [(null)] - Se produjo una excepción de tipo 'System.OutOfMemoryException'.
+2015-09-09 21:05:02,643 [9] ERROR ME.Libros.Logging.Logger [(null)] - Se produjo una excepción de tipo 'System.OutOfMemoryException'.

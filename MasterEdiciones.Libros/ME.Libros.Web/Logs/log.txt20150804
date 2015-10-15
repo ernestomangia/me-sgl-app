@@ -1,9 +1,0 @@
-2015-08-04 17:56:13,345 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
-2015-08-04 18:19:29,321 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
-2015-08-04 18:36:11,951 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
-2015-08-04 18:47:28,023 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
-2015-08-04 19:00:31,725 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
-2015-08-04 19:03:09,882 [1] INFO  ME.Libros.Logging.Logger [(null)] - App Starts
-2015-08-04 19:05:46,895 [8] ERROR ME.Libros.Logging.Logger [(null)] - The parameters dictionary contains a null entry for parameter 'id' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult Modificar(Int32)' in 'ME.Libros.Web.Controllers.CompraController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Nombre del parámetro: parameters
-2015-08-04 19:06:17,334 [7] ERROR ME.Libros.Logging.Logger [(null)] - A public action method 'Modific' was not found on controller 'ME.Libros.Web.Controllers.CompraController'.

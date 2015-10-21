@@ -173,6 +173,7 @@ namespace ME.Libros.EF
                     Apellido = "Lopez",
                     Dni = 35625222,
                     PorcentajeComision = 10,
+                    Direccion = "Corrientes 500",
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
                     {
@@ -188,6 +189,7 @@ namespace ME.Libros.EF
                     Apellido = "Lopez",
                     Dni = 35625222,
                     PorcentajeComision = 10,
+                    Direccion = "Corrientes 500",
                     Localidad = localidades[0],
                     Localidades = new List<LocalidadDominio>
                     {

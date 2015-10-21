@@ -23,10 +23,11 @@ namespace ME.Libros.EF.Mapeos
                 .IsRequired()
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
             Property(c => c.PorcentajeComision).IsRequired();
-            Property(c => c.Direccion).HasMaxLength(100);
-            Property(c => c.TelefonoFijo);
-            Property(c => c.Celular);
-            Property(c => c.Email);
+            Property(c => c.Direccion).HasMaxLength(200).IsRequired();
+            Property(c => c.TelefonoFijo).HasMaxLength(11).IsOptional();
+            Property(c => c.Celular).HasMaxLength(11).IsOptional();
+            Property(c => c.Email).HasMaxLength(100).IsOptional();
+            
             // FK
             HasRequired(c => c.Localidad);
             HasMany(c => c.Localidades)

@@ -1,6 +1,6 @@
 ﻿.tt-input, /* UPDATE: newer versions use tt-input instead of tt-query */
 .tt-hint {
-    width: 396px;
+    /*width: 396px;*/
     height: 34px;
     padding: 0px 12px;
     font-size: 14px;

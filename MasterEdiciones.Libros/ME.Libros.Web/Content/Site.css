@@ -98,6 +98,10 @@ table.dataTable tbody td.no-padding {
 }
 
 /*TypeAhead*/
+.twitter-typeahead {
+    width: 100%;
+}
+
 .EmptyMessage {
     position: relative;
     padding: 5px;

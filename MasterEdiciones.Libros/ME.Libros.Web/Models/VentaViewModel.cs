@@ -50,6 +50,7 @@ namespace ME.Libros.Web.Models
             Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
             Cuotas.ForEach(c => c.Venta = this);
             EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
+            AutocompleteCliente = string.Format("{0} {1}", ventaDominio.Cliente.Nombre, ventaDominio.Cliente.Apellido);
         }
 
         #endregion
@@ -126,6 +127,7 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long PlanPagoId { get; set; }
 
+        [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         public string AutocompleteCliente { get; set; }
 
         public List<VentaItemViewModel> Items { get; set; }

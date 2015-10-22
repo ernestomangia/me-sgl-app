@@ -24,7 +24,9 @@
         autos.initialize();
 
         $(obj).typeahead({ highlight: true, minLength: 0, hint: true }, {
-            name: 'autos', displayKey: 'value', source: autos.ttAdapter()
+            name: 'autos',
+            displayKey: 'value',
+            source: autos.ttAdapter()
         }).on('typeahead:selected', function (obj, datum) {
             onselected(obj, datum);
         });
@@ -32,17 +34,15 @@
         if ($(obj).hasClass("focus")) {
             $(obj).focus();
         }
-
     };
 
     function onselected(obj, datum) {
         if (!obj || !obj.target || !datum) return;
-        $('#' + jQuery(obj.target).data("autocomplete-id-field")).val(datum.id.toString());
+        $('#' + jQuery(obj.target).data("autocomplete-id-field")).val(datum.id.toString()).trigger("change");
     }
 
     $('*[data-autocomplete-url]')
             .each(function () {
                 autocompletewrapper($(this));
             });
-})
-)
+}))

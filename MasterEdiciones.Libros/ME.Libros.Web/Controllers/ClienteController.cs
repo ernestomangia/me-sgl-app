@@ -294,11 +294,7 @@ namespace ME.Libros.Web.Controllers
             var clientes = new List<AutocompleteViewModel>();
             using (ClienteService)
             {
-                clientes.AddRange(ClienteService.ListarAsQueryable()
-                    .Where(c => (c.Nombre + " " + c.Apellido).Contains(query))
-                    .OrderBy(c => c.Nombre)
-                    .ThenBy(c => c.Apellido)
-                    .Take(10)
+                clientes.AddRange(ClienteService.ListarPorNombre(query)
                     .ToList()
                     .Select(c => new AutocompleteViewModel
                     {

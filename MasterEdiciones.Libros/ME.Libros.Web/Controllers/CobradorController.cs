@@ -324,6 +324,24 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        public ActionResult Get(string query)
+        {
+            var cobradores = new List<AutocompleteViewModel>();
+            using (CobradorService)
+            {
+                cobradores.AddRange(CobradorService.ListarPorNombre(query)
+                    .ToList()
+                    .Select(c => new AutocompleteViewModel
+                    {
+                        Id = c.Id,
+                        Name = string.Format("{0} {1}", c.Nombre, c.Apellido),
+                        Description = string.Format("{0} <br/> {1} - {2}, {3}", c.Dni.ToString(), c.Direccion, c.Localidad.Nombre, c.Localidad.Provincia.Nombre)
+                    }));
+            }
+
+            return Json(cobradores, JsonRequestBehavior.AllowGet);
+        }
+
         #region Private Methods
 
         private void PrepareModel(CobradorViewModel cobradorViewModel, IEnumerable<string> localidadesAsignadasIds = null)

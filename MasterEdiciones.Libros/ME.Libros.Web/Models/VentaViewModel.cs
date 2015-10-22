@@ -51,6 +51,8 @@ namespace ME.Libros.Web.Models
             Cuotas.ForEach(c => c.Venta = this);
             EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
             AutocompleteCliente = string.Format("{0} {1}", ventaDominio.Cliente.Nombre, ventaDominio.Cliente.Apellido);
+            AutocompleteCobrador = string.Format("{0} {1}", ventaDominio.Cobrador.Nombre, ventaDominio.Cobrador.Apellido);
+            AutocompleteVendedor = string.Format("{0} {1}", ventaDominio.Vendedor.Nombre, ventaDominio.Vendedor.Apellido);
         }
 
         #endregion
@@ -130,6 +132,12 @@ namespace ME.Libros.Web.Models
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         public string AutocompleteCliente { get; set; }
 
+        [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
+        public string AutocompleteCobrador { get; set; }
+
+        [Display(Name = "Vendedor", ResourceType = typeof(Messages))]
+        public string AutocompleteVendedor { get; set; }
+        
         public List<VentaItemViewModel> Items { get; set; }
         public List<CuotaViewModel> Cuotas { get; set; }
         public ClienteViewModel Cliente { get; set; }

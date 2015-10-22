@@ -419,7 +419,7 @@ function getCobrosByCuotaRequest(cuota) {
 }
 
 function getComisionVendedor(url) {
-    var idVendedor = $("#VendedorId :selected").attr("value");
+    var idVendedor = $("#VendedorId").val();
     if (idVendedor > 0) {
         var request = getVendedorRequest(url, idVendedor);
         request.done(function (data) {

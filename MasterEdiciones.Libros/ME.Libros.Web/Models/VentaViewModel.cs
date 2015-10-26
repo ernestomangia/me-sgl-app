@@ -50,6 +50,9 @@ namespace ME.Libros.Web.Models
             Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
             Cuotas.ForEach(c => c.Venta = this);
             EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
+            AutocompleteCliente = string.Format("{0} {1}", ventaDominio.Cliente.Nombre, ventaDominio.Cliente.Apellido);
+            AutocompleteCobrador = string.Format("{0} {1}", ventaDominio.Cobrador.Nombre, ventaDominio.Cobrador.Apellido);
+            AutocompleteVendedor = string.Format("{0} {1}", ventaDominio.Vendedor.Nombre, ventaDominio.Vendedor.Apellido);
         }
 
         #endregion
@@ -89,7 +92,7 @@ namespace ME.Libros.Web.Models
         public EstadoVenta Estado { get; set; }
 
         public int CantidadCuotas { get; set; }
-        
+
         public decimal MontoCuota { get; set; }
 
         [Display(Name = "PorcentajeComision", ResourceType = typeof(Messages))]
@@ -126,6 +129,15 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long PlanPagoId { get; set; }
 
+        [Display(Name = "Cliente", ResourceType = typeof(Messages))]
+        public string AutocompleteCliente { get; set; }
+
+        [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
+        public string AutocompleteCobrador { get; set; }
+
+        [Display(Name = "Vendedor", ResourceType = typeof(Messages))]
+        public string AutocompleteVendedor { get; set; }
+        
         public List<VentaItemViewModel> Items { get; set; }
         public List<CuotaViewModel> Cuotas { get; set; }
         public ClienteViewModel Cliente { get; set; }

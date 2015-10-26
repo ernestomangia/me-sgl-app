@@ -1,4 +1,5 @@
-﻿@using ME.Libros.Utils.Enums
+﻿@using System.Web.Optimization
+@using ME.Libros.Utils.Enums
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,7 @@
     <link href="~/Content/bootstrap-switch/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/sidebar.custom.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/typeahead.css" rel="stylesheet" type="text/css" />
 
     @* Scripts *@
     <script src="~/Scripts/jquery-2.1.4.js"></script>
@@ -74,6 +76,9 @@
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.config.custom.js"></script>
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.custom.js"></script>
     <script src="~/Scripts/bootbox.js"></script>
+    
+    @Scripts.Render("~/bundles/typeahead")
+    <script src="~/Scripts/typeahead.mvc.model.js"></script> 
 
     <script src="~/Scripts/common.js"></script>
 </head>

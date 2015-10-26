@@ -844,6 +844,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Razón social.
+        /// </summary>
+        public static string RazonSocial {
+            get {
+                return ResourceManager.GetString("RazonSocial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recordarme?.
         /// </summary>
         public static string Recordarme {

@@ -16,6 +16,7 @@ namespace ME.Libros.Web
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            TypeaheadBundleConfig.RegisterBundles();
 
             ModelBinders.Binders.Add(typeof(decimal), new DecimalModelBinder());
             ModelBinders.Binders.Add(typeof(long), new LongModelBinder());

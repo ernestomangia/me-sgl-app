@@ -335,6 +335,24 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        public ActionResult GetByNombre(string query)
+        {
+            var vendedores = new List<AutocompleteViewModel>();
+            using (VendedorService)
+            {
+                vendedores.AddRange(VendedorService.ListarPorNombre(query)
+                    .ToList()
+                    .Select(c => new AutocompleteViewModel
+                    {
+                        Id = c.Id,
+                        Name = string.Format("{0} {1}", c.Nombre, c.Apellido),
+                        Description = string.Format("{0} <br/> {1} - {2}, {3}", c.Dni.ToString(), c.Direccion, c.Localidad.Nombre, c.Localidad.Provincia.Nombre)
+                    }));
+            }
+
+            return Json(vendedores, JsonRequestBehavior.AllowGet);
+        }
+
         #region Private Methods
 
         private void PrepareModel(VendedorViewModel vendedorViewModel, IEnumerable<string> localidadesAsignadasIds = null)

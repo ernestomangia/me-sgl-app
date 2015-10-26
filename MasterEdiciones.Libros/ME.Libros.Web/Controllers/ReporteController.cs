@@ -121,5 +121,52 @@ namespace ME.Libros.Web.Controllers
 
             return View(ventasPorCobrar);
         }
+
+        public ActionResult VentasAtrasadas()
+        {
+            var footer = "--footer-right \"[date] [time]\" " +
+                         "--footer-line --footer-font-size \"8\" " +
+                         "--footer-font-name \"calibri light\"" +
+                         "--header-left='[webpage]'";
+            return new ActionAsPdf("VentasAtrasadasPDF")
+            {
+                PageOrientation = Orientation.Portrait,
+                PageSize = Size.A4,
+                PageMargins = new Margins(8, 8, 10, 10),
+                CustomSwitches = "--print-media-type " + footer,
+            };
+        }
+
+        public ActionResult VentasAtrasadasPDF()
+        {
+            var ventasAtrasadas = new List<VentasAtrasadasViewModel>();
+            using (VentaService)
+            {
+                ventasAtrasadas.AddRange(VentaService.ListarAsQueryable()
+                    .Where(v => v.Estado==EstadoVenta.Vigente)
+                    .GroupBy(v => new { v.FechaVenta.Year, v.FechaVenta.Month },
+                    v => v,
+
+                    (key, group) => new
+                    {
+                        key.Year,
+                        key.Month,
+                        Ventas = group.OrderBy(v => v.FechaVenta)
+                    }
+
+                    )
+                    .OrderBy(v => v.Year)
+                    .ThenBy(v => v.Month)
+                    .ToList()
+                    .Select(v => new VentasAtrasadasViewModel(v.Year, v.Month, v.Ventas)
+                    ));
+            }
+
+
+            return View(ventasAtrasadas);
+        }
+
+
+
     }
 }

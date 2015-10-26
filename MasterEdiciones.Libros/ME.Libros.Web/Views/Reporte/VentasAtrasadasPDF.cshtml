@@ -1,0 +1,115 @@
+﻿@using System.Globalization
+@using System.Runtime.Serialization
+@using ME.Libros.Utils.Enums
+@model IEnumerable<ME.Libros.Web.Models.VentasAtrasadasViewModel>
+
+    @{
+        ViewBag.Title = "VentasAtrasadasPDF";
+    }
+
+    <style type="text/css">
+        .page-breaker {
+            display: block;
+            clear: both;
+            page-break-after: always;
+            mso-page-numbers-start: 1;
+        }
+
+        .table th {
+            text-align: center;
+        }
+
+        .table td {
+            text-align: center;
+        }
+    </style>
+
+    <h2 style="text-align:center">Ventas atrasadas</h2>
+
+    @if (Model.Any())
+    {
+        foreach (var ventaAtrasada in Model)
+        {
+            <div>
+
+                <div class="row">
+                    <div class="col-xs-3">@string.Format("{0}, {1}", CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(ventaAtrasada.Month).ToUpper(), ventaAtrasada.Year)</div>
+                </div>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="vertical-align: middle"> Venta N°</th>
+                            <th colspan="3">Cliente </th>
+                            <th colspan="4">Cuotas </th>
+                            <th colspan="2">Venta</th>
+                        </tr>
+                        <tr>
+                            <th class="columnaCodigo noSort">N°</th>
+                            <th>CUIL</th>
+                            <th> Nombre y Apellido</th>
+                            <th>Pagado</th>
+                            <th>Monto</th>
+                            <th>Atrasadas</th>
+                            <th>Monto Atrasado</th>
+                            <th>Monto</th>
+                            <th>Pagado</th>
+                        </tr>
+                    </thead>
+                    @foreach (var vtaAtrasada in ventaAtrasada.Ventas)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => vtaAtrasada.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => vtaAtrasada.ClienteId)</td>
+                            <td>@Html.DisplayFor(modelItem => vtaAtrasada.Cliente.Cuil)</td>
+                            <td>@Html.DisplayFor(modelItem => vtaAtrasada.Cliente.Nombre), @Html.DisplayFor(modelItem => vtaAtrasada.Cliente.Apellido)</td>
+                            <td>@vtaAtrasada.Cuotas.Count(c => c.Estado == EstadoCuota.Pagada)/@Html.DisplayFor(modelItem => vtaAtrasada.CantidadCuotas)</td>
+                            <td>@Html.DisplayFor(modelItem => vtaAtrasada.MontoCuota)</td>
+                            <td>@vtaAtrasada.Cuotas.Count(c => c.Estado == EstadoCuota.Atrasada)</td>
+                            <td>$ @(vtaAtrasada.Cuotas.Count(c => c.Estado == EstadoCuota.Atrasada) * vtaAtrasada.MontoCuota)</td>
+                            <td>@Html.DisplayFor(modelItem => vtaAtrasada.MontoVendido)</td>
+                            <td>$ @vtaAtrasada.MontoCobrado</td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td colspan="7"> <b>TOTALES</b></td>
+                        <td> $ @(ventaAtrasada.Ventas.Sum(c => (c.MontoCuota * c.Cuotas.Count(v => v.Estado == EstadoCuota.Atrasada))).ToString("N2"))</td>
+                        <td> $ @ventaAtrasada.Ventas.Sum(c => c.MontoVendido).ToString("N2")</td>
+                        <td> $ @ventaAtrasada.Ventas.Sum(c => c.MontoCobrado).ToString("N2")</td>
+                    </tr>
+                </table>
+            </div>
+        }
+
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="4">RESUMEN DE VENTAS ATRASADAS</th>
+                </tr>
+                <tr>
+                    <th rowspan="2" style="vertical-align: middle"><b>TOTALES</b></th>
+                    <th>Monto Total Atrasado</th>
+                    <th>Monto Total</th>
+                    <th>Monto Cobrado</th>
+                </tr>
+                <tr>
+                    <td> $ @Model.Select(c => c.Ventas.Select(m => m.MontoCuota * m.Cuotas.Count(v => v.Estado == EstadoCuota.Atrasada)).Sum()).Sum().ToString("N2")</td>
+                    <td> $ @Model.Select(c => c.Ventas.Select(m => m.MontoVendido).Sum()).Sum().ToString("N2") </td>
+                    <td> $ @Model.Select(c => c.Ventas.Select(m => m.MontoCobrado).Sum()).Sum().ToString("N2") </td>
+                </tr>
+            </thead>
+
+        </table>
+
+    }
+    else
+    {
+        <h4>No existen ventas pendientes de cobro</h4>
+    }
+
+
+
+

@@ -855,6 +855,7 @@
     <Compile Include="Models\GastoViewModel.cs" />
     <Compile Include="Models\RubroViewModel.cs" />
     <Compile Include="Models\VentaItemViewModel.cs" />
+    <Compile Include="Models\VentasAtrasadasViewModel.cs" />
     <Compile Include="Models\VentasPorCobrarViewModel.cs" />
     <Compile Include="Models\VentaTodasViewModel.cs" />
     <Compile Include="Models\VentaViewModel.cs" />
@@ -985,6 +986,7 @@
     <Content Include="Views\Cobro\VerCobros.cshtml" />
     <Content Include="Views\Reporte\PlanillaCobradorPDF.cshtml" />
     <Content Include="Views\Reporte\VentasPorCobrarPDF.cshtml" />
+    <Content Include="Views\Reporte\VentasAtrasadasPDF.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

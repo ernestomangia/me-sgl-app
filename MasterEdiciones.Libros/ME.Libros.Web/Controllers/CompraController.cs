@@ -267,7 +267,7 @@ namespace ME.Libros.Web.Controllers
                     else
                     {
                         TempData["Id"] = compraDominio.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadNueva, Messages.LaCompra, compraDominio.Id);
+                        TempData["Mensaje"] = string.Format(Messages.EntidadModificada, Messages.LaCompra, compraDominio.Id);
                     }
                 }
             }

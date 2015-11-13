@@ -76,9 +76,9 @@
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.config.custom.js"></script>
     <script src="~/Scripts/DataTablesCustom/jquery.dataTables.custom.js"></script>
     <script src="~/Scripts/bootbox.js"></script>
-    
+
     @Scripts.Render("~/bundles/typeahead")
-    <script src="~/Scripts/typeahead.mvc.model.js"></script> 
+    <script src="~/Scripts/typeahead.mvc.model.js"></script>
 
     <script src="~/Scripts/common.js"></script>
 </head>
@@ -103,9 +103,9 @@
                         <li>
                             @Html.ActionLink("Ventas", "Index", "Venta", new { estado = EstadoVenta.Vigente }, null)
                         </li>
-    <li>
-        @Html.ActionLink("Compras", "Index", "Compra", new { estado = EstadoCompra.Pagada }, null)
-    </li>
+                        <li>
+                            @Html.ActionLink("Compras", "Index", "Compra", new { estado = EstadoCompra.Pagada }, null)
+                        </li>
                         <li>
                             @Html.ActionLink("Tesoseria", "Index", "Rendicion")
                         </li>

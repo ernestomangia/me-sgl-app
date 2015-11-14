@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-xs-3"><b>Ventas:</b></div>
                 <div class="col-xs-3">@planilla.Ventas.Count</div>
-                <div class="col-xs-3">[webpage]</div>
+                <div class="col-xs-3"></div>
                 <div class="col-xs-3"></div>
             </div>
 
@@ -61,12 +61,12 @@
                         <td>@Html.DisplayFor(modelItem => venta.Cliente.Nombre), @Html.DisplayFor(modelItem => venta.Cliente.Apellido)</td>
                         <td>@Html.DisplayFor(modelItem => venta.Cliente.Direccion)</td>
                         <td>@Html.DisplayFor(modelItem => venta.Id)</td>
-                        <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)</td>
+                        <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Numero)/@Html.DisplayFor(model => venta.CantidadCuotas)</td>
                         <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).FechaVencimiento)</td>
                         <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).Monto)</td>
-                        <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).FechaCobro)</td>
-                        <td>@Html.DisplayFor(modelItem => venta.Cuotas.First(c => c.Estado != EstadoCuota.Pagada).MontoCobro)</td>
-                        <td> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 }
             </table>

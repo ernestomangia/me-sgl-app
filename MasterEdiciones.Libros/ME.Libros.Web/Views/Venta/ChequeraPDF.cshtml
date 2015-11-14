@@ -38,7 +38,7 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-5"><b>Cuota Nº:</b></div>
-                    <div class="col-xs-7">@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</div>
+                    <div class="col-xs-7">@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.CantidadCuotas)</div>
                 </div>
                 <div class="row">
                     <div class="col-xs-5"><b>@Html.DisplayNameFor(model => model.PlanPago.MontoCuota):</b></div>
@@ -104,7 +104,7 @@
                     <div class="col-xs-2"><b>@Html.DisplayNameFor(model => model.PlanPagoId):</b></div>
                     <div class="col-xs-2">@Html.DisplayFor(model => model.PlanPago.Nombre)</div>
                     <div class="col-xs-2"><b>Cuota Nº:</b></div>
-                    <div class="col-xs-2">@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.PlanPago.CantidadCuotas)</div>
+                    <div class="col-xs-2">@Html.DisplayFor(model => cuota.Numero)/@Html.DisplayFor(model => model.CantidadCuotas)</div>
                     <div class="col-xs-2"><b>@Html.DisplayNameFor(model => model.PlanPago.MontoCuota):</b></div>
                     <div class="col-xs-2">@Html.DisplayFor(model => model.PlanPago.MontoCuota)</div>
                 </div>

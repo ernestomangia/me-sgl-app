@@ -3,23 +3,6 @@
 <link href="~/Content/reportes.css" rel="stylesheet" type="text/css" />
 
 <h3 class="page-header">Dashboard</h3>
-<p>
-    Ver como agrupamos los reportes (clientes, vendedores, proveedores, cobradores)
-    <br />
-    Alternativa 1: Podrian ser 3 menues en el menu lateral.
-    1. Administracion
-    2. Facturacion
-    3. Tesoreria
-    <br />
-
-    Alternativa 2: (no queda bien)
-    Armar directamente una pantalla sin Menu lateral pero hay que ver como organizarlos.
-
-    Alternativa 3: Armar un dashboard, meter algun grafico y los botones para ejecutar los reportes
-
-    Agregar FILTROS para cualquiera de los casos
-</p>
-
 <div class="row">
     <div class="col-lg-4 col-md-6">
         <div class="panel panel-lightblue">
@@ -30,12 +13,12 @@
                         <span class="glyphicon glyphicons-lg glyphicon-shopping-cart text-center" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">26</div>
+                        <div class="huge">@Model.CantidadVigentes</div>
                         <div>Vigentes</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Index", "Venta", new { estado = EstadoVenta.Vigente })">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Detalle</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -53,12 +36,12 @@
                         <span class="glyphicon glyphicons-lg glyphicon-usd" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
+                        <div class="huge">@Model.CantidadPagadas</div>
                         <div>Pagadas</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Index", "Venta", new { estado = EstadoVenta.Pagada })">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Detalle</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -76,12 +59,12 @@
                         <span class="glyphicon glyphicons-lg glyphicon-remove" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">13</div>
+                        <div class="huge">@Model.CantidadAnuladas</div>
                         <div>Anuladas</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="@Url.Action("Index", "Venta", new { estado = EstadoVenta.Anulada })">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Detalle</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -97,10 +80,10 @@
         <h3 class="panel-title">Chequera</h3>
     </div>
     <div class="panel-body">
-        <a class="btn btn-success btn-sm" type="button" href="#" target="_blank" title="Exportar Planilla para Cobradores">
-            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-            Exportar
-        </a>
+        @*<a class="btn btn-success btn-sm" type="button" href="@Url.Action("GenerarChequera", "Venta")" target="_blank" title="Exportar Planilla para Cobradores">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                Exportar
+            </a>*@
     </div>
 </div>
 <div class="panel panel-default">
@@ -108,10 +91,41 @@
         <h3 class="panel-title">Planilla cobrador</h3>
     </div>
     <div class="panel-body">
-        <a class="btn btn-success btn-sm" type="button" href="@Url.Action("PlanillaCobrador")" target="_blank" title="Exportar Planilla para Cobradores">
-            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-            Exportar
-        </a>
+        <div class="collapse in">
+            <div class="well well-sm">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(r => r.Cobrador, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(r => r.Cobrador, new { @class = "form-control", placeholder = "Cobrador" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(r => r.LocalidadId, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(r => r.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right">
+                    <a class="btn btn-success btn-sm" type="button" href="@Url.Action("PlanillaCobrador")" target="_blank" title="Exportar Planilla para Cobradores">
+                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                        Exportar
+                    </a>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 <div class="panel panel-default">
@@ -191,16 +205,15 @@
                 <div class="text-right">
                     <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasPorCobrar")" target="_blank" title="Exportar Ventas por Cobrar">
                         <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                        Exportar
+                        Exportar (Ventas por cobrar)
+                    </a>
+                    <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasAtrasadas")" target="_blank" title="Exportar Ventas Atrasadas">
+                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                        Exportar (Ventas atrasadas)
                     </a>
                 </div>
             </div>
         </div>
-        
-        @*<a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasAtrasadas")" target="_blank" title="Exportar Ventas Atrasadas">
-                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                Exportar
-            </a>*@
     </div>
 </div>
 

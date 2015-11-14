@@ -7,6 +7,7 @@ using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Models;
+using Microsoft.Ajax.Utilities;
 using Rotativa;
 using Rotativa.Options;
 
@@ -16,13 +17,14 @@ namespace ME.Libros.Web.Controllers
     {
         public ClienteService ClienteService { get; set; }
         public VentaService VentaService { get; set; }
-
+        public LocalidadService LocalidadService { get; set; }
 
         public ReporteController()
         {
             var modelContainer = new ModelContainer();
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
+            LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ViewBag.MenuId = 150;
             ViewBag.Title = "Reportes";
         }
@@ -30,7 +32,31 @@ namespace ME.Libros.Web.Controllers
         // GET: Default
         public ActionResult Index()
         {
-            return View(new ReporteViewModel());
+            var reporteViewModel = new ReporteViewModel();
+            var localidades = LocalidadService.Listar()
+                .ToList()
+                .Select(l => new LocalidadViewModel(l));
+            reporteViewModel.Localidades = new SelectList(localidades, "Id", "Nombre");
+
+            var cantidadPorEstado = VentaService.ListarAsQueryable().GroupBy(v => new { v.Estado },
+                v => v,
+                (key, group) => new
+                {
+                    key.Estado,
+                    Cantidad = group.Count()
+                }).ToList();
+
+            reporteViewModel.CantidadVigentes =
+                cantidadPorEstado.SingleOrDefault(x => x.Estado == EstadoVenta.Vigente) == null
+                    ? 0
+                    : cantidadPorEstado.Single(x => x.Estado == EstadoVenta.Vigente).Cantidad;
+            reporteViewModel.CantidadPagadas = cantidadPorEstado.SingleOrDefault(x => x.Estado == EstadoVenta.Pagada) == null
+                    ? 0
+                    : cantidadPorEstado.Single(x => x.Estado == EstadoVenta.Pagada).Cantidad;
+            reporteViewModel.CantidadAnuladas = cantidadPorEstado.SingleOrDefault(x => x.Estado == EstadoVenta.Anulada) == null
+                    ? 0
+                    : cantidadPorEstado.Single(x => x.Estado == EstadoVenta.Anulada).Cantidad;
+            return View(reporteViewModel);
         }
 
         public ActionResult PlanillaCobrador()
@@ -55,7 +81,7 @@ namespace ME.Libros.Web.Controllers
             {
                 planillas.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == EstadoVenta.Vigente)
-                    .GroupBy(v => new {v.Cobrador, v.Cliente.Localidad},
+                    .GroupBy(v => new { v.Cobrador, v.Cliente.Localidad },
                         v => v,
                         (key, group) => new
                         {
@@ -95,7 +121,7 @@ namespace ME.Libros.Web.Controllers
             {
                 ventasPorCobrar.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == EstadoVenta.Vigente)
-                    .GroupBy(v => new {v.FechaVenta.Year, v.FechaVenta.Month},
+                    .GroupBy(v => new { v.FechaVenta.Year, v.FechaVenta.Month },
                         v => v,
                         (key, group) => new
                         {
@@ -133,8 +159,8 @@ namespace ME.Libros.Web.Controllers
             using (VentaService)
             {
                 ventasAtrasadas.AddRange(VentaService.ListarAsQueryable()
-                    .Where(v => v.Estado == EstadoVenta.Vigente)
-                    .GroupBy(v => new {v.FechaVenta.Year, v.FechaVenta.Month},
+                    .Where(v => v.Estado == EstadoVenta.Vigente && v.Cuotas.Any(c => c.Estado == EstadoCuota.Atrasada))
+                    .GroupBy(v => new { v.FechaVenta.Year, v.FechaVenta.Month },
                         v => v,
                         (key, group) => new
                         {

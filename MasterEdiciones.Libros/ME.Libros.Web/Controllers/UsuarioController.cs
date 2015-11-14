@@ -182,6 +182,11 @@ namespace ME.Libros.Web.Controllers
                 using (UsuarioService)
                 {
                     var usuarioDominio = UsuarioService.GetPorId(usuarioViewModel.Id);
+                    usuarioDominio.Nombre = usuarioViewModel.Nombre;
+                    usuarioDominio.Apellido = usuarioViewModel.Apellido;
+                    usuarioDominio.Email = usuarioViewModel.Email;
+                    usuarioDominio.EmailConfirmado = usuarioViewModel.EmailConfirmado;
+                    usuarioDominio.Habilitado = usuarioViewModel.Habilitado;
                     usuarioDominio.UserName = usuarioViewModel.UserName;
                     usuarioDominio.Password = usuarioViewModel.Password;
                     resultado = UsuarioService.Guardar(usuarioDominio);

@@ -48,6 +48,7 @@ namespace ME.Libros.Web.Models
         public EstadoCuota Estado { get; set; }
 
         [Display(Name = "FechaVencimiento", ResourceType = typeof(Messages))]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime FechaVencimiento { get; set; }
 
         [Display(Name = "FechaCobro", ResourceType = typeof(Messages))]

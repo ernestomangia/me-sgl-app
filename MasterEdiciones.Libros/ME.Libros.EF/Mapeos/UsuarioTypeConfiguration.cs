@@ -24,7 +24,7 @@ namespace ME.Libros.EF.Mapeos
             Property(r => r.EmailConfirmado).IsRequired();
             Property(r => r.Habilitado).IsRequired();
             Property(r => r.UltimoLogin).IsOptional();
-            Property(r => r.CantidadIntentosFallidos).IsRequired();
+            Property(r => r.CantidadIntentosFallidos).IsOptional();
 
             //Map Table
             ToTable("Usuario");

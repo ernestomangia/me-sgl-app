@@ -25,17 +25,17 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(u => u.Email, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.TextBoxFor(u => u.Email, new { @class = "form-control text-lowercase", type = "email", placeholder = "Email" })
+                @Html.TextBoxFor(u => u.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
             </div>
         </div>
     </div>
     <div class="col-md-5">
-        <div class="form-group form-group-sm">
+        @*<div class="form-group form-group-sm">
             @Html.LabelFor(u => u.EmailConfirmado, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.CheckBoxFor(u => u.EmailConfirmado, new { @class = "form-control", disabled = "disabled" })
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
 
@@ -100,10 +100,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#Habilitado").bootstrapSwitch({ state: true });
-        $("#EmailConfirmado").bootstrapSwitch({ state: false });
-    });
-</script>

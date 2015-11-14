@@ -62,7 +62,7 @@ namespace ME.Libros.Web.Models
         [DataType(DataType.Password)]
         public string ConfirmarPassword { get; set; }
 
-        [StringLength(80, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
+        [StringLength(100, ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "StringLength")]
         [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "FormatoInvalido")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

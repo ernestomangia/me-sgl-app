@@ -44,12 +44,11 @@ namespace ME.Libros.Web.Models
             CantidadCuotas = ventaDominio.CantidadCuotas;
             MontoCuota = ventaDominio.MontoCuota;
             // Items
-            Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi)));
-            Items.ForEach(c => c.Venta = this);
+            Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi) { Venta = this }));
             // Cuotas
-            Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c)));
-            Cuotas.ForEach(c => c.Venta = this);
+            Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c) { Venta = this }));
             EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
+            EsPagada = ventaDominio.Estado == EstadoVenta.Pagada;
             AutocompleteCliente = string.Format("{0} {1}", ventaDominio.Cliente.Nombre, ventaDominio.Cliente.Apellido);
             AutocompleteCobrador = string.Format("{0} {1}", ventaDominio.Cobrador.Nombre, ventaDominio.Cobrador.Apellido);
             AutocompleteVendedor = string.Format("{0} {1}", ventaDominio.Vendedor.Nombre, ventaDominio.Vendedor.Apellido);
@@ -113,6 +112,8 @@ namespace ME.Libros.Web.Models
 
         public bool EsVigente { get; set; }
 
+        public bool EsPagada { get; set; }
+
         [Display(Name = "Cliente", ResourceType = typeof(Messages))]
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ClienteId { get; set; }
@@ -137,16 +138,13 @@ namespace ME.Libros.Web.Models
 
         [Display(Name = "Vendedor", ResourceType = typeof(Messages))]
         public string AutocompleteVendedor { get; set; }
-        
+
         public List<VentaItemViewModel> Items { get; set; }
         public List<CuotaViewModel> Cuotas { get; set; }
         public ClienteViewModel Cliente { get; set; }
         public CobradorViewModel Cobrador { get; set; }
         public VendedorViewModel Vendedor { get; set; }
         public PlanPagoViewModel PlanPago { get; set; }
-        public SelectList Clientes { get; set; }
-        public SelectList Cobradores { get; set; }
-        public SelectList Vendedores { get; set; }
         public SelectList PlanesPago { get; set; }
 
         #endregion

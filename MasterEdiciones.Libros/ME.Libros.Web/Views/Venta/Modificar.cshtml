@@ -1,24 +1,25 @@
 ﻿@using ME.Libros.Utils.Enums
 @model ME.Libros.Web.Models.VentaViewModel
-@{
-    var esVentaPagada = Model.Estado == EstadoVenta.Pagada;
-}
 <script src="~/Scripts/venta.js"></script>
 
 <h3 class="page-header">Modificar venta</h3>
-@using (Html.BeginForm("Modificar", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad" }))
+@using (Html.BeginForm("Modificar", "Venta", FormMethod.Post, new { id = "formVenta", @class = "form-horizontal formEntidad", autocomplete = "none" }))
 {
     @Html.Partial("Shared/Form_Partial", Model)
     @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.ClienteId)
-    @Html.HiddenFor(model => model.VendedorId)
+    @Html.HiddenFor(model => model.Estado)
+    @Html.HiddenFor(model => model.FechaVenta, new { Value = Model.FechaVenta.ToString("dd/MM/yyyy") })
+    @Html.HiddenFor(model => model.FechaCobro, new { Value = Model.FechaCobro.ToString("dd/MM/yyyy") })
+    @Html.HiddenFor(model => model.AutocompleteCliente)
+    @Html.HiddenFor(model => model.AutocompleteVendedor)
     @Html.HiddenFor(model => model.PlanPagoId)
+    @Html.HiddenFor(model => model.MontoCalculado)
     @Html.HiddenFor(model => model.MontoVendido)
-
+    @Html.HiddenFor(model => model.MontoNetoVendido)
     <div class="row">
         <div class="col-md-12">
             <div class="text-right">
-                @if (Model.EsVigente || esVentaPagada)
+                @if (Model.EsVigente || Model.EsPagada)
                 {
                     <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#modalEliminarVenta" title="Anular venta">
                         <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
@@ -60,8 +61,6 @@
         $("#AutocompleteCliente").css("background-color", "");
         $("#AutocompleteVendedor").attr("disabled", "disabled");
         $("#AutocompleteVendedor").css("background-color", "");
-        $("#ClienteId").attr("disabled", "disabled");
-        $("#VendedorId").attr("disabled", "disabled");
         $("#PlanPagoId").attr("disabled", "disabled");
         $("#MontoVendido").attr("disabled", "disabled");
     });

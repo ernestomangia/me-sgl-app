@@ -22,7 +22,14 @@ namespace ME.Libros.Web.Controllers
             int loc = idFieldString.IndexOf('.');
             // Also, replace the . with _ as this is done by MVC so the field name is js friendly
             string autocompleteIdField = idFieldString.Substring(loc + 1, idFieldString.Length - loc - 1).Replace('.','_');
-            return html.TextBoxFor(valueExpression, new { data_autocomplete_url = autocompleteUrl, @class, data_autocomplete_id_field = autocompleteIdField });
+            return html.TextBoxFor(valueExpression,
+                new
+                {
+                    data_autocomplete_url = autocompleteUrl,
+                    @class,
+                    data_autocomplete_id_field = autocompleteIdField,
+                    autocomplete = "none"
+                });
         }
     }
 }

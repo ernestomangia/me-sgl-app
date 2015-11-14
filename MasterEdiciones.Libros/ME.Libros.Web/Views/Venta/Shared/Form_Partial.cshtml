@@ -16,9 +16,9 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group form-group-sm">
-                @Html.LabelFor(c => c.Id, new { @class = "col-md-4 control-label" })
+                @Html.LabelFor(v => v.Id, new { @class = "col-md-4 control-label" })
                 <div class="col-md-8">
-                    @Html.TextBoxFor(c => c.Id, new { @class = "form-control", disabled = "disabled" })
+                    @Html.TextBoxFor(v => v.Id, new { @class = "form-control", disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -62,8 +62,8 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.AutocompleteCliente, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.HiddenFor(v => v.ClienteId, new { value = "" })
-                @Html.AutocompleteFor(v => v.AutocompleteCliente, c => c.ClienteId, "Get", "Cliente", false)
+                @Html.HiddenFor(v => v.ClienteId, new { Value = (Model.ClienteId == 0 ? string.Empty : Model.ClienteId.ToString()) })
+                @Html.AutocompleteFor(v => v.AutocompleteCliente, v => v.ClienteId, "Get", "Cliente", false)
             </div>
         </div>
     </div>
@@ -76,9 +76,9 @@
                                                    title = "Cobrador actual de la venta."
                                                })
             <div class="col-md-8">
-                @Html.HiddenFor(v => v.CobradorId)
+                @Html.HiddenFor(v => v.CobradorId, new { Value = (Model.CobradorId == 0 ? string.Empty : Model.CobradorId.ToString()) })
                 @(Model.EsVigente || Model.Estado == EstadoVenta.None
-                      ? Html.AutocompleteFor(v => v.AutocompleteCobrador, c => c.CobradorId, "Get", "Cobrador", false)
+                      ? Html.AutocompleteFor(v => v.AutocompleteCobrador, v => v.CobradorId, "Get", "Cobrador", false)
                       : Html.TextBoxFor(v => v.AutocompleteCobrador, new { @class = "form-control disabled" }))
             </div>
         </div>
@@ -89,8 +89,8 @@
         <div class="form-group form-group-sm">
             @Html.LabelFor(v => v.AutocompleteVendedor, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.HiddenFor(v => v.VendedorId)
-                @Html.AutocompleteFor(v => v.AutocompleteVendedor, c => c.VendedorId, "GetByNombre", "Vendedor", false)
+                @Html.HiddenFor(v => v.VendedorId, new { Value = (Model.VendedorId == 0 ? string.Empty : Model.VendedorId.ToString()) })
+                @Html.AutocompleteFor(v => v.AutocompleteVendedor, v => v.VendedorId, "GetByNombre", "Vendedor", false)
             </div>
         </div>
     </div>
@@ -234,13 +234,6 @@
                         </div>
                     </div>
                 </div>
-                @*<div id="MsjMontoVendido" class="row" style="display: block;">
-                        <div class="col-md-12">
-                            <div class="alert alert-warning" role="alert">
-                                El <b>Monto vendido</b> es menor al <b>Monto calculado</b>
-                            </div>
-                        </div>
-                    </div>*@
                 @if (Model.Cuotas.Any())
                 {
                     <div>
@@ -268,6 +261,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         loadVentaDetalleDataTable();
+        $('#formVenta').validate().settings.ignore = false;
 
         $("#MontoComision").rules("add", {
             min: 0,

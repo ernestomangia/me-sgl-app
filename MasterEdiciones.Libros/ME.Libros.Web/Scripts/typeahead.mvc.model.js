@@ -29,6 +29,12 @@
             source: autos.ttAdapter()
         }).on('typeahead:selected', function (obj, datum) {
             onselected(obj, datum);
+        }).on('typeahead:autocompleted', function (obj, datum) {
+            onselected(obj, datum);
+        }).on('keyup paste cut', function (obj) {
+            if (!this.value) {
+                resetTypeahead(obj);
+            }
         });
 
         if ($(obj).hasClass("focus")) {
@@ -41,8 +47,11 @@
         $('#' + jQuery(obj.target).data("autocomplete-id-field")).val(datum.id.toString()).trigger("change");
     }
 
-    $('*[data-autocomplete-url]')
-            .each(function () {
-                autocompletewrapper($(this));
-            });
+    function resetTypeahead(obj) {
+        $('#' + jQuery(obj.target).data("autocomplete-id-field")).val("").trigger("change");
+    }
+
+    $('*[data-autocomplete-url]').each(function () {
+        autocompletewrapper($(this));
+    });
 }))

@@ -243,30 +243,7 @@ namespace ME.Libros.Web.Controllers
                 ventaViewModel = new VentaViewModel(VentaService.GetPorId(id));
             }
             PrepareModel(ventaViewModel);
-
-            if (Session["MenuTodas"] == null)
-            {
-                switch (ventaViewModel.Estado)
-                {
-                    case EstadoVenta.Vigente:
-                        SetMenuVigente();
-                        break;
-                    case EstadoVenta.Pagada:
-                        ViewBag.Title = "Pagadas";
-                        ViewBag.MenuId = 21;
-                        break;
-                    case EstadoVenta.Anulada:
-                        ViewBag.Title = "Anuladas";
-                        ViewBag.MenuId = 22;
-                        break;
-                }
-            }
-            else
-            {
-                ViewBag.Title = "Todas";
-                ViewBag.MenuId = 23;
-            }
-
+            SetMenu(ventaViewModel.Estado);
             return View(ventaViewModel);
         }
 
@@ -276,6 +253,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(ventaViewModel);
+                SetMenu(ventaViewModel.Estado);
                 return View(ventaViewModel);
             }
 
@@ -324,6 +302,7 @@ namespace ME.Libros.Web.Controllers
             }
 
             PrepareModel(ventaViewModel);
+            SetMenu(ventaViewModel.Estado);
             return View(ventaViewModel);
         }
 
@@ -394,18 +373,6 @@ namespace ME.Libros.Web.Controllers
 
         private void PrepareModel(VentaViewModel ventaViewModel)
         {
-            ventaViewModel.Clientes = new SelectList(ClienteService.Listar()
-                .ToList()
-                .Select(c => new { Id = c.Id, Text = c.Id + " - " + c.Cuil }), "Id", "Text");
-
-            ventaViewModel.Cobradores = new SelectList(CobradorService.Listar()
-                .ToList()
-                .Select(c => new { Id = c.Id, Text = c.Id + " - " + c.Dni }), "Id", "Text");
-
-            ventaViewModel.Vendedores = new SelectList(VendedorService.Listar()
-                .ToList()
-                .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Dni }), "Id", "Text");
-
             ventaViewModel.PlanesPago = new SelectList(PlanPagoService.Listar()
                 .ToList()
                 .Select(p => new PlanPagoViewModel(p)), "Id", "Nombre");
@@ -419,12 +386,48 @@ namespace ME.Libros.Web.Controllers
                     item.Orden = i++;
                 }
             }
+            else
+            {
+                var ventaDominio = VentaService.GetPorId(ventaViewModel.Id);
+                // Items
+                ventaViewModel.Items = new List<VentaItemViewModel>(ventaDominio.VentaItems.Select(vi => new VentaItemViewModel(vi) { Venta = ventaViewModel }));
+                // Cuotas
+                ventaViewModel.Cuotas = new List<CuotaViewModel>(ventaDominio.Cuotas.Select(c => new CuotaViewModel(c) { Venta = ventaViewModel }));
+                ventaViewModel.EsVigente = ventaDominio.Estado == EstadoVenta.Vigente;
+                ventaViewModel.EsPagada = ventaDominio.Estado == EstadoVenta.Pagada;
+            }
         }
 
         private void SetMenuVigente()
         {
             ViewBag.Title = "Vigentes";
             ViewBag.MenuId = 20;
+        }
+
+        private void SetMenu(EstadoVenta estadoVenta)
+        {
+            if (Session["MenuTodas"] == null)
+            {
+                switch (estadoVenta)
+                {
+                    case EstadoVenta.Vigente:
+                        SetMenuVigente();
+                        break;
+                    case EstadoVenta.Pagada:
+                        ViewBag.Title = "Pagadas";
+                        ViewBag.MenuId = 21;
+                        break;
+                    case EstadoVenta.Anulada:
+                        ViewBag.Title = "Anuladas";
+                        ViewBag.MenuId = 22;
+                        break;
+                }
+            }
+            else
+            {
+                ViewBag.Title = "Todas";
+                ViewBag.MenuId = 23;
+            }
         }
 
         #endregion

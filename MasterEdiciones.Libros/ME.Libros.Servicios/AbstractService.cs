@@ -9,16 +9,13 @@ using ME.Libros.Dominio;
 
 namespace ME.Libros.Servicios
 {
-    using System.ComponentModel.DataAnnotations;
-
-    public abstract class AbstractService<T> : IAbstractService<T>, IDisposable where T : BaseDominio 
+    public abstract class AbstractService<T> : IAbstractService<T>, IDisposable where T : BaseDominio
     {
         #region Private Members
 
         private readonly IRepository<T> _repositorio;
 
-        public Dictionary<string, string> ModelError; 
-        //private IValidationDictionary validationDictionary;
+        public Dictionary<string, string> ModelError;
 
         #endregion
 
@@ -36,11 +33,6 @@ namespace ME.Libros.Servicios
         {
             return _repositorio.Guardar(entidad);
         }
-
-        //public virtual void Modificar(T entidad)
-        //{
-        //    repositorio.Editar(entidad);
-        //}
 
         public virtual void Eliminar(T entidad)
         {
@@ -80,11 +72,6 @@ namespace ME.Libros.Servicios
         public virtual bool Validar(T entidad)
         {
             return ModelError.Count == 0;
-        }
-
-        public virtual void Guardar2(T entidad)
-        {
-            _repositorio.Guardar(entidad);
         }
     }
 }

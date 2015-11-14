@@ -345,7 +345,11 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td>{9F95C39F-FC91-4862-ADA2-4B30DBBFAEE7}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ME.Libros.Web.Primary_output</td><td>{755B8E14-50E1-4945-A051-F77F1EB33165}</td><td>INSTALLDIR</td><td>2</td><td/><td>me.libros.web.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{105465A4-67F7-4EF4-B702-70307AD08027}</td><td>MASTEREDICIONES1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{9162B644-242D-4745-B08F-A33D7396F3F4}</td><td>DesktopFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{FE4620C3-CDDD-4DB7-85D3-EAD0C8BC69A0}</td><td>BIN</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ME.Libros.Web.Content_Files</td><td>{B9466CDD-3E24-41AA-81ED-0A2E2754A597}</td><td>MASTEREDICIONES1</td><td>2</td><td/><td>me.libros.web.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ME.Libros.Web.Primary_output2</td><td>{0B25648F-0C7A-4F66-97F9-C71C06AFF826}</td><td>BIN</td><td>2</td><td/><td>me.libros.web.primary_output2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>WebsiteComponent</td><td>{75AA51A4-6609-4BAD-B68E-D5751D6E4CD3}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
@@ -1056,9 +1060,18 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>BIN</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>BIN</td><td>ME.Libros.Web.Primary_output2</td></row>
+		<row><td>DesktopFolder</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Primary_output</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Content_Files</td></row>
+		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Primary_output2</td></row>
 		<row><td>INSTALLDIR</td><td>WebsiteComponent</td></row>
+		<row><td>MASTEREDICIONES1</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>MASTEREDICIONES1</td><td>ME.Libros.Web.Content_Files</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1146,6 +1159,7 @@
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
+		<row><td>BIN</td><td>MASTEREDICIONES1</td><td>bin</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
 		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
@@ -1161,6 +1175,7 @@
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
+		<row><td>MASTEREDICIONES1</td><td>IISROOTFOLDER</td><td>MASTER~1|MasterEdiciones</td><td/><td>0</td><td/></row>
 		<row><td>MASTER_EDICIONES</td><td>ProgramFilesFolder</td><td>MASTER~1|Master Ediciones</td><td/><td>0</td><td/></row>
 		<row><td>MASTER_EDICIONES_WEB</td><td>MASTER_EDICIONES</td><td>MASTER~1|Master Ediciones Web</td><td/><td>0</td><td/></row>
 		<row><td>ME.LIBROS.WEB.SETUP</td><td>MASTER_EDICIONES</td><td>ME_LIB~1|ME.Libros.Web.Setup</td><td/><td>0</td><td/></row>
@@ -1169,6 +1184,8 @@
 		<row><td>ME_LIBROS</td><td>ProgramFilesFolder</td><td>MELIBR~1|ME Libros</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>ME_LIBROS</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
+		<row><td>NEW_FOLDER_1</td><td>TARGETDIR</td><td>NEW_FOLDER_1</td><td/><td>0</td><td/></row>
+		<row><td>NEW_FOLDER_11</td><td>TARGETDIR</td><td>NEW_FOLDER_11</td><td/><td>0</td><td/></row>
 		<row><td>NetHoodFolder</td><td>TARGETDIR</td><td>.:NetHood</td><td/><td>0</td><td/></row>
 		<row><td>PersonalFolder</td><td>TARGETDIR</td><td>.:Personal</td><td/><td>0</td><td/></row>
 		<row><td>PrimaryVolumePath</td><td>TARGETDIR</td><td>.:Primar~1|PrimaryVolumePath</td><td/><td>0</td><td/></row>
@@ -1195,6 +1212,7 @@
 		<row><td>master_1_master_ediciones_web</td><td>master_1_master_ediciones</td><td>MASTER~1|Master Ediciones Web</td><td/><td>1</td><td/></row>
 		<row><td>melibr_1.set_me.libros.web.setups</td><td>melibr_1_me_libros</td><td>MELIBR~1.SET|ME.Libros.Web.Setups</td><td/><td>1</td><td/></row>
 		<row><td>melibr_1_me_libros</td><td>ProgramMenuFolder</td><td>MELIBR~1|ME Libros</td><td/><td>1</td><td/></row>
+		<row><td>sistem_1_sistema_gestion_de_libros</td><td>master_1_master_ediciones</td><td>SISTEM~1|Sistema Gestion de Libros</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="DrLocator">
@@ -1887,7 +1905,11 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Content_Files</td></row>
+		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Primary_output2</td></row>
 		<row><td>AlwaysInstall</td><td>WebsiteComponent</td></row>
 	</table>
 
@@ -1903,7 +1925,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>me.libros.web.primary_output</td><td>ME.Libros.Web.Primary_output</td><td>ME.Libros.Web.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ME.Libros.Web&gt;|Built</td><td>3</td><td/></row>
+		<row><td>me.libros.web.content_files</td><td>ME.Libros.Web.Content_Files</td><td>ME.Libros.Web.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ME.Libros.Web&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>me.libros.web.primary_output2</td><td>ME.Libros.Web.Primary_output2</td><td>ME.Libros.Web.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ME.Libros.Web&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2046,7 +2069,11 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_8C1E6326_7C66_42CD_9F9C_F93824311AA4_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ME.Libros.Web.Primary_output</td><td/><td/><td>_012BC404_A30B_41C9_A2EF_2B9712C0ADF7_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_911A492E_38AF_4A93_BB5F_507EC93E00C3_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_044DE8F9_0071_4D31_BFFA_70CCE9259E9C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_1186EE86_7A87_4D24_A893_1F2FA8541278_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ME.Libros.Web.Content_Files</td><td/><td/><td>_610A5FFD_CF01_42EA_9151_62142099B7EB_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ME.Libros.Web.Primary_output2</td><td/><td/><td>_8353A022_BB19_4990_B420_994BEDC0027C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>WebsiteComponent</td><td/><td/><td>_DCF567C8_FCE3_46A9_ADFF_AE21654CA16F_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
@@ -2145,7 +2172,6 @@
 		<col def="i4">Type</col>
 		<col def="S72">Component_</col>
 		<row><td>IisItem1</td><td/><td>##ID_STRING6##</td><td>1</td><td>WebsiteComponent</td></row>
-		<row><td>IisItem2</td><td>IisItem1</td><td>##ID_STRING9##</td><td>2</td><td>WebsiteComponent</td></row>
 	</table>
 
 	<table name="ISIISProperty">
@@ -2160,23 +2186,13 @@
 		<col def="L0">MetaDataValue</col>
 		<col def="I4">Order</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>ISIISProperty1</td><td>IisItem1</td><td/><td>Path</td><td/><td/><td/><td/><td>IISROOTFOLDER</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty10</td><td>IisItem1</td><td/><td>ServerBindings</td><td/><td/><td/><td/><td>*:80:</td><td>0</td><td>0</td></row>
+		<row><td>ISIISProperty1</td><td>IisItem1</td><td/><td>Path</td><td/><td/><td/><td/><td>MASTEREDICIONES1</td><td>0</td><td>0</td></row>
+		<row><td>ISIISProperty10</td><td>IisItem1</td><td/><td>ServerBindings</td><td/><td/><td/><td/><td>*:8080:</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty11</td><td>IisItem1</td><td/><td>SiteNumber</td><td/><td/><td/><td/><td>0</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty12</td><td>IisItem1</td><td/><td>DefaultDoc</td><td/><td/><td/><td/><td/><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty13</td><td>IisItem1</td><td/><td>CustomErrors</td><td/><td/><td/><td/><td/><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty14</td><td>IisItem2</td><td/><td>Path</td><td/><td/><td/><td/><td>INSTALLDIR</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty15</td><td>IisItem2</td><td/><td>DefaultDoc</td><td/><td/><td/><td/><td>##ID_STRING11##</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty16</td><td>IisItem2</td><td/><td>AppFriendlyName</td><td/><td/><td/><td/><td/><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty17</td><td>IisItem2</td><td/><td>AccessFlags</td><td/><td/><td/><td/><td>513</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty18</td><td>IisItem2</td><td/><td>ContentIndexed</td><td/><td/><td/><td/><td>1</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty19</td><td>IisItem2</td><td/><td>DontLog</td><td/><td/><td/><td/><td>0</td><td>0</td><td>0</td></row>
+		<row><td>ISIISProperty14</td><td>IisItem1</td><td/><td>AspVer</td><td/><td/><td/><td/><td>4.0.30319</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty2</td><td>IisItem1</td><td/><td>AccessFlags</td><td/><td/><td/><td/><td>513</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty20</td><td>IisItem2</td><td/><td>AppIsolated</td><td/><td/><td/><td/><td>2</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty21</td><td>IisItem2</td><td/><td>AuthFlags</td><td/><td/><td/><td/><td>5</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty22</td><td>IisItem2</td><td/><td>ScriptTimeout</td><td/><td/><td/><td/><td>90</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty23</td><td>IisItem2</td><td/><td>SessionTimeout</td><td/><td/><td/><td/><td>20</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty24</td><td>IisItem2</td><td/><td>AppPoolId</td><td/><td/><td/><td/><td/><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty3</td><td>IisItem1</td><td/><td>ContentIndexed</td><td/><td/><td/><td/><td>1</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty4</td><td>IisItem1</td><td/><td>DontLog</td><td/><td/><td/><td/><td>0</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty5</td><td>IisItem1</td><td/><td>AppIsolated</td><td/><td/><td/><td/><td>2</td><td>0</td><td>0</td></row>
@@ -2415,13 +2431,13 @@
 		<col def="S255">DotNetBuildConfiguration</col>
 		<col def="S255">MsiCommandLine</col>
 		<col def="I4">ISSetupPrerequisiteLocation</col>
-		<row><td>CD_ROM</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>0</td><td>1034</td><td>0</td><td>2</td><td>Intel</td><td/><td>1034</td><td>0</td><td>650</td><td>0</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
+		<row><td>CD_ROM</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>0</td><td>1034</td><td>0</td><td>2</td><td>Intel</td><td/><td>1034</td><td>0</td><td>650</td><td>0</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75804</td><td/><td/><td/><td>3</td></row>
 		<row><td>Custom</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>2</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>100</td><td>0</td><td>1024</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-10</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>8.75</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-18</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>15.83</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1034</td><td>0</td><td>2</td><td>Intel</td><td/><td>1034</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75933</td><td/><td/><td/><td>3</td></row>
+		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75932</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-9</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>7.95</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108573</td><td/><td/><td/><td>3</td></row>
+		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108572</td><td/><td/><td/><td>3</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>124941</td><td/><td/><td/><td>3</td></row>
 	</table>
 
@@ -2467,7 +2483,7 @@
 		<row><td>Custom</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-10</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-18</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
-		<row><td>DVD-5</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
+		<row><td>DVD-5</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>DVD-9</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>0</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>SingleImage</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>install</td><td>install</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>1</td><td>http://www.installengine.com/Msiengine20</td><td>http://www.installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
 		<row><td>WebDeployment</td><td>Express</td><td>0</td><td>http://</td><td>0</td><td>setup</td><td>Default</td><td>[LocalAppDataFolder]Downloaded Installations</td><td>2</td><td>http://www.Installengine.com/Msiengine20</td><td>http://www.Installengine.com/Msiengine20</td><td>0</td><td>http://www.installengine.com/cert05/isengine</td><td>0</td><td/><td/><td/><td>3</td><td>http://www.installengine.com/cert05/dotnetfx</td><td>0</td><td>1033</td><td/><td/><td/><td/><td/><td>3</td><td/><td>http://www.installengine.com/Msiengine30</td><td/></row>
@@ -2664,7 +2680,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>883139733</td></row>
+		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>497232960</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1034</td><td>Instalar siempre</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1034</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1034</td><td>La configuración de colores de su sistema no es adecuada para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
@@ -3480,6 +3496,8 @@
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1034</td><td>Esta configuración se creó con una versión de evaluación de InstallShield y solo se puede iniciar desde el archivo setup.exe.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1034</td><td>Launch |Built</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1034</td><td>Sistema Gestión de Libros</td><td>0</td><td/><td>883150901</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td/><td>0</td><td/><td>497223040</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1034</td><td>LAUNCH~1.EXE|Launch wkhtmltopdf.exe</td><td>0</td><td/><td>497223040</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1034</td><td>Seleccione el servidor de base de datos de destino en la lista de servidores que aparece a continuación.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1034</td><td>En la lista de nombres de catálogo siguiente, seleccione el catálogo de base de datos de destino.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1034</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>883150901</td></row>
@@ -3771,11 +3789,17 @@
 		<row><td>ID_STRING1</td><td>1034</td><td/><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING10</td><td>1034</td><td>ME Libros</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING11</td><td>1034</td><td>Login.cshtml</td><td>0</td><td/><td>883150901</td></row>
+		<row><td>ID_STRING12</td><td>1033</td><td>Application1</td><td>0</td><td/><td>1302557408</td></row>
+		<row><td>ID_STRING12</td><td>1034</td><td>MasterEdiciones</td><td>0</td><td/><td>1302569696</td></row>
+		<row><td>ID_STRING13</td><td>1033</td><td>VirtualDir2</td><td>0</td><td/><td>1302561504</td></row>
+		<row><td>ID_STRING13</td><td>1034</td><td>VirtualDir2</td><td>0</td><td/><td>1302561504</td></row>
+		<row><td>ID_STRING14</td><td>1033</td><td>Default Application2</td><td>0</td><td/><td>1302561504</td></row>
+		<row><td>ID_STRING14</td><td>1034</td><td>Default Application2</td><td>0</td><td/><td>1302561504</td></row>
 		<row><td>ID_STRING2</td><td>1034</td><td/><td>0</td><td/><td>883150901</td></row>
-		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>883139733</td></row>
-		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>883139733</td></row>
+		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>497232960</td></row>
+		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>497232960</td></row>
 		<row><td>ID_STRING5</td><td>1034</td><td>Launch |Built</td><td>0</td><td/><td>883150901</td></row>
-		<row><td>ID_STRING6</td><td>1034</td><td>masterediciones</td><td>0</td><td/><td>883150901</td></row>
+		<row><td>ID_STRING6</td><td>1034</td><td>MasterEdiciones</td><td>0</td><td/><td>1168369271</td></row>
 		<row><td>ID_STRING7</td><td>1034</td><td>VirtualDir2</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING8</td><td>1034</td><td>Default Application1</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING9</td><td>1034</td><td>SGL</td><td>0</td><td/><td>883150901</td></row>
@@ -3893,6 +3917,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ME.Libros.Web\book.ico</td><td>0</td></row>
+		<row><td>wkhtmltopdf.exe_BFF5E200B7924ECCBE8A4AD3063B8EF9.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4012,8 +4037,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1034</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
-UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
+QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
@@ -4488,11 +4513,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>FileKey1</td><td>ME.Libros.Web.Primary_output</td><td/><td>melibr_1_me_libros</td><td>2</td></row>
-		<row><td>FileKey2</td><td>ME.Libros.Web.Primary_output</td><td/><td>melibr_1.set_me.libros.web.setups</td><td>2</td></row>
-		<row><td>FileKey3</td><td>ME.Libros.Web.Primary_output</td><td/><td>master_1_master_ediciones</td><td>2</td></row>
-		<row><td>FileKey4</td><td>ME.Libros.Web.Primary_output</td><td/><td>master_1_master_ediciones_web</td><td>2</td></row>
-		<row><td>_Built</td><td>ME.Libros.Web.Primary_output</td><td/><td>master_1_master_ediciones_web</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4578,8 +4598,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>master_1_master_ediciones_web</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>ME.Libros.Web.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>ME.Libros.Web.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

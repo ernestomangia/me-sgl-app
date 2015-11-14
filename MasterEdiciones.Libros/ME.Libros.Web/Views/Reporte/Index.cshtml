@@ -1,7 +1,8 @@
-﻿@{
-    Layout = "~/Views/Reporte/_Layout.cshtml";
-}
-<h2>Reportes</h2>
+﻿@using ME.Libros.Utils.Enums
+@model ME.Libros.Web.Models.ReporteViewModel
+<link href="~/Content/reportes.css" rel="stylesheet" type="text/css" />
+
+<h3 class="page-header">Dashboard</h3>
 <p>
     Ver como agrupamos los reportes (clientes, vendedores, proveedores, cobradores)
     <br />
@@ -10,20 +11,196 @@
     2. Facturacion
     3. Tesoreria
     <br />
-    Alternativa 2:
-    Armar directamente una pantalla sin Menu lateral pero hay que ver como organizarlos.
-    Se necesitan FILTROS para cualquiera de los casos
-</p>
- <a class="btn btn-info btn-sm" type="button" href="@Url.Action("PlanillaCobrador")" target="_blank" title="Exportar Planilla para Cobradores">
-    <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-    Exportar Planilla p/ Cobradores
-</a>
-<a class="btn btn-info btn-sm" type="button" href="@Url.Action("VentasPorCobrar")" target="_blank" title="Exportar Ventas por Cobrar">
-    <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-    Reporte de Ventas por Cobrar
-</a>
 
-<a class="btn btn-info btn-sm" type="button" href="@Url.Action("VentasAtrasadas")" target="_blank" title="Exportar Ventas Atrasadas">
-    <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-    Reporte de Ventas Atrasadas
-</a>
+    Alternativa 2: (no queda bien)
+    Armar directamente una pantalla sin Menu lateral pero hay que ver como organizarlos.
+
+    Alternativa 3: Armar un dashboard, meter algun grafico y los botones para ejecutar los reportes
+
+    Agregar FILTROS para cualquiera de los casos
+</p>
+
+<div class="row">
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-lightblue">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                        <span class="glyphicon glyphicons-lg glyphicon-shopping-cart text-center" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">26</div>
+                        <div>Vigentes</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Detalle</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-tasks fa-5x"></i>
+                        <span class="glyphicon glyphicons-lg glyphicon-usd" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">12</div>
+                        <div>Pagadas</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Detalle</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-support fa-5x"></i>
+                        <span class="glyphicon glyphicons-lg glyphicon-remove" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">13</div>
+                        <div>Anuladas</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Ver Detalle</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Chequera</h3>
+    </div>
+    <div class="panel-body">
+        <a class="btn btn-success btn-sm" type="button" href="#" target="_blank" title="Exportar Planilla para Cobradores">
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+            Exportar
+        </a>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Planilla cobrador</h3>
+    </div>
+    <div class="panel-body">
+        <a class="btn btn-success btn-sm" type="button" href="@Url.Action("PlanillaCobrador")" target="_blank" title="Exportar Planilla para Cobradores">
+            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+            Exportar
+        </a>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Ventas</h3>
+    </div>
+    <div class="panel-body">
+        <div class="collapse in">
+            <div class="well well-sm">
+                <form class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(v => v.Cliente, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(v => v.Cliente, new { @class = "form-control", placeholder = "Cliente" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(v => v.Cobrador, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(v => v.Cobrador, new { @class = "form-control", placeholder = "Cobrador" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(v => v.Vendedor, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(v => v.Vendedor, new { @class = "form-control", placeholder = "Vendedor" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(v => v.EstadoVenta, "Estado", new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @{
+                                        var estadoVentas = Enum.GetValues(typeof(EstadoVenta))
+                                            .Cast<EstadoVenta>()
+                                            .Where(e => e != EstadoVenta.None)
+                                            .Select(e => new SelectListItem
+                                            {
+                                                Value = ((int)e).ToString(),
+                                                Text = e.ToString()
+                                            });
+                                    }
+
+                                    @Html.DropDownListFor(v => Model.EstadoVenta, estadoVentas, "Seleccione", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(v => v.Desde, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(v => v.Desde, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Desde" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group form-group-sm">
+                                @Html.LabelFor(v => v.Hasta, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(v => v.Hasta, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Hasta" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-right">
+                    <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasPorCobrar")" target="_blank" title="Exportar Ventas por Cobrar">
+                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                        Exportar
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        @*<a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasAtrasadas")" target="_blank" title="Exportar Ventas Atrasadas">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                Exportar
+            </a>*@
+    </div>
+</div>
+

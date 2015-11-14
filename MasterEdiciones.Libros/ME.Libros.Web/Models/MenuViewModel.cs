@@ -213,6 +213,15 @@ namespace ME.Libros.Web.Models
                     //    Posicion = 20,
                     //});
                     break;
+                case 150:
+                    MenuViewModels.Add(new MenuViewModel
+                    {
+                        Id = 150,
+                        Nombre = "Dashboard",
+                        Link = helper.Action("Index", "Reporte"),
+                        Posicion = 10,
+                    });
+                    break;
             }
             Seleccionar(menuId);
         }

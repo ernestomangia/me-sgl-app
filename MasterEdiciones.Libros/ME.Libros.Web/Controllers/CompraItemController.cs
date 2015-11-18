@@ -12,7 +12,7 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class CompraItemController : Controller
+    public class CompraItemController : BaseController<CompraItemDominio>
     {
         //
         // GET: /CompraItem/

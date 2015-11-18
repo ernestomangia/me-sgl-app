@@ -12,7 +12,7 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class VentaItemController : Controller
+    public class VentaItemController : BaseController<VentaItemDominio>
     {
         public ProductoService ProductoService { get; set; }
         public VentaItemService VentaItemService { get; set; }

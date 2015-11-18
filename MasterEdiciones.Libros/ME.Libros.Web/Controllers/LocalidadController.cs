@@ -14,7 +14,7 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class LocalidadController : Controller
+    public class LocalidadController : BaseController<LocalidadDominio>
     {
         private LocalidadService LocalidadService { get; set; }
         private ProvinciaService ProvinciaService { get; set; }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using ME.Libros.Dominio;
 using ME.Libros.Servicios;
+using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
@@ -13,6 +14,12 @@ namespace ME.Libros.Web.Controllers
     public class BaseController<T> : Controller where T : BaseDominio
     {
         protected AbstractService<T> Service;
+
+        public BaseController()
+        {
+            var menu = new Menues();
+            ViewBag.Menues = menu.GetMenues();
+        }
 
         public bool ExecuteAction<TEntity>(TEntity entity, Action<TEntity> action)
         {

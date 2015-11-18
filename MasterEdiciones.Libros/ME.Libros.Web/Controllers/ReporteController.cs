@@ -7,7 +7,6 @@ using ME.Libros.Repositorios;
 using ME.Libros.Servicios.General;
 using ME.Libros.Utils.Enums;
 using ME.Libros.Web.Models;
-using Microsoft.Ajax.Utilities;
 using Rotativa;
 using Rotativa.Options;
 
@@ -27,6 +26,8 @@ namespace ME.Libros.Web.Controllers
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ViewBag.MenuId = 150;
             ViewBag.Title = "Reportes";
+            var menu = new Menues();
+            ViewBag.Menues = menu.GetMenues();
         }
 
         // GET: Default

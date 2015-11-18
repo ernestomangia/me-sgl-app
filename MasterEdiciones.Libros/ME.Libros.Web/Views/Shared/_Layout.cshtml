@@ -1,5 +1,10 @@
 ﻿@using System.Web.Optimization
-@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Models
+@{
+    var menues = ((List<MenuViewModel>) ViewBag.Menues);
+    var subMenues = menues.First(m => m.Seleccionado).Hijos;
+    ViewBag.Title = subMenues.Any() ? subMenues.First(m => m.Seleccionado).Nombre : string.Empty;
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,14 +102,14 @@
                 @if (ViewBag.MenuId != null)
                 {
                     <ul class="nav navbar-nav">
-
-                        <li class="active">
-                            @Html.ActionLink("Administración", "Index", "Cliente")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Ventas", "Index", "Venta", new { estado = EstadoVenta.Vigente }, null)
-                        </li>
-                        <li>
+                        @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
+                        {
+                            ////var active = menu.Hijos.Any(x => x.Controller.Equals(currentController)) || menu.Controller.Equals(currentController);
+                            <li class="@(menu.Seleccionado ? "active" : string.Empty)">
+                                <a href="@menu.Link">@menu.Nombre</a>
+                            </li>
+                        }
+                        @*<li>
                             @Html.ActionLink("Compras", "Index", "Compra", new { estado = EstadoCompra.Pagada }, null)
                         </li>
                         <li>
@@ -115,7 +120,7 @@
                         </li>
                         <li>
                             @Html.ActionLink("Sistema", "Index", "Usuario")
-                        </li>
+                        </li>*@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -141,7 +146,8 @@
             @if (ViewBag.MenuId != null)
             {
                 <div id="sidebar" class="col-sm-12 col-md-2 col-lg-1 sidebar" role="navigation">
-                    @Html.Action("Index", "MenuLateral", new { id = ViewBag.MenuId })
+                    @*@Html.Action("Index", "MenuLateral", new { id = ViewBag.MenuId })*@
+                    @Html.Action("Index", "MenuLateral", new { subMenues })
                 </div>
                 <div class="col-sm-12 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-11 col-lg-offset-1 main">
                     <img id="loading-indicator" src="~/Content/img/ajax-loader.gif" style="display:none" />
@@ -155,7 +161,6 @@
             else
             {
                 @RenderBody()
-
             }
         </div>
     </div>

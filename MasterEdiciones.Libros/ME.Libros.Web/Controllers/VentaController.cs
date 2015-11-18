@@ -14,7 +14,7 @@ using Rotativa;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class VentaController : Controller
+    public class VentaController : BaseController<VentaDominio>
     {
         public VentaService VentaService { get; set; }
         public ClienteService ClienteService { get; set; }
@@ -22,6 +22,7 @@ namespace ME.Libros.Web.Controllers
         public VendedorService VendedorService { get; set; }
         public ProductoService ProductoService { get; set; }
         public PlanPagoService PlanPagoService { get; set; }
+        public List<MenuViewModel> SubMenues { get; set; }
 
         public VentaController()
         {
@@ -32,6 +33,7 @@ namespace ME.Libros.Web.Controllers
             CobradorService = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
             VendedorService = new VendedorService(new EntidadRepository<VendedorDominio>(modelContainer));
             PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
+            SubMenues = ((List<MenuViewModel>)ViewBag.Menues).First(x => x.Controller.Equals("Venta")).Hijos;
         }
 
         // GET: Todas
@@ -61,6 +63,7 @@ namespace ME.Libros.Web.Controllers
                     Session.Add("MenuTodas", true);
                     ViewBag.Title = title;
                     ViewBag.MenuId = menuId;
+                    SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
 
                     return View(subFolder + "Index", ventaTodasViewModel);
                 }
@@ -78,16 +81,19 @@ namespace ME.Libros.Web.Controllers
                     case EstadoVenta.Vigente:
                         title = "Vigentes";
                         menuId = 20;
+                        SubMenues.First(x => x.Nombre.Equals("Vigentes")).Seleccionado = true;
                         subFolder = "Vigente";
                         break;
                     case EstadoVenta.Pagada:
                         title = "Pagadas";
                         menuId = 21;
+                        SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
                         subFolder = "Pagada";
                         break;
                     case EstadoVenta.Anulada:
                         title = "Anuladas";
                         menuId = 22;
+                        SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
                         subFolder = "Anulada";
                         break;
 
@@ -402,6 +408,7 @@ namespace ME.Libros.Web.Controllers
         {
             ViewBag.Title = "Vigentes";
             ViewBag.MenuId = 20;
+            SubMenues.First(x => x.Nombre.Equals("Vigentes")).Seleccionado = true;
         }
 
         private void SetMenu(EstadoVenta estadoVenta)
@@ -416,10 +423,12 @@ namespace ME.Libros.Web.Controllers
                     case EstadoVenta.Pagada:
                         ViewBag.Title = "Pagadas";
                         ViewBag.MenuId = 21;
+                        SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
                         break;
                     case EstadoVenta.Anulada:
                         ViewBag.Title = "Anuladas";
                         ViewBag.MenuId = 22;
+                        SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
                         break;
                 }
             }
@@ -427,6 +436,7 @@ namespace ME.Libros.Web.Controllers
             {
                 ViewBag.Title = "Todas";
                 ViewBag.MenuId = 23;
+                SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
             }
         }
 

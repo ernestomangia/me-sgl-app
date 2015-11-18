@@ -13,11 +13,12 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class CompraController : Controller
+    public class CompraController : BaseController<CompraDominio>
     {
         public CompraService CompraService { get; set; }
         public ProveedorService ProveedorService { get; set; }
         public ProductoService ProductoService { get; set; }
+        public List<MenuViewModel> SubMenues { get; set; }
 
         public CompraController()
         {
@@ -27,6 +28,7 @@ namespace ME.Libros.Web.Controllers
             ProveedorService = new ProveedorService(new EntidadRepository<ProveedorDominio>(modelContainer));
             ViewBag.Title = "Pagadas";
             ViewBag.MenuId = 27;
+            SubMenues = ((List<MenuViewModel>)ViewBag.Menues).First(x => x.Controller.Equals("Compra")).Hijos;
         }
 
         //
@@ -51,6 +53,7 @@ namespace ME.Libros.Web.Controllers
                     ViewBag.MenuId = 26;
                     view = "~/Views/Compra/Index.cshtml";
                     Session.Add("MenuTodas", true);
+                    SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
                 }
                 else
                 {
@@ -67,11 +70,15 @@ namespace ME.Libros.Web.Controllers
                         case EstadoCompra.Pagada:
                             ViewBag.Title = "Pagadas";
                             ViewBag.MenuId = 27;
+                            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+
                             view = "~/Views/Compra/CompraPagada/Index.cshtml";
                             break;
                         case EstadoCompra.Anulada:
                             ViewBag.Title = "Anuladas";
                             ViewBag.MenuId = 28;
+                            SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
+
                             view = "~/Views/Compra/CompraAnulada/Index.cshtml";
                             break;
                     }
@@ -85,6 +92,7 @@ namespace ME.Libros.Web.Controllers
         {
             var compraViewModel = new CompraViewModel();
             PrepareModel(compraViewModel);
+            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
 
             return View(compraViewModel);
         }
@@ -95,6 +103,8 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
+                SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+
                 return View(compraViewModel);
             }
 
@@ -165,6 +175,8 @@ namespace ME.Libros.Web.Controllers
             }
 
             PrepareModel(compraViewModel);
+            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+
             return View(compraViewModel);
         }
 
@@ -185,10 +197,12 @@ namespace ME.Libros.Web.Controllers
                     case EstadoCompra.Pagada:
                         ViewBag.Title = "Pagadas";
                         ViewBag.MenuId = 27;
+                        SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
                         break;
                     case EstadoCompra.Anulada:
                         ViewBag.Title = "Anuladas";
                         ViewBag.MenuId = 28;
+                        SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
                         break;
                 }
             }
@@ -196,46 +210,10 @@ namespace ME.Libros.Web.Controllers
             {
                 ViewBag.Title = "Todas";
                 ViewBag.MenuId = 26;
+                SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
             }
 
             return View(compraViewModel);
-        }
-
-        [HttpGet]
-        public JsonResult Eliminar(int id, string redirectUrl)
-        {
-            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
-
-            try
-            {
-                using (CompraService)
-                {
-                    CompraService.AnularCompra(id);
-
-                    if (isRedirect)
-                    {
-                        var compraDominio = CompraService.GetPorId(id);
-                        TempData["Id"] = compraDominio.Id;
-                        TempData["Mensaje"] = string.Format(Messages.EntidadAnulada, Messages.LaCompra, compraDominio.Id);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
-            }
-
-            return new JsonResult
-            {
-                Data = new
-                {
-                    Success = ModelState.IsValid,
-                    Errors = ModelState.GetErrors(),
-                    isRedirect,
-                    redirectUrl
-                },
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
         }
 
         [HttpPost]
@@ -244,6 +222,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
+                SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
                 return View(compraViewModel);
             }
 
@@ -289,7 +268,45 @@ namespace ME.Libros.Web.Controllers
             }
 
             PrepareModel(compraViewModel);
+            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
             return View(compraViewModel);
+        }
+
+        [HttpGet]
+        public JsonResult Eliminar(int id, string redirectUrl)
+        {
+            var isRedirect = !string.IsNullOrEmpty(redirectUrl);
+
+            try
+            {
+                using (CompraService)
+                {
+                    CompraService.AnularCompra(id);
+
+                    if (isRedirect)
+                    {
+                        var compraDominio = CompraService.GetPorId(id);
+                        TempData["Id"] = compraDominio.Id;
+                        TempData["Mensaje"] = string.Format(Messages.EntidadAnulada, Messages.LaCompra, compraDominio.Id);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("Error", ErrorMessages.ErrorSistema);
+            }
+
+            return new JsonResult
+            {
+                Data = new
+                {
+                    Success = ModelState.IsValid,
+                    Errors = ModelState.GetErrors(),
+                    isRedirect,
+                    redirectUrl
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         #region Private Methods

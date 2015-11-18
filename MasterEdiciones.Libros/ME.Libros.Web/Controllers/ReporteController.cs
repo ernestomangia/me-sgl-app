@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using LinqKit;
 using ME.Libros.Dominio.General;
 using ME.Libros.EF;
 using ME.Libros.Repositorios;
@@ -58,13 +59,13 @@ namespace ME.Libros.Web.Controllers
             return View(reporteViewModel);
         }
 
-        public ActionResult PlanillaCobrador()
+        public ActionResult PlanillaCobrador(ReporteViewModel reporteViewModel)
         {
             var footer = "--footer-right \"[date] [time]\" " +
                          "--footer-line --footer-font-size \"8\" " +
                          "--footer-font-name \"calibri light\"" +
                          "--header-left='[webpage]'";
-            return new ActionAsPdf("PlanillaCobradorPDF")
+            return new ActionAsPdf("PlanillaCobradorPDF", reporteViewModel)
             {
                 PageOrientation = Orientation.Portrait,
                 PageSize = Size.A4,
@@ -73,13 +74,27 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
-        public ActionResult PlanillaCobradorPDF()
+        public ActionResult PlanillaCobradorPDF(ReporteViewModel reporteViewModel)
         {
+            var predicateBuilder = PredicateBuilder.True<VentaDominio>();
+            predicateBuilder = predicateBuilder.And(v => v.Estado == EstadoVenta.Vigente);
+            
+            if (reporteViewModel.CobradorId != null)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.Cobrador.Id == reporteViewModel.CobradorId);
+            }
+
+            if (reporteViewModel.LocalidadId != null)
+            {
+                predicateBuilder = predicateBuilder.And(v => v.Cliente.Localidad.Id == reporteViewModel.LocalidadId);
+            }
+
             var planillas = new List<PlanillaCobradorViewModel>();
             using (VentaService)
             {
                 planillas.AddRange(VentaService.ListarAsQueryable()
-                    .Where(v => v.Estado == EstadoVenta.Vigente)
+                    .AsExpandable()
+                    .Where(predicateBuilder)
                     .GroupBy(v => new { v.Cobrador, v.Cliente.Localidad },
                         v => v,
                         (key, group) => new

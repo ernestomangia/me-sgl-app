@@ -1,4 +1,5 @@
 ﻿@using ME.Libros.Utils.Enums
+@using ME.Libros.Web.Controllers
 @model ME.Libros.Web.Models.ReporteViewModel
 <link href="~/Content/reportes.css" rel="stylesheet" type="text/css" />
 
@@ -77,29 +78,36 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Chequera</h3>
+        <h3 class="panel-title">Reportes</h3>
     </div>
     <div class="panel-body">
-        @*<a class="btn btn-success btn-sm" type="button" href="@Url.Action("GenerarChequera", "Venta")" target="_blank" title="Exportar Planilla para Cobradores">
-                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                Exportar
-            </a>*@
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Planilla cobrador</h3>
-    </div>
-    <div class="panel-body">
-        <div class="collapse in">
-            <div class="well well-sm">
-                <form class="form-horizontal">
+        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "formReporte", @class = "form-horizontal", target = "_blank" }))
+        {
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group form-group-sm">
+                        @Html.Label("Reporte", new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            <select id="reporte" class="form-control">
+                                <option value="1">Planilla cobradores</option>
+                                <option value="2">Ventas por cobrar</option>
+                                <option value="3">Ventas atrasadas</option>
+                                <option value="4">Chequeras</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="filtrosPlanilla" class="collapse in">
+                <div class="well well-sm">
+                    <h6 class="text-center"><b>Filtros</b></h6>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group form-group-sm">
                                 @Html.LabelFor(r => r.Cobrador, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(r => r.Cobrador, new { @class = "form-control", placeholder = "Cobrador" })
+                                    @Html.HiddenFor(r => r.CobradorId)
+                                    @Html.AutocompleteFor(r => r.Cobrador, r => r.CobradorId, "Get", "Cobrador", false)
                                 </div>
                             </div>
                         </div>
@@ -107,113 +115,147 @@
                             <div class="form-group form-group-sm">
                                 @Html.LabelFor(r => r.LocalidadId, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-8">
-                                    @Html.DropDownListFor(r => r.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control localidad", autocomplete = "off" })
+                                    @Html.DropDownListFor(r => r.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control", autocomplete = "off" })
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-right">
-                    <a class="btn btn-success btn-sm" type="button" href="@Url.Action("PlanillaCobrador")" target="_blank" title="Exportar Planilla para Cobradores">
-                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                        Exportar
-                    </a>
                 </div>
             </div>
-        </div>
-        
-    </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Ventas</h3>
-    </div>
-    <div class="panel-body">
-        <div class="collapse in">
-            <div class="well well-sm">
-                <form class="form-horizontal">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group form-group-sm">
-                                @Html.LabelFor(v => v.Cliente, new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(v => v.Cliente, new { @class = "form-control", placeholder = "Cliente" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-group-sm">
-                                @Html.LabelFor(v => v.Cobrador, new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(v => v.Cobrador, new { @class = "form-control", placeholder = "Cobrador" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-group-sm">
-                                @Html.LabelFor(v => v.Vendedor, new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(v => v.Vendedor, new { @class = "form-control", placeholder = "Vendedor" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-group-sm">
-                                @Html.LabelFor(v => v.EstadoVenta, "Estado", new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8">
-                                    @{
-                                        var estadoVentas = Enum.GetValues(typeof(EstadoVenta))
-                                            .Cast<EstadoVenta>()
-                                            .Where(e => e != EstadoVenta.None)
-                                            .Select(e => new SelectListItem
-                                            {
-                                                Value = ((int)e).ToString(),
-                                                Text = e.ToString()
-                                            });
-                                    }
-
-                                    @Html.DropDownListFor(v => Model.EstadoVenta, estadoVentas, "Seleccione", new { @class = "form-control" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-group-sm">
-                                @Html.LabelFor(v => v.Desde, new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(v => v.Desde, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Desde" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group form-group-sm">
-                                @Html.LabelFor(v => v.Hasta, new { @class = "col-md-4 control-label" })
-                                <div class="col-md-8">
-                                    @Html.TextBoxFor(v => v.Hasta, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Hasta" })
-                                </div>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <button id="btnExportar" class="btn btn-success" type="submit" title="Exportar reporte">
+                            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                            Exportar
+                        </button>
                     </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-right">
-                    <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasPorCobrar")" target="_blank" title="Exportar Ventas por Cobrar">
-                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                        Exportar (Ventas por cobrar)
-                    </a>
-                    <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasAtrasadas")" target="_blank" title="Exportar Ventas Atrasadas">
-                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
-                        Exportar (Ventas atrasadas)
-                    </a>
                 </div>
             </div>
-        </div>
+        }
+        @*<a class="btn btn-success btn-sm" type="button" href="@Url.Action("GenerarChequera", "Venta")" target="_blank" title="Exportar Planilla para Cobradores">
+                <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                Exportar
+            </a>*@
     </div>
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#reporte").trigger("change");
+    });
+
+    $("#reporte").on("change", function () {
+        var reporte = $(this).val();
+        var href = "#";
+        switch (reporte) {
+            case "1":
+                href = '@Url.Action("PlanillaCobrador")';
+                $("#filtrosPlanilla").show();
+                break;
+            case "2":
+                href = '@Url.Action("VentasPorCobrar")';
+                $("#filtrosPlanilla").hide();
+                break;
+            case "3":
+                href = '@Url.Action("VentasAtrasadas")';
+                $("#filtrosPlanilla").hide();
+                break;
+            case "4":
+                $("#filtrosPlanilla").hide();
+                break;
+        }
+
+        $("#formReporte").attr("action", href);
+    });
+</script>
+
+
+@* <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Ventas</h3>
+        </div>
+        <div class="panel-body">
+            <div class="collapse in">
+                <div class="well well-sm">
+                    <form class="form-horizontal">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(v => v.Cliente, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(v => v.Cliente, new { @class = "form-control", placeholder = "Cliente" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(v => v.Cobrador, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(v => v.Cobrador, new { @class = "form-control", placeholder = "Cobrador" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(v => v.Vendedor, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(v => v.Vendedor, new { @class = "form-control", placeholder = "Vendedor" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(v => v.EstadoVenta, "Estado", new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @{
+                                            var estadoVentas = Enum.GetValues(typeof(EstadoVenta))
+                                                .Cast<EstadoVenta>()
+                                                .Where(e => e != EstadoVenta.None)
+                                                .Select(e => new SelectListItem
+                                                {
+                                                    Value = ((int)e).ToString(),
+                                                    Text = e.ToString()
+                                                });
+                                        }
+
+                                        @Html.DropDownListFor(v => Model.EstadoVenta, estadoVentas, "Seleccione", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(v => v.Desde, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(v => v.Desde, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Desde" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-group-sm">
+                                    @Html.LabelFor(v => v.Hasta, new { @class = "col-md-4 control-label" })
+                                    <div class="col-md-8">
+                                        @Html.TextBoxFor(v => v.Hasta, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", placeholder = "Hasta" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasPorCobrar")" target="_blank" title="Exportar Ventas por Cobrar">
+                            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                            Exportar (Ventas por cobrar)
+                        </a>
+                        <a class="btn btn-success btn-sm" type="button" href="@Url.Action("VentasAtrasadas")" target="_blank" title="Exportar Ventas Atrasadas">
+                            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                            Exportar (Ventas atrasadas)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@

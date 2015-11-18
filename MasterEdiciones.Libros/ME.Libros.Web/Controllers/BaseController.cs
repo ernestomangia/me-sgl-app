@@ -13,12 +13,14 @@ namespace ME.Libros.Web.Controllers
 
     public class BaseController<T> : Controller where T : BaseDominio
     {
+        protected NavigationBarViewModel NavigationBarViewModel;
         protected AbstractService<T> Service;
 
         public BaseController()
         {
-            var menu = new Menues();
-            ViewBag.Menues = menu.GetMenues();
+            NavigationBarViewModel = new NavigationBarViewModel();
+            //ViewBag.Menues = navigationBarViewModel.GetMenues();
+            ViewBag.NavigationBar = NavigationBarViewModel;
         }
 
         public bool ExecuteAction<TEntity>(TEntity entity, Action<TEntity> action)

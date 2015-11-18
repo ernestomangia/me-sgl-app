@@ -40,8 +40,6 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             ZonaService = new ZonaService(new EntidadRepository<ZonaDominio>(modelContainer));
-            ViewBag.MenuId = 7;
-            ViewBag.Title = "Zonas";
         }
 
         [HttpGet]

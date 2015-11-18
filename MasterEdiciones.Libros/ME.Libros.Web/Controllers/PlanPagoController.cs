@@ -25,8 +25,6 @@ namespace ME.Libros.Web.Controllers
             var modelContainer = new ModelContainer();
             PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
-            ViewBag.MenuId = 24;
-            ViewBag.Title = "Planes de Pago";
         }
 
         //

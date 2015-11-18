@@ -33,7 +33,7 @@ namespace ME.Libros.Web.Controllers
             CobradorService = new CobradorService(new EntidadRepository<CobradorDominio>(modelContainer));
             VendedorService = new VendedorService(new EntidadRepository<VendedorDominio>(modelContainer));
             PlanPagoService = new PlanPagoService(new EntidadRepository<PlanPagoDominio>(modelContainer));
-            SubMenues = ((List<MenuViewModel>)ViewBag.Menues).First(x => x.Controller.Equals("Venta")).Hijos;
+            SubMenues = NavigationBarViewModel.MenuViewModels.First(x => x.Controller.Equals("Venta")).Hijos;
         }
 
         // GET: Todas
@@ -45,12 +45,13 @@ namespace ME.Libros.Web.Controllers
 
             var ventas = new List<VentaViewModel>();
             var subFolder = "";
-            var title = "Todas";
-            var menuId = 23;
+
             using (VentaService)
             {
                 if (estado == null)
                 {
+                    Session.Add("MenuTodas", true);
+
                     var ventaTodasViewModel = new VentaTodasViewModel();
                     // Listar todas
                     ventaTodasViewModel.VentaViewModels
@@ -60,11 +61,7 @@ namespace ME.Libros.Web.Controllers
                             .ToList()
                             .Select(v => new VentaViewModel(v)));
 
-                    Session.Add("MenuTodas", true);
-                    ViewBag.Title = title;
-                    ViewBag.MenuId = menuId;
-                    SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
-
+                    SetMenuTodas();
                     return View(subFolder + "Index", ventaTodasViewModel);
                 }
 
@@ -79,29 +76,21 @@ namespace ME.Libros.Web.Controllers
                 switch (estado)
                 {
                     case EstadoVenta.Vigente:
-                        title = "Vigentes";
-                        menuId = 20;
-                        SubMenues.First(x => x.Nombre.Equals("Vigentes")).Seleccionado = true;
+                        SetMenuVigente();
                         subFolder = "Vigente";
                         break;
                     case EstadoVenta.Pagada:
-                        title = "Pagadas";
-                        menuId = 21;
-                        SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+                        SetMenuPagada();
                         subFolder = "Pagada";
                         break;
                     case EstadoVenta.Anulada:
-                        title = "Anuladas";
-                        menuId = 22;
-                        SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
+                        SetMenuAnulada();
                         subFolder = "Anulada";
                         break;
 
                 }
                 subFolder += "/";
             }
-            ViewBag.Title = title;
-            ViewBag.MenuId = menuId;
 
             return View(subFolder + "Index", ventas);
         }
@@ -304,7 +293,13 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado > 0)
             {
-                return RedirectToAction("Index", new { estado = EstadoVenta.Vigente });
+                // Volver al menu desde donde se abrio el modificar
+                return RedirectToAction("Index", new
+                {
+                    estado = Session["MenuTodas"] == null
+                        ? ventaViewModel.Estado
+                        : (EstadoVenta?)null
+                });
             }
 
             PrepareModel(ventaViewModel);
@@ -404,13 +399,6 @@ namespace ME.Libros.Web.Controllers
             }
         }
 
-        private void SetMenuVigente()
-        {
-            ViewBag.Title = "Vigentes";
-            ViewBag.MenuId = 20;
-            SubMenues.First(x => x.Nombre.Equals("Vigentes")).Seleccionado = true;
-        }
-
         private void SetMenu(EstadoVenta estadoVenta)
         {
             if (Session["MenuTodas"] == null)
@@ -421,23 +409,41 @@ namespace ME.Libros.Web.Controllers
                         SetMenuVigente();
                         break;
                     case EstadoVenta.Pagada:
-                        ViewBag.Title = "Pagadas";
-                        ViewBag.MenuId = 21;
-                        SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+                        SetMenuPagada();
                         break;
                     case EstadoVenta.Anulada:
-                        ViewBag.Title = "Anuladas";
-                        ViewBag.MenuId = 22;
-                        SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
+                        SetMenuAnulada();
                         break;
                 }
+
+                ViewBag.Estado = estadoVenta;
             }
             else
             {
-                ViewBag.Title = "Todas";
-                ViewBag.MenuId = 23;
-                SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
+                SetMenuTodas();
             }
+        }
+        private void SetMenuVigente()
+        {
+            NavigationBarViewModel.Title = "Vigentes";
+            SubMenues.First(x => x.Nombre.Equals("Vigentes")).Seleccionado = true;
+        }
+
+        private void SetMenuPagada()
+        {
+            NavigationBarViewModel.Title = "Pagadas";
+            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+        }
+
+        private void SetMenuAnulada()
+        {
+            NavigationBarViewModel.Title = "Anuladas";
+            SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
+        }
+        private void SetMenuTodas()
+        {
+            NavigationBarViewModel.Title = "Todas";
+            SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
         }
 
         #endregion

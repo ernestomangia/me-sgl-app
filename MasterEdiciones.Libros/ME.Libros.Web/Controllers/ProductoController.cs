@@ -26,8 +26,6 @@ namespace ME.Libros.Web.Controllers
             ProductoService = new ProductoService(new EntidadRepository<ProductoDominio>(modelConteiner));
             EditorialService = new EditorialService(new EntidadRepository<EditorialDominio>(modelConteiner));
             RubroService = new RubroService(new EntidadRepository<RubroDominio>(modelConteiner));
-            ViewBag.MenuId = 6;
-            ViewBag.Title = "Productos";
         }
 
         //

@@ -25,8 +25,6 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             GastoService = new GastoService(new EntidadRepository<GastoDominio>(modelContainer));
-            ViewBag.MenuId = 8;
-            ViewBag.Title = "Gastos";
         }
 
         public ActionResult Index()

@@ -22,8 +22,6 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             EditorialService = new EditorialService(new EntidadRepository<EditorialDominio>(modelContainer));
-            ViewBag.MenuId = 5;
-            ViewBag.Title = "Editoriales";
         }
 
         // GET: /Editorial/

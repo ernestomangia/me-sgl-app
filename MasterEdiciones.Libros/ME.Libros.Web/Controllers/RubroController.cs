@@ -19,6 +19,12 @@ namespace ME.Libros.Web.Controllers
         //
         // GET: /Rubro/
         public RubroService RubroService { get; set; }
+        public RubroController()
+        {
+            var modelContainer = new ModelContainer();
+            RubroService = new RubroService(new EntidadRepository<RubroDominio>(modelContainer));
+        }
+
         public ActionResult Index()
         {
             ViewBag.Id = TempData["Id"];
@@ -34,14 +40,6 @@ namespace ME.Libros.Web.Controllers
             }
 
             return View(rubros);
-        }
-
-        public RubroController()
-        {
-            var modelContainer = new ModelContainer();
-            RubroService = new RubroService(new EntidadRepository<RubroDominio>(modelContainer));
-            ViewBag.MenuId = 4;
-            ViewBag.Title = "Rubros";
         }
 
         [HttpGet]

@@ -1,10 +1,10 @@
 ﻿@using ME.Libros.Web.Models
 
 <ul class="nav nav-sidebar nav-pills nav-stacked">
-    @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
+    @foreach (var subMenu in (List<MenuViewModel>)ViewBag.SubMenues)
     {
-        <li role="presentation" class="@(menu.Seleccionado ? "active" : "")">
-            <a id=@("link_" + menu.Id) role="tab" href="@menu.Link">@menu.Nombre</a>
+        <li role="presentation" class="@(subMenu.Seleccionado ? "active" : "")">
+            <a id=@("link_" + subMenu.Id) role="tab" href="@subMenu.Link">@subMenu.Nombre</a>
         </li>
     }
 </ul>

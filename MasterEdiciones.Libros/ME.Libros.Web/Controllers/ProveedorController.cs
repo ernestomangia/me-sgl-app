@@ -26,8 +26,6 @@ namespace ME.Libros.Web.Controllers
             ProveedorService = new ProveedorService(new EntidadRepository<ProveedorDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
-            ViewBag.MenuId = 10;
-            ViewBag.Title = "Proveedores";
             Service = new ProveedorService(new EntidadRepository<ProveedorDominio>(modelContainer));
         }
 

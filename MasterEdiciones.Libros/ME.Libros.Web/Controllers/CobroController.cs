@@ -23,8 +23,6 @@ namespace ME.Libros.Web.Controllers
             CobroService = new CobroService(new EntidadRepository<CobroDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
-            ViewBag.MenuId = 110;
-            ViewBag.Title = "Cobros";
             Service = new CobroService(new EntidadRepository<CobroDominio>(modelContainer));
         }
 

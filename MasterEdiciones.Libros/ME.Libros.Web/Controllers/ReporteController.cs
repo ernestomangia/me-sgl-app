@@ -24,10 +24,8 @@ namespace ME.Libros.Web.Controllers
             ClienteService = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
-            ViewBag.MenuId = 150;
-            ViewBag.Title = "Reportes";
-            var menu = new Menues();
-            ViewBag.Menues = menu.GetMenues();
+            var navigationBarViewModel = new NavigationBarViewModel();
+            ViewBag.NavigationBar = navigationBarViewModel;
         }
 
         // GET: Default

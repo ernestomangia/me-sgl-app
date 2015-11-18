@@ -1,10 +1,14 @@
 ﻿@using System.Web.Optimization
 @using ME.Libros.Web.Models
+
 @{
-    var menues = ((List<MenuViewModel>) ViewBag.Menues);
-    var subMenues = menues.First(m => m.Seleccionado).Hijos;
-    ViewBag.Title = subMenues.Any() ? subMenues.First(m => m.Seleccionado).Nombre : string.Empty;
+    var navigationBar = ((NavigationBarViewModel)ViewBag.NavigationBar);
+    if (!string.IsNullOrEmpty(navigationBar.Title))
+    {
+        ViewBag.Title = navigationBar.Title;
+    }
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,28 +103,15 @@
                 @*<a class="navbar-brand" href="@Url.Action("Index", "Cliente")">SGL</a>*@
             </div>
             <div class="collapse navbar-collapse">
-                @if (ViewBag.MenuId != null)
+                @if (navigationBar.MostrarMenu)
                 {
                     <ul class="nav navbar-nav">
-                        @foreach (var menu in (List<MenuViewModel>)ViewBag.Menues)
+                        @foreach (var menu in navigationBar.MenuViewModels)
                         {
-                            ////var active = menu.Hijos.Any(x => x.Controller.Equals(currentController)) || menu.Controller.Equals(currentController);
                             <li class="@(menu.Seleccionado ? "active" : string.Empty)">
                                 <a href="@menu.Link">@menu.Nombre</a>
                             </li>
                         }
-                        @*<li>
-                            @Html.ActionLink("Compras", "Index", "Compra", new { estado = EstadoCompra.Pagada }, null)
-                        </li>
-                        <li>
-                            @Html.ActionLink("Tesoseria", "Index", "Rendicion")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Reportes", "Index", "Reporte")
-                        </li>
-                        <li>
-                            @Html.ActionLink("Sistema", "Index", "Usuario")
-                        </li>*@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
@@ -143,11 +134,10 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            @if (ViewBag.MenuId != null)
+            @if (navigationBar.MostrarSubMenu)
             {
                 <div id="sidebar" class="col-sm-12 col-md-2 col-lg-1 sidebar" role="navigation">
-                    @*@Html.Action("Index", "MenuLateral", new { id = ViewBag.MenuId })*@
-                    @Html.Action("Index", "MenuLateral", new { subMenues })
+                    @Html.Action("Index", "MenuLateral", new { subMenues = navigationBar.MenuSeleccionado.Hijos })
                 </div>
                 <div class="col-sm-12 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-11 col-lg-offset-1 main">
                     <img id="loading-indicator" src="~/Content/img/ajax-loader.gif" style="display:none" />

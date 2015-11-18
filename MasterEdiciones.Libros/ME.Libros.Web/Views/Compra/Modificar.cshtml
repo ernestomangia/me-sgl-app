@@ -1,9 +1,7 @@
-﻿@using ME.Libros.Utils.Enums
-@model ME.Libros.Web.Models.CompraViewModel
-
+﻿@model ME.Libros.Web.Models.CompraViewModel
 <script src="~/Scripts/compra.js"></script>
 
-<h2>Modificar compra</h2>
+<h3 class="page-header">Modificar compra</h3>
 @using (Html.BeginForm("Modificar", "Compra", FormMethod.Post, new { id = "formCompra", @class = "form-horizontal formEntidad" }))
 {
     @Html.Partial("CompraPagada/Shared/Form_Partial", Model)
@@ -23,9 +21,7 @@
                         Anular
                     </button>
                 }
-                <a class="btn btn-default btnCancelar" href="@Url.Action("Index", new { estado = ViewBag.MenuId == 26
-                                                                 ? (EstadoCompra?) null
-                                                                 : Model.Estado})" title="Cancelar">
+                <a class="btn btn-default btnCancelar" href="@Url.Action("Index", new { estado = ViewBag.Estado })" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>

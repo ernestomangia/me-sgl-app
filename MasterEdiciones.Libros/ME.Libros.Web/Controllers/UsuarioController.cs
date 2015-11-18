@@ -22,8 +22,6 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             UsuarioService = new UsuarioService(new EntidadRepository<UsuarioDominio>(modelContainer));
-            ViewBag.MenuId = 11;
-            ViewBag.Title = "Usuarios";
         }
 
         //

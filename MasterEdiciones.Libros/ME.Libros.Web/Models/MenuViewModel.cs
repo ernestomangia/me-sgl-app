@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ME.Libros.Utils.Enums;
-using Enum = System.Enum;
 
 namespace ME.Libros.Web.Models
 {
@@ -28,21 +27,42 @@ namespace ME.Libros.Web.Models
         public List<MenuViewModel> Hijos { get; set; }
     }
 
-    public class Menues
+    public class NavigationBarViewModel
     {
-        public Menues()
+        public List<MenuViewModel> MenuViewModels { get; set; }
+        public MenuViewModel MenuSeleccionado { get; set; }
+        public bool MostrarMenu { get; set; }
+        public bool MostrarSubMenu { get; set; }
+        public string Title { get; set; }
+
+        public NavigationBarViewModel()
         {
             MenuViewModels = new List<MenuViewModel>();
+            LoadMenues();
+            MenuSeleccionado = MenuViewModels.FirstOrDefault(m => m.Seleccionado);
+            if (MenuSeleccionado != null)
+            {
+                MostrarMenu = true;
+                if (MenuSeleccionado.Hijos.Any())
+                {
+                    MostrarSubMenu = true;
+                    var subMenu = MenuSeleccionado.Hijos.FirstOrDefault(m => m.Seleccionado);
+                    if (subMenu != null)
+                    {
+                        Title = subMenu.Nombre;
+                    }
+                }
+                else
+                {
+                    Title = MenuSeleccionado.Nombre;
+                }
+            }
         }
 
-        public List<MenuViewModel> MenuViewModels { get; set; }
-
-        public List<MenuViewModel> GetMenues()
+        private void LoadMenues()
         {
-            var menuViewModels = new List<MenuViewModel>();
             var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
             var currentController = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
-            var currentAction = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
 
             // Crear menues y submenues
             var menuAdministracion = new MenuViewModel
@@ -288,7 +308,6 @@ namespace ME.Libros.Web.Models
             };
 
             // Seleccionar los menues en base al controlador que se haya ejecutado
-
             var subMenuAdministracion = menuAdministracion.Hijos.FirstOrDefault(x => x.Controller.Equals(currentController));
             var subMenuTesoreria = menuTesoreria.Hijos.FirstOrDefault(x => x.Controller.Equals(currentController));
             var subMenuReporte = menuReporte.Hijos.FirstOrDefault(x => x.Controller.Equals(currentController));
@@ -323,220 +342,12 @@ namespace ME.Libros.Web.Models
                 menuSistema.Seleccionado = true;
             }
 
-            menuViewModels.Add(menuAdministracion);
-            menuViewModels.Add(menuVentas);
-            menuViewModels.Add(menuCompras);
-            menuViewModels.Add(menuTesoreria);
-            menuViewModels.Add(menuReporte);
-            menuViewModels.Add(menuSistema);
-            return menuViewModels;
-        }
-
-        public Menues(int menuId)
-        {
-            MenuViewModels = new List<MenuViewModel>();
-            var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            switch (menuId)
-            {
-                case 1:
-                case 2:
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                case 8:
-                case 9:
-                case 10:
-                case 12:
-                case 13:
-                case 24:
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 1,
-                        Nombre = "Clientes",
-                        Link = helper.Action("Index", "Cliente"),
-                        Posicion = 10,
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 2,
-                        Nombre = "Cobradores",
-                        Link = helper.Action("Index", "Cobrador"),
-                        Posicion = 20
-                    });
-
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 3,
-                        Nombre = "Localidades",
-                        Link = helper.Action("Index", "Localidad"),
-                        Posicion = 50
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 4,
-                        Nombre = "Rubros",
-                        Link = helper.Action("Index", "Rubro"),
-                        Posicion = 80
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 5,
-                        Nombre = "Editoriales",
-                        Link = helper.Action("Index", "Editorial"),
-                        Posicion = 90
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 6,
-                        Nombre = "Productos",
-                        Link = helper.Action("Index", "Producto"),
-                        Posicion = 70
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 7,
-                        Nombre = "Zonas",
-                        Link = helper.Action("Index", "Zona"),
-                        Posicion = 50
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 8,
-                        Nombre = "Gastos",
-                        Link = helper.Action("Index", "Gasto"),
-                        Posicion = 100
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 9,
-                        Nombre = "Vendedores",
-                        Link = helper.Action("Index", "Vendedor"),
-                        Posicion = 30
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 10,
-                        Nombre = "Proveedores",
-                        Link = helper.Action("Index", "Proveedor"),
-                        Posicion = 40
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 12,
-                        Nombre = "IVA",
-                        Link = helper.Action("Index", "Iva"),
-                        Posicion = 110
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 24,
-                        Nombre = "Planes de Pago",
-                        Link = helper.Action("Index", "PlanPago"),
-                        Posicion = 60,
-                    });
-                    break;
-                case 20:
-                case 21:
-                case 22:
-                case 23:
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 20,
-                        Nombre = "Vigentes",
-                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Vigente }),
-                        Posicion = 20
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 21,
-                        Nombre = "Pagadas",
-                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Pagada }),
-                        Posicion = 30
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 22,
-                        Nombre = "Anuladas",
-                        Link = helper.Action("Index", "Venta", new { estado = EstadoVenta.Anulada }),
-                        Posicion = 40
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 23,
-                        Nombre = "Todas",
-                        Link = helper.Action("Index", "Venta", new { estado = (EstadoVenta?)null }),
-                        Posicion = 50,
-                    });
-                    break;
-                case 26:
-                case 27:
-                case 28:
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 26,
-                        Nombre = "Todas",
-                        Link = helper.Action("Index", "Compra", new { estado = (EstadoCompra?)null }),
-                        Posicion = 90,
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 27,
-                        Nombre = "Pagadas",
-                        Link = helper.Action("Index", "Compra", new { estado = EstadoCompra.Pagada }),
-                        Posicion = 70
-                    });
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 28,
-                        Nombre = "Anuladas",
-                        Link = helper.Action("Index", "Compra", new { estado = EstadoCompra.Anulada }),
-                        Posicion = 80
-                    });
-                    break;
-                case 11:
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 11,
-                        Nombre = "Usuarios",
-                        Link = helper.Action("Index", "Usuario"),
-                        Posicion = 10,
-                    });
-                    break;
-                case 100:
-                case 110:
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 100,
-                        Nombre = "Rendiciones",
-                        Link = helper.Action("Index", "Rendicion"),
-                        Posicion = 10,
-                    });
-                    //MenuViewModels.Add(new MenuViewModel
-                    //{
-                    //    Id = 110,
-                    //    Nombre = "Cobros",
-                    //    Link = helper.Action("Index", "Cobro"),
-                    //    Posicion = 20,
-                    //});
-                    break;
-                case 150:
-                    MenuViewModels.Add(new MenuViewModel
-                    {
-                        Id = 150,
-                        Nombre = "Dashboard",
-                        Link = helper.Action("Index", "Reporte"),
-                        Posicion = 10,
-                    });
-                    break;
-            }
-            Seleccionar(menuId);
-        }
-
-        public void Seleccionar(int id)
-        {
-            MenuViewModels.First(m => m.Id == id).Seleccionado = true;
+            MenuViewModels.Add(menuAdministracion);
+            MenuViewModels.Add(menuVentas);
+            MenuViewModels.Add(menuCompras);
+            MenuViewModels.Add(menuTesoreria);
+            MenuViewModels.Add(menuReporte);
+            MenuViewModels.Add(menuSistema);
         }
     }
 }

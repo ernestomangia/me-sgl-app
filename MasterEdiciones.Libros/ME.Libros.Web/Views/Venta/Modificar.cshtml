@@ -1,5 +1,4 @@
-﻿@using ME.Libros.Utils.Enums
-@model ME.Libros.Web.Models.VentaViewModel
+﻿@model ME.Libros.Web.Models.VentaViewModel
 <script src="~/Scripts/venta.js"></script>
 
 <h3 class="page-header">Modificar venta</h3>
@@ -26,9 +25,7 @@
                         Anular
                     </button>
                 }
-                <a class="btn btn-default btnCancelar" href="@Url.Action("Index", new { estado = ViewBag.MenuId == 23
-                                                                 ? (EstadoVenta?) null
-                                                                 : Model.Estado})" title="Cancelar">
+                <a class="btn btn-default btnCancelar" href="@Url.Action("Index", new { estado = ViewBag.Estado })" title="Cancelar">
                     <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
                     Cancelar
                 </a>

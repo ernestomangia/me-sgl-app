@@ -11,9 +11,7 @@ namespace ME.Libros.Web.Controllers
         // GET: Admnistracion
         public PartialViewResult Index(List<MenuViewModel> subMenues)
         {
-            //var menues = new Menues(id);
-            //ViewBag.Menues = menues.MenuViewModels.OrderBy(m => m.Posicion).ToList();
-            ViewBag.Menues = subMenues.OrderBy(m => m.Posicion).ToList();
+            ViewBag.SubMenues = subMenues.OrderBy(m => m.Posicion).ToList();
             return PartialView();
         }
     }

@@ -26,9 +26,6 @@ namespace ME.Libros.Web.Controllers
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             RendicionService = new RendicionService(new EntidadRepository<RendicionDominio>(modelContainer), VentaService);
-
-            ViewBag.MenuId = 100;
-            ViewBag.Title = "Rendiciones";
         }
 
         // GET: Rendicion

@@ -29,8 +29,6 @@ namespace ME.Libros.Web.Controllers
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
-            ViewBag.MenuId = 9;
-            ViewBag.Title = "Vendedores";
         }
         //
         // GET: /Cobrador/

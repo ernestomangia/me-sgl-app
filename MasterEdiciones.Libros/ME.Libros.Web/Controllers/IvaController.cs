@@ -25,8 +25,6 @@ namespace ME.Libros.Web.Controllers
         {
             var modelContainer = new ModelContainer();
             IvaService = new IvaService(new EntidadRepository<IvaDominio>(modelContainer));
-            ViewBag.MenuId = 12;
-            ViewBag.Title = "Iva";
         }
 
         public ActionResult Index()

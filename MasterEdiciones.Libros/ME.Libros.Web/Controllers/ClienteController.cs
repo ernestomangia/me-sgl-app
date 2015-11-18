@@ -28,9 +28,6 @@ namespace ME.Libros.Web.Controllers
             ProvinciaService = new ProvinciaService(new EntidadRepository<ProvinciaDominio>(modelContainer));
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             IvaService = new IvaService(new EntidadRepository<IvaDominio>(modelContainer));
-
-            ViewBag.MenuId = 1;
-            ViewBag.Title = "Clientes";
             Service = new ClienteService(new EntidadRepository<ClienteDominio>(modelContainer));
         }
 

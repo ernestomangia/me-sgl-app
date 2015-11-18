@@ -26,9 +26,7 @@ namespace ME.Libros.Web.Controllers
             ProductoService = new ProductoService(new EntidadRepository<ProductoDominio>(modelContainer));
             CompraService = new CompraService(new EntidadRepository<CompraDominio>(modelContainer), ProductoService);
             ProveedorService = new ProveedorService(new EntidadRepository<ProveedorDominio>(modelContainer));
-            ViewBag.Title = "Pagadas";
-            ViewBag.MenuId = 27;
-            SubMenues = ((List<MenuViewModel>)ViewBag.Menues).First(x => x.Controller.Equals("Compra")).Hijos;
+            SubMenues = NavigationBarViewModel.MenuViewModels.First(x => x.Controller.Equals("Compra")).Hijos;
         }
 
         //
@@ -44,16 +42,16 @@ namespace ME.Libros.Web.Controllers
             {
                 if (estado == null)
                 {
+                    Session.Add("MenuTodas", true);
+
                     compras.AddRange(CompraService.ListarAsQueryable()
                     .OrderByDescending(c => c.FechaCompra)
                     .ThenByDescending(c => c.Id)
                     .ToList()
                     .Select(c => new CompraViewModel(c)));
-                    ViewBag.Title = "Todas";
-                    ViewBag.MenuId = 26;
+
+                    SetMenuTodas();
                     view = "~/Views/Compra/Index.cshtml";
-                    Session.Add("MenuTodas", true);
-                    SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
                 }
                 else
                 {
@@ -68,17 +66,11 @@ namespace ME.Libros.Web.Controllers
                     switch (estado)
                     {
                         case EstadoCompra.Pagada:
-                            ViewBag.Title = "Pagadas";
-                            ViewBag.MenuId = 27;
-                            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
-
+                            SetMenuPagada();
                             view = "~/Views/Compra/CompraPagada/Index.cshtml";
                             break;
                         case EstadoCompra.Anulada:
-                            ViewBag.Title = "Anuladas";
-                            ViewBag.MenuId = 28;
-                            SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
-
+                            SetMenuAnulada();
                             view = "~/Views/Compra/CompraAnulada/Index.cshtml";
                             break;
                     }
@@ -92,8 +84,7 @@ namespace ME.Libros.Web.Controllers
         {
             var compraViewModel = new CompraViewModel();
             PrepareModel(compraViewModel);
-            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
-
+            SetMenuPagada();
             return View(compraViewModel);
         }
 
@@ -103,8 +94,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
-                SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
-
+                SetMenuPagada();
                 return View(compraViewModel);
             }
 
@@ -175,8 +165,7 @@ namespace ME.Libros.Web.Controllers
             }
 
             PrepareModel(compraViewModel);
-            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
-
+            SetMenuPagada();
             return View(compraViewModel);
         }
 
@@ -189,30 +178,7 @@ namespace ME.Libros.Web.Controllers
                 compraViewModel = new CompraViewModel(CompraService.GetPorId(id));
             }
             PrepareModel(compraViewModel);
-
-            if (Session["MenuTodas"] == null)
-            {
-                switch (compraViewModel.Estado)
-                {
-                    case EstadoCompra.Pagada:
-                        ViewBag.Title = "Pagadas";
-                        ViewBag.MenuId = 27;
-                        SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
-                        break;
-                    case EstadoCompra.Anulada:
-                        ViewBag.Title = "Anuladas";
-                        ViewBag.MenuId = 28;
-                        SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
-                        break;
-                }
-            }
-            else
-            {
-                ViewBag.Title = "Todas";
-                ViewBag.MenuId = 26;
-                SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
-            }
-
+            SetMenu(compraViewModel.Estado);
             return View(compraViewModel);
         }
 
@@ -222,7 +188,7 @@ namespace ME.Libros.Web.Controllers
             if (!ModelState.IsValid)
             {
                 PrepareModel(compraViewModel);
-                SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+                SetMenu(compraViewModel.Estado);
                 return View(compraViewModel);
             }
 
@@ -264,11 +230,17 @@ namespace ME.Libros.Web.Controllers
 
             if (resultado > 0)
             {
-                return RedirectToAction("Index", new { estado = EstadoCompra.Pagada });
+                // Volver al menu desde donde se abrio el modificar
+                return RedirectToAction("Index", new
+                {
+                    estado = Session["MenuTodas"] == null
+                        ? compraViewModel.Estado
+                        : (EstadoCompra?)null
+                });
             }
 
             PrepareModel(compraViewModel);
-            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+            SetMenu(compraViewModel.Estado);
             return View(compraViewModel);
         }
 
@@ -326,6 +298,46 @@ namespace ME.Libros.Web.Controllers
                     item.Orden = i++;
                 }
             }
+        }
+
+        private void SetMenu(EstadoCompra estadoCompra)
+        {
+            if (Session["MenuTodas"] == null)
+            {
+                switch (estadoCompra)
+                {
+                    case EstadoCompra.Pagada:
+                        SetMenuPagada();
+                        break;
+                    case EstadoCompra.Anulada:
+                        SetMenuAnulada();
+                        break;
+                }
+
+                ViewBag.Estado = estadoCompra;
+            }
+            else
+            {
+                SetMenuTodas();
+            }
+        }
+
+        private void SetMenuPagada()
+        {
+            NavigationBarViewModel.Title = "Pagadas";
+            SubMenues.First(x => x.Nombre.Equals("Pagadas")).Seleccionado = true;
+        }
+
+        private void SetMenuAnulada()
+        {
+            NavigationBarViewModel.Title = "Anuladas";
+            SubMenues.First(x => x.Nombre.Equals("Anuladas")).Seleccionado = true;
+        }
+
+        private void SetMenuTodas()
+        {
+            NavigationBarViewModel.Title = "Todas";
+            SubMenues.First(x => x.Nombre.Equals("Todas")).Seleccionado = true;
         }
 
         #endregion

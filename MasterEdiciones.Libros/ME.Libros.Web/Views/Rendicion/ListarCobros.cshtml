@@ -9,7 +9,6 @@
         { EstadoCuota.Atrasada, "danger" },
         { EstadoCuota.Pagada, "success" }
     };
-
     var crearRendicion = Model.Id == 0;
 }
 
@@ -59,9 +58,9 @@
                 var primerCuotaCancelada = cobro.Cuotas.First().Numero;
                 var ultimaCuotaCancelada = cobro.Cuotas.Last().Numero;
                 var intervalo = cobro.Cuotas.Count > 1
-                    ? string.Format("{0} - {1}", primerCuotaCancelada, ultimaCuotaCancelada) 
+                    ? string.Format("{0} - {1}", primerCuotaCancelada, ultimaCuotaCancelada)
                     : primerCuotaCancelada.ToString();
-                
+
                 <td>@intervalo / @cobro.Venta.CantidadCuotas</td>
             }
             <td>
@@ -84,12 +83,8 @@
 @Html.Hidden("ExistenVentasVigentes", Model.Cobros.Any(), new { id = "ExistenVentasVigentes" })
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
         jQuery.validator.unobtrusive.parse("#formRendicion");
-        @if (crearRendicion)
-        {
-            @:$("#Comision").val('@Model.Cobrador.PorcentajeComision');
-                        }
     });
 
     $('.datepickerCobros').datepicker({

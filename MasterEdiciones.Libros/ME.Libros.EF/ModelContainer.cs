@@ -263,6 +263,14 @@ namespace ME.Libros.EF
                     Editorial = editorialSinDefinir
                 };
 
+                var admin = new UsuarioDominio
+                {
+                    FechaAlta = DateTime.Now,
+                    Nombre = "Administrador",
+                    UserName = "admin",
+                    Password = "admin",
+                    Habilitado = true
+                };
                 context.Set<PlanPagoDominio>().Add(planPagoContado);
                 context.Set<PlanPagoDominio>().Add(planPago10);
                 context.Set<GastoDominio>().Add(gastoSinDefinir);
@@ -279,6 +287,7 @@ namespace ME.Libros.EF
                 context.Set<IvaDominio>().Add(ri);
                 context.Set<IvaDominio>().Add(exento);
                 context.Set<IvaDominio>().Add(noInscripto);
+                context.Set<UsuarioDominio>().Add(admin);
                 context.SaveChanges();
             }
         }

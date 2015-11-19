@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web.Mvc;
 using ME.Libros.Dominio.General;
 using ME.Libros.Utils.Enums;
 
@@ -35,6 +34,7 @@ namespace ME.Libros.Web.Models
             Items = new List<CompraItemViewModel>(compraDominio.CompraItems.Select(ci => new CompraItemViewModel(ci)));
             Items.ForEach(c => c.Compra = this);
             EsPagada = compraDominio.Estado == EstadoCompra.Pagada;
+            AutocompleteProveedor = compraDominio.Proveedor.RazonSocial;
         }
 
         #endregion
@@ -79,13 +79,12 @@ namespace ME.Libros.Web.Models
         [Required(ErrorMessageResourceType = typeof(ErrorMessages), ErrorMessageResourceName = "Requerido")]
         public long ProveedorId { get; set; }
 
-        public ProveedorViewModel Proveedor { get; set; }
+        [Display(Name = "Proveedor", ResourceType = typeof(Messages))]
+        public string AutocompleteProveedor { get; set; }
 
+        public ProveedorViewModel Proveedor { get; set; }
         public List<CompraItemViewModel> Items { get; set; }
 
-        public SelectList Proveedores { get; set; }
-
         #endregion
-
     }
 }

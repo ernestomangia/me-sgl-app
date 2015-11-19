@@ -9,8 +9,9 @@
 {
     @Html.Partial("Shared/Form_Partial", Model)
     @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.CobradorId)
     @Html.HiddenFor(model => model.LocalidadId)
+    @Html.HiddenFor(model => model.AutocompleteCobrador)
+
     <div class="row">
         <div class="col-md-12">
             <div class="text-right">
@@ -29,7 +30,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#CobradorId, #LocalidadId").attr("disabled", "disabled");
+        $("#LocalidadId").attr("disabled", "disabled");
+        $("#AutocompleteCobrador").attr("disabled", "disabled");
+        $("#AutocompleteCobrador").css("background-color", "");
         $("#PeriodoFake").datepicker("setDate", $("#Periodo").datepicker('getDate'));
     });
 </script>

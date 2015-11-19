@@ -1,4 +1,5 @@
-﻿@model ME.Libros.Web.Models.RendicionViewModel
+﻿@using ME.Libros.Web.Controllers
+@model ME.Libros.Web.Models.RendicionViewModel
 
 @if (Model.Id > 0)
 {
@@ -20,7 +21,6 @@
             @Html.Label("PeriodoFake", "Periodo", new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
                 @Html.TextBox("PeriodoFake", "", new { id = "PeriodoFake", @class = "form-control", placeholder = "Periodo" })
-                @*@Html.HiddenFor(r => r.Periodo, new { @class = "datepicker" })*@
                 @Html.Hidden("Periodo", Model.Periodo.ToString("dd/MM/yyyy"), new { id = "Periodo", @class = "datepicker" })
             </div>
         </div>
@@ -32,9 +32,10 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group form-group-sm">
-            @Html.LabelFor(r => r.CobradorId, new { @class = "col-md-4 control-label" })
+            @Html.LabelFor(v => v.AutocompleteCobrador, new { @class = "col-md-4 control-label" })
             <div class="col-md-8">
-                @Html.DropDownListFor(r => r.CobradorId, Model.Cobradores, "Seleccione", new { @class = "form-control" })
+                @Html.HiddenFor(v => v.CobradorId, new { Value = (Model.CobradorId == 0 ? string.Empty : Model.CobradorId.ToString()) })
+                @Html.AutocompleteFor(v => v.AutocompleteCobrador, v => v.CobradorId, "Get", "Cobrador", false)
             </div>
         </div>
     </div>

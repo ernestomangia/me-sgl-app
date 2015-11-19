@@ -50,7 +50,7 @@ namespace ME.Libros.Web.Controllers
             {
                 if (estado == null)
                 {
-                    Session.Add("MenuTodas", true);
+                    Session.Add("MenuTodasVenta", true);
 
                     var ventaTodasViewModel = new VentaTodasViewModel();
                     // Listar todas
@@ -65,7 +65,7 @@ namespace ME.Libros.Web.Controllers
                     return View(subFolder + "Index", ventaTodasViewModel);
                 }
 
-                Session.Remove("MenuTodas");
+                Session.Remove("MenuTodasVenta");
                 ventas.AddRange(VentaService.ListarAsQueryable()
                     .Where(v => v.Estado == estado)
                     .OrderByDescending(v => v.FechaVenta)
@@ -296,7 +296,7 @@ namespace ME.Libros.Web.Controllers
                 // Volver al menu desde donde se abrio el modificar
                 return RedirectToAction("Index", new
                 {
-                    estado = Session["MenuTodas"] == null
+                    estado = Session["MenuTodasVenta"] == null
                         ? ventaViewModel.Estado
                         : (EstadoVenta?)null
                 });
@@ -378,6 +378,8 @@ namespace ME.Libros.Web.Controllers
                 .ToList()
                 .Select(p => new PlanPagoViewModel(p)), "Id", "Nombre");
 
+            ventaViewModel.MontoNetoVendido = ventaViewModel.MontoVendido - ventaViewModel.MontoComision;
+
             if (ventaViewModel.Estado == EstadoVenta.None)
             {
                 var i = 1;
@@ -401,7 +403,7 @@ namespace ME.Libros.Web.Controllers
 
         private void SetMenu(EstadoVenta estadoVenta)
         {
-            if (Session["MenuTodas"] == null)
+            if (Session["MenuTodasVenta"] == null)
             {
                 switch (estadoVenta)
                 {

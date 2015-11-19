@@ -18,6 +18,7 @@ namespace ME.Libros.Web.Controllers
         private CobradorService CobradorService { get; set; }
         private LocalidadService LocalidadService { get; set; }
         private VentaService VentaService { get; set; }
+        private CobroService CobroService { get; set; }
 
         public RendicionController()
         {
@@ -26,6 +27,7 @@ namespace ME.Libros.Web.Controllers
             LocalidadService = new LocalidadService(new EntidadRepository<LocalidadDominio>(modelContainer));
             VentaService = new VentaService(new EntidadRepository<VentaDominio>(modelContainer));
             RendicionService = new RendicionService(new EntidadRepository<RendicionDominio>(modelContainer), VentaService);
+            CobroService = new CobroService(new EntidadRepository<CobroDominio>(modelContainer));
         }
 
         // GET: Rendicion
@@ -148,7 +150,7 @@ namespace ME.Libros.Web.Controllers
                     rendicionDominio.Comision = rendicionViewModel.Comision;
                     rendicionDominio.MontoComision = rendicionViewModel.MontoComision;
                     RendicionService.ModificarRendicion(rendicionDominio, rendicionViewModel.Cobros.Select(DtoHelper.ConvertToDto).ToList());
-                    
+
                     resultado = RendicionService.Guardar(rendicionDominio);
                 }
 
@@ -215,16 +217,25 @@ namespace ME.Libros.Web.Controllers
 
         private void PrepareModel(RendicionViewModel rendicionViewModel)
         {
-            rendicionViewModel.Cobradores = new SelectList(CobradorService.Listar()
-                .ToList()
-                .Select(c => new { Id = c.Id, Text = c.Id + " - " + c.Dni }), "Id", "Text");
-
             rendicionViewModel.Localidades = new SelectList(LocalidadService.Listar()
                 .ToList()
                 .Select(l => new LocalidadViewModel(l)),
                 "Id",
                 "Nombre");
 
+            rendicionViewModel.MontoFacturado = rendicionViewModel.Cobros.Sum(c => c.Monto);
+            rendicionViewModel.MontoNeto = rendicionViewModel.MontoFacturado - rendicionViewModel.MontoComision;
+
+            if (rendicionViewModel.Id > 0)
+            {
+                var rendicionDominio = RendicionService.GetPorId(rendicionViewModel.Id);
+                foreach (var cobroViewModel in rendicionViewModel.Cobros)
+                {
+                    var cobro = rendicionDominio.Cobros.First(c => c.Id == cobroViewModel.Id);
+                    cobroViewModel.Cuotas = new List<CuotaViewModel>(cobro.Cuotas.Select(x => new CuotaViewModel(x)));
+                }
+            }
+            
             foreach (var cobroViewModel in rendicionViewModel.Cobros)
             {
                 cobroViewModel.Venta = new VentaViewModel(VentaService.GetPorId(cobroViewModel.VentaId));

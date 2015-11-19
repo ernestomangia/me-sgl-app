@@ -255,6 +255,24 @@ namespace ME.Libros.Web.Controllers
                 : View(proveedorViewModel);
         }
 
+        public ActionResult Get(string query)
+        {
+            var proveedores = new List<AutocompleteViewModel>();
+            using (ProveedorService)
+            {
+                proveedores.AddRange(ProveedorService.ListarPorNombre(query)
+                    .ToList()
+                    .Select(p => new AutocompleteViewModel
+                    {
+                        Id = p.Id,
+                        Name = string.Format("{0}", p.RazonSocial),
+                        Description = string.Format("{0} <br/> {1} - {2}, {3}", p.Cuil.ToString(), p.Direccion, p.Localidad.Nombre, p.Localidad.Provincia.Nombre)
+                    }));
+            }
+
+            return Json(proveedores, JsonRequestBehavior.AllowGet);
+        }
+
         #region Private Methods
 
         private void PrepareModel(ProveedorViewModel proveedorViewModel)

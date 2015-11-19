@@ -29,6 +29,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#Periodo, #PeriodoFake").datepicker("setDate", new Date());
+        $('#formRendicion').validate().settings.ignore = false;
     });
 
     $('#LocalidadId, #CobradorId').on('change', function (e) {
@@ -40,9 +41,6 @@
                 callback: function (result) {
                     if (result) {
                         cargarCobros();
-                    } else {
-                        // No cambiar el cobrador o localidad
-
                     }
                 }
             });
@@ -55,7 +53,7 @@
     function cargarCobros() {
         $("#DatosIngresados").val("false");
         var localidadId = $("#LocalidadId :selected").val();
-        var cobradorId = $("#CobradorId :selected").val();
+        var cobradorId = $("#CobradorId").val();
         if (cobradorId > 0 && localidadId > 0) {
             $.ajax({
                 method: "GET",
@@ -85,6 +83,8 @@
                 timeout: 10000,
                 cache: false
             });
+
+            getComisionCobrador('@Url.Action("GetById", "Cobrador")');
         } else {
             $("#MsjSinVentasVigentes").hide();
             clearTable();
@@ -94,5 +94,17 @@
     function clearTable() {
         var table = $("#tablaResultado").dataTable();
         table.fnClearTable();
+    }
+
+    function getComisionCobrador(url) {
+        var idCobrador = $("#CobradorId").val();
+        if (idCobrador > 0) {
+            var request = getCobradorRequest(url, idCobrador);
+            request.done(function (data) {
+                $("#Comision").val(formatFloat(data.PorcentajeComision));
+            });
+        } else {
+            $("#Comision").val("");
+        }
     }
 </script>

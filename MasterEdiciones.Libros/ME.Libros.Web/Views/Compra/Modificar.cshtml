@@ -6,9 +6,12 @@
 {
     @Html.Partial("CompraPagada/Shared/Form_Partial", Model)
 
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Estado)
     @Html.HiddenFor(model => model.MontoCalculado)
     @Html.HiddenFor(model => model.MontoComprado)
-    @Html.HiddenFor(model => model.ProveedorId)
+    @*@Html.HiddenFor(model => model.ProveedorId)*@
+    @Html.HiddenFor(model => model.AutocompleteProveedor)
 
     <div class="row">
         <div class="col-md-12">
@@ -44,7 +47,9 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#FechaCompra").attr("disabled", "disabled");
-        $("#ProveedorId").attr("disabled", "disabled");
+        //$("#ProveedorId").attr("disabled", "disabled");
+        $("#AutocompleteProveedor").attr("disabled", "disabled");
+        $("#AutocompleteProveedor").css("background-color", "");
         $("#MontoComprado").attr("disabled", "disabled");
         $(".disabled").attr("disabled", "disabled");
     });

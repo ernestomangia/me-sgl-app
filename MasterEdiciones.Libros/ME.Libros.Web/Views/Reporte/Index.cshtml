@@ -10,7 +10,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-comments fa-5x"></i>
+                        <i></i>
                         <span class="glyphicon glyphicons-lg glyphicon-shopping-cart text-center" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-9 text-right">
@@ -22,7 +22,7 @@
             <a href="@Url.Action("Index", "Venta", new { estado = EstadoVenta.Vigente })">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Detalle</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
             </a>
@@ -33,7 +33,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-tasks fa-5x"></i>
+                        <i></i>
                         <span class="glyphicon glyphicons-lg glyphicon-usd" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-9 text-right">
@@ -45,7 +45,7 @@
             <a href="@Url.Action("Index", "Venta", new { estado = EstadoVenta.Pagada })">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Detalle</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
             </a>
@@ -56,7 +56,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-support fa-5x"></i>
+                        <i></i>
                         <span class="glyphicon glyphicons-lg glyphicon-remove" aria-hidden="true"></span>
                     </div>
                     <div class="col-xs-9 text-right">
@@ -68,7 +68,7 @@
             <a href="@Url.Action("Index", "Venta", new { estado = EstadoVenta.Anulada })">
                 <div class="panel-footer">
                     <span class="pull-left">Ver Detalle</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <span class="pull-right"></span>
                     <div class="clearfix"></div>
                 </div>
             </a>
@@ -84,7 +84,7 @@
         @using (Html.BeginForm("", "", FormMethod.Post, new { id = "formReporte", @class = "form-horizontal", target = "_blank" }))
         {
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="form-group form-group-sm">
                         @Html.Label("Reporte", new { @class = "col-md-4 control-label" })
                         <div class="col-md-8">
@@ -115,7 +115,7 @@
                             <div class="form-group form-group-sm">
                                 @Html.LabelFor(r => r.LocalidadId, new { @class = "col-md-4 control-label" })
                                 <div class="col-md-8">
-                                    @Html.DropDownListFor(r => r.LocalidadId, Model.Localidades, "Seleccione", new { @class = "form-control", autocomplete = "off" })
+                                    @Html.DropDownListFor(r => r.LocalidadId, Model.Localidades, "Todas", new { @class = "form-control", autocomplete = "off" })
                                 </div>
                             </div>
                         </div>

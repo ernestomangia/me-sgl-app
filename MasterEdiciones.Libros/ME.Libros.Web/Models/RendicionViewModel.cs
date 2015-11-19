@@ -31,6 +31,7 @@ namespace ME.Libros.Web.Models
             Comision = rendicionDominio.Comision;
             MontoComision = rendicionDominio.MontoComision;
             Cobros = new List<CobroViewModel>(rendicionDominio.Cobros.Select(c => new CobroViewModel(c)));
+            AutocompleteCobrador = string.Format("{0} {1}", rendicionDominio.Cobrador.Nombre, rendicionDominio.Cobrador.Apellido);
         }
 
         #endregion
@@ -76,11 +77,13 @@ namespace ME.Libros.Web.Models
         [DisplayFormat(DataFormatString = "{0:C}")]
         public decimal MontoComision { get; set; }
 
+        [Display(Name = "Cobrador", ResourceType = typeof(Messages))]
+        public string AutocompleteCobrador { get; set; }
+
         public List<CobroViewModel> Cobros { get; set; }
 
         public CobradorViewModel Cobrador { get; set; }
         public LocalidadViewModel Localidad { get; set; }
-        public SelectList Cobradores { get; set; }
         public SelectList Localidades { get; set; }
 
         #endregion

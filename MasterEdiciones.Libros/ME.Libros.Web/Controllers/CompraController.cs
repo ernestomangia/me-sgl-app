@@ -42,7 +42,7 @@ namespace ME.Libros.Web.Controllers
             {
                 if (estado == null)
                 {
-                    Session.Add("MenuTodas", true);
+                    Session.Add("MenuTodasCompra", true);
 
                     compras.AddRange(CompraService.ListarAsQueryable()
                     .OrderByDescending(c => c.FechaCompra)
@@ -55,7 +55,7 @@ namespace ME.Libros.Web.Controllers
                 }
                 else
                 {
-                    Session.Remove("MenuTodas");
+                    Session.Remove("MenuTodasCompra");
                     compras.AddRange(CompraService.ListarAsQueryable()
                     .Where(c => c.Estado == estado)
                     .OrderByDescending(c => c.FechaCompra)
@@ -233,7 +233,7 @@ namespace ME.Libros.Web.Controllers
                 // Volver al menu desde donde se abrio el modificar
                 return RedirectToAction("Index", new
                 {
-                    estado = Session["MenuTodas"] == null
+                    estado = Session["MenuTodasCompra"] == null
                         ? compraViewModel.Estado
                         : (EstadoCompra?)null
                 });
@@ -285,10 +285,6 @@ namespace ME.Libros.Web.Controllers
 
         private void PrepareModel(CompraViewModel compraViewModel)
         {
-            compraViewModel.Proveedores = new SelectList(ProveedorService.Listar()
-                .ToList()
-                .Select(v => new { Id = v.Id, Text = v.Id + " - " + v.Cuil }), "Id", "Text");
-
             if (compraViewModel.Estado == EstadoCompra.None)
             {
                 var i = 1;
@@ -302,7 +298,7 @@ namespace ME.Libros.Web.Controllers
 
         private void SetMenu(EstadoCompra estadoCompra)
         {
-            if (Session["MenuTodas"] == null)
+            if (Session["MenuTodasCompra"] == null)
             {
                 switch (estadoCompra)
                 {

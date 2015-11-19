@@ -322,6 +322,18 @@ namespace ME.Libros.Web.Controllers
             };
         }
 
+        [HttpGet]
+        public JsonResult GetById(int id)
+        {
+            var cobradorViewModel = new CobradorViewModel(CobradorService.GetPorId(id));
+
+            return new JsonResult
+            {
+                Data = cobradorViewModel,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public ActionResult Get(string query)
         {
             var cobradores = new List<AutocompleteViewModel>();

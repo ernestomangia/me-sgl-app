@@ -62,7 +62,6 @@
     <Compile Include="General\CompraItemService.cs" />
     <Compile Include="General\CompraService.cs" />
     <Compile Include="General\IvaService.cs" />
-    <Compile Include="General\LoginService.cs" />
     <Compile Include="General\RendicionService.cs" />
     <Compile Include="General\UsuarioService.cs" />
     <Compile Include="General\PlanPagoService.cs" />

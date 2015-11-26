@@ -10,14 +10,14 @@ using ME.Libros.Web.Models;
 
 namespace ME.Libros.Web.Controllers
 {
-    public class LoginController : BaseController<LoginDominio>
+    public class LoginController : Controller
     {
-        public LoginService LoginService { get; set; }
 
         public LoginController()
         {
             var modelContainer = new ModelContainer();
-            LoginService = new LoginService(new EntidadRepository<LoginDominio>(modelContainer));
+            var navigationBarViewModel = new NavigationBarViewModel();
+            ViewBag.NavigationBar = navigationBarViewModel;
             ViewBag.Title = "Login";
         }
 

@@ -19,7 +19,7 @@ namespace ME.Libros.EF.Mapeos
             //Properties
             Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(r => r.Nombre).IsRequired().HasMaxLength(80);
-            Property(r => r.Descripcion).IsOptional().HasMaxLength(256);
+            Property(r => r.Descripcion).IsOptional().HasMaxLength(250);
             Property(r => r.FechaAlta).IsRequired();
 
             //Map Table

@@ -267,6 +267,7 @@ namespace ME.Libros.EF
                 {
                     FechaAlta = DateTime.Now,
                     Nombre = "Administrador",
+                    Apellido = "",
                     UserName = "admin",
                     Password = "admin",
                     Habilitado = true

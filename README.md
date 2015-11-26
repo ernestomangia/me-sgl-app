@@ -15,7 +15,7 @@ La app se diseño en base a una arquitectura de 4 capas. A continuación se detall
 ## Setup
 1. Descargar la solución completa.
 2. Abrir la solucion con Visual Studio 2013.
-3. Configurar la conexión a la BD (provado con SQL server) en el web.config del proyecto ME.Libros.Web.
+3. Configurar la conexión a la BD (testeado con SQL server) en el web.config del proyecto ME.Libros.Web.
 4. Generar un build de la solucion llamada ME.Libros.
 5. Ejecutar el proyecto ME.Libros.Web.
 

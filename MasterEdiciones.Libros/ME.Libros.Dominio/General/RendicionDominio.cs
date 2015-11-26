@@ -11,7 +11,6 @@ namespace ME.Libros.Dominio.General
         public virtual CobradorDominio Cobrador { get; set; }
         public virtual LocalidadDominio Localidad { get; set; }
         public virtual List<CobroDominio> Cobros { get; set; }
-        public virtual List<GastoCobradorDominio> Gastos { get; set; }
         public virtual decimal MontoFacturado { get; set; }
         public virtual decimal MontoNeto { get; set; }
         public virtual decimal Comision { get; set; }

@@ -38,7 +38,6 @@ namespace ME.Libros.Servicios.Test
                     Apellido = "ApellidoCliente Test",
                     Cuil = "20364062479",
                     Direccion = "Direccion",
-                    Numero = "Numero",
                     Localidad = new LocalidadDominio
                     {
                         FechaAlta = DateTime.Now,

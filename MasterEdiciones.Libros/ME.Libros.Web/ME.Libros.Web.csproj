@@ -821,6 +821,7 @@
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompraItemController.cs" />
+    <Compile Include="Controllers\ConfiguracionController.cs" />
     <Compile Include="Controllers\HtmlHelpers.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -865,6 +866,7 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\Autocomplete.cs" />
+    <Compile Include="Models\ConfiguracionViewModel.cs" />
     <Compile Include="Models\IvaViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PlanillaCobradorViewModel.cs" />
@@ -1024,6 +1026,7 @@
     <Content Include="Views\Reporte\PlanillaCobradorPDF.cshtml" />
     <Content Include="Views\Reporte\VentasPorCobrarPDF.cshtml" />
     <Content Include="Views\Reporte\VentasAtrasadasPDF.cshtml" />
+    <Content Include="Views\Configuracion\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

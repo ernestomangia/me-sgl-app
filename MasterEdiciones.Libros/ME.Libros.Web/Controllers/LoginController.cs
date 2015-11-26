@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using System.Web.Security;
 using ME.Libros.Api.Logging;
 using ME.Libros.Dominio.General;
@@ -12,10 +13,12 @@ namespace ME.Libros.Web.Controllers
 {
     public class LoginController : Controller
     {
+        public UsuarioService UsuarioService { get; set; }
 
         public LoginController()
         {
             var modelContainer = new ModelContainer();
+            UsuarioService = new UsuarioService(new EntidadRepository<UsuarioDominio>(modelContainer));
             var navigationBarViewModel = new NavigationBarViewModel();
             ViewBag.NavigationBar = navigationBarViewModel;
             ViewBag.Title = "Login";
@@ -39,8 +42,10 @@ namespace ME.Libros.Web.Controllers
             {
                 //TODO: Almacenar cookie Recordar usuario y contraseña
                 //TODO: Validar si usuario y contraseña son correctos
-
-                if (true || Membership.ValidateUser(loginViewModel.Usuario, loginViewModel.Password))
+                //Membership.ValidateUser(loginViewModel.Usuario, loginViewModel.Password)
+                var usuario = UsuarioService.ListarAsQueryable()
+                    .SingleOrDefault(u => u.UserName.Equals(loginViewModel.Usuario) && u.Password.Equals(loginViewModel.Password));
+                if (usuario != null) 
                 {
                     FormsAuthentication.SetAuthCookie(loginViewModel.Usuario, loginViewModel.Recordarme);
 

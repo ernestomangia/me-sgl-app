@@ -298,10 +298,18 @@ namespace ME.Libros.Web.Models
                 {
                     new MenuViewModel
                     {
-                        Id = 11,
+                        Id = 200,
                         Nombre = "Usuarios",
                         Controller = "Usuario",
                         Link = helper.Action("Index", "Usuario"),
+                        Posicion = 10
+                    },
+                    new MenuViewModel
+                    {
+                        Id = 201,
+                        Nombre = "Config",
+                        Controller = "Configuracion",
+                        Link = helper.Action("Index", "Configuracion"),
                         Posicion = 10
                     }
                 }

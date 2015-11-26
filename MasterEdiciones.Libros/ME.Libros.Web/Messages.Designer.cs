@@ -871,6 +871,15 @@ namespace ME.Libros.Web {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ruta destino:.
+        /// </summary>
+        public static string Ruta {
+            get {
+                return ResourceManager.GetString("Ruta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saldo.
         /// </summary>
         public static string Saldo {

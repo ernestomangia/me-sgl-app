@@ -414,4 +414,7 @@
   <data name="RazonSocial" xml:space="preserve">
     <value>Razón social</value>
   </data>
+  <data name="Ruta" xml:space="preserve">
+    <value>Ruta destino:</value>
+  </data>
 </root>

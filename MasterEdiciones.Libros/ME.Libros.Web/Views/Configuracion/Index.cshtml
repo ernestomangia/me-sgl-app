@@ -3,17 +3,25 @@
 <h3 class="page-header">Configuraciones</h3>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Backup</h3>
+        <h3 class="panel-title">Crear Backup</h3>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("CreateBackup", "Configuracion", FormMethod.Post, new { id = "formConfiguracion", @class = "form-horizontal" }))
+        Genere una copia de seguridad completa de la base de datos del sistema con el fin de disponer de un medio para recuperar los datos en caso de su pérdida.
+        <br />
+        Consideraciones a tener en cuenta:
+        <ul>
+            <li>Si no especifica una <b>Carpeta de Destino</b>, su navegador descargará automáticamente la copia de seguridad en su computadora. Es altamente recomendable que usted luego copie el archivo descargado a un medio externo.</li>
+            <li>Si especifica una <b>Carpeta de Destino</b>, el sistema guardará la copia de seguridad en la ruta especificada</li>
+        </ul>
+        <hr />
+        @using (Html.BeginForm("CreateBackup", "Configuracion", FormMethod.Post, new { id = "formCreateBackup", @class = "form-horizontal" }))
         {
             <div class="row">
                 <div class="col-md-10">
                     <div class="form-group form-group-sm">
-                        @Html.LabelFor(c => c.Ruta, new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(c => c.CarpetaDestino, new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(c => c.Ruta, new { @class = "form-control" })
+                            @Html.TextBoxFor(c => c.CarpetaDestino, new { @class = "form-control" })
                         </div>
                     </div>
                 </div>
@@ -21,7 +29,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-right">
-                        <button id="btnExportar" class="btn btn-success" type="submit" title="Ejecutar">
+                        <button id="btnCrearBackup" class="btn btn-success" type="submit" title="Ejecutar">
                             <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
                             Ejecutar
                         </button>
@@ -31,3 +39,82 @@
         }
     </div>
 </div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Restaurar Backup</h3>
+    </div>
+    <div class="panel-body">
+        Restaure una copia de seguridad de la base de datos del sistema generada con anterioridad. Utilice el siguiente cuadro de dialogo para buscar la copia de seguridad a restaurar. La extensión del archivo debe ser ".bak".
+        <br />
+        Esta funcionalidad puede generar pérdida de datos si usted restaura una copia de seguridad incorrecta. Es altamente recomendable que antes de realizar una restauración genere una copia de seguridad actual.
+        <hr />
+        @*<div class="alert alert-danger" role="alert">Se perderá toda la información que usted haya generado luego de la fecha de creación de la copia de seguridad seleccionada</div>*@
+        @using (Html.BeginForm("RestoreBackup", "Configuracion", FormMethod.Post, new { id = "formRestoreBackup", @class = "form-horizontal formEntidad", enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group form-group-sm">
+                        @Html.LabelFor(c => c.BackupFile, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(c => c.BackupFile, new { @class = "form-control", type = "file", accept = ".bak" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger validationSummary @(ViewData.ModelState.IsValid ? "hide" : "")" role="alert">
+                        <a class="close" data-hide="alert" aria-hidden="true">×</a>
+                        <b>Mensajes:</b>
+                        @Html.Raw(HttpUtility.HtmlDecode(Html.ValidationSummary().ToString()))
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <button id="btnRestoreBackup" class="btn btn-success" type="button" title="Ejecutar">
+                            <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                            Ejecutar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    var formCreateBackup = true;
+
+    $("#btnRestoreBackup").on("click", function (e) {
+        validationSummaryVisibility($("#formRestoreBackup"));
+        if ($("#formRestoreBackup").valid()) {
+            bootbox.dialog({
+                title: "Advertencia",
+                message: "¿Esta seguro que desea restaurar la copia de seguridad seleccionada?<br> <div class='alert alert-danger' role='alert'><b>Atención:</b> se perderá la información que usted haya generado luego de la fecha de creación de la copia de seguridad seleccionada</div>",
+                buttons: {
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-default"
+                    },
+                    danger: {
+                        label: "Restaurar",
+                        className: "btn-danger",
+                        callback: function () {
+                            formCreateBackup = false;
+                            $("#formRestoreBackup").submit();
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    $(window).bind('beforeunload', function () {
+        if (formCreateBackup && $("#CarpetaDestino").val() === '') {
+            hideAjaxLoader();
+        }
+    });
+</script>

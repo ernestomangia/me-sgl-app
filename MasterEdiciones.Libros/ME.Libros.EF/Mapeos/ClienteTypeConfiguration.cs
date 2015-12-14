@@ -21,7 +21,6 @@ namespace ME.Libros.EF.Mapeos
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
             Property(c => c.Nombre).HasMaxLength(100).IsRequired();
             Property(c => c.Apellido).HasMaxLength(100).IsRequired();
-            Property(c => c.FechaNacimiento).IsOptional();
             Property(c => c.Dni)
                 .IsOptional();
                 //.HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute { IsUnique = true }));
@@ -37,6 +36,8 @@ namespace ME.Libros.EF.Mapeos
 
             // FK
             HasRequired(c => c.Localidad);
+
+            Ignore(c => c.FechaNacimiento);
 
             // Map Table
             ToTable("Cliente");

@@ -414,7 +414,10 @@
   <data name="RazonSocial" xml:space="preserve">
     <value>Razón social</value>
   </data>
-  <data name="Ruta" xml:space="preserve">
-    <value>Ruta destino:</value>
+  <data name="CarpetaDestino" xml:space="preserve">
+    <value>Carpeta de destino</value>
+  </data>
+  <data name="BackupFile" xml:space="preserve">
+    <value>Archivo de backup</value>
   </data>
 </root>

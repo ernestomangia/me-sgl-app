@@ -47,10 +47,12 @@
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Smo, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.SmoExtended, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -114,6 +116,10 @@
     <ProjectReference Include="..\ME.Libros.Repositorio\ME.Libros.Repositorios.csproj">
       <Project>{7128460f-c8fb-45e5-9cc5-d8286cce5b0c}</Project>
       <Name>ME.Libros.Repositorios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ME.Libros.Transversal\ME.Libros.Logging.csproj">
+      <Project>{065387BA-D124-4CF2-929C-471C41B6EECF}</Project>
+      <Name>ME.Libros.Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\ME.Libros.Utils\ME.Libros.Utils.csproj">
       <Project>{33b1e5b9-b525-4a06-8907-d3e1543ca2f4}</Project>

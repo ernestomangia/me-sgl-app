@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mapeos\GastoVendedorTypeConfiguration.cs" />
+    <Compile Include="Mapeos\GastoCobradorTypeConfiguration.cs" />
     <Compile Include="Mapeos\RendicionTypeConfiguration.cs" />
     <Compile Include="Mapeos\IvaTypeConfiguration.cs" />
     <Compile Include="Mapeos\VendedorTypeConfiguration.cs" />

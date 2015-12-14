@@ -719,6 +719,7 @@
     <Content Include="Content\DataTables-1.10.9\media\images\Sorting icons.psd" />
     <Content Include="Content\DataTables-1.10.9\extensions\Buttons\css\mixins.scss" />
     <Content Include="Content\DataTables-1.10.9\extensions\Buttons\css\common.scss" />
+    <Content Include="Help\Manual de Usuario.pdf" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />

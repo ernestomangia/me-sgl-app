@@ -48,7 +48,7 @@ namespace ME.Libros.Web.Controllers
                 if (usuario != null) 
                 {
                     FormsAuthentication.SetAuthCookie(loginViewModel.Usuario, loginViewModel.Recordarme);
-
+                    Session.Add("Usuario", new UsuarioViewModel(usuario));
                     LogHelper.Log("LOGIN - User: " + loginViewModel.Usuario, SeveridadLog.Info);
 
                     if (Url.IsLocalUrl(returnUrl)

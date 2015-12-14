@@ -348,6 +348,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{105465A4-67F7-4EF4-B702-70307AD08027}</td><td>MASTEREDICIONES1</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{9162B644-242D-4745-B08F-A33D7396F3F4}</td><td>DesktopFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{FE4620C3-CDDD-4DB7-85D3-EAD0C8BC69A0}</td><td>BIN</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{61880019-70D1-4719-BD64-7451BB1F09A9}</td><td>TEMP</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ME.Libros.Web.Content_Files</td><td>{B9466CDD-3E24-41AA-81ED-0A2E2754A597}</td><td>MASTEREDICIONES1</td><td>2</td><td/><td>me.libros.web.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ME.Libros.Web.Primary_output2</td><td>{0B25648F-0C7A-4F66-97F9-C71C06AFF826}</td><td>BIN</td><td>2</td><td/><td>me.libros.web.primary_output2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>WebsiteComponent</td><td>{75AA51A4-6609-4BAD-B68E-D5751D6E4CD3}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1067,11 +1068,13 @@
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Content_Files</td></row>
 		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Primary_output2</td></row>
 		<row><td>INSTALLDIR</td><td>WebsiteComponent</td></row>
 		<row><td>MASTEREDICIONES1</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>MASTEREDICIONES1</td><td>ME.Libros.Web.Content_Files</td></row>
+		<row><td>TEMP</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1203,6 +1206,7 @@
 		<row><td>System64Folder</td><td>TARGETDIR</td><td>.:System64</td><td/><td>0</td><td/></row>
 		<row><td>SystemFolder</td><td>TARGETDIR</td><td>.:System32</td><td/><td>0</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
+		<row><td>TEMP</td><td>MASTEREDICIONES1</td><td>temp</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
@@ -1908,6 +1912,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Primary_output2</td></row>
 		<row><td>AlwaysInstall</td><td>WebsiteComponent</td></row>
@@ -2072,6 +2077,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_911A492E_38AF_4A93_BB5F_507EC93E00C3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_044DE8F9_0071_4D31_BFFA_70CCE9259E9C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_1186EE86_7A87_4D24_A893_1F2FA8541278_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_7331FD16_0226_4394_9E2E_BC9084AC040A_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ME.Libros.Web.Content_Files</td><td/><td/><td>_610A5FFD_CF01_42EA_9151_62142099B7EB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ME.Libros.Web.Primary_output2</td><td/><td/><td>_8353A022_BB19_4990_B420_994BEDC0027C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>WebsiteComponent</td><td/><td/><td>_DCF567C8_FCE3_46A9_ADFF_AE21654CA16F_FILTER</td><td/><td/><td/><td/></row>
@@ -2680,7 +2686,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>497232960</td></row>
+		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982056911</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1034</td><td>Instalar siempre</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1034</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1034</td><td>La configuración de colores de su sistema no es adecuada para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
@@ -3796,8 +3802,8 @@
 		<row><td>ID_STRING14</td><td>1033</td><td>Default Application2</td><td>0</td><td/><td>1302561504</td></row>
 		<row><td>ID_STRING14</td><td>1034</td><td>Default Application2</td><td>0</td><td/><td>1302561504</td></row>
 		<row><td>ID_STRING2</td><td>1034</td><td/><td>0</td><td/><td>883150901</td></row>
-		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>497232960</td></row>
-		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>497232960</td></row>
+		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>1982056911</td></row>
+		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982056911</td></row>
 		<row><td>ID_STRING5</td><td>1034</td><td>Launch |Built</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING6</td><td>1034</td><td>MasterEdiciones</td><td>0</td><td/><td>1168369271</td></row>
 		<row><td>ID_STRING7</td><td>1034</td><td>VirtualDir2</td><td>0</td><td/><td>883150901</td></row>

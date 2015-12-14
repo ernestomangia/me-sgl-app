@@ -31,7 +31,7 @@
         var id = $("#idEntidad").val();
         var codigo = $("#Codigo").val();
         if (typeof (codigo) == "undefined") {
-            var table = $("#dataTableClientes").DataTable();
+            var table = $(".dataTableCustom").DataTable();
             codigo = table.cell($("#tr_" + id), $(".columnaCodigo")).data();
         }
         var success = ('@Messages.EntidadEliminada').replace("{0}", '@Messages.ElCliente').replace("{1}", codigo);

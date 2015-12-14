@@ -105,6 +105,7 @@
             <div class="collapse navbar-collapse">
                 @if (navigationBar.MostrarMenu)
                 {
+                    var usuario = (UsuarioViewModel) Session["Usuario"];
                     <ul class="nav navbar-nav">
                         @foreach (var menu in navigationBar.MenuViewModels)
                         {
@@ -116,16 +117,16 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Juan, Perez <span class="caret"></span>
+                                @usuario.Nombre, @usuario.Apellido <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Perfil</a></li>
-                                <li><a href="#">Cambiar clave</a></li>
+                                <li>@Html.ActionLink("Perfil", "Modificar", "Usuario", new { id = usuario.Id }, null)</li>
+                                <li>@Html.ActionLink("Cambiar clave", "Modificar", "Usuario", new { id = usuario.Id }, null)</li>
                                 <li role="separator" class="divider"></li>
                                 <li>@Html.ActionLink("Log out", "Logout", "Login")</li>
                             </ul>
                         </li>
-                        <li><a href="#">Ayuda</a></li>
+                        <li><a href="@Url.Content("~/Help/Manual de Usuario.pdf")" target="_blank">Ayuda</a></li>
                         <li>@Html.ActionLink("Log out", "Logout", "Login")</li>
                     </ul>
                 }

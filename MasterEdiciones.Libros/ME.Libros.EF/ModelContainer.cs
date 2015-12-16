@@ -153,50 +153,50 @@ namespace ME.Libros.EF
                     HabilitarEliminar = false
                 };
 
-                var cliente = new ClienteDominio
-                {
-                    FechaAlta = DateTime.Now,
-                    Codigo = 1,
-                    Nombre = "Gonzalo",
-                    Apellido = "Sanchez Bolaños",
-                    Dni = 111111,
-                    Cuil = "00-00000000-0",
-                    Localidad = localidades[0],
-                    Direccion = "San Juan 500",
-                    Iva = cf
-                };
+                //var cliente = new ClienteDominio
+                //{
+                //    FechaAlta = DateTime.Now,
+                //    Codigo = 1,
+                //    Nombre = "Gonzalo",
+                //    Apellido = "Sanchez Bolaños",
+                //    Dni = 111111,
+                //    Cuil = "00-00000000-0",
+                //    Localidad = localidades[0],
+                //    Direccion = "San Juan 500",
+                //    Iva = cf
+                //};
 
-                var cobrador = new CobradorDominio
-                {
-                    FechaAlta = DateTime.Now,
-                    Nombre = "Jose",
-                    Apellido = "Lopez",
-                    Dni = 35625222,
-                    PorcentajeComision = 10,
-                    Direccion = "Corrientes 500",
-                    Localidad = localidades[0],
-                    Localidades = new List<LocalidadDominio>
-                    {
-                        localidades[2],
-                        localidades[3]
-                    }
-                };
+                //var cobrador = new CobradorDominio
+                //{
+                //    FechaAlta = DateTime.Now,
+                //    Nombre = "Jose",
+                //    Apellido = "Lopez",
+                //    Dni = 35625222,
+                //    PorcentajeComision = 10,
+                //    Direccion = "Corrientes 500",
+                //    Localidad = localidades[0],
+                //    Localidades = new List<LocalidadDominio>
+                //    {
+                //        localidades[2],
+                //        localidades[3]
+                //    }
+                //};
 
-                var vendedor = new VendedorDominio
-                {
-                    FechaAlta = DateTime.Now,
-                    Nombre = "Juan",
-                    Apellido = "Lopez",
-                    Dni = 35625222,
-                    PorcentajeComision = 10,
-                    Direccion = "Corrientes 500",
-                    Localidad = localidades[0],
-                    Localidades = new List<LocalidadDominio>
-                    {
-                        localidades[2],
-                        localidades[3]
-                    }
-                };
+                //var vendedor = new VendedorDominio
+                //{
+                //    FechaAlta = DateTime.Now,
+                //    Nombre = "Juan",
+                //    Apellido = "Lopez",
+                //    Dni = 35625222,
+                //    PorcentajeComision = 10,
+                //    Direccion = "Corrientes 500",
+                //    Localidad = localidades[0],
+                //    Localidades = new List<LocalidadDominio>
+                //    {
+                //        localidades[2],
+                //        localidades[3]
+                //    }
+                //};
                 
                 // Entidades sin definir
                 var editorialSinDefinir = new EditorialDominio
@@ -241,27 +241,27 @@ namespace ME.Libros.EF
                     Tipo = TipoPlanPago.Financiado
                 };
 
-                var enciclopedia = new ProductoDominio
-                {
-                    FechaAlta = DateTime.Now,
-                    Nombre = "Enciclopedia",
-                    Descripcion = "Enciclopedia",
-                    PrecioCosto = 80.25m,
-                    PrecioVenta = 132.50m,
-                    Rubro = rubroSinDefinir,
-                    Editorial = editorialSinDefinir
-                };
+                //var enciclopedia = new ProductoDominio
+                //{
+                //    FechaAlta = DateTime.Now,
+                //    Nombre = "Enciclopedia",
+                //    Descripcion = "Enciclopedia",
+                //    PrecioCosto = 80.25m,
+                //    PrecioVenta = 132.50m,
+                //    Rubro = rubroSinDefinir,
+                //    Editorial = editorialSinDefinir
+                //};
 
-                var diccionario = new ProductoDominio
-                {
-                    FechaAlta = DateTime.Now,
-                    Nombre = "Diccionario",
-                    Descripcion = "Diccionario",
-                    PrecioCosto = 20.25m,
-                    PrecioVenta = 42.50m,
-                    Rubro = rubroSinDefinir,
-                    Editorial = editorialSinDefinir
-                };
+                //var diccionario = new ProductoDominio
+                //{
+                //    FechaAlta = DateTime.Now,
+                //    Nombre = "Diccionario",
+                //    Descripcion = "Diccionario",
+                //    PrecioCosto = 20.25m,
+                //    PrecioVenta = 42.50m,
+                //    Rubro = rubroSinDefinir,
+                //    Editorial = editorialSinDefinir
+                //};
 
                 var admin = new UsuarioDominio
                 {
@@ -275,14 +275,14 @@ namespace ME.Libros.EF
                 context.Set<PlanPagoDominio>().Add(planPagoContado);
                 context.Set<PlanPagoDominio>().Add(planPago10);
                 context.Set<GastoDominio>().Add(gastoSinDefinir);
-                context.Set<ClienteDominio>().Add(cliente);
-                context.Set<CobradorDominio>().Add(cobrador);
-                context.Set<VendedorDominio>().Add(vendedor);
+                //context.Set<ClienteDominio>().Add(cliente);
+                //context.Set<CobradorDominio>().Add(cobrador);
+                //context.Set<VendedorDominio>().Add(vendedor);
                 context.Set<ZonaDominio>().Add(zonaSinDefinir);
                 context.Set<EditorialDominio>().Add(editorialSinDefinir);
                 context.Set<RubroDominio>().Add(rubroSinDefinir);
-                context.Set<ProductoDominio>().Add(enciclopedia);
-                context.Set<ProductoDominio>().Add(diccionario);
+                //context.Set<ProductoDominio>().Add(enciclopedia);
+                //context.Set<ProductoDominio>().Add(diccionario);
                 context.Set<IvaDominio>().Add(cf);
                 context.Set<IvaDominio>().Add(monotributo);
                 context.Set<IvaDominio>().Add(ri);

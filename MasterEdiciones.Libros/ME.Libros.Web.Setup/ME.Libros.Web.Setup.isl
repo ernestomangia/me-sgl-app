@@ -349,9 +349,11 @@
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{9162B644-242D-4745-B08F-A33D7396F3F4}</td><td>DesktopFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{FE4620C3-CDDD-4DB7-85D3-EAD0C8BC69A0}</td><td>BIN</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{61880019-70D1-4719-BD64-7451BB1F09A9}</td><td>TEMP</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>IS_ININSTALL_SHORTCUT</td><td>{493BED91-6EAC-454C-B2A4-946FD6817BD4}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ME.Libros.Web.Content_Files</td><td>{B9466CDD-3E24-41AA-81ED-0A2E2754A597}</td><td>MASTEREDICIONES1</td><td>2</td><td/><td>me.libros.web.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ME.Libros.Web.Primary_output2</td><td>{0B25648F-0C7A-4F66-97F9-C71C06AFF826}</td><td>BIN</td><td>2</td><td/><td>me.libros.web.primary_output2</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>WebsiteComponent</td><td>{75AA51A4-6609-4BAD-B68E-D5751D6E4CD3}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>WebsiteComponent1</td><td>{80ECA077-778A-4CC1-8281-5F39801C56E1}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1069,9 +1071,11 @@
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT4</td></row>
+		<row><td>INSTALLDIR</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Content_Files</td></row>
 		<row><td>INSTALLDIR</td><td>ME.Libros.Web.Primary_output2</td></row>
 		<row><td>INSTALLDIR</td><td>WebsiteComponent</td></row>
+		<row><td>INSTALLDIR</td><td>WebsiteComponent1</td></row>
 		<row><td>MASTEREDICIONES1</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 		<row><td>MASTEREDICIONES1</td><td>ME.Libros.Web.Content_Files</td></row>
 		<row><td>TEMP</td><td>ISX_DEFAULTCOMPONENT4</td></row>
@@ -1887,6 +1891,7 @@
 		<col def="S255">ProgId_</col>
 		<col def="S64">MIME_</col>
 		<col def="s38">Feature_</col>
+		<row><td>url</td><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>AlwaysInstall</td></row>
 	</table>
 
 	<table name="Feature">
@@ -1913,9 +1918,11 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
+		<row><td>AlwaysInstall</td><td>IS_ININSTALL_SHORTCUT</td></row>
 		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>ME.Libros.Web.Primary_output2</td></row>
 		<row><td>AlwaysInstall</td><td>WebsiteComponent</td></row>
+		<row><td>AlwaysInstall</td><td>WebsiteComponent1</td></row>
 	</table>
 
 	<table name="File">
@@ -1932,6 +1939,8 @@
 		<col def="S72">ISComponentSubFolder_</col>
 		<row><td>me.libros.web.content_files</td><td>ME.Libros.Web.Content_Files</td><td>ME.Libros.Web.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ME.Libros.Web&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>me.libros.web.primary_output2</td><td>ME.Libros.Web.Primary_output2</td><td>ME.Libros.Web.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ME.Libros.Web&gt;|Built</td><td>3</td><td/></row>
+		<row><td>sgl.url</td><td>ISX_DEFAULTCOMPONENT</td><td>SGL.url</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\hxpws-000438\Downloads\SGL.url</td><td>1</td><td/></row>
+		<row><td>sgl.url1</td><td>ISX_DEFAULTCOMPONENT2</td><td>SGL.url</td><td>0</td><td/><td/><td/><td>1</td><td>C:\Users\hxpws-000438\Downloads\SGL.url</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -1947,6 +1956,9 @@
 	<table name="ISAssistantTag">
 		<col key="yes" def="s72">Tag</col>
 		<col def="S255">Data</col>
+		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
+		<row><td>sgl.url</td><td/></row>
+		<row><td>sgl.url1</td><td/></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -2078,9 +2090,11 @@
 		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_044DE8F9_0071_4D31_BFFA_70CCE9259E9C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_1186EE86_7A87_4D24_A893_1F2FA8541278_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_7331FD16_0226_4394_9E2E_BC9084AC040A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>IS_ININSTALL_SHORTCUT</td><td/><td/><td>_DDE0432A_A69A_4520_92E9_877085BB8F56_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ME.Libros.Web.Content_Files</td><td/><td/><td>_610A5FFD_CF01_42EA_9151_62142099B7EB_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ME.Libros.Web.Primary_output2</td><td/><td/><td>_8353A022_BB19_4990_B420_994BEDC0027C_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>WebsiteComponent</td><td/><td/><td>_DCF567C8_FCE3_46A9_ADFF_AE21654CA16F_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>WebsiteComponent1</td><td/><td/><td>_D9410C78_4962_4E5B_81CD_B90DA3669F5A_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2177,7 +2191,7 @@
 		<col def="L255">DisplayName</col>
 		<col def="i4">Type</col>
 		<col def="S72">Component_</col>
-		<row><td>IisItem1</td><td/><td>##ID_STRING6##</td><td>1</td><td>WebsiteComponent</td></row>
+		<row><td>IisItem1</td><td/><td>##ID_STRING15##</td><td>1</td><td>WebsiteComponent1</td></row>
 	</table>
 
 	<table name="ISIISProperty">
@@ -2193,11 +2207,9 @@
 		<col def="I4">Order</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>ISIISProperty1</td><td>IisItem1</td><td/><td>Path</td><td/><td/><td/><td/><td>MASTEREDICIONES1</td><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty10</td><td>IisItem1</td><td/><td>ServerBindings</td><td/><td/><td/><td/><td>*:8080:</td><td>0</td><td>0</td></row>
+		<row><td>ISIISProperty10</td><td>IisItem1</td><td/><td>ServerBindings</td><td/><td/><td/><td/><td>*:80:</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty11</td><td>IisItem1</td><td/><td>SiteNumber</td><td/><td/><td/><td/><td>0</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty12</td><td>IisItem1</td><td/><td>DefaultDoc</td><td/><td/><td/><td/><td/><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty13</td><td>IisItem1</td><td/><td>CustomErrors</td><td/><td/><td/><td/><td/><td>0</td><td>0</td></row>
-		<row><td>ISIISProperty14</td><td>IisItem1</td><td/><td>AspVer</td><td/><td/><td/><td/><td>4.0.30319</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty2</td><td>IisItem1</td><td/><td>AccessFlags</td><td/><td/><td/><td/><td>513</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty3</td><td>IisItem1</td><td/><td>ContentIndexed</td><td/><td/><td/><td/><td>1</td><td>0</td><td>0</td></row>
 		<row><td>ISIISProperty4</td><td>IisItem1</td><td/><td>DontLog</td><td/><td/><td/><td/><td>0</td><td>0</td><td>0</td></row>
@@ -2441,7 +2453,7 @@
 		<row><td>Custom</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>2</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>100</td><td>0</td><td>1024</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-10</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>8.75</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-18</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>15.83</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75932</td><td/><td/><td/><td>3</td></row>
+		<row><td>DVD-5</td><td>Express</td><td>C:\Users\hxpws-000438\Documents\me-sgl-app\MasterEdiciones.Libros\ME.Libros.Web.Setup\ME.Libros.Web.Setup</td><td>Default</td><td>3</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75932</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-9</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>7.95</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108572</td><td/><td/><td/><td>3</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>124941</td><td/><td/><td/><td>3</td></row>
@@ -2686,11 +2698,13 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982056911</td></row>
+		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982053268</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1034</td><td>Instalar siempre</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1034</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1034</td><td>La configuración de colores de su sistema no es adecuada para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
-		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1034</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>883150901</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1034</td><td>Microsoft .NET Framework 4.5 Full package o superior necesita ser instalado para continuar con esta instalación.</td><td>0</td><td/><td>-2044503983</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>1033</td><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>0</td><td/><td>1982046356</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_IIS_VERSION</td><td>1034</td><td>Internet Information Server 7.0 o superior necesita ser instalado para continuar con esta instalación</td><td>0</td><td/><td>1982007700</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1034</td><td>El sistema operativo no es adecuado para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1034</td><td>El procesador no es adecuado para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1034</td><td>La cantidad de RAM no es adecuada para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
@@ -3504,6 +3518,18 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1034</td><td>Sistema Gestión de Libros</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td/><td>0</td><td/><td>497223040</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1034</td><td>LAUNCH~1.EXE|Launch wkhtmltopdf.exe</td><td>0</td><td/><td>497223040</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td/><td>0</td><td/><td>-2044504815</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1034</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044504815</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td/><td>0</td><td/><td>-2044508751</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1034</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044508751</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td/><td>0</td><td/><td>-2044525870</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1034</td><td>SGL.url</td><td>0</td><td/><td>-2044507310</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td/><td>0</td><td/><td>-2044508557</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1034</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044508557</td></row>
+		<row><td>IDS_SOFTWARE_REQUIREMENT_MESSAGE1</td><td>1033</td><td>CLICK HERE to enter the message to display to your end user when this item does not exist on the target machine.</td><td>0</td><td/><td>-2044479439</td></row>
+		<row><td>IDS_SOFTWARE_REQUIREMENT_MESSAGE1</td><td>1034</td><td>CLICK HERE to enter the message to display to your end user when this item does not exist on the target machine.</td><td>0</td><td/><td>-2044479439</td></row>
+		<row><td>IDS_SOFTWARE_REQUIREMENT_MESSAGE2</td><td>1033</td><td>CLICK HERE to enter the message to display to your end user when this item does not exist on the target machine.</td><td>0</td><td/><td>-2044473295</td></row>
+		<row><td>IDS_SOFTWARE_REQUIREMENT_MESSAGE2</td><td>1034</td><td>Internet Information Services 7.0 o superior necesita ser instalado para continuar con esta instalación.</td><td>0</td><td/><td>-2044477359</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1034</td><td>Seleccione el servidor de base de datos de destino en la lista de servidores que aparece a continuación.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1034</td><td>En la lista de nombres de catálogo siguiente, seleccione el catálogo de base de datos de destino.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1034</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>883150901</td></row>
@@ -3801,9 +3827,17 @@
 		<row><td>ID_STRING13</td><td>1034</td><td>VirtualDir2</td><td>0</td><td/><td>1302561504</td></row>
 		<row><td>ID_STRING14</td><td>1033</td><td>Default Application2</td><td>0</td><td/><td>1302561504</td></row>
 		<row><td>ID_STRING14</td><td>1034</td><td>Default Application2</td><td>0</td><td/><td>1302561504</td></row>
+		<row><td>ID_STRING15</td><td>1033</td><td>WebSite1</td><td>0</td><td/><td>-2044516496</td></row>
+		<row><td>ID_STRING15</td><td>1034</td><td>MasterEdiciones</td><td>0</td><td/><td>-2044485231</td></row>
+		<row><td>ID_STRING16</td><td>1033</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044502767</td></row>
+		<row><td>ID_STRING16</td><td>1034</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044502767</td></row>
+		<row><td>ID_STRING17</td><td>1033</td><td>SGL</td><td>0</td><td/><td>-2044507438</td></row>
+		<row><td>ID_STRING17</td><td>1034</td><td>SGL</td><td>0</td><td/><td>-2044507438</td></row>
+		<row><td>ID_STRING18</td><td>1033</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044492109</td></row>
+		<row><td>ID_STRING18</td><td>1034</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044492109</td></row>
 		<row><td>ID_STRING2</td><td>1034</td><td/><td>0</td><td/><td>883150901</td></row>
-		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>1982056911</td></row>
-		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982056911</td></row>
+		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>1982053268</td></row>
+		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982053268</td></row>
 		<row><td>ID_STRING5</td><td>1034</td><td>Launch |Built</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING6</td><td>1034</td><td>MasterEdiciones</td><td>0</td><td/><td>1168369271</td></row>
 		<row><td>ID_STRING7</td><td>1034</td><td>VirtualDir2</td><td>0</td><td/><td>883150901</td></row>
@@ -3923,6 +3957,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ME.Libros.Web\book.ico</td><td>0</td></row>
+		<row><td>UNINST_Uninstall_S_9080B87CFA934B30BEEA37441C35583B.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2015LE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>sgl.url1_036EB4C7A0044AD3A2394C39B7B1737B.exe</td><td/><td>&lt;VSSolutionFolder&gt;\ME.Libros.Web\book.ico</td><td>0</td></row>
 		<row><td>wkhtmltopdf.exe_BFF5E200B7924ECCBE8A4AD3063B8EF9.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 	</table>
 
@@ -4043,8 +4079,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1034</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
-QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="a4f66fafb30885f14d732b73e196bba0">
+RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
@@ -4120,6 +4156,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col key="yes" def="s255">Condition</col>
 		<col def="l255">Description</col>
 		<row><td>DOTNETVERSION45FULL&gt;="#1"</td><td>##IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL##</td></row>
+		<row><td>IIS_VERSION</td><td>##IDS_SOFTWARE_REQUIREMENT_MESSAGE2##</td></row>
 	</table>
 
 	<table name="ListBox">
@@ -4407,8 +4444,8 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
-		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{755B8E14-50E1-4945-A051-F77F1EB33165}</td><td/></row>
-		<row><td>LAUNCHPROGRAMFILEKEY</td><td>me.libros.web.primary_output</td><td/></row>
+		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{9F95C39F-FC91-4862-ADA2-4B30DBBFAEE7}</td><td/></row>
+		<row><td>LAUNCHPROGRAMFILEKEY</td><td>sgl.url2</td><td/></row>
 		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
@@ -4436,7 +4473,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]ME.Libros.Web.Primary output</td><td/></row>
+		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]sgl.url</td><td/></row>
 		<row><td>ProductCode</td><td>{0E7BF3E8-EB79-4E77-BA38-2BCC7EE7C7BE}</td><td/></row>
 		<row><td>ProductName</td><td>Sistema Gestion de Libros</td><td/></row>
 		<row><td>ProductVersion</td><td>1.0</td><td/></row>
@@ -4453,7 +4490,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>-1</td><td/></row>
-		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;IIS_VERSION;IISROOTFOLDER;DOTNETVERSION45FULL</td><td/></row>
+		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;IISROOTFOLDER;DOTNETVERSION45FULL;IIS_VERSION</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{28AC8C1F-E684-40F3-811E-C6D7682AAC19}</td><td/></row>
@@ -4519,6 +4556,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
+		<row><td>UNINST_Uninstall_Sistema_Gestion_de_Libros</td><td>IS_ININSTALL_SHORTCUT</td><td/><td>sistem_1_sistema_gestion_de_libros</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4604,6 +4642,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>UNINST_Uninstall_Sistema_Gestion_de_Libros</td><td>sistem_1_sistema_gestion_de_libros</td><td>UNINST|Uninstall Sistema Gestion de Libros</td><td>IS_ININSTALL_SHORTCUT</td><td>[SystemFolder]msiexec.exe</td><td>/x {0E7BF3E8-EB79-4E77-BA38-2BCC7EE7C7BE}</td><td/><td/><td>UNINST_Uninstall_S_9080B87CFA934B30BEEA37441C35583B.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
@@ -4734,6 +4773,7 @@ QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 		<col def="I2">Sequence</col>
 		<col def="L255">Command</col>
 		<col def="L255">Argument</col>
+		<row><td>url</td><td>Open</td><td/><td/><td>"%1"</td></row>
 	</table>
 
 	<table name="_Validation">

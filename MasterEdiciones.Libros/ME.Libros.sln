@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. AccesoDatos", "3. AccesoDatos", "{181A509A-28BA-471C-B2AA-89525D69A262}"
 EndProject
@@ -44,7 +44,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Libros.DTO", "ME.Libros.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{5AC3FB15-1535-4401-A282-1D7B5F200840}"
 	ProjectSection(SolutionItems) = preProject
-		Eula.rtf = Eula.rtf
+		resources\Eula.rtf = resources\Eula.rtf
 	EndProjectSection
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "ME.Libros.Web.Setup", "ME.Libros.Web.Setup\ME.Libros.Web.Setup.isproj", "{03CC1231-AC74-484A-9864-89985A8C533A}"
@@ -391,8 +391,7 @@ Global
 		{03CC1231-AC74-484A-9864-89985A8C533A}.CD_ROM|x64.Build.0 = CD_ROM
 		{03CC1231-AC74-484A-9864-89985A8C533A}.CD_ROM|x86.ActiveCfg = CD_ROM
 		{03CC1231-AC74-484A-9864-89985A8C533A}.CD_ROM|x86.Build.0 = CD_ROM
-		{03CC1231-AC74-484A-9864-89985A8C533A}.Debug|Any CPU.ActiveCfg = DVD-5
-		{03CC1231-AC74-484A-9864-89985A8C533A}.Debug|Any CPU.Build.0 = DVD-5
+		{03CC1231-AC74-484A-9864-89985A8C533A}.Debug|Any CPU.ActiveCfg = SingleImage
 		{03CC1231-AC74-484A-9864-89985A8C533A}.Debug|ARM.ActiveCfg = DVD-5
 		{03CC1231-AC74-484A-9864-89985A8C533A}.Debug|ARM.Build.0 = DVD-5
 		{03CC1231-AC74-484A-9864-89985A8C533A}.Debug|x64.ActiveCfg = DVD-5

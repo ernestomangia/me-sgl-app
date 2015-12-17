@@ -40,15 +40,10 @@ namespace ME.Libros.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO: Almacenar cookie Recordar usuario y contraseña
-                //TODO: Validar si usuario y contraseña son correctos
-                //Membership.ValidateUser(loginViewModel.Usuario, loginViewModel.Password)
-                var usuario = UsuarioService.ListarAsQueryable()
-                    .SingleOrDefault(u => u.UserName.Equals(loginViewModel.Usuario) && u.Password.Equals(loginViewModel.Password));
-                if (usuario != null) 
+                var usuario = UsuarioService.ListarAsQueryable().SingleOrDefault(u => u.UserName.Equals(loginViewModel.Usuario) && u.Password.Equals(loginViewModel.Password));
+                if (usuario != null)
                 {
                     FormsAuthentication.SetAuthCookie(loginViewModel.Usuario, loginViewModel.Recordarme);
-                    Session.Add("Usuario", new UsuarioViewModel(usuario));
                     LogHelper.Log("LOGIN - User: " + loginViewModel.Usuario, SeveridadLog.Info);
 
                     if (Url.IsLocalUrl(returnUrl)

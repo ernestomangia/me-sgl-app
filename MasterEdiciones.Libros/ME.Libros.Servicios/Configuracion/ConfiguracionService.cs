@@ -81,7 +81,8 @@ namespace ME.Libros.Servicios.Configuracion
             }
 
             // Save temp backup
-            var tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TempFolder, backupFile.FileName);
+            var fileName = new FileInfo(backupFile.FileName).Name;
+            var tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TempFolder, fileName);
             backupFile.SaveAs(tempFile);
 
             // Generate restore

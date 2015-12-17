@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using ME.Libros.Web.Extensions
 @using ME.Libros.Web.Models
 
 @{
@@ -103,10 +104,10 @@
                 @*<a class="navbar-brand" href="@Url.Action("Index", "Cliente")">SGL</a>*@
             </div>
             <div class="collapse navbar-collapse">
-                @if (navigationBar.MostrarMenu)
+                @if (navigationBar.MostrarMenu && Request.IsAuthenticated)
                 {
-                    var usuario = (UsuarioViewModel) Session["Usuario"];
-                    <ul class="nav navbar-nav">
+                   var userId = UsuarioHelper.GetId(User.Identity.Name);
+                   <ul class="nav navbar-nav">
                         @foreach (var menu in navigationBar.MenuViewModels)
                         {
                             <li class="@(menu.Seleccionado ? "active" : string.Empty)">
@@ -117,11 +118,11 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                @usuario.Nombre, @usuario.Apellido <span class="caret"></span>
+                                @UsuarioHelper.GetDisplayName(User.Identity.Name) <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Perfil", "Modificar", "Usuario", new { id = usuario.Id }, null)</li>
-                                <li>@Html.ActionLink("Cambiar clave", "Modificar", "Usuario", new { id = usuario.Id }, null)</li>
+                                <li>@Html.ActionLink("Perfil", "Modificar", "Usuario", new { id = userId }, null)</li>
+                                <li>@Html.ActionLink("Cambiar clave", "Modificar", "Usuario", new { id = userId }, null)</li>
                                 <li role="separator" class="divider"></li>
                                 <li>@Html.ActionLink("Log out", "Logout", "Login")</li>
                             </ul>

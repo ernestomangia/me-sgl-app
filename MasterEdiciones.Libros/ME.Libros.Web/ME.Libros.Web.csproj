@@ -856,7 +856,6 @@
     <Compile Include="Extensions\LogHelper.cs" />
     <Compile Include="Extensions\UsuarioHelper.cs" />
     <Compile Include="Filters\CustomHandleErrorAttribute.cs" />
-    <Compile Include="Filters\CheckSessionOutAttribute.cs" />
     <Compile Include="Filters\LocalizationAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

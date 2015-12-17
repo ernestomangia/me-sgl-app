@@ -2453,9 +2453,9 @@
 		<row><td>Custom</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>2</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>100</td><td>0</td><td>1024</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-10</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>8.75</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-18</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>15.83</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>DVD-5</td><td>Express</td><td>C:\Users\hxpws-000438\Documents\me-sgl-app\MasterEdiciones.Libros\ME.Libros.Web.Setup\ME.Libros.Web.Setup</td><td>Default</td><td>3</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75932</td><td/><td/><td/><td>3</td></row>
+		<row><td>DVD-5</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>4.38</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75932</td><td/><td/><td/><td>3</td></row>
 		<row><td>DVD-9</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>Default</td><td>3</td><td>1033</td><td>0</td><td>2</td><td>Intel</td><td/><td>1033</td><td>0</td><td>7.95</td><td>1</td><td>2048</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>75805</td><td/><td/><td/><td>3</td></row>
-		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108572</td><td/><td/><td/><td>3</td></row>
+		<row><td>SingleImage</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1034</td><td>0</td><td>1</td><td>Intel</td><td/><td>1034</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>108700</td><td/><td/><td/><td>3</td></row>
 		<row><td>WebDeployment</td><td>Express</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>4</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>124941</td><td/><td/><td/><td>3</td></row>
 	</table>
 
@@ -2698,7 +2698,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982053268</td></row>
+		<row><td>COMPANY_NAME</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>-1910281621</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1034</td><td>Instalar siempre</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_ADOBEREADER10FOLDER</td><td>1034</td><td>Adobe Reader 10 needs to be installed for this installation to continue.</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1034</td><td>La configuración de colores de su sistema no es adecuada para ejecutar [ProductName].</td><td>0</td><td/><td>883150901</td></row>
@@ -3836,8 +3836,8 @@
 		<row><td>ID_STRING18</td><td>1033</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044492109</td></row>
 		<row><td>ID_STRING18</td><td>1034</td><td>LAUNCH~1.URL|Launch sgl.url</td><td>0</td><td/><td>-2044492109</td></row>
 		<row><td>ID_STRING2</td><td>1034</td><td/><td>0</td><td/><td>883150901</td></row>
-		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>1982053268</td></row>
-		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>1982053268</td></row>
+		<row><td>ID_STRING3</td><td>1034</td><td>http://www.MasterEdiciones.com</td><td>0</td><td/><td>-1910281621</td></row>
+		<row><td>ID_STRING4</td><td>1034</td><td>Master Ediciones</td><td>0</td><td/><td>-1910281621</td></row>
 		<row><td>ID_STRING5</td><td>1034</td><td>Launch |Built</td><td>0</td><td/><td>883150901</td></row>
 		<row><td>ID_STRING6</td><td>1034</td><td>MasterEdiciones</td><td>0</td><td/><td>1168369271</td></row>
 		<row><td>ID_STRING7</td><td>1034</td><td>VirtualDir2</td><td>0</td><td/><td>883150901</td></row>
@@ -4079,8 +4079,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1034</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="a4f66fafb30885f14d732b73e196bba0">
-RABWAEQALQA1AAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
+UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
